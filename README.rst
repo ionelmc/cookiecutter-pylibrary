@@ -41,7 +41,6 @@ You can later regenerate ``tox.ini`` and ``.travis.yml`` by running::
 After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
 project)::
 
-    cd your-project-name
     git init .
     git add .
     git commit -m "Initial skel."
