@@ -1,11 +1,15 @@
 {
-	"full_name": "Audrey Roy",
-	"email": "audreyr@gmail.com",
-	"github_username": "audreyr",
-	"project_name": "Python Boilerplate",
-	"repo_name": "boilerplate",
-	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-	"release_date": "2014-01-11",
-	"year": "2014",
-	"version": "0.1.0"
+    "full_name": "Ionel Cristian Mărieș",
+    "email": "contact@ionelmc.ro",
+    "website": "http://blog.ionelmc.ro",
+    "github_username": "ionelmc",
+    "project_name": "Nameless",
+    "repo_name": "python-nameless",
+    "package_name": "nameless",
+    "project_short_description": "An example package. Replace this with a proper project description.",
+    "release_date": "2014-01-01",
+    "year": "2014",
+    "version": "0.1.0",
+    "test_pythons": "2.6 2.7 3.3 3.4 pypy",
+    "test_dependencies": "Django==1.4.13|Django==1.5.8|Django==1.6.5|https://www.djangoproject.com/download/1.7.b4/tarball/"
 }

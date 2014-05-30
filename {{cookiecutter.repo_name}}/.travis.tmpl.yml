@@ -1,0 +1,34 @@
+{% raw %}
+language: python
+python: 2.7
+env:
+  global:
+    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+  matrix:
+{% for env, config in matrix|dictsort %}
+    - TOXENV={{ env }}{% if config.cover %},coveralls{% endif %}
+
+{% endfor %}
+before_install:
+  - |
+    case $TOXENV in
+      pypy*)
+        deactivate
+        sudo apt-add-repository --yes ppa:pypy/ppa
+        sudo apt-get update
+        sudo apt-get install pypy
+        source ~/virtualenv/pypy/bin/activate
+      ;;
+    esac
+    python --version
+    uname -a
+    lsb_release -a
+install:
+  - pip install tox
+script:
+  - tox -v
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+{% endraw %}

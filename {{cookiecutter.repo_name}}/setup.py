@@ -1,56 +1,63 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# -*- encoding: utf8 -*-
+import glob
+import io
+import re
+from os.path import basename
+from os.path import dirname
+from os.path import join
+from os.path import splitext
 
-import os
-import sys
+from setuptools import find_packages
+from setuptools import setup
 
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-readme = open('README.rst').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
-
-requirements = [
-    # TODO: put package requirements here
-]
-
-test_requirements = [
-    # TODO: put package test requirements here
-]
+def read(*names, **kwargs):
+    return io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get("encoding", "utf8")
+    ).read()
 
 setup(
-    name='{{ cookiecutter.repo_name }}',
-    version='{{ cookiecutter.version }}',
-    description='{{ cookiecutter.project_short_description }}',
-    long_description=readme + '\n\n' + history,
-    author='{{ cookiecutter.full_name }}',
-    author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
-    packages=[
-        '{{ cookiecutter.repo_name }}',
-    ],
-    package_dir={'{{ cookiecutter.repo_name }}':
-                 '{{ cookiecutter.repo_name }}'},
-    include_package_data=True,
-    install_requires=requirements,
+    name="{{ cookiecutter.package_name }}",
+    version="{{ cookiecutter.version }}",
     license="BSD",
+    description="{{ cookiecutter.project_short_description }}",
+    long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
+    author="{{ cookiecutter.full_name }}",
+    author_email="{{ cookiecutter.email }}",
+    url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    py_modules=[splitext(basename(i))[0] for i in glob.glob("src/*.py")],
+    include_package_data=True,
     zip_safe=False,
-    keywords='{{ cookiecutter.repo_name }}',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: Unix",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Utilities",
     ],
-    test_suite='tests',
-    tests_require=test_requirements
+    keywords=[
+    ],
+    install_requires=[
+    ],
+    extras_require={
+    },
+    entry_points={
+        "console_scripts": [
+            "{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}:main"
+        ]
+    }
+
 )

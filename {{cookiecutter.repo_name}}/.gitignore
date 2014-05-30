@@ -41,3 +41,13 @@ output/*/index.html
 
 # Sphinx
 docs/_build
+
+.DS_Store
+*~
+.*.sw[po]
+.build/
+.tox/
+.coverage
+.coverage.*
+.ve/
+.bootstrap/

@@ -1,11 +1,23 @@
+exclude .travis* .cache*
+
+global-exclude *.py[co]
+
+graft docs
+graft examples
+graft src
+graft tests
+
+include *.komodoproject
+include .bumpversion.cfg
+include .coveragerc
+include .isort.cfg
+include .pylintrc
+
 include AUTHORS.rst
+include CHANGELOG.rst
 include CONTRIBUTING.rst
-include HISTORY.rst
 include LICENSE
 include README.rst
 
-recursive-include tests *
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
-
-recursive-include docs *.rst conf.py Makefile make.bat
+include configure
+include tox*.ini

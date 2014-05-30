@@ -1,73 +1,72 @@
 ======================
-cookiecutter-pypackage
+cookiecutter-pylibrary
 ======================
 
-Cookiecutter template for a Python package. See https://github.com/audreyr/cookiecutter.
+`Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template for a Python python library.
 
-* Free software: BSD license
-* Vanilla testing setup with `unittest` and `python setup.py test`
-* Travis-CI_: Ready for Travis Continuous Integration testing
-* Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.3
-* Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
+* BSD 2-clause license.
+* Travis-CI_ and Coveralls_ for continuous testing and coverage tracking.
+* Tox_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
+* Documentation with Sphinx_, ready for ReadTheDocs_.
+
+Requirements
+------------
+
+Projects using this template have these minimal dependencies:
+
+* Tox_ - for running the tests
+* Setuptools_ - for building the package, wheels etc. Now-days Setuptools is widely available, it shouldn't pose a
+  problem :)
 
 Usage
 -----
 
-Generate a Python package project::
+This template is more involved than the regular `cookiecutter-pypackage
+<https://github.com/audreyr/cookiecutter-pypackage>`_.
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+First generate your project::
+
+    cookiecutter https://github.com/ionelmc/cookiecutter-pylibrary.git
+
+The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
+initial bootstrap ``tox.ini``, to get the initial generation going just run::
+
+    tox
+
+You can later regenerate ``tox.ini`` and ``.travis.yml`` by running::
+
+    ./configure.py
+
+After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
+project)::
+
+    cd your-project-name
+    git init .
+    git add .
+    git commit -m "Initial skel."
+    git remote add origin git@github.com:ionelmc/python-nameless.git
+    git push -u origin master
 
 Then:
 
-* Create a repo and put it there.
 * Add the repo to your Travis CI account.
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
-* Release your package the standard Python way. Here's a release checklist: https://gist.github.com/audreyr/5990987
+* Release your package. This template comes with a tox environment that will:
+
+  * Check if your ``README.rst`` is valid.
+  * Check if the ``MANIFEST.in`` has any issues.
+  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks)
 
 Not Exactly What You Want?
 --------------------------
 
-Don't worry, you have options:
+No way, this is the best. :stuck_out_tongue_winking_eye:
 
-Similar Cookiecutter Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
-  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
-  
-* `tony/cookiecutter-pypackage`_: Fork with py2.7+3.3 optimizations. Flask/Werkzeug-style
-  test runner, ``_compat`` module and module/doc conventions. See ``README.rst`` or
-  the `github comparison view`_ for exhaustive list of additions and modifications.
-
-* Also see the `network`_ and `family tree`_ for this repo. (If you find
-  anything that should be listed here, please add it and send a pull request!)
-
-Fork This / Create Your Own
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. Or create your own; it doesn't strictly have to
-be a fork.
-
-* Once you have your own version working, add it to the Similar Cookiecutter
-  Templates list above with a brief description. 
-
-* It's up to you whether or not to rename your fork/own version. Do whatever
-  you think sounds good.
-
-Or Submit a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-I also accept pull requests on this, if they're small, atomic, and if they
-make my own packaging experience better.
-
+If you have criticism or suggestions please open up an Issue or Pull Request.
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
+.. _Coveralls: https://coveralls.io/
 .. _ReadTheDocs: https://readthedocs.org/
-.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
-.. _`tony/cookiecutter-pypackage`: https://github.com/tony/cookiecutter-pypackage
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+.. _Setuptools: https://pypi.python.org/pypi/setuptools

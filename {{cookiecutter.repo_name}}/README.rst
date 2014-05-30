@@ -2,22 +2,44 @@
 {{ cookiecutter.project_name }}
 ===============================
 
-.. image:: https://badge.fury.io/py/{{ cookiecutter.repo_name }}.png
-    :target: http://badge.fury.io/py/{{ cookiecutter.repo_name }}
-    
-.. image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.png?branch=master
-        :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. image:: https://pypip.in/d/{{ cookiecutter.repo_name }}/badge.png
-        :target: https://pypi.python.org/pypi/{{ cookiecutter.repo_name }}
+.. image:: http://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png
+    :alt: Build Status
+    :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
+.. image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.png
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-{{ cookiecutter.project_short_description}}
+.. image:: http://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.png
+    :alt: PYPI Package
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.package_name }}
+
+.. image:: http://img.shields.io/pypi/dm/{{ cookiecutter.package_name }}.png
+    :alt: PYPI Package
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.package_name }}
+
+{{ cookiecutter.project_short_description }}
 
 * Free software: BSD license
 * Documentation: http://{{ cookiecutter.repo_name }}.readthedocs.org.
 
-Features
---------
+Installation
+============
 
-* TODO
+::
+
+    pip install {{ cookiecutter.package_name }}
+
+Documentation
+=============
+
+https://{{ cookiecutter.repo_name }}.readthedocs.org/
+
+Development
+===========
+
+To run the all tests run::
+
+    tox
+
