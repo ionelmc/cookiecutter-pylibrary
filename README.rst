@@ -2,7 +2,8 @@
 cookiecutter-pylibrary
 ======================
 
-`Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template for a Python python library.
+`Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template for a Python python library. This is largely designed
+to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
 * BSD 2-clause license.
 * Travis-CI_ and Coveralls_ for continuous testing and coverage tracking.
