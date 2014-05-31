@@ -1,2 +1,3 @@
+shpinx
 sphinxcontrib-napoleon
 sphinx-py3doc-enhanced-theme
