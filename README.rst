@@ -5,11 +5,14 @@ cookiecutter-pylibrary
 `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template for a Python python library. This is largely designed
 to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
-There's a bare library using this template (if you're curious about the final result): https://github.com/ionelmc/python-nameless
+There's a bare library using this template (if you're curious about the final result): https://github.com/ionelmc/python-nameless.
+
+Features
+--------
 
 * BSD 2-clause license.
-* Travis-CI_ and Coveralls_ for continuous testing and coverage tracking.
-* Tox_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
+* Tox_ for testing Python 2.6, 2.7, 3.3, PyPy etc. Support for creating a tests matrix out of dependencies and python versions.
+* Travis-CI_ and Coveralls_ for continuous testing and coverage tracking (using Tox_).
 * Documentation with Sphinx_, ready for ReadTheDocs_.
 
 Requirements
