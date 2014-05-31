@@ -49,11 +49,10 @@ First generate your project::
           - PyPI distribution name (what you would ``pip install``)
         * - test_pythons
           - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure``.
-            
-            For testing on Windows use the full paths to python.exe. Example:: 
-              
+
+            For testing on Windows use the full paths to python.exe. Example::
+
               c:\Python27\python.exe|c:\Python34\python.exe
-              
         * - test_dependencies
           - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure``.
 
@@ -79,7 +78,9 @@ Then:
 
 * `Enable the repository in your Travis CI account <https://travis-ci.org/profile>`_.
 * `Enable the repository in your Coveralls account <https://coveralls.io/repos/new>`_.
-* `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs service hook.
+* `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs
+  service hook. Don't forget to enable virtualenv and specify ``docs/requirements.txt`` as the requirements file in
+  `Advanced Settings`.
 * Release your package. This template comes with a tox environment (``check``) that will:
 
   * Check if your ``README.rst`` is valid.
