@@ -25,13 +25,14 @@ version = release = re.findall(
     open(os.path.join(os.path.dirname(__file__), '../setup.py')).read()
 )[0]
 
-html_theme = 'pydoctheme'
-html_theme_path = ['.']
+import sphinx_py3doc_enhanced_theme
+html_theme = " 	sphinx_py3doc_enhanced_theme"
+html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
+
 pygments_style = 'trac'
 templates_path = ['.']
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
-exclude_trees = ['pydoctheme']
 html_split_index = True
 html_sidebars = {
    '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
