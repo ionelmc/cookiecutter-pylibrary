@@ -4,4 +4,4 @@ Installation
 
 At the command line::
 
-    $ pip {{ cookiecutter.distribution_name }}
+    $ pip install {{ cookiecutter.distribution_name }}
