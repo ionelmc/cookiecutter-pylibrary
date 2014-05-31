@@ -72,9 +72,10 @@ project)::
 
 Then:
 
-* Add the repo to your Travis CI account.
-* Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
-* Release your package. This template comes with a tox environment that will:
+* `Enable the repository in your Travis CI account <https://travis-ci.org/profile>`_.
+* `Enable the repository in your Coveralls account <https://coveralls.io/repos/new>`_.
+* `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs service hook.
+* Release your package. This template comes with a tox environment (``check``) that will:
 
   * Check if your ``README.rst`` is valid.
   * Check if the ``MANIFEST.in`` has any issues.
