@@ -48,11 +48,11 @@ First generate your project::
         * - distribution_name
           - PyPI distribution name (what you would ``pip install``)
         * - test_pythons
-          - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure.py``.
+          - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure``.
             
             For testing on Windows use the full paths to python.exe. Eg: ``c:\Python27\python.exe|c:\Python34\python.exe``.
         * - test_dependencies
-          - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure.py``.
+          - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure``.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
@@ -61,7 +61,7 @@ initial bootstrap ``tox.ini``, to get the initial generation going just run::
 
 You can later regenerate ``tox.ini`` and ``.travis.yml`` by running::
 
-    ./configure.py
+    ./configure
 
 After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
 project)::
