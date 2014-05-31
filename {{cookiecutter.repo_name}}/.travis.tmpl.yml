@@ -10,19 +10,9 @@ env:
 
 {% endfor %}
 before_install:
-  - |
-    case $TOXENV in
-      pypy*)
-        deactivate
-        sudo apt-add-repository --yes ppa:pypy/ppa
-        sudo apt-get update
-        sudo apt-get install pypy
-        source ~/virtualenv/pypy/bin/activate
-      ;;
-    esac
-    python --version
-    uname -a
-    lsb_release -a
+  - python --version
+  - uname -a
+  - lsb_release -a
 install:
   - pip install tox
 script:
