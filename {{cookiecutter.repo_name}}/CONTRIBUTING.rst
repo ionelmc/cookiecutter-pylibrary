@@ -56,7 +56,7 @@ Get Started!
 
 Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for local development.
 
-1. Fork the `{{ cookiecutter.repo_name }}` repo on GitHub.
+1. `Fork {{ cookiecutter.repo_name }} on GitHub <https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/fork>`_.
 2. Clone your fork locally::
 
     git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
@@ -86,7 +86,7 @@ Before you submit a pull request, check that it meets these guidelines:
 
 1. The pull request should include passing tests.
 2. If the pull request adds functionality, the docs should be updated. Make sure that the new code has docstrings and
-   it's included in the reference. Add a note to `CHANGELOG.rst` about the changes.
+   it's included in the reference. Add a note to ``CHANGELOG.rst`` about the changes.
 3. Run the tests with ``tox``. If you don't have all the necessary python versions available locally you can take a look
    at https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull_requests and make sure
    everything passes.

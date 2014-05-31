@@ -22,7 +22,6 @@
 {{ cookiecutter.project_short_description }}
 
 * Free software: BSD license
-* Documentation: http://{{ cookiecutter.repo_name }}.readthedocs.org.
 
 Installation
 ============
@@ -42,4 +41,3 @@ Development
 To run the all tests run::
 
     tox
-
