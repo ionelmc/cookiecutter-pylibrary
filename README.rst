@@ -28,15 +28,24 @@ This template is more involved than the regular `cookiecutter-pypackage
 First generate your project::
 
     cookiecutter https://github.com/ionelmc/cookiecutter-pylibrary.git
-    
-The variables:
 
-    :project_name: Verbose project name, used in headings (docs, readme, etc)
-    :repo_name: Repository name on github
-    :package_name: Python package name (whatever you would import)
-    :distribution_name: PyPI distribution name (what you would ``pip install``)
-    :test_pythons: Space separated list of python versions to test. Changeable later in ``configure.py``.
-    :test_dependencies: Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure.py``.
+..
+
+    .. list-table:: The variables
+        :stub-columns: 1
+
+        * - project_name
+          - Verbose project name, used in headings (docs, readme, etc)
+        * - repo_name
+          - Repository name on github
+        * - package_name
+          - Python package name (whatever you would import)
+        * - distribution_name
+          - PyPI distribution name (what you would ``pip install``)
+        * - test_pythons
+          - Space separated list of python versions to test. Changeable later in ``configure.py``.
+        * - test_dependencies
+          - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure.py``.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
