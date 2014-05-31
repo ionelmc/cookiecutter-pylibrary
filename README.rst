@@ -50,7 +50,10 @@ First generate your project::
         * - test_pythons
           - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure``.
             
-            For testing on Windows use the full paths to python.exe. Eg: ``c:\Python27\python.exe|c:\Python34\python.exe``.
+            For testing on Windows use the full paths to python.exe. Example:: 
+              
+              c:\Python27\python.exe|c:\Python34\python.exe
+              
         * - test_dependencies
           - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure``.
 
