@@ -6,6 +6,7 @@
     "project_name": "Nameless",
     "repo_name": "python-nameless",
     "package_name": "nameless",
+    "distribution_name": "nameless",
     "project_short_description": "An example package. Replace this with a proper project description.",
     "release_date": "2014-01-01",
     "year": "2014",
