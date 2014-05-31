@@ -11,6 +11,6 @@
     "release_date": "2014-01-01",
     "year": "2014",
     "version": "0.1.0",
-    "test_pythons": "2.6 2.7 3.3 3.4 pypy",
+    "test_pythons": "2.6|2.7|3.3|3.4|pypy",
     "test_dependencies": "Django==1.4.13|Django==1.5.8|Django==1.6.5|https://www.djangoproject.com/download/1.7.b4/tarball/"
 }

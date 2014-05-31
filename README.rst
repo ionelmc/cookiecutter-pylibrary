@@ -48,7 +48,9 @@ First generate your project::
         * - distribution_name
           - PyPI distribution name (what you would ``pip install``)
         * - test_pythons
-          - Space separated list of python versions to test. Changeable later in ``configure.py``.
+          - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure.py``.
+            
+            For testing on Windows use the full paths to python.exe. Eg: ``c:\Python27\python.exe|c:\Python34\python.exe``.
         * - test_dependencies
           - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure.py``.
 
