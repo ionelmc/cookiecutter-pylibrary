@@ -1,4 +1,14 @@
-#!.tox/configure/bin/python
+#!/bin/sh -e
+# this a self-bootstrapping script, it will create a virtualenv and install jinja2 in it
+bogus=''' '
+if [ ! -e .tox/configure ]; then
+    virtualenv .tox/configure
+    .tox/configure/bin/pip install jinja2
+fi
+.tox/configure/bin/python $0 $*
+exit
+'''
+
 import re
 from itertools import product, chain
 from jinja2 import FileSystemLoader, Environment
