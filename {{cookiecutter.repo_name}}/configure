@@ -32,10 +32,10 @@ covers = [True, False]
 envs = ['']  # could be some env vars that activate certain features
 
 skips = list(chain(  # set to [] if you don't want to skip anything
-    # skip 1.4 on py3
+    # skip 1.4 and older on py3
     product(
         ['3.3', '3.4'],
-        [dep for dep in deps if 'Django==1.4' in dep],
+        [dep for dep in deps if dep < 'Django==1.5'],
         covers,
         envs
     ),
