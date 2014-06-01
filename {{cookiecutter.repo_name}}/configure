@@ -35,7 +35,7 @@ skips = list(chain(  # set to [] if you don't want to skip anything
     # skip 1.4 and older on py3
     product(
         ['3.3', '3.4'],
-        (dep for dep in dependencies if 'MySQL' in dep),
+        (dep for dep in dependencies if dep < 'Django==1.5'),
         coverage_flags,
         environment_variables
     ),
