@@ -18,33 +18,33 @@ mangle_python = re.compile(r'[\\/:>]+')
 
 ########################################################
 ################# EDIT AFTER THIS LINE #################
-pythons = [
+python_versions = [
 {%- for ver in cookiecutter.test_pythons.split('|') %}
     {{ ver.__repr__() }},
 {%- endfor %}
 ]
-deps = [  # set to [''] if you have no deps
+dependencies = [  # set to [''] if you have no dependencies
 {%- for ver in cookiecutter.test_dependencies.split('|') %}
     {{ ver.__repr__() }},
 {%- endfor %}
 ]
-covers = [True, False]
-envs = ['']  # could be some env vars that activate certain features
+coverage_flags = [True, False]
+environment_variables = ['']  # could be some env vars that activate certain features
 
 skips = list(chain(  # set to [] if you don't want to skip anything
     # skip 1.4 and older on py3
     product(
         ['3.3', '3.4'],
-        [dep for dep in deps if dep < 'Django==1.5'],
-        covers,
-        envs
+        (dep for dep in dependencies if 'MySQL' in dep),
+        coverage_flags,
+        environment_variables
     ),
     # skip 1.7 on py2.6
     product(
         ['2.6'],
-        [dep for dep in deps if 'djangoproject.com/download/1.7' in dep],
-        covers,
-        envs
+        (dep for dep in dependencies if 'djangoproject.com/download/1.7' in dep),
+        coverage_flags,
+        environment_variables
     ),
 ))
 ########### SHOULD NOT EDIT BELOW THIS LINE ############
@@ -54,29 +54,31 @@ skips = list(chain(  # set to [] if you don't want to skip anything
 # dependencies, coverage switches (on/off) and
 # environment variables
 
-matrix = {}
-for python, dep, cover, env in product(pythons, deps, covers, envs):
-    if (python, dep, cover, env) not in skips:
-        name = '-'.join(filter(None, (  # mangle the python version, deps,
+tox_environments = {}
+for python, deps, cover, env_vars in product(
+    python_versions, dependencies, coverage_flags, environment_variables
+):
+    if (python, deps, cover, env_vars) not in skips:
+        name = '-'.join(filter(None, (  # mangle the python version, dependencies,
                                         # cover flags and env vars into
                                         # something pretty
             mangle_python.sub(r'_', python),
-            '-'.join(mangle_name.sub(r'\1', dep).split(' ')), # strip useless characters
+            '-'.join(mangle_name.sub(r'\1', part) for part in deps.split()),
             '' if cover else 'nocover',
-            env and env.lower().replace('_', ''),
+            env_vars and env_vars.lower().replace('_', '').replace(' ', '_'),
         )))
 
-        matrix[name] = {
+        tox_environments[name] = {
             'python': 'python' + python if 'py' not in python else python,
-            'deps': dep.split(),
+            'deps': deps.split(),
             'cover': cover,
-            'env': env,
+            'env_vars': env_vars.split(),
         }
 
 with open('tox.ini', 'w') as fh:
-    fh.write(jinja.get_template('tox.tmpl.ini').render(matrix=matrix))
+    fh.write(jinja.get_template('tox.tmpl.ini').render(tox_environments=tox_environments))
 
 with open('.travis.yml', 'w') as fh:
-    fh.write(jinja.get_template('.travis.tmpl.yml').render(matrix=matrix))
+    fh.write(jinja.get_template('.travis.tmpl.yml').render(tox_environments=tox_environments))
 
 print("DONE.")
