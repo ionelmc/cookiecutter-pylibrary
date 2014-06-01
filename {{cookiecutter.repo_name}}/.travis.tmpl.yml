@@ -4,7 +4,7 @@ python: 2.7
 env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-  tox_environments:
+  matrix:
 {% for env, config in tox_environments|dictsort %}
     - TOXENV={{ env }}{% if config.cover %},coveralls{% endif %}
 
