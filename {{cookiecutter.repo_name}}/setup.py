@@ -18,7 +18,7 @@ def read(*names, **kwargs):
     ).read()
 
 setup(
-    name="{{ cookiecutter.package_name }}",
+    name="{{ cookiecutter.distribution_name }}",
     version="{{ cookiecutter.version }}",
     license="BSD",
     description="{{ cookiecutter.project_short_description }}",
