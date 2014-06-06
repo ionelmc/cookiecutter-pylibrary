@@ -11,13 +11,13 @@
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. image:: http://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.png
+.. image:: http://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.png
     :alt: PYPI Package
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.package_name }}
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
-.. image:: http://img.shields.io/pypi/dm/{{ cookiecutter.package_name }}.png
+.. image:: http://img.shields.io/pypi/dm/{{ cookiecutter.distribution_name }}.png
     :alt: PYPI Package
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.package_name }}
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
 {{ cookiecutter.project_short_description }}
 
