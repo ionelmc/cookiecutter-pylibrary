@@ -28,7 +28,7 @@ Installation
 
 ::
 
-    pip install {{ cookiecutter.package_name }}
+    pip install {{ cookiecutter.distribution_name }}
 
 Documentation
 =============
