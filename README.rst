@@ -11,8 +11,8 @@ Features
 --------
 
 * BSD 2-clause license.
-* Tox_ and Pytest_  for testing Python 2.6, 2.7, 3.3, PyPy etc. 
-* Support for creating a tests matrix out of dependencies and python versions.
+* Tox_ and Pytest_  for testing Python 2.6, 2.7, 3.3, PyPy etc. [1]_
+* Support for creating a tests matrix out of dependencies and python versions. [1]_
 * Travis-CI_ and Coveralls_ for continuous testing and coverage tracking (using Tox_).
 * Documentation with Sphinx_, ready for ReadTheDocs_.
 
@@ -93,11 +93,13 @@ Not Exactly What You Want?
 
 No way, this is the best. :stuck_out_tongue_winking_eye:
 
-In case you don't fancy having a test matrix generator script there's a `simpler variant of this template
-<https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that:
+.. [1]
 
-* Doesn't have a generator script (no ``configure``).
-* Doesn't use Pytest_. Just bare ``unittest``.
+  In case you don't fancy having a test matrix generator script there's a `simpler variant of this template
+  <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that:
+  
+  * Doesn't have a generator script (no ``configure``).
+  * Doesn't use Pytest_. Just bare ``unittest``.
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
