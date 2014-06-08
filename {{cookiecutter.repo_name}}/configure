@@ -3,77 +3,33 @@
 bogus=''' '
 if [ ! -e .tox/configure ]; then
     virtualenv .tox/configure
-    .tox/configure/bin/pip install jinja2
+    .tox/configure/bin/pip install jinja2 matrix
 fi
 .tox/configure/bin/python $0 $*
 exit
 '''
 
-import re
-from itertools import product, chain
-from jinja2 import FileSystemLoader, Environment
-jinja = Environment(loader=FileSystemLoader('.'), trim_blocks=True, lstrip_blocks=True, keep_trailing_newline=True)
-mangle_name = re.compile(r'[A-Za-z/:.>]+[/=]+(.*?)(,.*|/.*)?$')
-mangle_python = re.compile(r'[\\/:>]+')
-
-########################################################
-################# EDIT AFTER THIS LINE #################
-python_versions = [
-{%- for ver in cookiecutter.test_pythons.split('|') %}
-    {{ ver.__repr__() }},
-{%- endfor %}
-]
-dependencies = [  # set to [''] if you have no dependencies
-{%- for ver in cookiecutter.test_dependencies.split('|') %}
-    {{ ver.__repr__() }},
-{%- endfor %}
-]
-coverage_flags = [True, False]
-environment_variables = ['']  # could be some env vars that activate certain features
-
-skips = list(chain(  # set to [] if you don't want to skip anything
-    # skip 1.4 and older on py3
-    product(
-        ['3.3', '3.4'],
-        (dep for dep in dependencies if dep < 'Django==1.5'),
-        coverage_flags,
-        environment_variables
-    ),
-    # skip 1.7 on py2.6
-    product(
-        ['2.6'],
-        (dep for dep in dependencies if 'djangoproject.com/download/1.7' in dep),
-        coverage_flags,
-        environment_variables
-    ),
-))
-########### SHOULD NOT EDIT BELOW THIS LINE ############
-########################################################
-
-# the list of environments is the product of python versions,
-# dependencies, coverage switches (on/off) and
-# environment variables
-
+import jinja2
+import matrix
+jinja = jinja2.Environment(
+    loader=jinja2.FileSystemLoader('.'),
+    trim_blocks=True,
+    lstrip_blocks=True,
+    keep_trailing_newline=True
+)
 tox_environments = {}
-for python, deps, cover, env_vars in product(
-    python_versions, dependencies, coverage_flags, environment_variables
-):
-    if (python, deps, cover, env_vars) not in skips:
-        name = '-'.join(filter(None, (  # mangle the python version, dependencies,
-                                        # cover flags and env vars into
-                                        # something pretty
-            mangle_python.sub(r'_', python),
-            '-'.join(mangle_name.sub(r'\1', part) for part in deps.split()),
-            '' if cover else 'nocover',
-            env_vars and env_vars.lower().replace('_', '').replace(' ', '_'),
-        )))
+for alias, conf in matrix.from_file('setup.cfg').items():
+    python = conf['python_versions']
+    deps = conf['dependencies']
+    cover = {'false': False, 'true': True}[conf['coverage_flags'].lower()]
+    env_vars = conf['environment_variables']
 
-        tox_environments[name] = {
-            'python': 'python' + python if 'py' not in python else python,
-            'deps': deps.split(),
-            'cover': cover,
-            'env_vars': env_vars.split(),
-        }
+    tox_environments[alias] = {
+        'python': 'python' + python if 'py' not in python else python,
+        'deps': deps.split(),
+        'cover': cover,
+        'env_vars': env_vars.split(),
+    }
 
 with open('tox.ini', 'w') as fh:
     fh.write(jinja.get_template('tox.tmpl.ini').render(tox_environments=tox_environments))
