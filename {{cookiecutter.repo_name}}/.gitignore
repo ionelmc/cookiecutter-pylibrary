@@ -24,6 +24,8 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+.coverage
+.coverage.*
 nosetests.xml
 htmlcov
 
@@ -45,9 +47,6 @@ docs/_build
 .DS_Store
 *~
 .*.sw[po]
-.build/
-.tox/
-.coverage
-.coverage.*
-.ve/
-.bootstrap/
+.build
+.ve
+.bootstrap
