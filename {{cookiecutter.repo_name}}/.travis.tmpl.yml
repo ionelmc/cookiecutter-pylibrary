@@ -5,6 +5,7 @@ env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
+    - TOXENV=check
 {% for env, config in tox_environments|dictsort %}
     - TOXENV={{ env }}{% if config.cover %},coveralls{% endif %}
 
