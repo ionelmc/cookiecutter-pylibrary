@@ -1,15 +1,20 @@
-#!/bin/sh -e
-# this a self-bootstrapping script, it will create a virtualenv and install jinja2 in it
-bogus=''' '
-if [ ! -e .tox/configure ]; then
-    virtualenv .tox/configure
-    .tox/configure/bin/pip install jinja2 matrix
-fi
-.tox/configure/bin/python $0 $*
-exit
-'''
-import glob
+#!/usr/bin/env python
 import os
+import sys
+if not os.path.exists('.tox/configure'):
+    import virtualenv
+    import subprocess
+    print("Bootstrapping ...")
+    virtualenv.create_environment('.tox/configure')
+    print("Installing `jinja2` and `matrix` into bootstrap environment ...")
+    if sys.platform == 'win32':
+        subprocess.check_call(['.tox/configure/Scripts/pip', 'install', 'jinja2', 'matrix'])
+    else:
+        subprocess.check_call(['.tox/configure/bin/pip', 'install', 'jinja2', 'matrix'])
+if sys.platform == 'win32':
+    execfile('.tox/configure/Scripts/activate_this.py', dict(__file__='.tox/configure/Scripts/activate_this.py'))
+else:
+    execfile('.tox/configure/bin/activate_this.py', dict(__file__='.tox/configure/bin/activate_this.py'))
 import jinja2
 import matrix
 

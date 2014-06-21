@@ -52,14 +52,6 @@ First generate your project::
           - Python package name (whatever you would import)
         * - distribution_name
           - PyPI distribution name (what you would ``pip install``)
-        * - test_pythons
-          - Vertical bar (``|``) separated list of python versions to test. Changeable later in ``configure``.
-
-            For testing on Windows use the full paths to python.exe. Example::
-
-              c:\Python27\python.exe|c:\Python34\python.exe
-        * - test_dependencies
-          - Vertical bar (``|``) separated list of dependencies to test. Changeable later in ``configure``.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
@@ -68,7 +60,9 @@ initial bootstrap ``tox.ini``, to get the initial generation going just run::
 
 You can later regenerate ``tox.ini`` and ``.travis.yml`` by running::
 
-    ./configure
+    ./bootstrap.py
+
+On Windows just run ``bootstrap.py``.
 
 After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
 project)::
@@ -102,7 +96,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
   In case you don't fancy having a test matrix generator script there's a `simpler variant of this template
   <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that:
   
-  * Doesn't have a generator script (no ``configure``).
+  * Doesn't have a generator script (no ``boostrap.py``).
   * Doesn't use Pytest_. Just bare ``unittest``.
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
