@@ -6,13 +6,11 @@
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. 
+.. See: http://www.appveyor.com/docs/status-badges
 
-    See: http://www.appveyor.com/docs/status-badges
-
-    .. image:: https://ci.appveyor.com/api/projects/status/<security-token>/branch/master
-        :alt: AppVeyor Build Status
-        :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
+.. image:: https://ci.appveyor.com/api/projects/status/<security-token>/branch/master
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
 .. image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png
     :alt: Coverage Status
