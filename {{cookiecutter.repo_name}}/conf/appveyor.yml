@@ -1,0 +1,21 @@
+{% raw %}
+build: false
+environment:
+  matrix:
+    - TOXENV: check
+{% for env, config in tox_environments|dictsort %}{% if env.startswith('2.7') or env.startswith('3.4') %}
+    - TOXENV: "{{ env }}"
+{% endif %}{% endfor %}
+init:
+  - "ECHO %TOXENV%"
+  - ps: "ls C:/Python*"
+install:
+  - ps: (Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py").Content | c:/python27/python -
+  - ps: (Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py").Content | c:/python27/python - 
+  - "c:/python27/Scripts/pip install tox virtualenv"
+test_script:
+  - "c:/python27/Scripts/tox --version"
+  - "c:/python27/Scripts/virtualenv --version"
+  - "c:/python27/Scripts/pip --version"
+  - "c:/python27/Scripts/tox"
+{% endraw %}

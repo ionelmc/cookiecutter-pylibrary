@@ -8,11 +8,13 @@ fi
 .tox/configure/bin/python $0 $*
 exit
 '''
-
+import glob
+import os
 import jinja2
 import matrix
+
 jinja = jinja2.Environment(
-    loader=jinja2.FileSystemLoader('.'),
+    loader=jinja2.FileSystemLoader('conf'),
     trim_blocks=True,
     lstrip_blocks=True,
     keep_trailing_newline=True
@@ -31,10 +33,9 @@ for alias, conf in matrix.from_file('setup.cfg').items():
         'env_vars': env_vars.split(),
     }
 
-with open('tox.ini', 'w') as fh:
-    fh.write(jinja.get_template('tox.tmpl.ini').render(tox_environments=tox_environments))
-
-with open('.travis.yml', 'w') as fh:
-    fh.write(jinja.get_template('.travis.tmpl.yml').render(tox_environments=tox_environments))
+for name in os.listdir('conf'):
+    with open(name, 'w') as fh:
+        fh.write(jinja.get_template(name).render(tox_environments=tox_environments))
+    print("Wrote %s" % name)
 
 print("DONE.")
