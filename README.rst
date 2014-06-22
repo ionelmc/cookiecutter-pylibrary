@@ -11,9 +11,10 @@ Features
 --------
 
 * BSD 2-clause license.
-* Tox_ and Pytest_  for testing Python 2.6, 2.7, 3.3, PyPy etc. [1]_
+* Tox_ and Pytest_ for testing Python 2.6, 2.7, 3.3, PyPy etc. [1]_
 * Support for creating a tests matrix out of dependencies and python versions. [1]_
-* Travis-CI_ and Coveralls_ for continuous testing and coverage tracking (using Tox_).
+* Travis-CI_ and AppVeyor_ for continuous testing.
+* Coveralls_ for coverage tracking (using Tox_).
 * Documentation with Sphinx_, ready for ReadTheDocs_.
 * Configurations for:
 
@@ -108,3 +109,4 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _ReadTheDocs: https://readthedocs.org/
 .. _Setuptools: https://pypi.python.org/pypi/setuptools
 .. _Pytest: http://pytest.org/
+.. _AppVeyor: http://www.appveyor.com/
