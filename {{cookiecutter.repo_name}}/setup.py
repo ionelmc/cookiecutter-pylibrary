@@ -60,7 +60,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}:main"
+            "{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main"
         ]
     }
 
