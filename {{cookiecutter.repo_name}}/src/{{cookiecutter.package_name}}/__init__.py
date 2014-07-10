@@ -1,3 +1,2 @@
-{%- raw -%}
-__version__ = "0.1.0"
-{% endraw %}
+__version__ = "{{ cookiecutter.version }}"
+
