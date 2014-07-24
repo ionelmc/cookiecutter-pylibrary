@@ -97,7 +97,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
   In case you don't fancy having a test matrix generator script there's a `simpler variant of this template
   <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that:
   
-  * Doesn't have a generator script (no ``boostrap.py``).
+  * Doesn't have a generator script (no ``bootstrap.py``).
   * Doesn't use Pytest_. Just bare ``unittest``.
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
