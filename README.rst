@@ -52,7 +52,7 @@ First generate your project::
 
 You will be asked for these fields:
 
-.. list-table:: The variables
+.. list-table:: 
     :stub-columns: 1
 
     * - project_name
