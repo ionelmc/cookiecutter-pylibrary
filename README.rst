@@ -2,7 +2,7 @@
 cookiecutter-pylibrary
 ======================
 
-`Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template for a Python python library. This is largely designed
+Cookiecutter_ template for a Python python library. This is largely designed
 to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
 There's a bare library using this template (if you're curious about the final result): https://github.com/ionelmc/python-nameless.
@@ -131,4 +131,4 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Setuptools: https://pypi.python.org/pypi/setuptools
 .. _Pytest: http://pytest.org/
 .. _AppVeyor: http://www.appveyor.com/
-.. _Cookiecutter: https://pypi.python.org/pypi/cookiecutter
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
