@@ -121,10 +121,9 @@ Questions & answers
 -------------------
 
 There's no Makefile?
-````````````````````
 
-Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python 
-setup.py register clean sdist bdist_wheel upload`` command could be there but it's just 1 short command ...
+  Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python 
+  setup.py register clean sdist bdist_wheel upload`` command could be there but it's just 1 short command ...
 
 Not Exactly What You Want?
 --------------------------
