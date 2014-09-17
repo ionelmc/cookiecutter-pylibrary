@@ -10,6 +10,8 @@ There's a bare library using this template (if you're curious about the final re
 Features
 --------
 
+This is an "all inclusive" sort of template. 
+
 * BSD 2-clause license.
 * Tox_ and Pytest_ for testing Python 2.6, 2.7, 3.3, PyPy etc. [1]_
 * Support for creating a tests matrix out of dependencies and python versions. [1]_
@@ -26,9 +28,17 @@ Requirements
 
 Projects using this template have these minimal dependencies:
 
+* Cookiecutter_ - just for creating the project
 * Tox_ - for running the tests
 * Setuptools_ - for building the package, wheels etc. Now-days Setuptools is widely available, it shouldn't pose a
   problem :)
+
+To get quickly started on a new system, just `install setuptools 
+<https://pypi.python.org/pypi/setuptools#installation-instructions>`_ and then `install pip 
+<https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to install Tox_ and Cookiecutter_. To install
+them, just run this in your shell or command prompt::
+
+  pip install tox cookiecutter
 
 Usage
 -----
@@ -38,41 +48,39 @@ This template is more involved than the regular `cookiecutter-pypackage
 
 First generate your project::
 
-    cookiecutter https://github.com/ionelmc/cookiecutter-pylibrary.git
+  cookiecutter https://github.com/ionelmc/cookiecutter-pylibrary.git
 
-..
+You will be asked for these fields:
 
-    .. list-table:: The variables
-        :stub-columns: 1
+.. list-table:: The variables
+    :stub-columns: 1
 
-        * - project_name
-          - Verbose project name, used in headings (docs, readme, etc)
-        * - repo_name
-          - Repository name on github
-        * - package_name
-          - Python package name (whatever you would import)
-        * - distribution_name
-          - PyPI distribution name (what you would ``pip install``)
+    * - project_name
+      - Verbose project name, used in headings (docs, readme, etc)
+    * - repo_name
+      - Repository name on github
+    * - package_name
+      - Python package name (whatever you would import)
+    * - distribution_name
+      - PyPI distribution name (what you would ``pip install``)
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
 
-    tox
+  tox
 
 You can later regenerate ``tox.ini`` and ``.travis.yml`` by running::
 
-    ./bootstrap.py
-
-On Windows just run ``bootstrap.py``.
+  tox -e configure
 
 After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
 project)::
 
-    git init .
-    git add .
-    git commit -m "Initial skel."
-    git remote add origin git@github.com:ionelmc/python-nameless.git
-    git push -u origin master
+  git init .
+  git add .
+  git commit -m "Initial skel."
+  git remote add origin git@github.com:ionelmc/python-nameless.git
+  git push -u origin master
 
 Then:
 
@@ -86,6 +94,19 @@ Then:
   * Check if your ``README.rst`` is valid.
   * Check if the ``MANIFEST.in`` has any issues.
   * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks)
+
+Developing the project
+``````````````````````
+
+To run the tests, just run::
+
+  tox
+  
+To make a release of the project on PyPI, the most simple usage is::
+
+  python setup.py register clean sdist bdist_wheel upload
+  
+If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
 Not Exactly What You Want?
 --------------------------
@@ -110,3 +131,4 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Setuptools: https://pypi.python.org/pypi/setuptools
 .. _Pytest: http://pytest.org/
 .. _AppVeyor: http://www.appveyor.com/
+.. _Cookiecutter: https://pypi.python.org/pypi/cookiecutter
