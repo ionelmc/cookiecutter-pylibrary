@@ -5,7 +5,8 @@ cookiecutter-pylibrary
 Cookiecutter_ template for a Python python library. This is largely designed
 to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
-There's a bare library using this template (if you're curious about the final result): https://github.com/ionelmc/python-nameless.
+There's a bare library using this template (if you're curious about the final result): 
+https://github.com/ionelmc/python-nameless.
 
 Features
 --------
@@ -107,6 +108,23 @@ To make a release of the project on PyPI, the most simple usage is::
   python setup.py register clean sdist bdist_wheel upload
   
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
+
+To build the docs::
+
+  tox -e docs
+
+To build and verify that the built package is proper::
+
+  tox -e check
+
+Questions & answers
+-------------------
+
+There's no Makefile?
+````````````````````
+
+Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python 
+setup.py register clean sdist bdist_wheel upload`` command could be there but it's just 1 short command ...
 
 Not Exactly What You Want?
 --------------------------
