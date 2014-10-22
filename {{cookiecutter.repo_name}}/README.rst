@@ -6,9 +6,7 @@
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. See: http://www.appveyor.com/docs/status-badges
-
-.. image:: https://ci.appveyor.com/api/projects/status/<security-token>/branch/master
+.. image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}?branch=master
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
