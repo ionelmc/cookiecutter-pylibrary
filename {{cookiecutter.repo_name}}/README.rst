@@ -15,11 +15,23 @@
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
 .. image:: http://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.png?style=flat
-    :alt: PYPI Package
+    :alt: PyPI Package
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
 .. image:: http://img.shields.io/pypi/dm/{{ cookiecutter.distribution_name }}.png?style=flat
-    :alt: PYPI Package
+    :alt: PyPI Package
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+
+.. image:: https://pypip.in/wheel/{{ cookiecutter.distribution_name }}.png?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+
+.. image:: https://pypip.in/py_versions/{{ cookiecutter.distribution_name }}.png?style=flat
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+
+.. image:: https://pypip.in/implementation/{{ cookiecutter.distribution_name }}.png?style=flat
+    :alt: Supported imlementations
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
 .. image:: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master/landscape.png?style=flat
