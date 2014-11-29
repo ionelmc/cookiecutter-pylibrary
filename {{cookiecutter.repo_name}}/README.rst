@@ -22,15 +22,15 @@
     :alt: PyPI Package
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
-.. image:: https://pypip.in/wheel/{{ cookiecutter.distribution_name }}.png?style=flat
+.. image:: https://pypip.in/wheel/{{ cookiecutter.distribution_name }}/badge.png.png?style=flat
     :alt: PyPI Wheel
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
-.. image:: https://pypip.in/py_versions/{{ cookiecutter.distribution_name }}.png?style=flat
+.. image:: https://pypip.in/py_versions/{{ cookiecutter.distribution_name }}/badge.png.png?style=flat
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
-.. image:: https://pypip.in/implementation/{{ cookiecutter.distribution_name }}.png?style=flat
+.. image:: https://pypip.in/implementation/{{ cookiecutter.distribution_name }}/badge.png.png?style=flat
     :alt: Supported imlementations
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
