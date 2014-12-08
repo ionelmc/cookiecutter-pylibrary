@@ -51,7 +51,7 @@ This template is more involved than the regular `cookiecutter-pypackage
 
 First generate your project::
 
-  cookiecutter https://github.com/ionelmc/cookiecutter-pylibrary.git
+  cookiecutter gh:ionelmc/cookiecutter-pylibrary
 
 You will be asked for these fields:
 
