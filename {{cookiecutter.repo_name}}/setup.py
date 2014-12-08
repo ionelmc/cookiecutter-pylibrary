@@ -1,21 +1,67 @@
 # -*- encoding: utf-8 -*-
-import glob
 import io
+import os
 import re
+from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
+from os.path import relpath
 from os.path import splitext
 
 from setuptools import find_packages
 from setuptools import setup
 
+{% if cookiecutter.c_extension_support|lower == "yes" %}
+{% if cookiecutter.c_extension_optional|lower == "yes" %}
+from setuptools.command.build_ext import build_ext
+{% endif %}
+from distutils.core import Extension
+{% if cookiecutter.c_extension_optional|lower == "yes" %}
+from distutils.errors import CCompilerError
+from distutils.errors import CompileError
+from distutils.errors import DistutilsExecError
+from distutils.errors import DistutilsPlatformError
+{% endif %}
+{% endif %}
 
 def read(*names, **kwargs):
     return io.open(
         join(dirname(__file__), *names),
         encoding=kwargs.get("encoding", "utf8")
     ).read()
+
+{% if cookiecutter.c_extension_support|lower == "yes" and cookiecutter.c_extension_optional|lower == "yes" %}
+class optional_build_ext(build_ext):
+    """Allow the building of C extensions to fail."""
+    def run(self):
+        try:
+            build_ext.run(self)
+        except DistutilsPlatformError as e:
+            self._unavailable(e)
+            self.extensions = []  # avoid copying missing files (it would fail).
+
+    def build_extension(self, ext):
+        try:
+            build_ext.build_extension(self, ext)
+        except (CCompilerError, CompileError, DistutilsExecError) as e:
+            self._unavailable(e)
+            self.extensions = []  # avoid copying missing files (it would fail).
+
+    def _unavailable(self, e):
+        print("*" * 80)
+        print("""WARNING:
+
+    An optional code optimization (C extension) could not be compiled.
+
+    Optimizations for this package will not be available!
+        """)
+
+        print("CAUSE:")
+        print("")
+        print("    " + repr(e))
+        print("*" * 80)
+{% endif %}
 
 setup(
     name="{{ cookiecutter.distribution_name }}",
@@ -28,7 +74,7 @@ setup(
     url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    py_modules=[splitext(basename(i))[0] for i in glob.glob("src/*.py")],
+    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -56,12 +102,25 @@ setup(
         # eg: "aspectlib==1.1.1", "six>=1.7",
     ],
     extras_require={
-        # eg: 'rst': ["docutils>=0.11"],
+        # eg: "rst": ["docutils>=0.11"],
     },
     entry_points={
         "console_scripts": [
             "{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main"
         ]
-    }
-
+    },
+{% if cookiecutter.c_extension_support|lower == "yes" %}
+{% if cookiecutter.c_extension_optional|lower == "yes" %}
+    cmdclass={"build_ext": optional_build_ext},
+{% endif %}
+    ext_modules=[
+        Extension(
+            splitext(relpath(path, "src").replace(os.sep, "."))[0],
+            sources=[path],
+            include_dirs=[dirname(path)]
+        )
+        for root, _, _ in os.walk("src")
+        for path in glob(join(root, "*.c"))
+    ]
+{% endif %}
 )

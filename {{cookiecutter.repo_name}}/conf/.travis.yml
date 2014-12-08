@@ -7,7 +7,7 @@ env:
   matrix:
     - TOXENV=check
 {% for env, config in tox_environments|dictsort %}
-    - TOXENV={{ env }}{% if config.cover %},coveralls{% endif %}
+    - TOXENV={{ env }}{% if config.cover %},coveralls,extension-coveralls{% endif %}
 
 {% endfor %}
 before_install:
