@@ -5,13 +5,13 @@ cookiecutter-pylibrary
 Cookiecutter_ template for a Python python library. This is largely designed
 to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
-There's a bare library using this template (if you're curious about the final result): 
+There's a bare library using this template (if you're curious about the final result):
 https://github.com/ionelmc/python-nameless.
 
 Features
 --------
 
-This is an "all inclusive" sort of template. 
+This is an "all inclusive" sort of template.
 
 * BSD 2-clause license.
 * Tox_ and Pytest_ for testing Python 2.6, 2.7, 3.3, PyPy etc. [1]_
@@ -24,6 +24,8 @@ This is an "all inclusive" sort of template.
   * `isort <https://pypi.python.org/pypi/isort>`_
   * `bumpversion <https://pypi.python.org/pypi/bumpversion>`_
 
+* Support for C extensions (including coverage measurement for the C code).
+
 Requirements
 ------------
 
@@ -34,8 +36,8 @@ Projects using this template have these minimal dependencies:
 * Setuptools_ - for building the package, wheels etc. Now-days Setuptools is widely available, it shouldn't pose a
   problem :)
 
-To get quickly started on a new system, just `install setuptools 
-<https://pypi.python.org/pypi/setuptools#installation-instructions>`_ and then `install pip 
+To get quickly started on a new system, just `install setuptools
+<https://pypi.python.org/pypi/setuptools#installation-instructions>`_ and then `install pip
 <https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to install Tox_ and Cookiecutter_. To install
 them, just run this in your shell or command prompt::
 
@@ -53,7 +55,7 @@ First generate your project::
 
 You will be asked for these fields:
 
-.. list-table:: 
+.. list-table::
     :stub-columns: 1
 
     * - project_name
@@ -102,11 +104,11 @@ Developing the project
 To run the tests, just run::
 
   tox
-  
+
 To make a release of the project on PyPI, the most simple usage is::
 
   python setup.py register clean sdist bdist_wheel upload
-  
+
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
 To build the docs::
@@ -122,7 +124,7 @@ Questions & answers
 
 There's no Makefile?
 
-  Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python 
+  Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python
   setup.py register clean sdist bdist_wheel upload`` command could be there but it's just 1 short command ...
 
 Not Exactly What You Want?
@@ -134,7 +136,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
 
   In case you don't fancy having a test matrix generator script there's a `simpler variant of this template
   <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that:
-  
+
   * Doesn't have a generator script (no ``bootstrap.py``).
   * Doesn't use Pytest_. Just bare ``unittest``.
 
