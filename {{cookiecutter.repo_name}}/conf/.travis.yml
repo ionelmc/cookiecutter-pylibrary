@@ -7,7 +7,7 @@ env:
   matrix:
     - TOXENV=check
 {% for env, config in tox_environments|dictsort %}
-    - TOXENV={{ env }}{% if config.cover %},coveralls,extension-coveralls{% endif %}
+    - TOXENV={{ env }}{% if config.cover %},coveralls{% endraw %}{% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %}{% raw %}{% endif %}
 
 {% endfor %}
 before_install:
