@@ -11,19 +11,18 @@ from os.path import splitext
 
 from setuptools import find_packages
 from setuptools import setup
-
-{% if cookiecutter.c_extension_support|lower == "yes" %}
-{% if cookiecutter.c_extension_optional|lower == "yes" %}
+{%- if cookiecutter.c_extension_support|lower == "yes" -%}
+{%- if cookiecutter.c_extension_optional|lower == "yes" %}
 from setuptools.command.build_ext import build_ext
-{% endif %}
+{%- endif %}
 from distutils.core import Extension
-{% if cookiecutter.c_extension_optional|lower == "yes" %}
+{%- if cookiecutter.c_extension_optional|lower == "yes" %}
 from distutils.errors import CCompilerError
 from distutils.errors import CompileError
 from distutils.errors import DistutilsExecError
 from distutils.errors import DistutilsPlatformError
-{% endif %}
-{% endif %}
+{%- endif %}
+{%- endif %}
 
 def read(*names, **kwargs):
     return io.open(
@@ -31,7 +30,8 @@ def read(*names, **kwargs):
         encoding=kwargs.get("encoding", "utf8")
     ).read()
 
-{% if cookiecutter.c_extension_support|lower == "yes" and cookiecutter.c_extension_optional|lower == "yes" %}
+
+{% if cookiecutter.c_extension_support|lower == "yes" and cookiecutter.c_extension_optional|lower == "yes" -%}
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
@@ -61,7 +61,8 @@ class optional_build_ext(build_ext):
         print("")
         print("    " + repr(e))
         print("*" * 80)
-{% endif %}
+{%- endif %}
+
 
 setup(
     name="{{ cookiecutter.distribution_name }}",
@@ -109,10 +110,10 @@ setup(
             "{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main"
         ]
     },
-{% if cookiecutter.c_extension_support|lower == "yes" %}
-{% if cookiecutter.c_extension_optional|lower == "yes" %}
+{%- if cookiecutter.c_extension_support|lower == "yes" -%}
+{%- if cookiecutter.c_extension_optional|lower == "yes" %}
     cmdclass={"build_ext": optional_build_ext},
-{% endif %}
+{%- endif %}
     ext_modules=[
         Extension(
             splitext(relpath(path, "src").replace(os.sep, "."))[0],
@@ -122,5 +123,5 @@ setup(
         for root, _, _ in os.walk("src")
         for path in glob(join(root, "*.c"))
     ]
-{% endif %}
+{%- endif %}
 )
