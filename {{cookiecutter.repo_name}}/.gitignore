@@ -51,3 +51,4 @@ docs/_build
 .build
 .ve
 .bootstrap
+*.bak
