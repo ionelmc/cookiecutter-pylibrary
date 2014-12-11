@@ -44,3 +44,4 @@ docs/_build
 # Cookiecutter
 output/
 boilerplate/
+*.bak
