@@ -1,6 +1,5 @@
 {%- raw -%}
 version: '{build}'
-clone_depth: 1
 build: off
 environment:
   global:
