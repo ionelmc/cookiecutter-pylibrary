@@ -25,6 +25,11 @@ This is an "all inclusive" sort of template.
   * `bumpversion <https://pypi.python.org/pypi/bumpversion>`_
 
 * Support for C extensions (including coverage measurement for the C code).
+* Packaging and code quality checks. This template comes with a tox environment (``check``) that will:
+
+  * Check if your ``README.rst`` is valid.
+  * Check if the ``MANIFEST.in`` has any issues.
+  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks)
 
 Requirements
 ------------
@@ -38,7 +43,7 @@ Projects using this template have these minimal dependencies:
 
 To get quickly started on a new system, just `install setuptools
 <https://pypi.python.org/pypi/setuptools#installation-instructions>`_ and then `install pip
-<https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to install Tox_ and Cookiecutter_. To install
+<https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to required install Tox_ and Cookiecutter_. To install
 them, just run this in your shell or command prompt::
 
   pip install tox cookiecutter
@@ -59,13 +64,13 @@ You will be asked for these fields:
     :stub-columns: 1
 
     * - project_name
-      - Verbose project name, used in headings (docs, readme, etc)
+      - Verbose project name, used in headings (docs, readme, etc).
     * - repo_name
-      - Repository name on github
+      - Repository name on github.
     * - package_name
-      - Python package name (whatever you would import)
+      - Python package name (whatever you would import).
     * - distribution_name
-      - PyPI distribution name (what you would ``pip install``)
+      - PyPI distribution name (what you would ``pip install``).
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
@@ -92,40 +97,45 @@ Then:
 * `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs
   service hook. Don't forget to enable virtualenv and specify ``docs/requirements.txt`` as the requirements file in
   `Advanced Settings`.
-* Release your package. This template comes with a tox environment (``check``) that will:
-
-  * Check if your ``README.rst`` is valid.
-  * Check if the ``MANIFEST.in`` has any issues.
-  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks)
 
 Developing the project
 ``````````````````````
 
-To run the tests, just run::
+To run all the tests, just run::
 
   tox
 
-To make a release of the project on PyPI, the most simple usage is::
+To see all the tox environments::
 
-  python setup.py register clean sdist bdist_wheel upload
+  tox --listenvs
 
-If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
-
-To build the docs::
+To only build the docs::
 
   tox -e docs
 
-To build and verify that the built package is proper::
+To build and verify that the built package is proper and other code QA checks::
 
   tox -e check
+
+Releasing the project
+``````````````````````
+
+Before releasing your package on PyPI you should have all the tox environments passing.
+
+To make a release of the project on PyPI, the most simple usage is::
+
+  python setup.py release
+ 
+(``release`` is aliased to ``register clean sdist bdist_wheel upload``, see ``setup.cfg``).
+
+If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
 Questions & answers
 -------------------
 
 There's no Makefile?
 
-  Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``. The ``python
-  setup.py register clean sdist bdist_wheel upload`` command could be there but it's just 1 short command ...
+  Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``.
 
 Not Exactly What You Want?
 --------------------------
