@@ -61,7 +61,7 @@ class optional_build_ext(build_ext):
         print("")
         print("    " + repr(e))
         print("*" * 80)
-{%- endif %}
+{% endif -%}
 
 
 setup(
