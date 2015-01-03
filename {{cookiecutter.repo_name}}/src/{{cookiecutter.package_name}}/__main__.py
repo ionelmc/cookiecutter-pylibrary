@@ -6,6 +6,7 @@ import sys
 # - https://docs.python.org/2/using/cmdline.html#cmdoption-m
 # - https://docs.python.org/3/using/cmdline.html#cmdoption-m
 
+
 def main(argv=()):
     """
     Args:
