@@ -37,15 +37,19 @@ if __name__ == '__main__':
     for alias, conf in matrix.from_file('setup.cfg').items():
         python = conf['python_versions']
         deps = conf['dependencies']
-        cover = {'false': False, 'true': True}[conf['coverage_flags'].lower()]
-        env_vars = conf['environment_variables']
+        if 'coverage_flags' in conf:
+            cover = {'false': False, 'true': True}[conf['coverage_flags'].lower()]
+        if 'environment_variables' in conf:
+            env_vars = conf['environment_variables']
 
         tox_environments[alias] = {
             'python': 'python' + python if 'py' not in python else python,
             'deps': deps.split(),
-            'cover': cover,
-            'env_vars': env_vars.split(),
         }
+        if 'coverage_flags' in conf:
+            tox_environments[alias].update(cover=cover)
+        if 'environment_variables' in conf:
+            tox_environments[alias].update(env_vars=env_vars.split())
 
     for name in os.listdir(os.path.join('ci', 'templates')):
         with open(name, 'w') as fh:
