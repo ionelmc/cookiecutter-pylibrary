@@ -2,11 +2,18 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python python library. This is largely designed
-to address this `blog post about packaging python libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
+Cookiecutter_ template for a Python python library. 
 
-There's a bare library using this template (if you're curious about the final result):
-https://github.com/ionelmc/python-nameless.
+*Notes*:
+
+* This is largely designed to address this `blog post about packaging python 
+  libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
+  
+  * ... and it will save you from `packaging pitfalls 
+    <http://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
+* There's a bare library using this template (if you're curious about the final
+  result): https://github.com/ionelmc/python-nameless.
+* There's also a *minimal* version of this, see [1]_
 
 Features
 --------
