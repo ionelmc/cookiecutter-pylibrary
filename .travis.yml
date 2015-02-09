@@ -27,7 +27,7 @@ before_install:
 install:
   - pip install tox cookiecutter
 script:
-  - 'echo {default_context: "${${CTX//:/\"\:\"}//,/\"\,\"} > ~/.cookiecutterrc'
+  - 'echo "{default_context: {\"${${CTX//:/\":\"}//,/\",\"}\"}}" > ~/.cookiecutterrc'
   - cat ~/.cookiecutterrc
   - cookiecutter --no-input .
   - cd python-nameless
