@@ -25,6 +25,9 @@ script:
   - cat ~/.cookiecutterrc
   - cookiecutter --no-input .
   - cd python-nameless
+  - git init .
+  - git add .
+  - git commit -m "initial."  
   - tox
 notifications:
   email:
