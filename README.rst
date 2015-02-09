@@ -2,14 +2,22 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python python library. 
+Cookiecutter_ template for a Python python library. |travis| |appveyor|
+
+.. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.png?style=flat
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/ionelmc/cookiecutter-pylibrary
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/ionelmc/cookiecutter-pylibrary?branch=master
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
 
 *Notes*:
 
-* This is largely designed to address this `blog post about packaging python 
+* This is largely designed to address this `blog post about packaging python
   libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
-  
-  * ... and it will save you from `packaging pitfalls 
+
+  * ... and it will save you from `packaging pitfalls
     <http://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
@@ -132,7 +140,7 @@ Before releasing your package on PyPI you should have all the tox environments p
 To make a release of the project on PyPI, the most simple usage is::
 
   python setup.py release
- 
+
 (``release`` is aliased to ``register clean sdist bdist_wheel upload``, see ``setup.cfg``).
 
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
