@@ -8,15 +8,9 @@ env:
     - 'CTX=default:whatever'
     - 'CTX=c_extension_support:yes,c_extension_optional:yes'
     - 'CTX=c_extension_support:yes,c_extension_optional:no'
-    - 'CTX=tests_use_pytest:no'
-    - 'CTX=tests_use_pytest:no,c_extension_support:yes,c_extension_optional:yes'
-    - 'CTX=tests_use_pytest:no,c_extension_support:yes,c_extension_optional:no'
-    - 'CTX=tests_configurator:no'
-    - 'CTX=tests_configurator:no,c_extension_support:yes,c_extension_optional:yes'
-    - 'CTX=tests_configurator:no,c_extension_support:yes,c_extension_optional:no'
-    - 'CTX=tests_configurator:no,tests_use_pytest:no'
-    - 'CTX=tests_configurator:no,tests_use_pytest:no,c_extension_support:yes,c_extension_optional:yes'
-    - 'CTX=tests_configurator:no,tests_use_pytest:no,c_extension_support:yes,c_extension_optional:no'
+    - 'CTX=test_matrix_configurator:no'
+    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:no'
 
 before_install:
   - python --version

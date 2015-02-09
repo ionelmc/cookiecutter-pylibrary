@@ -4,7 +4,7 @@ if __name__ == "__main__":
 
     Configuring your test environments for the first time ...
 """)
-    {% if cookiecutter.tests_configurator|lower == "yes" %}
+    {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     import subprocess
     subprocess.check_call('tox')
     {% else %}
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         git remote add origin git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.git
         git push -u origin master
 
-{% if cookiecutter.tests_configurator|lower == "yes" %}
+{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     To reconfigure your test/CI settings run:
 
         tox -e bootstrap
