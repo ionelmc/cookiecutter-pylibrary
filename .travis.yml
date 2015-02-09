@@ -24,11 +24,14 @@ script:
   - 'echo "{default_context: {$(echo $CTX | sed s/\\b/\"/g)}}" > ~/.cookiecutterrc'
   - cat ~/.cookiecutterrc
   - cookiecutter --no-input .
-  - cd python-nameless
-  - git init .
-  - git add .
-  - git commit -m "initial."  
-  - tox
+  - |
+    cd python-nameless
+    git init .
+    git config user.email "you@example.com"
+    git config user.name "Your Name"    
+    git add .
+    git commit -m "initial."  
+    tox
 notifications:
   email:
     on_success: never
