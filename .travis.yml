@@ -29,7 +29,7 @@ install:
 script:
   - 'echo "{default_context: $CTX}" > ~/.cookiecutterrc'
   - cat ~/.cookiecutterrc
-  - cookiecutter .
+  - cookiecutter --no-input .
   - cd python-nameless
   - tox
 notifications:
