@@ -25,7 +25,7 @@ before_install:
   - uname -a
   - lsb_release -a
 install:
-  - pip install tox cookiecutter
+  - pip install -I -U tox cookiecutter
 script:
   - 'echo "{default_context: {$(echo $CTX | sed s/\\b/\"/g)}}" > ~/.cookiecutterrc'
   - cat ~/.cookiecutterrc
