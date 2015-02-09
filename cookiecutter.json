@@ -13,6 +13,6 @@
     "version": "0.1.0",
     "c_extension_support": "no",
     "c_extension_optional": "yes",
-    "test_configurator": "yes",
-    "test_framework": "pytest"
+    "tests_configurator": "yes",
+    "tests_use_pytest": "yes"
 }
