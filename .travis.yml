@@ -5,18 +5,18 @@ env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
-    - 'CTX=""'
-    - 'CTX="c_extension_support":"yes","c_extension_optional":"yes"'
-    - 'CTX="c_extension_support":"yes","c_extension_optional":"no"'
-    - 'CTX="test_framework":"unittest"'
-    - 'CTX="test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"yes"'
-    - 'CTX="test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"no"'
-    - 'CTX="test_configurator":"no"'
-    - 'CTX="test_configurator":"no","c_extension_support":"yes","c_extension_optional":"yes"'
-    - 'CTX="test_configurator":"no","c_extension_support":"yes","c_extension_optional":"no"'
-    - 'CTX="test_configurator":"no","test_framework":"unittest"'
-    - 'CTX="test_configurator":"no","test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"yes"'
-    - 'CTX="test_configurator":"no","test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"no"'
+    - 'CTX=default:whatever'
+    - 'CTX=c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=c_extension_support:yes,c_extension_optional:no'
+    - 'CTX=test_framework:unittest'
+    - 'CTX=test_framework:unittest,c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=test_framework:unittest,c_extension_support:yes,c_extension_optional:no'
+    - 'CTX=test_configurator:no'
+    - 'CTX=test_configurator:no,c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=test_configurator:no,c_extension_support:yes,c_extension_optional:no'
+    - 'CTX=test_configurator:no,test_framework:unittest'
+    - 'CTX=test_configurator:no,test_framework:unittest,c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=test_configurator:no,test_framework:unittest,c_extension_support:yes,c_extension_optional:no'
 
 before_install:
   - python --version
@@ -27,7 +27,7 @@ before_install:
 install:
   - pip install tox cookiecutter
 script:
-  - 'echo "{default_context: $CTX}" > ~/.cookiecutterrc'
+  - 'echo "{default_context: "${${CTX//:/\"\:\"}//,/\"\,\"}" > ~/.cookiecutterrc'
   - cat ~/.cookiecutterrc
   - cookiecutter --no-input .
   - cd python-nameless
