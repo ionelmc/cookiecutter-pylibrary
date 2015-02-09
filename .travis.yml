@@ -1,0 +1,39 @@
+language: python
+python: 2.7
+sudo: false
+env:
+  global:
+    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+  matrix:
+    - 'CTX=""'
+    - 'CTX="c_extension_support":"yes","c_extension_optional":"yes"'
+    - 'CTX="c_extension_support":"yes","c_extension_optional":"no"'
+    - 'CTX="test_framework":"unittest"'
+    - 'CTX="test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"yes"'
+    - 'CTX="test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"no"'
+    - 'CTX="test_configurator":"no"'
+    - 'CTX="test_configurator":"no","c_extension_support":"yes","c_extension_optional":"yes"'
+    - 'CTX="test_configurator":"no","c_extension_support":"yes","c_extension_optional":"no"'
+    - 'CTX="test_configurator":"no","test_framework":"unittest"'
+    - 'CTX="test_configurator":"no","test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"yes"'
+    - 'CTX="test_configurator":"no","test_framework":"unittest","c_extension_support":"yes","c_extension_optional":"no"'
+
+before_install:
+  - python --version
+  - virtualenv --version
+  - pip --version
+  - uname -a
+  - lsb_release -a
+install:
+  - pip install tox cookiecutter
+script:
+  - 'echo "{default_context: $CTX}" > ~/.cookiecutterrc'
+  - cat ~/.cookiecutterrc
+  - cookiecutter .
+  - cd python-nameless
+  - tox
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
