@@ -1,0 +1,26 @@
+build: false
+environment:
+  matrix:
+    - 'CTX=default:whatever'
+    - 'CTX=c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=c_extension_support:yes,c_extension_optional:no'
+    - 'CTX=test_matrix_configurator:no'
+    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:yes'
+    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:no'
+init:
+  - "ECHO %CTX%"
+  - ps: "ls C:\\Python*"
+install:
+  - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
+  - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
+  - "c:\\python27\\python c:\\ez_setup.py"
+  - "c:\\python27\\python c:\\get-pip.py"
+  - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
+test_script:
+  - ps: |
+        $CTX -replace ":",'":"' -replace ",",'","' | Set-Content -Path ~/.cookiecutterrc
+  - ps: cat ~/.cookiecutterrc
+  - cookiecutter --no-input .
+  - |
+    cd python-nameless
+    tox
