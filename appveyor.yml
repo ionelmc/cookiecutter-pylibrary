@@ -1,12 +1,12 @@
 build: false
 environment:
   matrix:
-    - 'CTX=default:whatever'
-    - 'CTX=c_extension_support:yes,c_extension_optional:yes'
-    - 'CTX=c_extension_support:yes,c_extension_optional:no'
-    - 'CTX=test_matrix_configurator:no'
-    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:yes'
-    - 'CTX=test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:no'
+    - CTX: default:whatever
+    - CTX: c_extension_support:yes,c_extension_optional:yes
+    - CTX: c_extension_support:yes,c_extension_optional:no
+    - CTX: test_matrix_configurator:no
+    - CTX: test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:yes
+    - CTX: test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:no
 init:
   - "ECHO %CTX%"
   - ps: "ls C:\\Python*"
