@@ -76,7 +76,6 @@ First generate your project::
 You will be asked for these fields:
 
 .. list-table::
-    :stub-columns: 1
     :header-rows: 1
     
     * - Template variable
