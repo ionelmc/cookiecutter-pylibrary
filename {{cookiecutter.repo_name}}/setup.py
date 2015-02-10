@@ -1,26 +1,25 @@
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
+
+
+from __future__ import (absolute_import, unicode_literals, print_function)
+
+
 import io
 import os
 import re
 from glob import glob
-from os.path import basename
-from os.path import dirname
-from os.path import join
-from os.path import relpath
-from os.path import splitext
+from os.path import (basename, dirname, join, splitext, relpath)
 
-from setuptools import find_packages
-from setuptools import setup
+from setuptools import (setup, find_packages)
 {%- if cookiecutter.c_extension_support|lower == "yes" -%}
 {%- if cookiecutter.c_extension_optional|lower == "yes" %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
 from distutils.core import Extension
 {%- if cookiecutter.c_extension_optional|lower == "yes" %}
-from distutils.errors import CCompilerError
-from distutils.errors import CompileError
-from distutils.errors import DistutilsExecError
-from distutils.errors import DistutilsPlatformError
+from distutils.errors import (CCompilerError, CompileError, DistutilsExecError,
+        DistutilsPlatformError)
 {%- endif %}
 {%- endif %}
 
@@ -69,7 +68,7 @@ setup(
     version="{{ cookiecutter.version }}",
     license="BSD",
     description="{{ cookiecutter.project_short_description }}",
-    long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
+    long_description="{0}\n{1}".format(read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
     author="{{ cookiecutter.full_name }}",
     author_email="{{ cookiecutter.email }}",
     url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
