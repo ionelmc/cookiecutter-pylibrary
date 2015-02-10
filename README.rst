@@ -82,25 +82,39 @@ You will be asked for these fields:
       - Default
       - Description
     * - ``project_name``
-      - ``Nameless``
+      - .. code:: python 
+        
+            "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
     * - ``repo_name``
-      - ``python-nameless``
+      - .. code:: python 
+        
+            "python-nameless"
       - Repository name on github.
     * - ``package_name``
-      - ``nameless``
+      - .. code:: python 
+        
+            "nameless"
       - Python package name (whatever you would import).
     * - ``distribution_name``
-      - ``nameless``
+      - .. code:: python 
+        
+            "nameless"
       - PyPI distribution name (what you would ``pip install``).
     * - ``c_extension_support``
-      - ``no``
+      - .. code:: python 
+        
+            "no"
       - Support C extensions (will slighly change the outputted ``setup.py``)
     * - ``c_extension_optional``
-      - ``yes``
+      - .. code:: python 
+        
+            "yes"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
     * - ``test_matrix_configurator``
-      - ``yes``
+      - .. code:: python 
+        
+            "yes"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
 
