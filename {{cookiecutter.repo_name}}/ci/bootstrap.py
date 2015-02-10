@@ -9,7 +9,7 @@ if __name__ == '__main__':
         try:
             subprocess.check_call(['virtualenv', '.tox/configure'])
         except subprocess.CalledProcessError:
-            subprocess.check_call(['python', '-mvirtualenv', '.tox/configure'])
+            subprocess.check_call([sys.executable, '-mvirtualenv', '.tox/configure'])
         print("Installing `jinja2` and `matrix` into bootstrap environment ...")
         if sys.platform == 'win32':
             subprocess.check_call([r'.tox\configure\Scripts\pip', 'install', 'jinja2', 'matrix'])
