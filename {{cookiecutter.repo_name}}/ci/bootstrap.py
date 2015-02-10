@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
-from __future__ import (absolute_import, unicode_literals, print_function)
-
+from __future__ import absolute_import, print_function, unicode_literals
 
 import os
 import sys
-from os.path import (join, exists)
+from os.path import exists
+from os.path import join
 
 
 if __name__ == "__main__":
