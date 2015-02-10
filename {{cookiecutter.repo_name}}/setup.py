@@ -1,4 +1,7 @@
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
+
 import io
 import os
 import re
@@ -69,7 +72,7 @@ setup(
     version="{{ cookiecutter.version }}",
     license="BSD",
     description="{{ cookiecutter.project_short_description }}",
-    long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
+    long_description="{0}\n{1}".format(read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
     author="{{ cookiecutter.full_name }}",
     author_email="{{ cookiecutter.email }}",
     url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
