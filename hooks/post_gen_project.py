@@ -6,7 +6,11 @@ if __name__ == "__main__":
 """)
     {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     import subprocess
-    subprocess.check_call('tox')
+    import sys
+    try:
+        subprocess.check_call(['tox'])
+    except Exception:
+        subprocess.check_call([sys.executable, '-mtox'])
     {% else %}
     import os
     os.unlink(os.path.join('ci/bootstrap.py'))
