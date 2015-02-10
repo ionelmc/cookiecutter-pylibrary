@@ -8,7 +8,7 @@ if __name__ == '__main__':
         print("Bootstrapping ...")
         try:
             subprocess.check_call(['virtualenv', '.tox/configure'])
-        except subprocess.CalledProcessError:
+        except Exception:
             subprocess.check_call([sys.executable, '-mvirtualenv', '.tox/configure'])
         print("Installing `jinja2` and `matrix` into bootstrap environment ...")
         if sys.platform == 'win32':
