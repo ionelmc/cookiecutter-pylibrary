@@ -31,4 +31,4 @@ test_script:
     git config user.name "Your Name"    
     git add .
     git commit -m "initial."  
-    c:\\python27\\Scripts\\tox
+    c:\\python27\\Scripts\\tox --skip-missing-interpreters
