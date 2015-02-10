@@ -19,8 +19,10 @@ install:
   - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
   - ps: |
-        $Env:CTX -replace ":",'":"' -replace ",",'","' | Set-Content -Path ~/.cookiecutterrc
-  - ps: cat ~/.cookiecutterrc
+        $RCPATH="{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH
+        $RCVALUE="{{default_context: {{{0}}}}}" -f ($Env:CTX -replace ":",'":"' -replace ",",'","')
+        $RCVALUE | Set-Content -Path $RCPATH
+        cat $RCPATH
   - cookiecutter --no-input .
   - |
     cd python-nameless
