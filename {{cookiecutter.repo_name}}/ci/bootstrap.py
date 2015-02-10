@@ -5,6 +5,7 @@
 from __future__ import (absolute_import, unicode_literals, print_function)
 
 
+import os
 import sys
 from os.path import (join, exists)
 
@@ -31,7 +32,7 @@ if __name__ == "__main__":
     import matrix
 
     jinja = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(os.path.join("ci", "templates")),
+        loader=jinja2.FileSystemLoader(join("ci", "templates")),
         trim_blocks=True,
         lstrip_blocks=True,
         keep_trailing_newline=True
