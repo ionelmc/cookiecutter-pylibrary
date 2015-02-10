@@ -8,7 +8,8 @@ environment:
     - CTX: test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:yes
     - CTX: test_matrix_configurator:no,c_extension_support:yes,c_extension_optional:no
 init:
-  - "ECHO %CTX%"
+  - "echo %CTX%"
+  - "set"
   - ps: "ls C:\\Python*"
 install:
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
@@ -18,7 +19,7 @@ install:
   - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
   - ps: |
-        $CTX -replace ":",'":"' -replace ",",'","' | Set-Content -Path ~/.cookiecutterrc
+        $Env:CTX -replace ":",'":"' -replace ",",'","' | Set-Content -Path ~/.cookiecutterrc
   - ps: cat ~/.cookiecutterrc
   - cookiecutter --no-input .
   - |
