@@ -77,20 +77,31 @@ You will be asked for these fields:
 
 .. list-table::
     :stub-columns: 1
-
+    :header-rows: 1
+    
+    * - Template variable
+      - Default
+      - Description
     * - ``project_name``
+      - ``Nameless``
       - Verbose project name, used in headings (docs, readme, etc).
     * - ``repo_name``
+      - ``python-nameless``
       - Repository name on github.
     * - ``package_name``
+      - ``nameless``
       - Python package name (whatever you would import).
     * - ``distribution_name``
+      - ``nameless``
       - PyPI distribution name (what you would ``pip install``).
     * - ``c_extension_support``
+      - ``no``
       - Support C extensions (will slighly change the outputted ``setup.py``)
     * - ``c_extension_optional``
+      - ``yes``
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
     * - ``test_matrix_configurator``
+      - ``yes``
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
 
