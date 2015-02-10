@@ -20,10 +20,10 @@ install:
 test_script:
   - ps: |
         $RCPATH="{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH
-        $RCVALUE="{{default_context: {{{0}}}}}" -f ($Env:CTX -replace ":",'":"' -replace ",",'","')
+        $RCVALUE='{{default_context: {{"{0}"}}}}' -f ($Env:CTX -replace ":",'":"' -replace ",",'","')
         $RCVALUE | Set-Content -Path $RCPATH
         cat $RCPATH
-  - cookiecutter --no-input .
+  - "c:\\python27\\Scripts\\cookiecutter --no-input ."
   - |
     cd python-nameless
     git init .
@@ -31,4 +31,4 @@ test_script:
     git config user.name "Your Name"    
     git add .
     git commit -m "initial."  
-    tox
+    c:\\python27\\Scripts\\tox
