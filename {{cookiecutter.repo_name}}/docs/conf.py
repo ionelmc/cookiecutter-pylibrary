@@ -17,8 +17,8 @@ if os.getenv('SPELLCHECK'):
 
 source_suffix = '.rst'
 master_doc = 'index'
-project = u'{{ cookiecutter.project_name }}'
-copyright = u'{{ cookiecutter.year }}, {{ cookiecutter.full_name }}'
+project = {{ '{0!r}'.format(cookiecutter.project_name) }}
+copyright = {{ '{0!r}'.format('{0}, {1}'.format(cookiecutter.year, cookiecutter.full_name)) }}
 version = release = {{ '{0!r}'.format(cookiecutter.version).lstrip('u') }}
 
 import sphinx_py3doc_enhanced_theme
