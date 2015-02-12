@@ -22,4 +22,7 @@ git config user.email "you@example.com"
 git config user.name "Your Name"
 git add .
 git commit -m "initial."
+bumpversion patch
+bumpversion minor
+bumpversion major
 tox
