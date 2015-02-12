@@ -190,6 +190,9 @@ Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, `
   with ``__init__.py``) and modules (simple ``.py`` files that go straigh in ``site-packages``). There's no good place
   for that extra file if you're distributing modules.
 
+  But this isn't so bad - `bumpversion <https://pypi.python.org/pypi/bumpversion>`_ manages the version string quite
+  neatly.
+
 Not Exactly What You Want?
 --------------------------
 
