@@ -15,7 +15,7 @@ before_install:
   - uname -a
   - lsb_release -a
 install:
-  - pip install -I -U tox cookiecutter
+  - pip install -I -U tox cookiecutter bumpversion
 script:
   - ci/test.sh $ENV
 notifications:
