@@ -17,9 +17,11 @@ if os.getenv('SPELLCHECK'):
 
 source_suffix = '.rst'
 master_doc = 'index'
-project = {{ '{0!r}'.format(cookiecutter.project_name) }}
-copyright = {{ '{0!r}'.format('{0}, {1}'.format(cookiecutter.year, cookiecutter.full_name)) }}
-version = release = {{ '{0!r}'.format(cookiecutter.version).lstrip('u') }}
+project = {{ '{0!r}'.format(cookiecutter.project_name.encode('utf-8')) }}
+year = {{ '{0!r}'.format(cookiecutter.year.encode('utf-8')) }}
+author = {{ '{0!r}'.format(cookiecutter.full_name.encode('utf-8')) }}
+copyright = '{0}, {1}'.format(year, author)
+version = release = {{ '{0!r}'.format(cookiecutter.version.encode('utf-8')) }}
 
 import sphinx_py3doc_enhanced_theme
 html_theme = "sphinx_py3doc_enhanced_theme"

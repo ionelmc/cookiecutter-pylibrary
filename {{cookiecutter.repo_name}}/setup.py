@@ -68,13 +68,13 @@ class optional_build_ext(build_ext):
 
 
 setup(
-    name={{ '{0!r}'.format(cookiecutter.distribution_name).lstrip('u') }},
-    version={{ '{0!r}'.format(cookiecutter.version).lstrip('u') }},
+    name={{ '{0!r}'.format(cookiecutter.distribution_name.encode('utf-8')) }},
+    version={{ '{0!r}'.format(cookiecutter.version.encode('utf-8')) }},
     license='BSD',
-    description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('u') }},
+    description={{ '{0!r}'.format(cookiecutter.project_short_description.encode('utf-8')) }},
     long_description='{0}\n{1}'.format(read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
-    author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('u') }},
-    author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('u') }},
+    author={{ '{0!r}'.format(cookiecutter.full_name.encode('utf-8')) }},
+    author_email={{ '{0!r}'.format(cookiecutter.email.encode('utf-8')) }},
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
     packages=find_packages('src'),
     package_dir={'': 'src'},
