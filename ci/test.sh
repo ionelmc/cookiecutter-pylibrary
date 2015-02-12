@@ -26,4 +26,4 @@ bumpversion patch
 bumpversion minor
 bumpversion major
 sed -i 's/sphinx-build -b linkcheck/#/' tox.ini
-tox -e docs
+tox
