@@ -1,9 +1,28 @@
 build: false
 environment:
   matrix:
-{% for env, config in tox_environments|dictsort %}
-    - ENV: {{ env }}
-{% endfor %}
+    - ENV: 
+    - ENV: cext
+    - ENV: cext-optional
+    - ENV: fnaccents
+    - ENV: fndoublequote
+    - ENV: fnquote
+    - ENV: fntriplequote
+    - ENV: matrix
+    - ENV: matrix-cext
+    - ENV: matrix-cext-optional
+    - ENV: matrix-fnaccents
+    - ENV: matrix-fndoublequote
+    - ENV: matrix-fnquote
+    - ENV: matrix-fntriplequote
+    - ENV: matrix-pnaccents
+    - ENV: matrix-pndoublequote
+    - ENV: matrix-pnquote
+    - ENV: matrix-pntriplequote
+    - ENV: pnaccents
+    - ENV: pndoublequote
+    - ENV: pnquote
+    - ENV: pntriplequote
 init:
   - "echo %CTX%"
   - "set"

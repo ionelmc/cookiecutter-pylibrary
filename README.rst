@@ -77,43 +77,43 @@ You will be asked for these fields:
 
 .. list-table::
     :header-rows: 1
-    
+
     * - Template variable
       - Default
       - Description
     * - ``project_name``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
     * - ``repo_name``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "python-nameless"
       - Repository name on github.
     * - ``package_name``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "nameless"
       - Python package name (whatever you would import).
     * - ``distribution_name``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "nameless"
       - PyPI distribution name (what you would ``pip install``).
     * - ``c_extension_support``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "no"
       - Support C extensions (will slighly change the outputted ``setup.py``)
     * - ``c_extension_optional``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "yes"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
     * - ``test_matrix_configurator``
-      - .. code:: python 
-        
+      - .. code:: python
+
             "yes"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
@@ -183,6 +183,10 @@ Questions & answers
 There's no Makefile?
 
   Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``.
+
+Why ``bumpversion``?
+
+  x
 
 Not Exactly What You Want?
 --------------------------
