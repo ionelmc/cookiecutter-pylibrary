@@ -184,9 +184,11 @@ There's no Makefile?
 
   Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``.
 
-Why ``bumpversion``?
+Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, ``docs/conf.py``)?
 
-  x
+  We cannot use a metadata/version file [2]_ because this template is to be used with both distributions of packages (dirs
+  with ``__init__.py``) and modules (simple ``.py`` files that go straigh in ``site-packages``). There's no good place
+  for that extra file if you're distributing modules.
 
 Not Exactly What You Want?
 --------------------------
@@ -197,6 +199,10 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
 
   In case you don't fancy pytest there's a `simpler variant of this template
   <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that doesn't use Pytest_. Just bare crappy ``unittest``.
+
+.. [2]
+
+  Example, an ``__about__.py`` file.
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
