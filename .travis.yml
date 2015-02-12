@@ -5,13 +5,6 @@ env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
-    - ENV=
-    - ENV=cext
-    - ENV=cext-optional
-    - ENV=fnaccents
-    - ENV=fndoublequote
-    - ENV=fnquote
-    - ENV=fntriplequote
     - ENV=matrix
     - ENV=matrix-cext
     - ENV=matrix-cext-optional
@@ -23,10 +16,17 @@ env:
     - ENV=matrix-pndoublequote
     - ENV=matrix-pnquote
     - ENV=matrix-pntriplequote
-    - ENV=pnaccents
-    - ENV=pndoublequote
-    - ENV=pnquote
-    - ENV=pntriplequote
+    - ENV=plain
+    - ENV=plain-cext
+    - ENV=plain-cext-optional
+    - ENV=plain-fnaccents
+    - ENV=plain-fndoublequote
+    - ENV=plain-fnquote
+    - ENV=plain-fntriplequote
+    - ENV=plain-pnaccents
+    - ENV=plain-pndoublequote
+    - ENV=plain-pnquote
+    - ENV=plain-pntriplequote
 before_install:
   - python --version
   - virtualenv --version

@@ -1,13 +1,6 @@
 build: false
 environment:
   matrix:
-    - ENV: 
-    - ENV: cext
-    - ENV: cext-optional
-    - ENV: fnaccents
-    - ENV: fndoublequote
-    - ENV: fnquote
-    - ENV: fntriplequote
     - ENV: matrix
     - ENV: matrix-cext
     - ENV: matrix-cext-optional
@@ -19,10 +12,17 @@ environment:
     - ENV: matrix-pndoublequote
     - ENV: matrix-pnquote
     - ENV: matrix-pntriplequote
-    - ENV: pnaccents
-    - ENV: pndoublequote
-    - ENV: pnquote
-    - ENV: pntriplequote
+    - ENV: plain
+    - ENV: plain-cext
+    - ENV: plain-cext-optional
+    - ENV: plain-fnaccents
+    - ENV: plain-fndoublequote
+    - ENV: plain-fnquote
+    - ENV: plain-fntriplequote
+    - ENV: plain-pnaccents
+    - ENV: plain-pndoublequote
+    - ENV: plain-pnquote
+    - ENV: plain-pntriplequote
 init:
   - "echo %CTX%"
   - "set"

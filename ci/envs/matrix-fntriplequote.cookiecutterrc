@@ -2,5 +2,4 @@ default_context:
   c_extension_optional: 'no'
   c_extension_support: 'no'
   full_name: Io"'nel
-  project_name: ''
   test_matrix_configurator: 'yes'

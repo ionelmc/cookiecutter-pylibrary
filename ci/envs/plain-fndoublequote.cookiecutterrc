@@ -1,6 +1,5 @@
 default_context:
   c_extension_optional: 'no'
   c_extension_support: 'no'
-  full_name: ''
-  project_name: "Nam\xE9less"
+  full_name: Io"nel
   test_matrix_configurator: 'no'

@@ -1,6 +1,4 @@
 default_context:
   c_extension_optional: 'no'
-  c_extension_support: 'no'
-  full_name: ''
-  project_name: Name"'less
+  c_extension_support: 'yes'
   test_matrix_configurator: 'no'

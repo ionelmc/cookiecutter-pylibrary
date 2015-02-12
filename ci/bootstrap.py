@@ -40,11 +40,11 @@ if __name__ == "__main__":
     for name in os.listdir(join("ci", "envs")):
         os.unlink(join("ci", "envs", name))
 
-    for (alias, conf) in matrix.from_file("setup.cfg").items():
+    for (alias, conf) in matrix.from_file(join("ci", "setup.cfg")).items():
         tox_environments[alias] = conf
         with open(join("ci", "envs", alias + '.cookiecutterrc'), "w") as fh:
             fh.write(yaml.safe_dump(
-                dict(default_context=conf),
+                dict(default_context={k: v for k, v in conf.items() if v}),
                 default_flow_style=False
             ))
     for name in os.listdir(join("ci", "templates")):

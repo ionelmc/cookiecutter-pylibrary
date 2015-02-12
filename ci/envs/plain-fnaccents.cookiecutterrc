@@ -1,6 +1,5 @@
 default_context:
   c_extension_optional: 'no'
-  c_extension_support: 'yes'
-  full_name: ''
-  project_name: ''
+  c_extension_support: 'no'
+  full_name: "Ionel Cristian M\u0103rie\u0219"
   test_matrix_configurator: 'no'
