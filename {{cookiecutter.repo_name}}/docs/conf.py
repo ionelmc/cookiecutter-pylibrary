@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-import re
+from __future__ import unicode_literals
+
 import os
+
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -17,11 +20,11 @@ if os.getenv('SPELLCHECK'):
 
 source_suffix = '.rst'
 master_doc = 'index'
-project = {{ '{0!r}'.format(cookiecutter.project_name.encode('utf-8')) }}
-year = {{ '{0!r}'.format(cookiecutter.year.encode('utf-8')) }}
-author = {{ '{0!r}'.format(cookiecutter.full_name.encode('utf-8')) }}
+project = {{ '{0!r}'.format(cookiecutter.project_name) }}
+year = {{ '{0!r}'.format(cookiecutter.year) }}
+author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
-version = release = {{ '{0!r}'.format(cookiecutter.version.encode('utf-8')) }}
+version = release = {{ '{0!r}'.format(cookiecutter.version) }}
 
 import sphinx_py3doc_enhanced_theme
 html_theme = "sphinx_py3doc_enhanced_theme"
