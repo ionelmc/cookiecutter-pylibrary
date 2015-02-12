@@ -25,4 +25,5 @@ git commit -m "initial."
 bumpversion patch
 bumpversion minor
 bumpversion major
-tox
+sed -i 's/sphinx-build -b linkcheck/#/' tox.ini
+tox -e docs
