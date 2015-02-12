@@ -19,10 +19,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 project = u'{{ cookiecutter.project_name }}'
 copyright = u'{{ cookiecutter.year }}, {{ cookiecutter.full_name }}'
-version = release = re.findall(
-    'version="(.*)"',
-    open(os.path.join(os.path.dirname(__file__), '../setup.py')).read()
-)[0]
+version = release = {{ '{0!r}'.format(cookiecutter.version).lstrip('u') }}
 
 import sphinx_py3doc_enhanced_theme
 html_theme = "sphinx_py3doc_enhanced_theme"
