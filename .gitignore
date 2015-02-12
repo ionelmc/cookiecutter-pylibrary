@@ -45,3 +45,4 @@ docs/_build
 output/
 boilerplate/
 *.bak
+python-nameless
