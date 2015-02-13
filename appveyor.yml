@@ -34,13 +34,6 @@ install:
   - "c:\\python27\\python c:\\get-pip.py"
   - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
-  - ps: cat "ci/envs/$Env:ENV.cookiecutterrc" | Set-Content -Path ("{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH)
-  - "c:\\python27\\Scripts\\cookiecutter --no-input ."
-  - |
-    cd python-nameless
-    git init .
-    git config user.email "you@example.com"
-    git config user.name "Your Name"
-    git add .
-    git commit -m "initial."
-    c:\\python27\\Scripts\\tox --skip-missing-interpreters
+  - git config --global user.email "you@example.com"
+  - git config --global user.name "Your Name"
+  - powershell ci\\test.ps1 $Env:ENV
