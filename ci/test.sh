@@ -15,11 +15,10 @@ set -x
 pwd
 cp ci/envs/$1.cookiecutterrc ~/.cookiecutterrc
 cat ~/.cookiecutterrc
+rm -rf python-nameless
 cookiecutter --no-input .
 cd python-nameless
 git init .
-git config user.email "you@example.com"
-git config user.name "Your Name"
 git add .
 git commit -m "initial."
 bumpversion patch
