@@ -17,9 +17,10 @@ before_install:
 install:
   - pip install -I -U tox cookiecutter bumpversion
 script:
+  - git config --global user.email "you@example.com"
+  - git config --global user.name "Your Name"
   - ci/test.sh $ENV
 notifications:
   email:
     on_success: never
     on_failure: always
-
