@@ -12,4 +12,4 @@ git init .
 git add .
 git commit -m "initial."
 (Get-Content -Path "tox.ini") -replace "sphinx-build -b linkcheck","#" | Set-Content -Path "tox.ini"
-c:\\python27\\Scripts\\tox --skip-missing-interpreters -e docs
+c:\\python27\\Scripts\\tox --skip-missing-interpreters
