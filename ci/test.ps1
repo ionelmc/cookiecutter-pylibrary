@@ -1,5 +1,5 @@
 param (
-    [string]$target
+    [string]$target=$(throw "Usage: {0} env-name" -f $MyInvocation.MyCommand.Name)
 )
 write-host "================================" -foregroundcolor "magenta"
 write-host "================================ Testing: $target" -foregroundcolor "magenta"
