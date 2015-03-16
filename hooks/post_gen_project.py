@@ -43,7 +43,7 @@ if __name__ == "__main__":
     You can also run:
 
         ci/bootstrap.py
-{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
+{% else %}
     The project doesn't use the test matrix configurator, but in case
     you change your mind just edit `setup.cfg` and run `ci/bootstrap.py`.
 {% endif %}
