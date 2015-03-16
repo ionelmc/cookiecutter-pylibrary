@@ -109,12 +109,12 @@ You will be asked for these fields:
     * - ``c_extension_optional``
       - .. code:: python
 
-            "yes"
+            "no"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
     * - ``test_matrix_configurator``
       - .. code:: python
 
-            "yes"
+            "no"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
 
