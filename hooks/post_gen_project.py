@@ -1,11 +1,12 @@
 if __name__ == "__main__":
+{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     print("""
 ################################################################################
 
-    Configuring your test environments for the first time ...
+    For your convenience, the test environments are getting configured for the
+    first time, as you have selected "yes" for `test_matrix_configurator` ...
 """)
     from os.path import join
-    {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     import subprocess
     import sys
     try:
@@ -15,10 +16,7 @@ if __name__ == "__main__":
             subprocess.check_call([sys.executable, '-mtox'])
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
-    {% else %}
-    import os
-    os.unlink(join('ci', 'bootstrap.py'))
-    {% endif %}
+{% endif %}
 
     print("""
 ################################################################################
@@ -45,5 +43,8 @@ if __name__ == "__main__":
     You can also run:
 
         ci/bootstrap.py
+{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
+    The project doesn't use the test matrix configurator, but in case
+    you change your mind just edit `setup.cfg` and run `ci/bootstrap.py`.
 {% endif %}
 """)
