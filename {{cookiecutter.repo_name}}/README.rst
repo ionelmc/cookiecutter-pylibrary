@@ -46,7 +46,7 @@
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png?style=flat
-    :alt: Scrtinizer Status
+    :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/
 
 {{ cookiecutter.project_short_description }}
