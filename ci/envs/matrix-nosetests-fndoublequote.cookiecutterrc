@@ -3,3 +3,4 @@ default_context:
   c_extension_support: 'no'
   full_name: Io"nel
   test_matrix_configurator: 'yes'
+  test_runner: nosetests

@@ -1,4 +1,5 @@
 default_context:
   c_extension_optional: 'yes'
   c_extension_support: 'yes'
-  test_matrix_configurator: 'yes'
+  test_matrix_configurator: 'no'
+  test_runner: pytest
