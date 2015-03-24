@@ -177,6 +177,16 @@ To make a release of the project on PyPI, the most simple usage is::
 
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
+Changelog
+---------
+
+Use cookiecutter's ``--checkout`` options to use a specific version.
+
+v1.0 (2015-03-24)
+`````````````````
+
+* First tag.
+
 Questions & answers
 -------------------
 
