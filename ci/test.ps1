@@ -1,11 +1,14 @@
 param (
     [string]$target=$(throw "Usage: {0} env-name" -f $MyInvocation.MyCommand.Name)
 )
-write-host "================================" -foregroundcolor "magenta"
-write-host "================================ Testing: $target" -foregroundcolor "magenta"
-write-host "================================" -foregroundcolor "magenta"
+write-host "################################################################################" -foregroundcolor "magenta"
+write-host "################################################################################" -foregroundcolor "magenta"
+write-host ""
+write-host "    Testing: ${Env:USERPROFILE}" -foregroundcolor "magenta"
+write-host ""
+write-host "################################################################################" -foregroundcolor "magenta"
 
-cat "ci/envs/$target.cookiecutterrc" | Set-Content -Path ("{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH)
+rmdir /S /Q python-nameless
 c:\\python27\\Scripts\\cookiecutter --no-input .
 cd python-nameless
 git init .
