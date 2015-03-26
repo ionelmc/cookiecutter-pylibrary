@@ -172,8 +172,12 @@ Before releasing your package on PyPI you should have all the tox environments p
 To make a release of the project on PyPI, the most simple usage is::
 
   python setup.py release
+  twine upload dist/*
 
-(``release`` is aliased to ``register clean sdist bdist_wheel upload``, see ``setup.cfg``).
+Explanations:
+
+* ``release`` is aliased to ``register clean sdist bdist_wheel``, see ``setup.cfg``.
+* `twine <https://pypi.python.org/pypi/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
 
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
