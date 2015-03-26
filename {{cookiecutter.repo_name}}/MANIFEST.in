@@ -18,4 +18,4 @@ include README.rst
 
 include tox.ini .travis.yml appveyor.yml
 
-global-exclude *.py[co] __pycache__ *.so *.pyd
+global-exclude *.py[cod] __pycache__ *.so
