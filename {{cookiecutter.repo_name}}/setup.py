@@ -72,7 +72,7 @@ setup(
     version='{{ cookiecutter.version }}',
     license='BSD',
     description={{ '{0!r}'.format(cookiecutter.project_short_description.encode('utf-8')).lstrip('ub') }},
-    long_description='%s\n%s' % (read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
+    long_description='%s\n%s' % (read('README.rst'), re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
     author={{ '{0!r}'.format(cookiecutter.full_name.encode('utf-8')).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email.encode('utf-8')).lstrip('ub') }},
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
