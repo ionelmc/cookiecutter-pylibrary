@@ -64,9 +64,9 @@ class optional_build_ext(build_ext):
         print('')
         print('    ' + repr(e))
         print('*' * 80)
+
+
 {% endif -%}
-
-
 setup(
     name='{{ cookiecutter.distribution_name }}',
     version='{{ cookiecutter.version }}',
