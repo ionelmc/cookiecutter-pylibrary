@@ -29,7 +29,8 @@ Features
 This is an "all inclusive" sort of template.
 
 * BSD 2-clause license.
-* Tox_ and Pytest_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
+* Tox_ for managing test environments for Python 2.6, 2.7, 3.3, PyPy etc.
+* Pytest_ or Nose_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
 * *Optional* support for creating a tests matrix out of dependencies and python versions.
 * Travis-CI_ and AppVeyor_ for continuous testing.
 * Coveralls_ for coverage tracking (using Tox_).
@@ -121,7 +122,7 @@ You will be asked for these fields:
       - .. code:: python
 
             "pytest"
-      - Select if you want to run tests with ``pytest`` or ``nose``.
+      - Test runner to use. Available options: ``pytest`` or ``nose``.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
@@ -232,3 +233,4 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Pytest: http://pytest.org/
 .. _AppVeyor: http://www.appveyor.com/
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _Nose: http://nose.readthedocs.org/
