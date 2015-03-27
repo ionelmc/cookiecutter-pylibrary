@@ -117,6 +117,11 @@ You will be asked for these fields:
             "no"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
+    * - ``test_runner``
+      - .. code:: python
+
+            "pytest"
+      - Select if you want to run tests with ``pytest`` or ``nose``.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
