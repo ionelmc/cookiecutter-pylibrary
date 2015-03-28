@@ -4,13 +4,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import os
 import sys
-import shutil
 from os.path import exists
 from os.path import join
 
 
 if __name__ == "__main__":
-    base_path = join(".bootstrap")
+    base_path = join(".tox", "configure")
     if sys.platform == "win32":
         bin_path = join(base_path, "Scripts")
     else:
@@ -38,12 +37,12 @@ if __name__ == "__main__":
         keep_trailing_newline=True
     )
     tox_environments = {}
+    for name in os.listdir(join("ci", "envs")):
+        os.unlink(join("ci", "envs", name))
 
-    shutil.rmtree(join("ci", "envs"))
     for (alias, conf) in matrix.from_file(join("ci", "setup.cfg")).items():
         tox_environments[alias] = conf
-        os.makedirs(join("ci", "envs", alias))
-        with open(join("ci", "envs", alias, '.cookiecutterrc'), "w") as fh:
+        with open(join("ci", "envs", alias + '.cookiecutterrc'), "w") as fh:
             fh.write(yaml.safe_dump(
                 dict(default_context={k: v for k, v in conf.items() if v}),
                 default_flow_style=False
