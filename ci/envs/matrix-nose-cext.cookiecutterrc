@@ -1,6 +1,5 @@
 default_context:
   c_extension_optional: 'no'
-  c_extension_support: 'no'
-  project_name: Name"less
+  c_extension_support: 'yes'
   test_matrix_configurator: 'yes'
-  test_runner: nosetests
+  test_runner: nose

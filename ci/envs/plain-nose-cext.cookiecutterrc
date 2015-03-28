@@ -1,5 +1,5 @@
 default_context:
-  c_extension_optional: 'yes'
+  c_extension_optional: 'no'
   c_extension_support: 'yes'
   test_matrix_configurator: 'no'
-  test_runner: nosetests
+  test_runner: nose
