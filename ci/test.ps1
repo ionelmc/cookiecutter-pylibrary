@@ -12,7 +12,8 @@ Remove-Item -Recurse -Force python-nameless
 c:\\python27\\Scripts\\cookiecutter --no-input .
 cd python-nameless
 git init .
-git add .
+git config core.safecrlf false
+git add -A .
 git commit -m "initial."
 (Get-Content -Path "tox.ini") -replace "sphinx-build -b linkcheck","#" | Set-Content -Path "tox.ini"
 c:\\python27\\Scripts\\tox --skip-missing-interpreters

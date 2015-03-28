@@ -19,7 +19,7 @@ rm -rf python-nameless
 cookiecutter --no-input .
 cd python-nameless
 git init .
-git add .
+git add -A .
 git commit -m "initial."
 bumpversion patch
 bumpversion minor
