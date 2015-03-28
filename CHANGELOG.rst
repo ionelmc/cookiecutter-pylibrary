@@ -11,7 +11,7 @@ v1.1 (2015-03-28)
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/9>`_.
 * Strip all text roles from ``long_description`` in ``setup.py``.
 * Added contributing guide for the template.
-* Improved the tests for the template (no more ``.cookiecutterrc`` overriding, other minor perm and path issues).
+* Improved the tests for the template (minor perm and path issues).
 * The ``setup.py release`` doesn't upload anymore. Added instructions for using `twine
   <https://pypi.python.org/pypi/twine>`_.
 * Minor glob simplification in ``MANIFEST.in``.
