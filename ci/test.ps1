@@ -5,7 +5,10 @@ write-host "================================" -foregroundcolor "magenta"
 write-host "================================ Testing: $target" -foregroundcolor "magenta"
 write-host "================================" -foregroundcolor "magenta"
 
-cat "ci/envs/$target.cookiecutterrc" | Set-Content -Path ("{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH)
+$rcpath=("{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH)
+cat "ci/envs/$target.cookiecutterrc" | Set-Content -Path $rcpath
+cat $rcpath
+Remove-Item -Recurse -Force python-nameless
 c:\\python27\\Scripts\\cookiecutter --no-input .
 cd python-nameless
 git init .
