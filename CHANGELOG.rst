@@ -3,6 +3,13 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.2 (2015-04-03)
+-----------------
+
+* Changed the string repr routine for name/description/email to dump unicode literals instead of utf8 encoded bytestrings.
+
+  If you run cookiecutter on Python 2 you'll get unicode escapes ("\uXXXX") and on Python 3 you'll get the pretty gliphs.
+
 v1.1 (2015-03-28)
 -----------------
 
