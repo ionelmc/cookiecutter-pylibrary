@@ -1,54 +1,56 @@
 language: python
-python: 2.7
+python:
+  - 2.7
+  - 3.4
 sudo: false
 env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
-    - ENV=matrix-nose
-    - ENV=matrix-nose-cext
-    - ENV=matrix-nose-cext-optional
-    - ENV=matrix-nose-fnaccents
-    - ENV=matrix-nose-fndoublequote
-    - ENV=matrix-nose-fnquote
-    - ENV=matrix-nose-fntriplequote
-    - ENV=matrix-nose-pnaccents
-    - ENV=matrix-nose-pndoublequote
-    - ENV=matrix-nose-pnquote
-    - ENV=matrix-nose-pntriplequote
-    - ENV=matrix-pytest
-    - ENV=matrix-pytest-cext
-    - ENV=matrix-pytest-cext-optional
-    - ENV=matrix-pytest-fnaccents
-    - ENV=matrix-pytest-fndoublequote
-    - ENV=matrix-pytest-fnquote
-    - ENV=matrix-pytest-fntriplequote
-    - ENV=matrix-pytest-pnaccents
-    - ENV=matrix-pytest-pndoublequote
-    - ENV=matrix-pytest-pnquote
-    - ENV=matrix-pytest-pntriplequote
-    - ENV=plain-nose
-    - ENV=plain-nose-cext
-    - ENV=plain-nose-cext-optional
-    - ENV=plain-nose-fnaccents
-    - ENV=plain-nose-fndoublequote
-    - ENV=plain-nose-fnquote
-    - ENV=plain-nose-fntriplequote
-    - ENV=plain-nose-pnaccents
-    - ENV=plain-nose-pndoublequote
-    - ENV=plain-nose-pnquote
-    - ENV=plain-nose-pntriplequote
-    - ENV=plain-pytest
-    - ENV=plain-pytest-cext
-    - ENV=plain-pytest-cext-optional
-    - ENV=plain-pytest-fnaccents
-    - ENV=plain-pytest-fndoublequote
-    - ENV=plain-pytest-fnquote
-    - ENV=plain-pytest-fntriplequote
-    - ENV=plain-pytest-pnaccents
-    - ENV=plain-pytest-pndoublequote
-    - ENV=plain-pytest-pnquote
-    - ENV=plain-pytest-pntriplequote
+    - ENV=matrix-nose-cext-fndef-pndef
+    - ENV=matrix-nose-cext-optional-fndef-pndef
+    - ENV=matrix-nose-fnaccents-pndef
+    - ENV=matrix-nose-fndef-pnaccents
+    - ENV=matrix-nose-fndef-pndef
+    - ENV=matrix-nose-fndef-pndoublequote
+    - ENV=matrix-nose-fndef-pnquote
+    - ENV=matrix-nose-fndef-pntriplequote
+    - ENV=matrix-nose-fndoublequote-pndef
+    - ENV=matrix-nose-fnquote-pndef
+    - ENV=matrix-nose-fntriplequote-pndef
+    - ENV=matrix-pytest-cext-fndef-pndef
+    - ENV=matrix-pytest-cext-optional-fndef-pndef
+    - ENV=matrix-pytest-fnaccents-pndef
+    - ENV=matrix-pytest-fndef-pnaccents
+    - ENV=matrix-pytest-fndef-pndef
+    - ENV=matrix-pytest-fndef-pndoublequote
+    - ENV=matrix-pytest-fndef-pnquote
+    - ENV=matrix-pytest-fndef-pntriplequote
+    - ENV=matrix-pytest-fndoublequote-pndef
+    - ENV=matrix-pytest-fnquote-pndef
+    - ENV=matrix-pytest-fntriplequote-pndef
+    - ENV=plain-nose-cext-fndef-pndef
+    - ENV=plain-nose-cext-optional-fndef-pndef
+    - ENV=plain-nose-fnaccents-pndef
+    - ENV=plain-nose-fndef-pnaccents
+    - ENV=plain-nose-fndef-pndef
+    - ENV=plain-nose-fndef-pndoublequote
+    - ENV=plain-nose-fndef-pnquote
+    - ENV=plain-nose-fndef-pntriplequote
+    - ENV=plain-nose-fndoublequote-pndef
+    - ENV=plain-nose-fnquote-pndef
+    - ENV=plain-nose-fntriplequote-pndef
+    - ENV=plain-pytest-cext-fndef-pndef
+    - ENV=plain-pytest-cext-optional-fndef-pndef
+    - ENV=plain-pytest-fnaccents-pndef
+    - ENV=plain-pytest-fndef-pnaccents
+    - ENV=plain-pytest-fndef-pndef
+    - ENV=plain-pytest-fndef-pndoublequote
+    - ENV=plain-pytest-fndef-pnquote
+    - ENV=plain-pytest-fndef-pntriplequote
+    - ENV=plain-pytest-fndoublequote-pndef
+    - ENV=plain-pytest-fnquote-pndef
+    - ENV=plain-pytest-fntriplequote-pndef
 before_install:
   - python --version
   - virtualenv --version
