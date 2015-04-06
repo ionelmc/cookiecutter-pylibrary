@@ -60,7 +60,7 @@ install:
   - "c:\\python27\\python c:\\get-pip.py"
   - "c:\\python27\\Scripts\\pip install wheel"
   - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
-  - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv"
+  - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
