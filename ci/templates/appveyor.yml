@@ -1,6 +1,8 @@
-build: false
+build: off
 cache:
-  - c:/Users/appveyor/pip/wheels -> tox.ini
+  - C:\Users\appveyor\pip\wheels -> tox.ini
+matrix:
+  fast_finish: true  
 environment:
   matrix:
 {% for env, config in tox_environments|dictsort %}
