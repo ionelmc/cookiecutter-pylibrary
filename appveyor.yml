@@ -1,4 +1,6 @@
 build: false
+cache:
+  - c:/Users/appveyor/pip/wheels -> tox.ini
 environment:
   matrix:
     - ENV: matrix-nose-cext-fndef-pndef
@@ -50,11 +52,15 @@ init:
   - "set"
   - ps: "ls C:\\Python*"
 install:
+  - ps: New-Item -Force -ItemType directory -Path "c:/Users/appveyor/pip/wheels"
+  - ps: Copy-Item -Path "./ci/pip.ini" -Destination "c:/Users/appveyor/pip/pip.ini" -Force
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
   - "c:\\python27\\python c:\\ez_setup.py"
   - "c:\\python27\\python c:\\get-pip.py"
-  - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
+  - "c:\\python27\\Scripts\\pip install wheel"
+  - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
+  - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv"
 test_script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
