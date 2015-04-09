@@ -7,12 +7,13 @@ import sys
 from os.path import exists
 from os.path import join
 from os.path import dirname
+from os.path import abspath
 
 
 if __name__ == "__main__":
-    base_path = dirname(dirname(__file__))
-    print("Project base: {0}".format(base_path))
-    env_path = join(base_path, ".tox", "configure")
+    base_path = dirname(dirname(abspath(__file__)))
+    print("Project path: {0}".format(base_path))
+    env_path = join(base_path, ".tox", "bootstrap")
     if sys.platform == "win32":
         bin_path = join(env_path, "Scripts")
     else:
