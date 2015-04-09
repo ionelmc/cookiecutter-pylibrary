@@ -1,6 +1,6 @@
 build: off
-cache:
-  - C:\Users\appveyor\pip\wheels -> tox.ini
+version: '{branch}-{build}'
+cache: C:\Users\appveyor\pip\wheels
 matrix:
   fast_finish: true  
 environment:
