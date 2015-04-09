@@ -1,0 +1,6 @@
+default_context:
+  c_extension_optional: 'no'
+  c_extension_support: 'yes'
+  command_line_interface: click
+  test_matrix_configurator: 'yes'
+  test_runner: nose

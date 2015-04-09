@@ -1,6 +1,0 @@
-default_context:
-  c_extension_optional: 'no'
-  c_extension_support: 'no'
-  project_name: "Nam\xE9less"
-  test_matrix_configurator: 'yes'
-  test_runner: nose

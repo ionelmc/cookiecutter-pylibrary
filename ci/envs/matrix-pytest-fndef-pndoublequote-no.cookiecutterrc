@@ -1,0 +1,7 @@
+default_context:
+  c_extension_optional: 'no'
+  c_extension_support: 'no'
+  command_line_interface: 'no'
+  project_name: Name"less
+  test_matrix_configurator: 'yes'
+  test_runner: pytest
