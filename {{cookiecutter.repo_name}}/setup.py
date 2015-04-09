@@ -103,14 +103,20 @@ setup(
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     install_requires=[
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+        'click',
+{%- else %}
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
+{%- endif %}
     ],
     extras_require={
         # eg: 'rst': ['docutils>=0.11'],
     },
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main'
+{%- if cookiecutter.c_extension_support|lower in 'plain', 'click' %}
+            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main',
+{%- endif %}
         ]
     },
 {%- if cookiecutter.c_extension_support|lower == 'yes' -%}

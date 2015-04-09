@@ -1,5 +1,7 @@
-{%- raw -%}
 import sys
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+import click
+{%- endif %}
 # Why does this file exist, and why __main__?
 # For more info, read:
 # - https://www.python.org/dev/peps/pep-0338/
@@ -7,6 +9,12 @@ import sys
 # - https://docs.python.org/3/using/cmdline.html#cmdoption-m
 
 
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+@click.command()
+@click.argument('names', nargs=-1)
+def main(names):
+    click.echo(repr(names))
+{%- else %}
 def main(argv=()):
     """
     Args:
@@ -20,7 +28,7 @@ def main(argv=()):
 
     print(argv)
     return 0
+{%- endif %}
 
 if __name__ == "__main__":
     sys.exit(main())
-{%- endraw %}

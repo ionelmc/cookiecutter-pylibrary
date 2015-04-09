@@ -122,6 +122,16 @@ You will be asked for these fields:
 
             "pytest"
       - Test runner to use. Available options: ``pytest`` or ``nose``.
+    * - ``command_line_interface``
+      - .. code:: python
+
+            "plain"
+      - Option to enable a CLI (a bin/executable file). Available options:
+
+        * ``plain`` - a very simple command.
+        * ``click`` - a command implemented with `click <http://click.pocoo.org/>`_ - which you can use to build more complex commands.
+        * ``no`` - no CLI at all.
+
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
