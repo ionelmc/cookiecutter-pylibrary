@@ -3,6 +3,9 @@ python:
   - 2.7
   - 3.4
 sudo: false
+cache:
+  directories:
+  - $HOME/.pip/wheels
 env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
@@ -17,6 +20,11 @@ before_install:
   - uname -a
   - lsb_release -a
 install:
+  - mkdir -p ~/.pip
+  - cp ci/pip.conf ~/.pip/pip.conf
+  - pip wheel tox virtualenv cookiecutter bumpversion
+  - pip wheel pytest-capturelog pytest-cov pytest
+  - pip wheel nose coverage
   - pip install -I -U tox cookiecutter bumpversion
 script:
   - git config --global user.email "you@example.com"
