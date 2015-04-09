@@ -2,7 +2,7 @@ build: off
 version: '{branch}-{build}'
 cache: C:\Users\appveyor\pip\wheels
 matrix:
-  fast_finish: true  
+  fast_finish: true
 environment:
   matrix:
 {% for env, config in tox_environments|dictsort %}
@@ -21,6 +21,8 @@ install:
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
   - "c:\\python27\\python c:\\get-pip.py setuptools wheel"
   - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
+  - "c:\\python27\\Scripts\\pip wheel pytest-capturelog pytest-cov pytest"
+  - "c:\\python27\\Scripts\\pip wheel nose coverage"
   - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
   - git config --global user.email "you@example.com"
