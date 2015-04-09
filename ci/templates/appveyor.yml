@@ -13,7 +13,9 @@ init:
   - "set"
   - ps: "ls C:\\Python*"
 install:
+  - ps: ls c:/Users/appveyor/pip/wheels
   - ps: New-Item -Force -ItemType directory -Path "c:/Users/appveyor/pip/wheels"
+  - ps: ls c:/Users/appveyor/pip/wheels
   - ps: Copy-Item -Path "./ci/pip.ini" -Destination "c:/Users/appveyor/pip/pip.ini" -Force
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
