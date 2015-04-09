@@ -21,7 +21,6 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor|
     <http://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
-* There's also a *minimal* version of this, see [1]_
 
 Features
 --------
@@ -201,26 +200,20 @@ There's no Makefile?
 
 Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, ``docs/conf.py``)?
 
-  We cannot use a metadata/version file [2]_ because this template is to be used with both distributions of packages (dirs
+  We cannot use a metadata/version file [#]_ because this template is to be used with both distributions of packages (dirs
   with ``__init__.py``) and modules (simple ``.py`` files that go straigh in ``site-packages``). There's no good place
   for that extra file if you're distributing modules.
 
   But this isn't so bad - `bumpversion <https://pypi.python.org/pypi/bumpversion>`_ manages the version string quite
   neatly.
 
+.. [#] Example, an ``__about__.py`` file.
+
 Not Exactly What You Want?
 --------------------------
 
 No way, this is the best. :stuck_out_tongue_winking_eye:
 
-.. [1]
-
-  In case you don't fancy pytest there's a `simpler variant of this template
-  <https://github.com/ionelmc/cookiecutter-pylibrary-minimal>`_ that doesn't use Pytest_. Just bare crappy ``unittest``.
-
-.. [2]
-
-  Example, an ``__about__.py`` file.
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
