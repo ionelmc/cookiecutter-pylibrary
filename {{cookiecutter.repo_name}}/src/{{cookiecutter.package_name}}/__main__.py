@@ -9,7 +9,7 @@ import click
 # - https://docs.python.org/3/using/cmdline.html#cmdoption-m
 
 
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
 @click.command()
 @click.argument('names', nargs=-1)
 def main(names):
