@@ -1,5 +1,5 @@
 {%- raw -%}
-version: '{build}'
+version: '{branch}-{build}'
 build: off
 environment:
   global:
