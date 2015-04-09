@@ -3,12 +3,13 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-v1.2 (2015-04-03)
+v1.2 (2015-04-10)
 -----------------
 
 * Changed the string repr routine for name/description/email to dump unicode literals instead of utf8 encoded bytestrings.
 
   If you run cookiecutter on Python 2 you'll get unicode escapes ("\uXXXX") and on Python 3 you'll get the pretty gliphs.
+* Fix the ``bootstrap.py`` script (that's used for the ``test_matrix_configurator`` mode) to work from any current working directory.
 
 v1.1 (2015-03-28)
 -----------------
