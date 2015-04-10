@@ -152,6 +152,9 @@ install:
   - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
   - "c:\\python27\\Scripts\\pip wheel pytest-capturelog pytest-cov pytest"
   - "c:\\python27\\Scripts\\pip wheel nose coverage"
+  - "c:\\python27\\Scripts\\pip wheel cpp-coveralls"
+  - "c:\\python27\\Scripts\\pip wheel jinja2 matrix"
+  - "c:\\python27\\Scripts\\pip wheel docutils check-manifest flake8 readme pygments"
   - "c:\\python27\\Scripts\\pip install -I -U tox virtualenv cookiecutter"
 test_script:
   - git config --global user.email "you@example.com"

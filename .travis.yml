@@ -154,6 +154,9 @@ install:
   - pip wheel tox virtualenv cookiecutter bumpversion
   - pip wheel pytest-capturelog pytest-cov pytest
   - pip wheel nose coverage
+  - pip wheel cpp-coveralls
+  - pip wheel jinja2 matrix
+  - pip wheel docutils check-manifest flake8 readme pygments
   - pip install -I -U tox cookiecutter bumpversion
 script:
   - git config --global user.email "you@example.com"
