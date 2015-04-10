@@ -3,7 +3,7 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-v1.2 (2015-04-10)
+v1.2 (2015-04-11)
 -----------------
 
 * Changed the string repr routine for name/description/email to dump unicode literals instead of utf8 encoded bytestrings.
