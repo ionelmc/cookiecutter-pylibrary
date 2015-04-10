@@ -14,7 +14,7 @@ import click
 @click.argument('names', nargs=-1)
 def main(names):
     click.echo(repr(names))
-{%- else %}
+{%- else -%}
 def main(argv=()):
     """
     Args:
