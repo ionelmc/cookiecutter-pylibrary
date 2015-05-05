@@ -3,6 +3,11 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.3 (2015-05-06)
+-----------------
+
+* Cleanup and extend ``.gitignore`` a bit. Contributed by Ludovic Gasc, `#10 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/10>`_.
+
 v1.2 (2015-04-11)
 -----------------
 
