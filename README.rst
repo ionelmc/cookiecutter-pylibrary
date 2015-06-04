@@ -208,6 +208,15 @@ There's no Makefile?
 
   Sorry, no ``Makefile`` yet. The Tox_ environments stand for whatever you'd have in a ``Makefile``.
 
+Why does ``tox.ini`` have a ``passenv = *``?
+
+  Tox 2.0 changes the way it runs subprocesses - it no longer passes all the environment variables by default. This causes
+  all sorts of problems if you want to run/use any of these with Tox: SSH Agents, Browsers (for Selenium), Appengine SDK, 
+  VC Compiler and so on.
+  
+  `cookiecutter-pylibrary` errs on the side of convenience here. You can always remove ``passenv = *`` if you like 
+  the strictness.
+
 Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, ``docs/conf.py``)?
 
   We cannot use a metadata/version file [#]_ because this template is to be used with both distributions of packages (dirs
