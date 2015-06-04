@@ -3,6 +3,12 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.4 (2015-06-05)
+-----------------
+
+* Add ``passenv = *`` in the resulting ``tox.ini``. Fixes various inconveniences caused by the restricted
+  subprocess environments in `tox-2.0`. Contributed by Christer van der Meeren, `#11 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/11>`_.
+
 v1.3 (2015-05-06)
 -----------------
 
