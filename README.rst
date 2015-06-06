@@ -36,8 +36,8 @@ This is an "all inclusive" sort of template.
 * Documentation with Sphinx_, ready for ReadTheDocs_.
 * Configurations for:
 
-  * `isort <https://pypi.python.org/pypi/isort>`_
-  * `bumpversion <https://pypi.python.org/pypi/bumpversion>`_
+  * isort_
+  * bumpversion_
 
 * Support for C extensions (including coverage measurement for the C code).
 * Packaging and code quality checks. This template comes with a tox environment (``check``) that will:
@@ -196,6 +196,16 @@ Explanations:
 
 If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
 
+Version management
+``````````````````
+This template provides a basic bumpversion_ configuration. It's as simple as running:
+
+* ``bumpversion patch`` to increase version from `1.0.0` to `1.0.1`.
+* ``bumpversion minor`` to increase version from `1.0.0` to `1.1.0`.
+* ``bumpversion major`` to increase version from `1.0.0` to `2.0.0`.
+
+You should read `Semantic Versioning 2.0.0 <http://semver.org/>`_ before bumping versions.
+
 Changelog
 ---------
 
@@ -246,3 +256,5 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _AppVeyor: http://www.appveyor.com/
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _Nose: http://nose.readthedocs.org/
+.. _isort: https://pypi.python.org/pypi/isort
+.. _bumpversion: https://pypi.python.org/pypi/bumpversion
