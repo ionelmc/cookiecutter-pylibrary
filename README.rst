@@ -195,7 +195,7 @@ To run all the tests, just run::
 
 To see all the tox environments::
 
-  tox --listenvs
+  tox -l
 
 To only build the docs::
 
@@ -206,9 +206,22 @@ To build and verify that the built package is proper and other code QA checks::
   tox -e check
 
 Releasing the project
-``````````````````````
-
+`````````````````````
 Before releasing your package on PyPI you should have all the tox environments passing.
+
+Version management
+''''''''''''''''''
+
+This template provides a basic bumpversion_ configuration. It's as simple as running:
+
+* ``bumpversion patch`` to increase version from `1.0.0` to `1.0.1`.
+* ``bumpversion minor`` to increase version from `1.0.0` to `1.1.0`.
+* ``bumpversion major`` to increase version from `1.0.0` to `2.0.0`.
+
+You should read `Semantic Versioning 2.0.0 <http://semver.org/>`_ before bumping versions.
+
+Building and uploading
+''''''''''''''''''''''
 
 To make a release of the project on PyPI, the most simple usage is::
 
@@ -219,18 +232,6 @@ Explanations:
 
 * ``release`` is aliased to ``register clean sdist bdist_wheel``, see ``setup.cfg``.
 * `twine <https://pypi.python.org/pypi/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
-
-If you care about security you can do secure uploads to PyPI using `twine <https://pypi.python.org/pypi/twine>`_.
-
-Version management
-``````````````````
-This template provides a basic bumpversion_ configuration. It's as simple as running:
-
-* ``bumpversion patch`` to increase version from `1.0.0` to `1.0.1`.
-* ``bumpversion minor`` to increase version from `1.0.0` to `1.1.0`.
-* ``bumpversion major`` to increase version from `1.0.0` to `2.0.0`.
-
-You should read `Semantic Versioning 2.0.0 <http://semver.org/>`_ before bumping versions.
 
 Changelog
 ---------
@@ -247,10 +248,10 @@ There's no Makefile?
 Why does ``tox.ini`` have a ``passenv = *``?
 
   Tox 2.0 changes the way it runs subprocesses - it no longer passes all the environment variables by default. This causes
-  all sorts of problems if you want to run/use any of these with Tox: SSH Agents, Browsers (for Selenium), Appengine SDK, 
+  all sorts of problems if you want to run/use any of these with Tox: SSH Agents, Browsers (for Selenium), Appengine SDK,
   VC Compiler and so on.
-  
-  `cookiecutter-pylibrary` errs on the side of convenience here. You can always remove ``passenv = *`` if you like 
+
+  `cookiecutter-pylibrary` errs on the side of convenience here. You can always remove ``passenv = *`` if you like
   the strictness.
 
 Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, ``docs/conf.py``)?
@@ -284,3 +285,6 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Nose: http://nose.readthedocs.org/
 .. _isort: https://pypi.python.org/pypi/isort
 .. _bumpversion: https://pypi.python.org/pypi/bumpversion
+.. _Codecov: http://codecov.io/
+.. _Landscape: https://landscape.io/
+.. _Scrutinizer: https://scrutinizer-ci.com/
