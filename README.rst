@@ -32,7 +32,7 @@ This is an "all inclusive" sort of template.
 * Pytest_ or Nose_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
 * *Optional* support for creating a tests matrix out of dependencies and python versions.
 * Travis-CI_ and AppVeyor_ for continuous testing.
-* Coveralls_ for coverage tracking (using Tox_).
+* Coveralls_ or Codecov_ for coverage tracking (using Tox_).
 * Documentation with Sphinx_, ready for ReadTheDocs_.
 * Configurations for:
 
