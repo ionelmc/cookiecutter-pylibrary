@@ -3,6 +3,12 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.5 (??????????)
+-----------------
+
+* Added support for codecov.
+* Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
+
 v1.4 (2015-06-05)
 -----------------
 
