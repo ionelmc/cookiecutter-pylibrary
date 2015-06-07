@@ -8,7 +8,12 @@ env:
   matrix:
     - TOXENV=check
 {% for env, config in tox_environments|dictsort %}
-    - TOXENV={{ env }}{% if config.cover %}{% endraw %}{% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %}{% raw %},coveralls{% endif %}
+    - TOXENV={{ env }}{% if config.cover %}{% endraw %}
+        {%- if cookiecutter.coveralls|lower == 'yes' -%}
+          {% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+        {%- endif %}
+        {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
+      {%- raw %}{% endif %}
 
 {% endfor %}
 before_install:

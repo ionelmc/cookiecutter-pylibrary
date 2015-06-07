@@ -132,6 +132,32 @@ You will be asked for these fields:
         * ``click`` - a command implemented with `click <http://click.pocoo.org/>`_ - which you can use to build more complex commands.
         * ``no`` - no CLI at all.
 
+    * - ``cookiecutter.coveralls``
+      - .. code:: python
+
+            "yes"
+      - Enable pushing coverage data to Coveralls_ and add badge in ``README.rst``.
+
+    * - ``cookiecutter.codecov``
+      - .. code:: python
+
+            "no"
+      - Enable pushing coverage data to Codecov_ and add badge in ``README.rst``.
+
+        **Note:** Doesn't support pushing C extension coverage yet.
+
+    * - ``cookiecutter.landscape``
+      - .. code:: python
+
+            "no"
+      - Add a Landscape_ badge in ``README.rst``.
+
+    * - ``cookiecutter.scrutinizer``
+      - .. code:: python
+
+            "no"
+      - Add a Scrutinizer_ badge in ``README.rst``.
+
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::

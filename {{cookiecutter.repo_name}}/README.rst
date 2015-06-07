@@ -2,7 +2,12 @@
 {{ cookiecutter.project_name }}
 ===============================
 
-| |docs| |travis| |appveyor| |coveralls| |landscape| |scrutinizer|
+| |docs| |travis| |appveyor|
+{%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
+{%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
+{%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
+{%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
+{{ '' }}
 | |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
@@ -20,6 +25,10 @@
 .. |coveralls| image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png?style=flat
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
+
+.. |codecov| image:: http://img.shields.io/codecov/c/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png?style=flat
+    :alt: Coverage Status
+    :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
 .. |landscape| image:: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master/landscape.svg?style=flat
     :target: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master
