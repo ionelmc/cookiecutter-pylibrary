@@ -8,6 +8,7 @@ v1.5 (??????????)
 
 * Added support for codecov.
 * Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
+* Disabled all the pypip.in badges (server has way too much downtime).
 
 v1.4 (2015-06-05)
 -----------------

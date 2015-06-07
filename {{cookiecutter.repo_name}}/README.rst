@@ -3,12 +3,16 @@
 ===============================
 
 | |docs| |travis| |appveyor|
+|
 {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
 {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
 {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
 {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
 {{ '' }}
-| |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+| |version| |downloads|
+
+..
+    |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}
