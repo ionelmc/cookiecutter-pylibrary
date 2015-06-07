@@ -16,8 +16,8 @@
     "test_matrix_configurator": "no",
     "test_runner": "pytest",
     "command_line_interface": "plain",
-    "coveralls": "yes",
-    "codecov": "no",
+    "coveralls": "no",
+    "codecov": "yes",
     "landscape": "no",
     "scrutinizer": "no"
 }
