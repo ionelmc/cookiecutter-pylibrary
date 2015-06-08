@@ -30,7 +30,7 @@
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. |codecov| image:: http://img.shields.io/codecov/c/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.png?style=flat
+.. |codecov| image:: http://img.shields.io/codecov/c/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
