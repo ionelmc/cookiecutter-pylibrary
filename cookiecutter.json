@@ -19,6 +19,6 @@
     "coveralls": "no",
     "codecov": "yes",
     "landscape": "no",
-    "scrutinizer": "no"
+    "scrutinizer": "no",
     "rtd_theme": "no"
 }
