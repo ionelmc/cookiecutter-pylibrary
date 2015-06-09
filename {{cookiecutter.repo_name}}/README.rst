@@ -2,14 +2,15 @@
 {{ cookiecutter.project_name }}
 ===============================
 
-| |docs| |travis| |appveyor|
+| Docs: |docs|
+| Tests: |travis| |appveyor|
 |
 {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
 {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
 {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
 {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
 {{ '' }}
-| |version| |downloads|
+| Package: |version| |downloads|
 
 ..
     |wheel| |supported-versions| |supported-implementations|
@@ -18,19 +19,19 @@
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}
     :alt: Documentation Status
 
-.. |travis| image:: http://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
+.. |travis| image:: http://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
+.. |appveyor| image:: https://img.shields.io/appveyor/ci/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=AppVeyor
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. |coveralls| image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
+.. |coveralls| image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Coveralls
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. |codecov| image:: http://img.shields.io/codecov/c/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
+.. |codecov| image:: http://img.shields.io/codecov/c/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Codecov
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
