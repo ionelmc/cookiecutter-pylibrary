@@ -10,6 +10,7 @@ v1.5 (??????????)
 * Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
 * Disabled all the pypip.in badges (server has way too much downtime).
 * A fix for a whitespace issue in outputed ``tox.ini``.
+* Add option to use Read The Docs theme when building docs locally.
 
 v1.4 (2015-06-05)
 -----------------
