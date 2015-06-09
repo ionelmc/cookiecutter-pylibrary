@@ -20,4 +20,5 @@
     "codecov": "yes",
     "landscape": "no",
     "scrutinizer": "no"
+    "rtd_theme": "no"
 }
