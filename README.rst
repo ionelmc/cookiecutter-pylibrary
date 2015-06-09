@@ -158,6 +158,11 @@ You will be asked for these fields:
             "no"
       - Add a Scrutinizer_ badge in ``README.rst``.
 
+    * - ``rtd_theme``
+      - .. code:: python
+
+            "no"
+      - Whether to use the Read The Docs theme when building docs locally.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
