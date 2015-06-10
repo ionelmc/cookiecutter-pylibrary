@@ -6,11 +6,13 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 v1.5 (??????????)
 -----------------
 
-* Added support for codecov.
+* Added support for Codecov. Codecov badge is active by default.
 * Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
 * Disabled all the pypip.in badges (server has way too much downtime).
-* A fix for a whitespace issue in outputed ``tox.ini``.
-* Add option to use Read The Docs theme when building docs locally.
+* Fixed a whitespace issue in outputed ``tox.ini``.
+* Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme.
+* Added a ``.cookiecutterrc`` file to help with regenerating projects.
+* Prettied up the badges (SVG badges, better grouping).
 
 v1.4 (2015-06-05)
 -----------------
