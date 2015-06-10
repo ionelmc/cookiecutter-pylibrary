@@ -1,8 +1,6 @@
 sphinx
 sphinxcontrib-napoleon
-{%- if cookiecutter.rtd_theme|lower == 'no' %}
-sphinx-py3doc-enhanced-theme
-{%- else %}
-sphinx_rtd_theme
+{%- if cookiecutter.sphinx_theme|lower != 'readthedocs' %}
+{{ cookiecutter.sphinx_theme|replace('_', '-') }}
 {%- endif %}
 -e .

@@ -26,10 +26,10 @@ author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
 version = release = {{ '{0!r}'.format(cookiecutter.version) }}
 
-{%- if cookiecutter.rtd_theme|lower == 'no' %}
-import sphinx_py3doc_enhanced_theme
-html_theme = "sphinx_py3doc_enhanced_theme"
-html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
+{%- if cookiecutter.sphinx_theme|lower != 'readthedocs' %}
+import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
+html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
+html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
     'githuburl': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/'
 }

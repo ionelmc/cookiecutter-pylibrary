@@ -158,11 +158,17 @@ You will be asked for these fields:
             "no"
       - Add a Scrutinizer_ badge in ``README.rst``.
 
-    * - ``rtd_theme``
+    * - ``sphinx_theme``
       - .. code:: python
 
-            "no"
-      - Whether to use the Read The Docs theme when building docs locally.
+            "readthedocs"
+      - What Sphinx_ theme to use.
+
+        If theme is different than ``"readthedocs"`` then it's also going to be added in ``docs/requirements.txt``.
+
+        Suggested alternative: `sphinx-py3doc-enhanced-theme
+        <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
+        the Python 3 documentation.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
