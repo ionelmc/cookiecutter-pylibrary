@@ -2,15 +2,20 @@
 {{ cookiecutter.project_name }}
 ===============================
 
-| Docs: |docs|
-| Tests: |travis| |appveyor|
-|
-{%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
-{%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
-{%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
-{%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
+.. list-table::
+    :stub-columns: 1
+
+    * - docs
+      - |docs|
+    * - tests
+      - | |travis| |appveyor|
+        | {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
+          {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
+          {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
+          {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
 {{ '' }}
-| Package: |version| |downloads|
+    * - package
+      - |version| |downloads|
 
 ..
     |wheel| |supported-versions| |supported-implementations|
