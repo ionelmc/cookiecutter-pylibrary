@@ -13,6 +13,7 @@ v1.5 (??????????)
 * Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme.
 * Added a ``.cookiecutterrc`` file to help with regenerating projects.
 * Prettied up the badges (SVG badges, better grouping).
+* Don't use the deprecated 'files' option anymore in bumpversion configuration.
 
 v1.4 (2015-06-05)
 -----------------
