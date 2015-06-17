@@ -117,7 +117,7 @@ setup(
     entry_points={
         'console_scripts': [
 {%- if cookiecutter.c_extension_support|lower in 'plain', 'click' %}
-            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.__main__:main',
+            '{{ cookiecutter.distribution_name }} = {{ cookiecutter.package_name }}.__main__:main',
 {%- endif %}
         ]
     },
