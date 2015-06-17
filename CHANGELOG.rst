@@ -3,7 +3,7 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-v1.5 (??????????)
+v1.5 (2015-06-18)
 -----------------
 
 * Added support for Codecov. Codecov badge is active by default.
@@ -13,7 +13,9 @@ v1.5 (??????????)
 * Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme.
 * Added a ``.cookiecutterrc`` file to help with regenerating projects.
 * Prettied up the badges (SVG badges, better grouping).
-* Don't use the deprecated 'files' option anymore in bumpversion configuration.
+* Corrrected the use of the deprecated 'files' option anymore in bumpversion configuration.
+* Changed the sample console script to use the distribution name instead of the package name for the bin name.
+* Changed coverage measurements to use pytest-cover instead of pytest-cov (which has several issues now).
 
 v1.4 (2015-06-05)
 -----------------
