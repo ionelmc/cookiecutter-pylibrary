@@ -5,5 +5,5 @@
 
 default_context:
 {% for key, value in cookiecutter.items()|sort %}
-    {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(key).strip("u") }}
+    {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
 {%- endfor %}

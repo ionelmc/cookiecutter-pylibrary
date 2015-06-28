@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     You've used these cookiecutter parameters:
 {% for key, value in cookiecutter.items()|sort %}
-        {{ "%-26s"|format(key + ":") }} {{ (value|pprint).lstrip("u") }}
+        {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
 {%- endfor %}
 
 ################################################################################
