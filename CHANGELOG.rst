@@ -3,6 +3,11 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.6 (2015-06-28)
+-----------------
+
+* Fix wrong ``.cookiecutterrc`` output.
+
 v1.5 (2015-06-18)
 -----------------
 
