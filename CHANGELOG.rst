@@ -3,6 +3,11 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.7 (2015-06-30)
+-----------------
+
+* Fixed wrong check for ``command_line_interface`` option in the template for ``setup.py``.
+
 v1.6 (2015-06-28)
 -----------------
 

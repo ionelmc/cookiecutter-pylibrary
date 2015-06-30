@@ -114,13 +114,13 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
+{%- if cookiecutter.command_line_interface|lower in 'plain', 'click' %}
     entry_points={
         'console_scripts': [
-{%- if cookiecutter.c_extension_support|lower in 'plain', 'click' %}
             '{{ cookiecutter.distribution_name }} = {{ cookiecutter.package_name }}.__main__:main',
-{%- endif %}
         ]
     },
+{%- endif %}
 {%- if cookiecutter.c_extension_support|lower == 'yes' -%}
 {%- if cookiecutter.c_extension_optional|lower == 'yes' %}
     cmdclass={'build_ext': optional_build_ext},
