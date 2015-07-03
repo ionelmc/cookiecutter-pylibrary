@@ -3,6 +3,13 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.8 (2015-07-03)
+-----------------
+
+* Remove the 64bit environment from the basic AppVeyor test matrix.
+* Change the ``tox.ini`` template (``test_matrix_configurator=yes``) to allow overriding the
+  interpreter (so that 64bit interpreter actually gets used on AppVeyor).
+
 v1.7.1 (2015-07-03)
 -------------------
 
