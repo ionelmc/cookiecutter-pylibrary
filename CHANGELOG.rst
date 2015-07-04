@@ -3,6 +3,12 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.8.1 (2015-07-04)
+-------------------
+
+* Change the basic ``tox.ini`` to allow overriding the interpreter (so that 64bit interpreter
+  actually gets used on AppVeyor).
+
 v1.8 (2015-07-03)
 -----------------
 
