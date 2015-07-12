@@ -17,10 +17,17 @@ if __name__ == "__main__":
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
 {% endif %}
-{%- if cookiecutter.command_line_interface|lower == 'no' %}
     from os.path import join
+    import shutil
     import os
+
+{%- if cookiecutter.command_line_interface|lower == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '__main__.py'))
+{% endif %}
+
+{%- if cookiecutter.test_matrix_configurator|lower == 'no' %}
+    os.unlink(join('ci', 'bootstrap.py'))
+    shutil.rmtree(join('ci', 'templates'))
 {% endif %}
 
     print("""
