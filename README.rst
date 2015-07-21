@@ -164,6 +164,8 @@ You will be asked for these fields:
             "no"
       - Add a Codacy_ badge in ``README.rst``.
 
+	    **Note:** After importing the project in Codacy, find the hexadecimal project ID from settings and replace it in badge URL
+
     * - ``cookiecutter.codeclimate``
       - .. code:: python
 
