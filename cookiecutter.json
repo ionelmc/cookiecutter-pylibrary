@@ -20,7 +20,7 @@
     "codecov": "yes",
     "landscape": "no",
     "scrutinizer": "no",
-	"codacy" : "no",
-	"codeclimate" : "no",
+    "codacy" : "no",
+    "codeclimate" : "no",
     "sphinx_theme": "readthedocs"
 }
