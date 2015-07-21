@@ -46,13 +46,13 @@
     :alt: Code Quality Status
 {% endif %}
 {% if cookiecutter.codacy|lower == 'yes' %}
-.. |codacy| image:: https://www.codacy.com/project/badge/REPLACE_WITH_PROJECT_ID
+.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat&label=Codacy
     :target: https://www.codacy.com/app/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
     :alt: Codacy Code Quality Status
 {% endif %}
 {% if cookiecutter.codeclimate|lower == 'yes' %}
-.. |codeclimate| image:: https://codeclimate.com/repos/REPLACE_WITH_PROJECT_ID/gpa.svg
-   :target: https://codeclimate.com/repos/REPLACE_WITH_PROJECT_ID/feed
+.. |codeclimate| image::  	https://img.shields.io/codeclimate/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?style=flat&label=CodeClimate
+   :target: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
 .. |version| image:: http://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
