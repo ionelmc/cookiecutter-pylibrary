@@ -158,6 +158,18 @@ You will be asked for these fields:
             "no"
       - Add a Scrutinizer_ badge in ``README.rst``.
 
+    * - ``cookiecutter.codacy``
+      - .. code:: python
+
+            "no"
+      - Add a Codacy_ badge in ``README.rst``.
+
+    * - ``cookiecutter.codeclimate``
+      - .. code:: python
+
+            "no"
+      - Add a CodeClimate_ badge in ``README.rst``.
+
     * - ``sphinx_theme``
       - .. code:: python
 
@@ -299,3 +311,5 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Codecov: http://codecov.io/
 .. _Landscape: https://landscape.io/
 .. _Scrutinizer: https://scrutinizer-ci.com/
+.. _Codacy: https://codacy.com/
+.. _CodeClimate: https://codeclimate.com/

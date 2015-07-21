@@ -13,6 +13,8 @@
           {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
           {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
           {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
+          {%- if cookiecutter.codacy|lower == 'yes' %} |codacy|{% endif -%}
+          {%- if cookiecutter.codeclimate|lower == 'yes' %} |codeclimate|{% endif -%}
 {{ '' }}
     * - package
       - |version| |downloads|
@@ -42,6 +44,16 @@
 .. |landscape| image:: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master/landscape.svg?style=flat
     :target: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master
     :alt: Code Quality Status
+{% endif %}
+{% if cookiecutter.codacy|lower == 'yes' %}
+.. |codacy| image:: https://www.codacy.com/project/badge/REPLACE_WITH_PROJECT_ID
+    :target: https://www.codacy.com/app/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
+    :alt: Codacy Code Quality Status
+{% endif %}
+{% if cookiecutter.codeclimate|lower == 'yes' %}
+.. |codeclimate| image:: https://codeclimate.com/repos/REPLACE_WITH_PROJECT_ID/gpa.svg
+   :target: https://codeclimate.com/repos/REPLACE_WITH_PROJECT_ID/feed
+   :alt: CodeClimate Quality Status
 {% endif %}
 .. |version| image:: http://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package latest release
