@@ -4,4 +4,4 @@ Reference
 .. toctree::
     :glob:
 
-    {{cookiecutter.package_name}}*
+    {{ cookiecutter.package_name|replace('-', '_') }}*
