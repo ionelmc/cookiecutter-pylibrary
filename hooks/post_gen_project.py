@@ -22,7 +22,7 @@ if __name__ == "__main__":
     import os
 
 {%- if cookiecutter.command_line_interface|lower == 'no' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '__main__.py'))
+    os.unlink(join('src', '{{ cookiecutter.package_name|replace('-', '_') }}', '__main__.py'))
 {% endif %}
 
 {%- if cookiecutter.test_matrix_configurator|lower == 'no' %}
