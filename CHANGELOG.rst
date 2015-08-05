@@ -3,6 +3,22 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.9 (2015-08-06)
+-----------------
+
+* Changed badge images to be served over https.
+* Fix wrong path and missing passenv in the tox.ini template. Closed `#24 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/24>`_.
+* Excluded *.dylib in ``MANIFEST.in``.
+* Replaced dashes with underscores in package name. Closed `#23 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/23>`_.
+* Added Codeclimate and Codacy badge placeholders. Contributed by kaidokert, `#22 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/22>`_.
+* Minor cleanup in ``tox.ini``.
+* Fixed long heading underlines in generated RST documents.
+* Changed tox configuration to use ``skip_install`` instead of ``usedevelop`` for envs that don't need to import anything.
+* Fixed missing interpreter for the spell env.
+* Moved bumpversion configuration out of ``setup.cfg``. Unfortunately bumpversion removes comments from the
+  config file, so ``setup.cfg`` is not a good place.
+* Simplified coverage configuration a bit.
+
 v1.8.1 (2015-07-04)
 -------------------
 
@@ -38,10 +54,10 @@ v1.5 (2015-06-18)
 * Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
 * Disabled all the pypip.in badges (server has way too much downtime).
 * Fixed a whitespace issue in outputed ``tox.ini``.
-* Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme.
+* Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme. Contributed by Christer van der Meeren, `#20 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/20>`_.
 * Added a ``.cookiecutterrc`` file to help with regenerating projects.
 * Prettied up the badges (SVG badges, better grouping).
-* Corrrected the use of the deprecated 'files' option anymore in bumpversion configuration.
+* Corrected the use of the deprecated 'files' option anymore in bumpversion configuration.
 * Changed the sample console script to use the distribution name instead of the package name for the bin name.
 * Changed coverage measurements to use pytest-cover instead of pytest-cov (which has several issues now).
 
