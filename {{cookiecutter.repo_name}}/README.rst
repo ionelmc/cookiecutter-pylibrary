@@ -23,7 +23,7 @@
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}
     :alt: Documentation Status
 
-.. |travis| image:: http://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Travis
+.. |travis| image:: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
@@ -31,12 +31,12 @@
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% if cookiecutter.coveralls|lower == 'yes' %}
-.. |coveralls| image:: http://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Coveralls
+.. |coveralls| image:: https://img.shields.io/coveralls/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Coveralls
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {% if cookiecutter.codecov|lower == 'yes' %}
-.. |codecov| image:: http://img.shields.io/codecov/c/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Codecov
+.. |codecov| image:: https://img.shields.io/codecov/c/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat&label=Codecov
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
@@ -55,11 +55,11 @@
    :target: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
-.. |version| image:: http://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
+.. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
-.. |downloads| image:: http://img.shields.io/pypi/dm/{{ cookiecutter.distribution_name }}.svg?style=flat
+.. |downloads| image:: https://img.shields.io/pypi/dm/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package monthly downloads
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 {% if cookiecutter.scrutinizer|lower == 'yes' %}
