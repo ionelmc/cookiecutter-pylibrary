@@ -28,6 +28,7 @@ pip-log.txt
 .tox
 .coverage.*
 nosetests.xml
+coverage.xml
 htmlcov
 
 # Translations
