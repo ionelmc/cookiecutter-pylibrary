@@ -80,9 +80,10 @@ function InstallPackage ($python_home, $pkg) {
 function main () {
     InstallPython $env:PYTHON_VERSION $env:PYTHON_ARCH $env:PYTHON_HOME
     InstallPip $env:PYTHON_HOME
-    InstallPackage $env:PYTHON_HOME setuptools
+    InstallPackage $env:PYTHON_HOME "setuptools>=18.0.1"
     InstallPackage $env:PYTHON_HOME wheel
     InstallPackage $env:PYTHON_HOME tox
+    InstallPackage $env:PYTHON_HOME "virtualenv>=12.1.0"
 }
 
 main
