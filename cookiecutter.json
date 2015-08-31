@@ -22,5 +22,8 @@
     "scrutinizer": "no",
     "codacy" : "no",
     "codeclimate" : "no",
-    "sphinx_theme": "readthedocs"
+    "sphinx_theme": "readthedocs",
+    "travis": "yes",
+    "appveyor": "yes",
+    "requiresio": "yes"
 }

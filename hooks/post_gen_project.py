@@ -30,6 +30,20 @@ if __name__ == "__main__":
     shutil.rmtree(join('ci', 'templates'))
 {% endif %}
 
+{%- if cookiecutter.appveyor|lower == 'no' %}
+    os.unlink(join('ci', 'appveyor-bootstrap.ps1'))
+    os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
+    os.unlink('appveyor.yml')
+    if os.path.exists(join('ci', 'templates', 'appveyor.yml')):
+        os.unlink(join('ci', 'templates', 'appveyor.yml'))
+{% endif %}
+
+{%- if cookiecutter.travis|lower == 'no' %}
+    os.unlink('.travis.yml')
+    if os.path.exists(join('ci', 'templates', '.travis.yml')):
+        os.unlink(join('ci', 'templates', '.travis.yml'))
+{% endif %}
+
     print("""
 ################################################################################
 ################################################################################

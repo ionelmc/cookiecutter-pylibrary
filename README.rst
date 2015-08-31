@@ -183,6 +183,21 @@ You will be asked for these fields:
         Suggested alternative: `sphinx-py3doc-enhanced-theme
         <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
         the Python 3 documentation.
+    * - ``travis``
+      - .. code:: python
+
+            "yes"
+      - If you want the Travis_ badge and configuration.
+    * - ``appveyor``
+      - .. code:: python
+
+            "yes"
+      - If you want the AppVeyor_ badge and configuration.
+    * - ``requiresio``
+      - .. code:: python
+
+            "yes"
+      - If you want the `requires.io`_ badge and configuration.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
@@ -315,3 +330,4 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Scrutinizer: https://scrutinizer-ci.com/
 .. _Codacy: https://codacy.com/
 .. _CodeClimate: https://codeclimate.com/
+.. _`requires.io`: https://requires.io/
