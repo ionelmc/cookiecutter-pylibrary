@@ -11,9 +11,11 @@
       - | {%- if cookiecutter.travis|lower == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor|lower == 'yes' %} |appveyor|{% endif -%}
           {%- if cookiecutter.requiresio|lower == 'yes' %} |requires|{% endif -%}
-          {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
+        {{ '' }}
+        | {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
           {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
-          {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
+        {{ '' }}
+        | {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
           {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
           {%- if cookiecutter.codacy|lower == 'yes' %} |codacy|{% endif -%}
           {%- if cookiecutter.codeclimate|lower == 'yes' %} |codeclimate|{% endif -%}
