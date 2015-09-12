@@ -83,7 +83,7 @@
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg?style=flat
-    :alt: Supported imlementations
+    :alt: Supported implementations
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
 {% if cookiecutter.scrutinizer|lower == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
