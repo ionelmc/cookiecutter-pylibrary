@@ -9,7 +9,7 @@ environment:
       PYTHON_HOME: "C:\\Python27"
       PYTHON_VERSION: "2.7"
       PYTHON_ARCH: "32"
-{% for env, config in tox_environments|dictsort %}{% if env.startswith('2.7') or env.startswith('3.4') or env.startswith('3.3') %}
+{% for env, config in tox_environments|dictsort %}{% if env.startswith(('2.7', '3.3', '3.4', '3.5')) %}
     - TOXENV: "{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
       {%- endraw %}{% endif %}{% raw %}"
@@ -31,14 +31,16 @@ init:
   - "ECHO %TOXENV%"
   - ps: "ls C:\\Python*"
 install:
-  - "powershell ci\\appveyor-bootstrap.ps1"
+  - "python -u ci\\appveyor-bootstrap.py"
 test_script:
   - "%PYTHON_HOME%\\Scripts\\tox --version"
   - "%PYTHON_HOME%\\Scripts\\virtualenv --version"
   - "%PYTHON_HOME%\\Scripts\\pip --version"
   - "%WITH_COMPILER% %PYTHON_HOME%\\Scripts\\tox"
+{% endraw %}{% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
   - "IF \"%TOXENV:~-8,8%\" == \"-nocover\" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel"
+{% endif %}{% raw %}
 artifacts:
   - path: dist\*
 {% endraw %}

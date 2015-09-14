@@ -48,13 +48,15 @@ init:
   - "ECHO %TOXENV%"
   - ps: "ls C:\\Python*"
 install:
-  - "powershell ci\\appveyor-bootstrap.ps1"
+  - "python -u ci\\appveyor-bootstrap.py"
 test_script:
   - "%PYTHON_HOME%\\Scripts\\tox --version"
   - "%PYTHON_HOME%\\Scripts\\virtualenv --version"
   - "%PYTHON_HOME%\\Scripts\\pip --version"
   - "%WITH_COMPILER% %PYTHON_HOME%\\Scripts\\tox"
+{% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
   - "IF \"%TOXENV:~-8,8%\" == \"-nocover\" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel"
+{% endif %}
 artifacts:
   - path: dist\*
