@@ -3,6 +3,15 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+master
+------
+
+* Added support for Python 3.5 in AppVeyor conf.
+* Various small fixes and improvements to the CI and testing configuration.
+* Switched some badges to not use shields.io (it has bad uptime).
+* Added codecov support in Appveyor configuration.
+* Made appveyor, travis and requires.io optional.
+
 v1.9 (2015-08-06)
 -----------------
 
