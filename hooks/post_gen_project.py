@@ -31,7 +31,7 @@ if __name__ == "__main__":
 {% endif %}
 
 {%- if cookiecutter.appveyor|lower == 'no' %}
-    os.unlink(join('ci', 'appveyor-bootstrap.ps1'))
+    os.unlink(join('ci', 'appveyor-bootstrap.py'))
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
     os.unlink('appveyor.yml')
     if os.path.exists(join('ci', 'templates', 'appveyor.yml')):
