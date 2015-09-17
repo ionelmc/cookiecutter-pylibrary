@@ -30,6 +30,8 @@ URLS = {
 }
 INSTALL_CMD = {
     # Commands are allowed to fail only if they are not the last command.  Eg: uninstall (/x) allowed to fail.
+    "2.6": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
+            ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
     "2.7": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
             ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
     "3.3": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
