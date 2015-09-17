@@ -3,44 +3,58 @@ version: '{branch}-{build}'
 build: off
 environment:
   global:
-    WITH_COMPILER: "cmd /E:ON /V:ON /C .\\ci\\appveyor-with-compiler.cmd"
+    WITH_COMPILER: 'cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd'
   matrix:
     - TOXENV: check
-      PYTHON_HOME: "C:\\Python27"
-      PYTHON_VERSION: "2.7"
-      PYTHON_ARCH: "32"
-{% for env, config in tox_environments|dictsort %}{% if env.startswith(('2.7', '3.3', '3.4', '3.5')) %}
-    - TOXENV: "{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
+      PYTHON_HOME: C:\Python27
+      PYTHON_VERSION: '2.7'
+      PYTHON_ARCH: '32'
+{% for env, config in tox_environments|dictsort %}{% if config.python in ('python2.7', 'python3.3', 'python3.4', 'python3.5') %}
+    - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
-      {%- endraw %}{% endif %}{% raw %}"
-      TOXPYTHON: "C:\\Python{{ env[:3].replace('.', '') }}\\python.exe"
-      WINDOWS_SDK_VERSION: "v7.{{ '1' if env[0] == '3' else '0' }}"
-      PYTHON_HOME: "C:\\Python{{ env[:3].replace('.', '') }}"
-      PYTHON_VERSION: "{{ env[:3] }}"
-      PYTHON_ARCH: "32"
-    - TOXENV: "{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
+      {%- endraw %}{% endif %}{% raw %}'
+      TOXPYTHON: C:\{{ config.python.replace('.', '') }}\python.exe
+      {%- if config.python != 'python3.5' %}
+
+      WINDOWS_SDK_VERSION: v7.{{ '1' if config.python[0] == '3' else '0' }}
+      {%- endif %}
+
+      PYTHON_HOME: C:\{{ config.python.replace('.', '') }}
+      PYTHON_VERSION: '{{ config.python[-3:] }}'
+      PYTHON_ARCH: '32'
+    - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
-      {%- endraw %}{% endif %}{% raw %}"
-      TOXPYTHON: "C:\\Python{{ env[:3].replace('.', '') }}-x64\\python.exe"
-      WINDOWS_SDK_VERSION: "v7.{{ '1' if env[0] == '3' else '0' }}"
-      PYTHON_HOME: "C:\\Python{{ env[:3].replace('.', '') }}-x64"
-      PYTHON_VERSION: "{{ env[:3] }}"
-      PYTHON_ARCH: "64"
+      {%- endraw %}{% endif %}{% raw %}'
+      TOXPYTHON: C:\{{ config.python.replace('.', '') }}-x64\python.exe
+      {%- if config.python != 'python3.5' %}
+
+      WINDOWS_SDK_VERSION: v7.{{ '1' if config.python[0] == '3' else '0' }}
+      {%- endif %}
+
+      PYTHON_HOME: C:\{{ config.python.replace('.', '') }}-x64
+      PYTHON_VERSION: '{{ config.python[-3:] }}'
+      PYTHON_ARCH: '64'
 {% endif %}{% endfor %}
 init:
-  - "ECHO %TOXENV%"
-  - ps: "ls C:\\Python*"
+  - ps: echo $env:TOXENV
+  - ps: ls C:\Python*
 install:
-  - "python -u ci\\appveyor-bootstrap.py"
+  - python -u ci\appveyor-bootstrap.py
+  - '%PYTHON_HOME%\Scripts\virtualenv --version'
+  - '%PYTHON_HOME%\Scripts\easy_install --version'
+  - '%PYTHON_HOME%\Scripts\pip --version'
+  - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
-  - "%PYTHON_HOME%\\Scripts\\tox --version"
-  - "%PYTHON_HOME%\\Scripts\\virtualenv --version"
-  - "%PYTHON_HOME%\\Scripts\\pip --version"
-  - "%WITH_COMPILER% %PYTHON_HOME%\\Scripts\\tox"
+  - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
 {% endraw %}{% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
-  - "IF \"%TOXENV:~-8,8%\" == \"-nocover\" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel"
+  - IF "%TOXENV:~-8,8%" == "-nocover" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
 {% endif %}{% raw %}
+on_failure:
+  - ps: dir "env:"
+  - ps: get-content .tox\*\log\*
 artifacts:
   - path: dist\*
+### To enable remote debugging uncomment this:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 {% endraw %}
