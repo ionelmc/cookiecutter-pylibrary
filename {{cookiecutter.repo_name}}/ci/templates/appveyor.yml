@@ -9,7 +9,7 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
-{% for env, config in tox_environments|dictsort %}{% if config.python in ('python2.7', 'python3.3', 'python3.4', 'python3.5') %}
+{% for env, config in tox_environments|dictsort %}{% if config.python in ('python2.6', 'python2.7', 'python3.3', 'python3.4', 'python3.5') %}
     - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
       {%- endraw %}{% endif %}{% raw %}'
