@@ -18,24 +18,30 @@ BASE_URL = "https://www.python.org/ftp/python/"
 GET_PIP_URL = "https://bootstrap.pypa.io/get-pip.py"
 GET_PIP_PATH = "C:\get-pip.py"
 URLS = {
+    ("2.6", "64"): BASE_URL + "2.6.6/python-2.6.6.amd64.msi",
+    ("2.6", "32"): BASE_URL + "2.6.6/python-2.6.6.msi",
     ("2.7", "64"): BASE_URL + "2.7.10/python-2.7.10.amd64.msi",
     ("2.7", "32"): BASE_URL + "2.7.10/python-2.7.10.msi",
-    ("3.3", "64"): BASE_URL + "3.3.6/python-3.3.6.amd64.msi",
-    ("3.3", "32"): BASE_URL + "3.3.6/python-3.3.6.msi",
+    # NOTE: no .msi installer for 3.3.6
     ("3.4", "64"): BASE_URL + "3.4.3/python-3.4.3.amd64.msi",
     ("3.4", "32"): BASE_URL + "3.4.3/python-3.4.3.msi",
     ("3.5", "64"): BASE_URL + "3.5.0/python-3.5.0-amd64.exe",
     ("3.5", "32"): BASE_URL + "3.5.0/python-3.5.0.exe",
 }
 INSTALL_CMD = {
-    "2.7": ["msiexec.exe", "/qn", "/i", "{path}", "TARGETDIR={home}"],
-    "3.3": ["msiexec.exe", "/qn", "/i", "{path}", "TARGETDIR={home}"],
-    "3.4": ["msiexec.exe", "/qn", "/i", "{path}", "TARGETDIR={home}"],
-    "3.5": ["{path}", "/quiet", "TargetDir={home}"],
+    # Commands are allowed to fail only if they are not the last command.  Eg: uninstall (/x) allowed to fail.
+    "2.7": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
+            ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
+    "3.3": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
+            ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
+    "3.4": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
+            ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
+    "3.5": [["{path}", "/quiet", "TargetDir={home}"]],
 }
 
 
 def download_file(url, path):
+    print("Downloading: {} (into {})".format(url, path))
     progress = [0, 0]
 
     def report(count, size, total):
@@ -55,10 +61,23 @@ def install_python(version, arch, home):
 
     path = download_python(version, arch)
     print("Installing", path, "to", home)
-    cmd = [part.format(home=home, path=path) for part in INSTALL_CMD[version]]
-    print("Running:", " ".join(cmd))
-    check_call(cmd)
-    print("Installation complete!")
+    success = False
+    for cmd in INSTALL_CMD[version]:
+        cmd = [part.format(home=home, path=path) for part in cmd]
+        print("Running:", " ".join(cmd))
+        try:
+            check_call(cmd)
+        except Exception as exc:
+            print("Failed command", cmd, "with:", exc)
+            if exists("install.log"):
+                with open("install.log") as fh:
+                    print(fh.read())
+        else:
+            success = True
+    if success:
+        print("Installation complete!")
+    else:
+        print("Installation failed")
 
 
 def download_python(version, arch):
