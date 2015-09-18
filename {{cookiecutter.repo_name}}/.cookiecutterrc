@@ -1,6 +1,6 @@
 # This file exists so you can easily regenerate your project.
 #
-# Unfortunatelly cookiecutter can't use this right away so
+# Unfortunately cookiecutter can't use this right away so
 # you have to copy this file to ~/.cookiecutterrc
 
 default_context:
