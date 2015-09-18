@@ -1,0 +1,7 @@
+default_context:
+  c_extension_optional: 'yes'
+  c_extension_support: 'yes'
+  command_line_interface: plain
+  rtd_theme: 'no'
+  test_matrix_configurator: 'no'
+  test_runner: nose
