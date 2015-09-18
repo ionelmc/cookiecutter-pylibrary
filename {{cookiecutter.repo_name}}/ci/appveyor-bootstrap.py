@@ -23,6 +23,8 @@ URLS = {
     ("2.7", "64"): BASE_URL + "2.7.10/python-2.7.10.amd64.msi",
     ("2.7", "32"): BASE_URL + "2.7.10/python-2.7.10.msi",
     # NOTE: no .msi installer for 3.3.6
+    ("3.3", "64"): BASE_URL + "3.3.3/python-3.3.3.amd64.msi",
+    ("3.3", "32"): BASE_URL + "3.3.3/python-3.3.3.msi",
     ("3.4", "64"): BASE_URL + "3.4.3/python-3.4.3.amd64.msi",
     ("3.4", "32"): BASE_URL + "3.4.3/python-3.4.3.msi",
     ("3.5", "64"): BASE_URL + "3.5.0/python-3.5.0-amd64.exe",
