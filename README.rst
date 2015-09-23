@@ -207,7 +207,7 @@ initial bootstrap ``tox.ini``, to get the initial generation going just run::
 You can later regenerate ``tox.ini`` and ``.travis.yml`` by running (if you enabled the ``test_matrix_configurator``
 option)::
 
-  tox -e configure
+  tox -e bootstrap
 
 After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
 project)::
