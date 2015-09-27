@@ -3,8 +3,8 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-master
-------
+v1.10 (2015-09-27)
+------------------
 
 * Added support for Python 3.5 in AppVeyor conf.
 * Various small fixes and improvements to the CI and testing configuration.
