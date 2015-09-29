@@ -1,4 +1,22 @@
+import datetime
+import os
+import shutil
+import subprocess
+import sys
+from os.path import join
+
+def replace_contents(filename, what, replacement):
+    with open(filename) as fh:
+        changelog = fh.read()
+    with open(filename, 'w') as fh:
+        fh.write(changelog.replace(what, replacement))
+
 if __name__ == "__main__":
+    today = datetime.date.today()
+    replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
+    replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
+    replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
+
 {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     print("""
 ################################################################################
@@ -6,9 +24,6 @@ if __name__ == "__main__":
     For your convenience, the test environments are getting configured for the
     first time, as you have selected "yes" for `test_matrix_configurator` ...
 """)
-    from os.path import join
-    import subprocess
-    import sys
     try:
         subprocess.check_call(['tox'])
     except Exception:
@@ -17,9 +32,6 @@ if __name__ == "__main__":
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
 {% endif %}
-    from os.path import join
-    import shutil
-    import os
 
 {%- if cookiecutter.command_line_interface|lower == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name|replace('-', '_') }}', '__main__.py'))
