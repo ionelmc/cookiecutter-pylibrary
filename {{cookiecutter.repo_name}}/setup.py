@@ -36,7 +36,7 @@ def read(*names, **kwargs):
 
 # enable code coverage for C code
 # We can't use CFLAGS=-coverage in tox.ini, since that may mess with
-# compiling dependencies (e.g. numpy). Therefore we set PY_CCOV=-coverage
+# compiling dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage
 # in tox.ini and copy it to CFLAGS here (after deps have been installed)
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
