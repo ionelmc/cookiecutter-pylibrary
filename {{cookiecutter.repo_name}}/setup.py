@@ -39,7 +39,7 @@ def read(*names, **kwargs):
 # compiling dependencies (e.g. numpy). Therefore we set PY_CCOV=-coverage
 # in tox.ini and copy it to CFLAGS here (after deps have been installed)
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
-    os.environ['CFLAGS'] = os.environ['PY_CCOV']
+    os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
 
 
 {% if cookiecutter.c_extension_support|lower == 'yes' and cookiecutter.c_extension_optional|lower == 'yes' -%}
