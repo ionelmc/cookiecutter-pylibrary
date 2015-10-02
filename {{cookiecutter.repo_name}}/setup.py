@@ -34,6 +34,14 @@ def read(*names, **kwargs):
     ).read()
 
 
+# enable code coverage for C code
+# We can't use CFLAGS=-coverage in tox.ini, since that may mess with
+# compiling dependencies (e.g. numpy). Therefore we set PY_CCOV=-coverage
+# in tox.ini and copy it to CFLAGS here (after deps have been installed)
+if 'PY_CCOV' in os.environ.keys():
+    os.environ['CFLAGS'] = os.environ['PY_CCOV']
+
+
 {% if cookiecutter.c_extension_support|lower == 'yes' and cookiecutter.c_extension_optional|lower == 'yes' -%}
 class optional_build_ext(build_ext):
     '''Allow the building of C extensions to fail.'''
