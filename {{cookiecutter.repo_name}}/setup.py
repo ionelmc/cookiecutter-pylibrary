@@ -27,6 +27,7 @@ from distutils.errors import DistutilsPlatformError
 {%- endif %}
 {%- endif %}
 
+
 def read(*names, **kwargs):
     return io.open(
         join(dirname(__file__), *names),
