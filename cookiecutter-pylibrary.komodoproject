@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Komodo Project File - DO NOT EDIT -->
-<project id="047a20ee-a276-406e-abfb-533a93157d48" kpf_version="5" name="cookiecutter-pylibrary.komodoproject">
-<preference-set idref="047a20ee-a276-406e-abfb-533a93157d48" id="project" preftype="project">
-  <string relative="path" id="import_dirname"></string>
-  <string id="import_exclude_matches">*.*~;*.bak;*.tmp;CVS;.#*;*.pyo;*.pyc;.svn;.git;.hg;.bzr;*%25*;tmp*.html;.DS_Store;*.swp;*.kpf;*.komodoproject;.komodotools;__pycache__;python-nameless;.tox</string>
-  <long id="prefs_version">1</long>
-</preference-set>
-</project>
