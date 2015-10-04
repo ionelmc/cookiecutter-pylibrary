@@ -15,27 +15,23 @@ environment:
     - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
       {%- endraw %}{% endif %}{% raw %}'
-      TOXPYTHON: C:\{{ config.python.replace('.', '') }}\python.exe
-      {%- if config.python != 'python3.5' %}
-
-      WINDOWS_SDK_VERSION: v7.{{ '1' if config.python[-1] == '3' else '0' }}
-      {%- endif %}
-
-      PYTHON_HOME: C:\{{ config.python.replace('.', '') }}
+      TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}\python.exe
+      PYTHON_HOME: C:\{{ config.python.replace('.', '').capitalize() }}
       PYTHON_VERSION: '{{ config.python[-3:] }}'
       PYTHON_ARCH: '32'
     - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
       {%- endraw %}{% endif %}{% raw %}'
-      TOXPYTHON: C:\{{ config.python.replace('.', '') }}-x64\python.exe
+      TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}-x64\python.exe
       {%- if config.python != 'python3.5' %}
 
       WINDOWS_SDK_VERSION: v7.{{ '1' if config.python[-3] == '3' else '0' }}
       {%- endif %}
 
-      PYTHON_HOME: C:\{{ config.python.replace('.', '') }}-x64
+      PYTHON_HOME: C:\{{ config.python.replace('.', '').capitalize() }}-x64
       PYTHON_VERSION: '{{ config.python[-3:] }}'
       PYTHON_ARCH: '64'
+
 {% endif %}{% endfor %}
 init:
   - ps: echo $env:TOXENV
@@ -50,7 +46,7 @@ test_script:
   - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
 {% endraw %}{% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
-  - IF "%TOXENV:~-8,8%" == "-nocover" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
+  - IF "%TOXENV:~-8,8%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
 {% endif %}{% raw %}
 on_failure:
   - ps: dir "env:"
