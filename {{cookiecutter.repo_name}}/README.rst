@@ -90,7 +90,7 @@
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
-{{ cookiecutter.project_short_description }}
+{{ cookiecutter.project_short_description|wordwrap(140) }}
 
 * Free software: BSD license
 
