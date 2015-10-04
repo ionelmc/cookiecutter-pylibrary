@@ -10,40 +10,24 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
-    - TOXENV: '2.7{% if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
-      TOXPYTHON: C:\Python27\python.exe
-      WINDOWS_SDK_VERSION: v7.0
-      PYTHON_HOME: C:\Python27
-      PYTHON_VERSION: '2.7'
-      PYTHON_ARCH: '32'
-    - TOXENV: '2.7-nocover'
-      TOXPYTHON: C:\Python27\python.exe
-      WINDOWS_SDK_VERSION: v7.0
-      PYTHON_HOME: C:\Python27
-      PYTHON_VERSION: '2.7'
-      PYTHON_ARCH: '32'
-    - TOXENV: '3.4{% if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
-      TOXPYTHON: C:\Python34\python.exe
-      WINDOWS_SDK_VERSION: v7.1
-      PYTHON_HOME: C:\Python34
-      PYTHON_VERSION: '3.4'
-      PYTHON_ARCH: '32'
-    - TOXENV: '3.4-nocover'
-      TOXPYTHON: C:\Python34\python.exe
-      WINDOWS_SDK_VERSION: v7.1
-      PYTHON_HOME: C:\Python34
-      PYTHON_VERSION: '3.4'
-      PYTHON_ARCH: '32'
-    - TOXENV: '3.5{% if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
-      TOXPYTHON: C:\Python35\python.exe
-      PYTHON_HOME: C:\Python33
-      PYTHON_VERSION: '3.5'
-      PYTHON_ARCH: '32'
-    - TOXENV: '3.5-nocover'
-      TOXPYTHON: C:\Python35\python.exe
-      PYTHON_HOME: C:\Python35
-      PYTHON_VERSION: '3.5'
-      PYTHON_ARCH: '32'
+{% for env in ['2.7', '3.4', '3.5'] %}{% for arch in ['32', '64'] %}
+    - TOXENV: '{{ env }}-cover{% if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
+      TOXPYTHON: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}\python.exe
+      {% if arch == '64' -%}
+      WINDOWS_SDK_VERSION: v7.{{ '1' if env[0] == '3' else '0' }}
+      {% endif -%}
+      PYTHON_HOME: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}
+      PYTHON_VERSION: '{{ env }}'
+      PYTHON_ARCH: '{{ arch }}'
+    - TOXENV: '{{ env }}-nocov'
+      TOXPYTHON: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}\python.exe
+      {% if arch == '64' -%}
+      WINDOWS_SDK_VERSION: v7.{{ '1' if env[0] == '3' else '0' }}
+      {% endif -%}
+      PYTHON_HOME: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}
+      PYTHON_VERSION: '{{ env }}'
+      PYTHON_ARCH: '{{ arch }}'
+{% endfor %}{% endfor %}
 init:
   - ps: echo $env:TOXENV
   - ps: ls C:\Python*
@@ -57,7 +41,7 @@ test_script:
   - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
 {% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
-  - IF "%TOXENV:~-8,8%" == "-nocover" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
+  - IF "%TOXENV:~-8,8%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
 {% endif %}
 on_failure:
   - ps: dir "env:"
