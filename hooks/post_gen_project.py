@@ -38,8 +38,7 @@ if __name__ == "__main__":
 {% endif %}
 
 {%- if cookiecutter.test_matrix_configurator|lower == 'no' %}
-    os.unlink(join('ci', 'bootstrap.py'))
-    shutil.rmtree(join('ci', 'templates'))
+    os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
 
 {%- if cookiecutter.appveyor|lower == 'no' %}

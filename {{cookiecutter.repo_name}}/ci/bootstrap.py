@@ -25,13 +25,17 @@ if __name__ == "__main__":
             subprocess.check_call(["virtualenv", env_path])
         except Exception:
             subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
-        print("Installing `jinja2` and `matrix` into bootstrap environment ...")
-        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2", "matrix"])
+        print("Installing `jinja2` {% if cookiecutter.test_matrix_configurator == "yes" %}and `matrix` {% endif %}into bootstrap environment ...")
+        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix"{% endif %}])
     activate = join(bin_path, "activate_this.py")
     exec(compile(open(activate, "rb").read(), activate, "exec"), dict(__file__=activate))
 
     import jinja2
+{% if cookiecutter.test_matrix_configurator == "yes" %}
     import matrix
+{% else %}
+    import subprocess
+{% endif %}
 
     jinja = jinja2.Environment(
         loader=jinja2.FileSystemLoader(join(base_path, "ci", "templates")),
@@ -39,6 +43,7 @@ if __name__ == "__main__":
         lstrip_blocks=True,
         keep_trailing_newline=True
     )
+{% if cookiecutter.test_matrix_configurator == "yes" %}
     tox_environments = {}
     for (alias, conf) in matrix.from_file(join(base_path, "setup.cfg")).items():
         python = conf["python_versions"]
@@ -56,6 +61,10 @@ if __name__ == "__main__":
             tox_environments[alias].update(cover=cover)
         if "environment_variables" in conf:
             tox_environments[alias].update(env_vars=env_vars.split())
+{% else %}
+    tox_environments = [line.strip() for line in subprocess.check_output(['tox', '--listenvs']).splitlines()]
+    tox_environments = [line for line in tox_environments if line not in ['clean', 'report', 'docs', 'check']]
+{% endif %}
 
     for name in os.listdir(join("ci", "templates")):
         with open(join(base_path, name), "w") as fh:

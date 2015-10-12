@@ -1,4 +1,3 @@
-{%- raw -%}
 language: python
 python: '3.5'
 sudo: false
@@ -7,6 +6,8 @@ env:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
     - TOXENV=check
+{% if cookiecutter.test_matrix_configurator == "yes" %}
+{%- raw %}
 {% for env, config in tox_environments|dictsort %}
     - TOXENV={{ env }}{% if config.cover %}{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
@@ -16,6 +17,15 @@ env:
       {%- raw %}{% endif %}
 
 {% endfor %}
+{%- endraw %}
+{% else %}
+{%- raw %}
+{% for env in tox_environments %}
+    - TOXENV={{ env }}{% if 'cover' in env %},coveralls,codecov{% endif %}
+
+{% endfor %}
+{%- endraw %}
+{% endif %}
 before_install:
   - python --version
   - uname -a
@@ -35,4 +45,3 @@ notifications:
   email:
     on_success: never
     on_failure: always
-{% endraw %}

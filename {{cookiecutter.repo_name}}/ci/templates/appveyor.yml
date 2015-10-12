@@ -1,4 +1,3 @@
-{%- raw -%}
 version: '{branch}-{build}'
 build: off
 cache:
@@ -11,6 +10,8 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
+{% if cookiecutter.test_matrix_configurator == "yes" %}
+{%- raw %}
 {% for env, config in tox_environments|dictsort %}{% if config.python in ('python2.6', 'python2.7', 'python3.3', 'python3.4', 'python3.5') %}
     - TOXENV: '{{ env }}{% endraw %}{%- if cookiecutter.codecov|lower == 'yes' %}{% raw -%}
         {% if config.cover %},codecov{% endif %}
@@ -33,6 +34,29 @@ environment:
       PYTHON_ARCH: '64'
 
 {% endif %}{% endfor %}
+{%- endraw %}
+{% else %}
+{%- raw %}
+{% for env in tox_environments %}{% if env.startswith(('2.6', '2.7', '3.3', '3.4', '3.5')) %}
+    - TOXENV: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+      TOXPYTHON: C:\Python{{ env.split('-')[0].replace('.', '') }}\python.exe
+      PYTHON_HOME: C:\Python{{ env.split('-')[0].replace('.', '') }}
+      PYTHON_VERSION: '{{ env.split('-')[0] }}'
+      PYTHON_ARCH: '32'
+    - TOXENV: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+      TOXPYTHON: C:\Python{{ env.split('-')[0].replace('.', '') }}-x64\python.exe
+      {%- if not env.startswith('3.5') %}
+
+      WINDOWS_SDK_VERSION: v7.{{ '1' if env[0] == '3' else '0' }}
+      {%- endif %}
+
+      PYTHON_HOME: C:\Python{{ env.split('-')[0].replace('.', '') }}-x64
+      PYTHON_VERSION: '{{ env.split('-')[0] }}'
+      PYTHON_ARCH: '64'
+
+{% endif %}{% endfor %}
+{%- endraw %}
+{% endif %}
 init:
   - ps: echo $env:TOXENV
   - ps: ls C:\Python*
@@ -44,10 +68,10 @@ install:
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
   - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
-{% endraw %}{% if cookiecutter.c_extension_support|lower == 'yes' %}
+{% if cookiecutter.c_extension_support|lower == 'yes' %}
 after_test:
   - IF "%TOXENV:~-8,8%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
-{% endif %}{% raw %}
+{% endif %}
 on_failure:
   - ps: dir "env:"
   - ps: get-content .tox\*\log\*
@@ -55,4 +79,3 @@ artifacts:
   - path: dist\*
 ### To enable remote debugging uncomment this:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-{% endraw %}
