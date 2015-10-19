@@ -1,34 +1,19 @@
-import sys
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
-import click
-{%- endif %}
-# Why does this file exist, and why __main__?
-# For more info, read:
-# - https://www.python.org/dev/peps/pep-0338/
-# - https://docs.python.org/2/using/cmdline.html#cmdoption-m
-# - https://docs.python.org/3/using/cmdline.html#cmdoption-m
+"""
+Entrypoint module, in case you use `python -m{{cookiecutter.package_name}}`.
 
 
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-@click.command()
-@click.argument('names', nargs=-1)
-def main(names):
-    click.echo(repr(names))
-{%- else -%}
-def main(argv=()):
-    """
-    Args:
-        argv (list): List of arguments
+Why does this file exist, and why __main__? For more info, read:
 
-    Returns:
-        int: A return code
+- https://www.python.org/dev/peps/pep-0338/
+- https://docs.python.org/2/using/cmdline.html#cmdoption-m
+- https://docs.python.org/3/using/cmdline.html#cmdoption-m
+"""
+from {{cookiecutter.package_name}}.cli import main
 
-    Does stuff.
-    """
-
-    print(argv)
-    return 0
-{%- endif %}
 
 if __name__ == "__main__":
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+    main()
+{%- else %}
     sys.exit(main())
+{%- endif %}
