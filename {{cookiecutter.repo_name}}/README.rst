@@ -26,46 +26,46 @@
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}
     :alt: Documentation Status
-{% if cookiecutter.travis|lower == 'yes' %}
+{%- if cookiecutter.travis|lower == 'yes' %}
 .. |travis| image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
-{% endif -%}
-{% if cookiecutter.appveyor|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.appveyor|lower == 'yes' %}
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}?branch=master&svg=true
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
-{% endif -%}
-{% if cookiecutter.requiresio|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.requiresio|lower == 'yes' %}
 .. |requires| image:: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch=master
     :alt: Requirements Status
     :target: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/requirements/?branch=master
-{% endif -%}
-{% if cookiecutter.coveralls|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.coveralls|lower == 'yes' %}
 .. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch=master&service=github
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
-{% endif -%}
-{% if cookiecutter.codecov|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.codecov|lower == 'yes' %}
 .. |codecov| image:: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/coverage.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
-{% endif -%}
-{% if cookiecutter.landscape|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.landscape|lower == 'yes' %}
 .. |landscape| image:: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master/landscape.svg?style=flat
     :target: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master
     :alt: Code Quality Status
-{% endif -%}
-{% if cookiecutter.codacy|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.codacy|lower == 'yes' %}
 .. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
     :target: https://www.codacy.com/app/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
     :alt: Codacy Code Quality Status
-{% endif -%}
-{% if cookiecutter.codeclimate|lower == 'yes' %}
+{% endif %}
+{%- if cookiecutter.codeclimate|lower == 'yes' %}
 .. |codeclimate| image:: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/badges/gpa.svg
    :target: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
-{% endif -%}
+{% endif %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
@@ -90,6 +90,7 @@
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
+
 {{ cookiecutter.project_short_description|wordwrap(140) }}
 
 * Free software: BSD license
