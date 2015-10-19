@@ -8,8 +8,24 @@
     "package_name": "nameless",
     "distribution_name": "nameless",
     "project_short_description": "An example package. Replace this with a proper project description. Generated with https://github.com/ionelmc/cookiecutter-pylibrary",
-    "release_date": ["today", "2025-01-01"],
-    "year": ["now", "2015", "2014-2015"],
+    "release_date": [
+        "today",
+        "2025-01-01"
+    ],
+    "year": [
+        "now",
+        "2015",
+        "2014-2015",
+        "2013-2015",
+        "2012-2015",
+        "2011-2015",
+        "2010-2015",
+        "2009-2015",
+        "2008-2015",
+        "2007-2015",
+        "2006-2015",
+        "2005-2015"
+    ],
     "version": "0.1.0",
     "c_extension_support": ["no", "yes"],
     "c_extension_optional": ["no", "yes"],
