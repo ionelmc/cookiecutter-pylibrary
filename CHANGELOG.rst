@@ -3,6 +3,11 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+master
+------
+
+* Added ``.editorconfig``.
+
 v1.10 (2015-09-27)
 ------------------
 
