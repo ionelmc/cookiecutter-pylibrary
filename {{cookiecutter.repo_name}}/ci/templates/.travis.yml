@@ -43,6 +43,12 @@ after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
 
+before_cache:
+  - rm -rf $HOME/.cache/pip/log
+cache:
+  directories:
+    - $HOME/.cache/pip
+
 notifications:
   email:
     on_success: never
