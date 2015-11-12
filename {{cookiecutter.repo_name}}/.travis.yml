@@ -15,14 +15,10 @@ env:
     - TOXENV={{ env }}-nocov
 {% endfor %}
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
+  - easy_install --version
 install:
   - pip install tox
   - virtualenv --version
-  - easy_install --version
-  - pip --version
   - tox --version
 script:
   - tox -v
