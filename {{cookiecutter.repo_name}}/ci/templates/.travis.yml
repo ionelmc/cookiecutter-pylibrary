@@ -34,9 +34,14 @@ before_install:
   - easy_install --version
 install:
   - pip install tox
+    {%- if cookiecutter.test_runner|lower == "pytest" %} pytest-travis-fold{% endif %}
   - virtualenv --version
   - tox --version
 
+{% if cookiecutter.test_runner|lower == "pytest" %}
+before_script:
+  - export TOX_TESTENV_PASSENV=TRAVIS
+{% endif %}
 script:
   - tox -v
 after_failure:
