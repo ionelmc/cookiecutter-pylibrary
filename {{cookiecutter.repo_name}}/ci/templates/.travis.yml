@@ -2,8 +2,11 @@ language: python
 python: '3.5'
 sudo: false
 env:
+{% if cookiecutter.c_extension_support|lower == "yes" %}
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS="abrt segv"
+{% endif %}
   matrix:
     - TOXENV=check
 {% if cookiecutter.test_matrix_configurator == "yes" %}
