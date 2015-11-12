@@ -3,7 +3,8 @@ python: '3.5'
 sudo: false
 env:
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
 {% for env in ['2.6', '2.7', '3.3', '3.4', '3.5', 'pypy'] %}

@@ -3,7 +3,8 @@ python: '3.5'
 sudo: false
 env:
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
 {% if cookiecutter.test_matrix_configurator == "yes" %}
