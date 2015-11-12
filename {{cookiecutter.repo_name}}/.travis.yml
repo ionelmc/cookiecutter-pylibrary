@@ -1,36 +1,53 @@
-language: python
-python: '3.5'
 sudo: false
-env:
-  global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-  matrix:
-    - TOXENV=check
+language: python
+python:
 {% for env in ['2.6', '2.7', '3.3', '3.4', '3.5', 'pypy'] %}
-    - TOXENV={{ env }}-cover
+  - "{{ env }}"
+{% endfor %}
+env:
+{% if cookiecutter.c_extension_support|lower == "yes" %}
+  global:
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS="abrt segv"
+{% endif %}
+  matrix:
+    - COVERAGE=cover
       {%- if cookiecutter.coveralls|lower == 'yes' %}
         {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
-    - TOXENV={{ env }}-nocov
-{% endfor %}
+    - COVERAGE=nocov
+matrix:
+  include:
+    - python: "3.4"
+      env: TOXENV=check
+
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
+  - easy_install --version
 install:
   - pip install tox
+    {%- if cookiecutter.test_runner|lower == "pytest" %} pytest-travis-fold{% endif %}
   - virtualenv --version
-  - easy_install --version
-  - pip --version
   - tox --version
+
+before_script:
+{% if cookiecutter.test_runner|lower == "pytest" %}
+  - export TOX_TESTENV_PASSENV=TRAVIS
+{% endif %}
+  - export TOXENV=${TOXENV:-$TRAVIS_PYTHON_VERSION-$COVERAGE}
 script:
   - tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
+
+before_cache:
+  - rm -rf $HOME/.cache/pip/log
+cache:
+  directories:
+    - $HOME/.cache/pip
+
 notifications:
   email:
     on_success: never
     on_failure: always
-

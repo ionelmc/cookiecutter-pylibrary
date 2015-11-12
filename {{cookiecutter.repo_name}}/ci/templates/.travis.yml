@@ -1,9 +1,12 @@
-language: python
-python: '3.5'
 sudo: false
+language: python
+python: "3.4"
 env:
+{% if cookiecutter.c_extension_support|lower == "yes" %}
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS="abrt segv"
+{% endif %}
   matrix:
     - TOXENV=check
 {% if cookiecutter.test_matrix_configurator == "yes" %}
@@ -26,21 +29,31 @@ env:
 {% endfor %}
 {%- endraw %}
 {% endif %}
+
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
+  - easy_install --version
 install:
   - pip install tox
+    {%- if cookiecutter.test_runner|lower == "pytest" %} pytest-travis-fold{% endif %}
   - virtualenv --version
-  - easy_install --version
-  - pip --version
   - tox --version
+
+{% if cookiecutter.test_runner|lower == "pytest" %}
+before_script:
+  - export TOX_TESTENV_PASSENV=TRAVIS
+{% endif %}
 script:
   - tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
+
+before_cache:
+  - rm -rf $HOME/.cache/pip/log
+cache:
+  directories:
+    - $HOME/.cache/pip
+
 notifications:
   email:
     on_success: never
