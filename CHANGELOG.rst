@@ -7,6 +7,8 @@ master
 ------
 
 * Added ``.editorconfig``.
+* Changed Travis config: pip's cache is saved, libsegfault.so now works on all signals (like ABRT) and pytest-travis-fold
+  is included by default.
 
 v1.10 (2015-09-27)
 ------------------
