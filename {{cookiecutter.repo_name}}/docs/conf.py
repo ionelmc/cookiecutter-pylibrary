@@ -11,7 +11,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.extlinks',
 ]
 if os.getenv('SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
@@ -25,6 +26,13 @@ year = {{ '{0!r}'.format('<YEAR>' if cookiecutter.year == 'now' else cookiecutte
 author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
 version = release = {{ '{0!r}'.format(cookiecutter.version) }}
+
+pygments_style = 'trac'
+templates_path = ['.']
+extlinks = {
+    'issue': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
+    'pr': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
+}
 
 {%- if cookiecutter.sphinx_theme|lower != 'readthedocs' %}
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
@@ -43,8 +51,6 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 {%- endif %}
 
-pygments_style = 'trac'
-templates_path = ['.']
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
 html_split_index = True

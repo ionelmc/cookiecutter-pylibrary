@@ -9,8 +9,9 @@ master
 * Added ``.editorconfig``.
 * Changed Travis config: pip's cache is saved, libsegfault.so now works on all signals (like ABRT) and pytest-travis-fold
   is included by default.
-* Use the builtin napoleon extensioon in Sphinx 1.3. Contributed by Christer van der Meeren, `#37 
+* Use the builtin ``napoleon`` extension in Sphinx 1.3. Contributed by Christer van der Meeren, `#37
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/37>`_.
+* Enable the ``extlinks`` extension from Sphinx.
 
 v1.10 (2015-09-27)
 ------------------
