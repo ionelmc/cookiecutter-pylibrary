@@ -2,6 +2,34 @@
 {{ cookiecutter.project_name }}
 {{ "=" * cookiecutter.project_name|length }}
 
+|docs| |version|
+
+{{ cookiecutter.project_short_description|wordwrap(140) }}
+
+* Free software: BSD license
+
+Installation
+============
+
+::
+
+    pip install {{ cookiecutter.distribution_name }}
+
+Documentation
+=============
+
+https://{{ cookiecutter.repo_name }}.readthedocs.org/
+
+Development
+===========
+
+To run the all tests run::
+
+    tox
+
+Badges
+======
+
 .. list-table::
     :stub-columns: 1
 
@@ -91,26 +119,3 @@
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
-
-{{ cookiecutter.project_short_description|wordwrap(140) }}
-
-* Free software: BSD license
-
-Installation
-============
-
-::
-
-    pip install {{ cookiecutter.distribution_name }}
-
-Documentation
-=============
-
-https://{{ cookiecutter.repo_name }}.readthedocs.org/
-
-Development
-===========
-
-To run the all tests run::
-
-    tox
