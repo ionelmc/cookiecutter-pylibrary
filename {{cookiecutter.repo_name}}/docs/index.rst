@@ -1,7 +1,6 @@
-Welcome to {{ cookiecutter.project_name }}'s documentation!
-{{ "=" * (30 + cookiecutter.project_name|length) }}
-
-Contents:
+========
+Contents
+========
 
 .. toctree::
    :maxdepth: 2
