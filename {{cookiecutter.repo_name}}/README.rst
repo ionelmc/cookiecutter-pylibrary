@@ -2,6 +2,8 @@
 Overview
 ========
 
+.. start-badges
+
 .. list-table::
     :stub-columns: 1
 
@@ -91,6 +93,8 @@ Overview
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
+
+.. end-badges
 
 {{ cookiecutter.project_short_description|wordwrap(140) }}
 

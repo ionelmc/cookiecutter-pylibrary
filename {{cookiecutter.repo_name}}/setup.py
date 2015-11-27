@@ -81,7 +81,10 @@ setup(
     version='{{ cookiecutter.version }}',
     license='BSD',
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
-    long_description='%s\n%s' % (read('README.rst'), re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
+    long_description='%s\n%s' % (
+        re.compile('^.. start-badges.*^.. end-badges', re.M|re.S).sub('', read('README.rst')),
+        re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
+    ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('ub') }},
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
