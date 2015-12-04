@@ -22,7 +22,12 @@ env:
 {% else %}
 {%- raw %}
 {% for env in tox_environments %}
-    - TOXENV={{ env }}{% if 'cover' in env %},coveralls,codecov{% endif %}
+    - TOXENV={{ env }}{% if 'cover' in env %}{% endraw %}
+        {%- if cookiecutter.coveralls|lower == 'yes' -%}
+          {% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+        {%- endif %}
+        {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
+      {%- raw %}{% endif %}
 
 {% endfor %}
 {%- endraw %}
