@@ -14,7 +14,7 @@ env:
       {%- endif %}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
     - TOXENV={{ env }}-nocov
-{% endfor %}
+{%- endfor %}
 before_install:
   - python --version
   - uname -a

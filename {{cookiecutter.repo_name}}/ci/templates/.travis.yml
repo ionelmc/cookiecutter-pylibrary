@@ -8,27 +8,25 @@ env:
   matrix:
     - TOXENV=check
 {% if cookiecutter.test_matrix_configurator == "yes" %}
-{%- raw %}
-{% for env, config in tox_environments|dictsort %}
+{%- raw -%}
+{% for env, config in tox_environments|dictsort %}{{ '' }}
     - TOXENV={{ env }}{% if config.cover %}{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif %}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif %}
-
+      {%- raw %}{% endif -%}
 {% endfor %}
 {%- endraw %}
 {% else %}
-{%- raw %}
-{% for env in tox_environments %}
+{%- raw -%}
+{% for env in tox_environments %}{{ '' }}
     - TOXENV={{ env }}{% if 'cover' in env %}{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif %}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif %}
-
+      {%- raw %}{% endif -%}
 {% endfor %}
 {%- endraw %}
 {% endif %}
