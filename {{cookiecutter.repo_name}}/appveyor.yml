@@ -10,14 +10,14 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
-{% for env in ['2.7', '3.4', '3.5'] %}{% for arch in ['32', '64'] %}
+{% for env in ['py27', 'py34', 'py35'] %}{% for arch in ['32', '64'] %}
     - TOXENV: '{{ env }}-cover{% if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}\python.exe
       {% if arch == '64' -%}
       WINDOWS_SDK_VERSION: v7.{{ '1' if env[0] == '3' else '0' }}
       {% endif -%}
       PYTHON_HOME: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}
-      PYTHON_VERSION: '{{ env }}'
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '{{ arch }}'
     - TOXENV: '{{ env }}-nocov'
       TOXPYTHON: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}\python.exe
@@ -25,7 +25,7 @@ environment:
       WINDOWS_SDK_VERSION: v7.{{ '1' if env[0] == '3' else '0' }}
       {% endif -%}
       PYTHON_HOME: C:\Python{{ env.replace('.', '') }}{{ '-x64' if arch == '64' else '' }}
-      PYTHON_VERSION: '{{ env }}'
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '{{ arch }}'
 {% endfor %}{% endfor %}
 init:

@@ -37,11 +37,11 @@ environment:
 {%- endraw %}
 {% else %}
 {%- raw %}
-{% for env in tox_environments %}{% if env.startswith(('2.6', '2.7', '3.3', '3.4', '3.5')) %}
+{% for env in tox_environments %}{% if env.startswith(('py26', 'py27', 'py33', 'py34', 'py35')) %}
     - TOXENV: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env.split('-')[0].replace('.', '') }}\python.exe
       PYTHON_HOME: C:\Python{{ env.split('-')[0].replace('.', '') }}
-      PYTHON_VERSION: '{{ env.split('-')[0] }}'
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
     - TOXENV: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env.split('-')[0].replace('.', '') }}-x64\python.exe
@@ -51,7 +51,7 @@ environment:
       {%- endif %}
 
       PYTHON_HOME: C:\Python{{ env.split('-')[0].replace('.', '') }}-x64
-      PYTHON_VERSION: '{{ env.split('-')[0] }}'
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
 
 {% endif %}{% endfor %}
