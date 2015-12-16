@@ -5,14 +5,14 @@
 # automatically for any template). To use it:
 #
 #    pip install cookiepatcher
-#    cookiepatcher gh:ionelmc/cookiecutter-pylibrary project-to-regenerate
+#    cookiepatcher gh:ionelmc/cookiecutter-pylibrary project-path
 #
 # See:
 #    https://pypi.python.org/pypi/cookiecutter
 #
 # Alternatively, you can run:
 #
-#    cookiecutter --overwrite-if-exists --config-file=project-path/.cookiecutterrc
+#    cookiecutter --overwrite-if-exists --config-file=project-path/.cookiecutterrc gh:ionelmc/cookiecutter-pylibrary
 
 default_context:
 {% for key, value in cookiecutter.items()|sort %}
