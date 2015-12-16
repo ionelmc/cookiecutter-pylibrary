@@ -1,9 +1,21 @@
+from __future__ import print_function
+
 import datetime
 import os
 import shutil
 import subprocess
 import sys
 from os.path import join
+
+try:
+    from click.termui import secho
+except ImportError:
+    warn = print
+else:
+    def warn(text):
+        for line in text.splitlines():
+            secho(line, fg="white", bg="red", bold=True)
+
 
 def replace_contents(filename, what, replacement):
     with open(filename) as fh:
@@ -16,14 +28,6 @@ if __name__ == "__main__":
     replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
-    bin_name = '{{ cookiecutter.bin_name }}'
-    while bin_name.endswith('.py'):
-        bin_name = bin_name[:-3]
-
-    if bin_name:
-        replace_contents('setup.py',
-                         '{{ cookiecutter.bin_name }} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main',
-                         '{0} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main'.format(bin_name))
 
 {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     print("""
@@ -102,3 +106,33 @@ if __name__ == "__main__":
     you change your mind just edit `setup.cfg` and run `ci/bootstrap.py`.
 {% endif %}
 """)
+
+    bin_name = '{{ cookiecutter.bin_name }}'
+    while bin_name.endswith('.py'):
+        bin_name = bin_name[:-3]
+
+        if bin_name == '{{ cookiecutter.package_name|replace('-', '_') }}':
+            warn("""
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                                            !!
+!!      WARNING:                                                              !!
+!!                                                                            !!
+!!          Your result package is broken. Your bin script named              !!
+!!          {0} !!
+!!                                                                            !!
+!!          Python automatically adds the location of scripts to              !!
+!!          `sys.path`. Because of that, the bin script will fail             !!
+!!          to import your package because it has the same name               !!
+!!          (it will try to import itself as a module).                       !!
+!!                                                                            !!
+!!          To avoid this problem you have two options:                       !!
+!!                                                                            !!
+!!          * Remove the ".py" suffix from the `bin_name`.                    !!
+!!                                                                            !!
+!!          * Use a different `package_name` {1} !!
+!!                                                                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+""".format(
+                '"{{ cookiecutter.bin_name }}" will shadow your package.'.ljust(65),
+                '(not "{0}").'.format(bin_name).ljust(32)))
+        break

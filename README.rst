@@ -136,7 +136,7 @@ You will be asked for these fields:
       - .. code:: python
 
             "nameless"
-      - Name of the CLI bin/executable file. Note that ``.py`` suffix is stripped (if any) to avoid import issues.
+      - Name of the CLI bin/executable file.
 
     * - ``cookiecutter.coveralls``
       - .. code:: python
