@@ -16,6 +16,14 @@ if __name__ == "__main__":
     replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
+    bin_name = '{{ cookiecutter.bin_name }}'
+    while bin_name.endswith('.py'):
+        bin_name = bin_name[:-3]
+
+    if bin_name:
+        replace_contents('setup.py',
+                         '{{ cookiecutter.bin_name }} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main',
+                         '{0} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main'.format(bin_name))
 
 {% if cookiecutter.test_matrix_configurator|lower == "yes" %}
     print("""

@@ -130,7 +130,7 @@ setup(
 {%- if cookiecutter.command_line_interface|lower in ['plain', 'click'] %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.distribution_name }} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main',
+            '{{ cookiecutter.bin_name }} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main',
         ]
     },
 {%- endif %}

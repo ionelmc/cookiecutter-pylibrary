@@ -132,6 +132,12 @@ You will be asked for these fields:
         * ``click`` - a command implemented with `click <http://click.pocoo.org/>`_ - which you can use to build more complex commands.
         * ``no`` - no CLI at all.
 
+    * - ``bin_name``
+      - .. code:: python
+
+            "nameless"
+      - Name of the CLI bin/executable file. Note that ``.py`` suffix is stripped (if any) to avoid import issues.
+
     * - ``cookiecutter.coveralls``
       - .. code:: python
 
