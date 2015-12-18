@@ -18,7 +18,7 @@ from setuptools import setup
 {%- if cookiecutter.c_extension_optional|lower == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
-from distutils.core import Extension
+from setuptools import Extension
 {%- if cookiecutter.c_extension_optional|lower == 'yes' %}
 from distutils.errors import CCompilerError
 from distutils.errors import CompileError
@@ -127,6 +127,9 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
+    setup_requires=[
+        # eg: 'cython',
+    ],
 {%- if cookiecutter.command_line_interface|lower in ['plain', 'click'] %}
     entry_points={
         'console_scripts': [
@@ -145,7 +148,7 @@ setup(
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
-        for path in glob(join(root, '*.c'))
-    ]
+        for path in glob(join(root, '*.c'))  # if you want to use cython, just replace "c" with "pyx"
+    ],
 {%- endif %}
 )
