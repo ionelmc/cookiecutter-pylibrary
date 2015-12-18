@@ -12,6 +12,12 @@ master
 * Use the builtin ``napoleon`` extension in Sphinx 1.3. Contributed by Christer van der Meeren, `#37
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/37>`_.
 * Enable the ``extlinks`` extension from Sphinx.
+* Added ``bin_name`` options and warnings when ``bin_name`` could be problematic (eg: it has ``.py`` extension and same name
+  as the ``package_name``).
+* Added Python 3.5 to classifiers (``setup.py``).
+* Renamed the tox environment names to be more similar with the tox defaults (if ``test_matrix_generator`` is ``"no"``).
+* Added few comments and tweaks in ``setup.py`` to make it easy to switch to Cython extensions.
+* Various other small fixups.
 
 v1.10 (2015-09-27)
 ------------------
