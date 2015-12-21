@@ -29,6 +29,7 @@
     ],
     "version": "0.1.0",
     "c_extension_support": ["no", "yes"],
+    "c_extension_cython": ["no", "yes"],
     "c_extension_optional": ["no", "yes"],
     "test_matrix_configurator": ["no", "yes"],
     "test_runner": ["pytest", "nose"],

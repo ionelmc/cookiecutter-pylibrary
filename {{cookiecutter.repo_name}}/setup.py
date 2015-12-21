@@ -19,11 +19,13 @@ from setuptools import setup
 from setuptools.command.build_ext import build_ext
 {%- endif %}
 from setuptools import Extension
-{%- if cookiecutter.c_extension_optional|lower == 'yes' %}
-from distutils.errors import CCompilerError
-from distutils.errors import CompileError
-from distutils.errors import DistutilsExecError
-from distutils.errors import DistutilsPlatformError
+{%- if cookiecutter.c_extension_cython|lower == 'yes' %}
+try:
+    # Allow installing package without any Cython available. This
+    # assumes you are going to include the .c files in your sdist.
+    import Cython
+except ImportError:
+    Cython = None
 {%- endif %}
 {%- endif %}
 
@@ -42,20 +44,12 @@ def read(*names, **kwargs):
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
 
-{% endif %}
-{% if cookiecutter.c_extension_support|lower == 'yes' and cookiecutter.c_extension_optional|lower == 'yes' -%}
+{% if cookiecutter.c_extension_optional|lower == 'yes' -%}
 class optional_build_ext(build_ext):
-    '''Allow the building of C extensions to fail.'''
+    """Allow the building of C extensions to fail."""
     def run(self):
         try:
             build_ext.run(self)
-        except DistutilsPlatformError as e:
-            self._unavailable(e)
-            self.extensions = []  # avoid copying missing files (it would fail).
-
-    def build_extension(self, ext):
-        try:
-            build_ext.build_extension(self, ext)
         except Exception as e:
             self._unavailable(e)
             self.extensions = []  # avoid copying missing files (it would fail).
@@ -75,6 +69,7 @@ class optional_build_ext(build_ext):
         print('*' * 80)
 
 
+{% endif -%}
 {% endif -%}
 setup(
     name='{{ cookiecutter.distribution_name }}',
@@ -127,9 +122,11 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
+{%- if cookiecutter.c_extension_support|lower == 'yes' and cookiecutter.c_extension_cython|lower == 'yes' %}
     setup_requires=[
-        # eg: 'cython',
-    ],
+        'cython',
+    ] if Cython else [],
+{%- endif %}
 {%- if cookiecutter.command_line_interface|lower in ['plain', 'click'] %}
     entry_points={
         'console_scripts': [
@@ -148,7 +145,9 @@ setup(
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
-        for path in glob(join(root, '*.c'))  # if you want to use cython, just replace "c" with "pyx"
+        for path in glob(join(root,
+{%- if cookiecutter.c_extension_cython|lower == 'yes' %} '*.pyx' if Cython else '*.c'
+{%- else %} '*.c'{% endif %}))
     ],
 {%- endif %}
 )
