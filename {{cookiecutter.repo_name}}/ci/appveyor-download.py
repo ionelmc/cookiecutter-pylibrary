@@ -76,7 +76,7 @@ def download_url(url, filename, headers):
             for chunk in response.iter_content(16 * 1024):
                 f.write(chunk)
     else:
-        print("    Error downloading {}: {}".format(url, response)
+        print("    Error downloading {}: {}".format(url, response))
 
 
 def unpack_zipfile(filename):
