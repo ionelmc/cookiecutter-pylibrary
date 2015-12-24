@@ -52,7 +52,7 @@ def download_latest_artifacts(account_project, build_id):
             filename = artifact['fileName']
             print("    {0}, {1} bytes".format(filename, artifact['size']))
 
-            url = "https://ci.appveyor.com/buildjobs/{}/artifacts/{}".format(job['jobId'], filename)
+            url = "https://ci.appveyor.com/api/buildjobs/{}/artifacts/{}".format(job['jobId'], filename)
             download_url(url, filename, make_auth_headers())
 
             if is_zip:
@@ -75,6 +75,8 @@ def download_url(url, filename, headers):
         with open(filename, 'wb') as f:
             for chunk in response.iter_content(16 * 1024):
                 f.write(chunk)
+    else:
+        print("    Error downloading {}: {}".format(url, response)
 
 
 def unpack_zipfile(filename):
