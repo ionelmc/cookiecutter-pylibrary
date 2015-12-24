@@ -7,7 +7,7 @@ env:
     - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
-{% for env in ['py26', 'py27', 'py33', 'py34', 'py35', 'pypy'] %}
+{% for env in ['py27', 'py33', 'py34', 'py35', 'pypy'] %}
     - TOXENV={{ env }}-cover
       {%- if cookiecutter.coveralls|lower == 'yes' %}
         {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
