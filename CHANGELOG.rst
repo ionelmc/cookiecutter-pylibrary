@@ -6,6 +6,11 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 master
 ------
 
+
+
+v1.11 (2016-01-05)
+------------------
+
 * Added ``.editorconfig``.
 * Changed Travis config: pip's cache is saved, libsegfault.so now works on all signals (like ABRT) and pytest-travis-fold
   is included by default.
