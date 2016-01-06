@@ -8,7 +8,7 @@
     "package_name": "nameless",
     "distribution_name": "nameless",
     "bin_name": "nameless",
-    "project_short_description": "An example package. Replace this with a proper project description. Generated with https://github.com/ionelmc/cookiecutter-pylibrary",
+    "project_short_description": "An example package. Generated with cookiecutter-pylibrary.",
     "release_date": [
         "today",
         "2025-01-01"
