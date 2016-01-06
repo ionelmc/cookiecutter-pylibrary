@@ -26,7 +26,7 @@ Overview
       - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
-    :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}
+    :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
 {{ '' }}
 {%- if cookiecutter.travis|lower == 'yes' %}
@@ -110,7 +110,7 @@ Installation
 Documentation
 =============
 
-https://{{ cookiecutter.repo_name }}.readthedocs.org/
+https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.org/
 
 Development
 ===========
