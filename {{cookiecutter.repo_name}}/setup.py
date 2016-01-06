@@ -3,13 +3,17 @@
 from __future__ import absolute_import, print_function
 
 import io
+{% if cookiecutter.c_extension_support|lower == 'yes' -%}
 import os
+{% endif -%}
 import re
 from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
+{% if cookiecutter.c_extension_support|lower == 'yes' -%}
 from os.path import relpath
+{% endif -%}
 from os.path import splitext
 
 from setuptools import find_packages
@@ -44,7 +48,7 @@ def read(*names, **kwargs):
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
 
-{% if cookiecutter.c_extension_optional|lower == 'yes' -%}
+{% if cookiecutter.c_extension_optional|lower == 'yes' %}
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
@@ -68,7 +72,6 @@ class optional_build_ext(build_ext):
         print('    ' + repr(e))
         print('*' * 80)
 
-
 {% endif -%}
 {% endif -%}
 setup(
@@ -77,7 +80,7 @@ setup(
     license='BSD',
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
     long_description='%s\n%s' % (
-        re.compile('^.. start-badges.*^.. end-badges', re.M|re.S).sub('', read('README.rst')),
+        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
     ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
