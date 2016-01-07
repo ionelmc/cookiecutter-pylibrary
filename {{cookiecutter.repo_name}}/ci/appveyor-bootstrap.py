@@ -18,8 +18,6 @@ BASE_URL = "https://www.python.org/ftp/python/"
 GET_PIP_URL = "https://bootstrap.pypa.io/get-pip.py"
 GET_PIP_PATH = "C:\get-pip.py"
 URLS = {
-    ("2.6", "64"): BASE_URL + "2.6.6/python-2.6.6.amd64.msi",
-    ("2.6", "32"): BASE_URL + "2.6.6/python-2.6.6.msi",
     ("2.7", "64"): BASE_URL + "2.7.10/python-2.7.10.amd64.msi",
     ("2.7", "32"): BASE_URL + "2.7.10/python-2.7.10.msi",
     # NOTE: no .msi installer for 3.3.6
@@ -32,8 +30,6 @@ URLS = {
 }
 INSTALL_CMD = {
     # Commands are allowed to fail only if they are not the last command.  Eg: uninstall (/x) allowed to fail.
-    "2.6": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
-            ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
     "2.7": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],
             ["msiexec.exe", "/L*+!", "install.log", "/qn", "/i", "{path}", "TARGETDIR={home}"]],
     "3.3": [["msiexec.exe", "/L*+!", "install.log", "/qn", "/x", "{path}"],

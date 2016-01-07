@@ -28,8 +28,8 @@ Features
 This is an "all inclusive" sort of template.
 
 * BSD 2-clause license.
-* Tox_ for managing test environments for Python 2.6, 2.7, 3.3, PyPy etc.
-* Pytest_ or Nose_ for testing Python 2.6, 2.7, 3.3, PyPy etc.
+* Tox_ for managing test environments for Python 2.7, 3.3, PyPy etc.
+* Pytest_ or Nose_ for testing Python 2.7, 3.3, PyPy etc.
 * *Optional* support for creating a tests matrix out of dependencies and python versions.
 * Travis-CI_ and AppVeyor_ for continuous testing.
 * Coveralls_ or Codecov_ for coverage tracking (using Tox_).
