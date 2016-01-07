@@ -19,7 +19,7 @@ install:
   - ps: Copy-Item -Path "./ci/pip.ini" -Destination "c:/Users/appveyor/pip/pip.ini" -Force
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
-  - "c:\\python27\\python c:\\get-pip.py setuptools wheel"
+  - "c:\\python27\\python c:\\get-pip.py setuptools"
   - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
   - "c:\\python27\\Scripts\\pip wheel pytest-capturelog pytest-cov pytest"
   - "c:\\python27\\Scripts\\pip wheel nose coverage"
