@@ -9,10 +9,7 @@
     "distribution_name": "nameless",
     "bin_name": "nameless",
     "project_short_description": "An example package. Generated with cookiecutter-pylibrary.",
-    "release_date": [
-        "today",
-        "2025-01-01"
-    ],
+    "release_date": "today",
     "year": [
         "now",
         "2016",
