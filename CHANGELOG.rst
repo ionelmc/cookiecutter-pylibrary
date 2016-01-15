@@ -6,8 +6,9 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 master
 ------
 
-* Removed all references to Python 2.6 from various config files. Contributed by Lucas Wiman, 
+* Removed all references to Python 2.6 from various config files. Contributed by Lucas Wiman,
   `#48 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/48>`_.
+* Rename ``bin_name`` to ``command_line_interface_bin_name`` for more clarity.
 
 v1.11 (2016-01-05)
 ------------------

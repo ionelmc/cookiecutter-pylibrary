@@ -132,7 +132,7 @@ You will be asked for these fields:
         * ``click`` - a command implemented with `click <http://click.pocoo.org/>`_ - which you can use to build more complex commands.
         * ``no`` - no CLI at all.
 
-    * - ``bin_name``
+    * - ``command_line_interface_bin_name``
       - .. code:: python
 
             "nameless"

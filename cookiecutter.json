@@ -7,7 +7,6 @@
     "repo_name": "python-nameless",
     "package_name": "nameless",
     "distribution_name": "nameless",
-    "bin_name": "nameless",
     "project_short_description": "An example package. Generated with cookiecutter-pylibrary.",
     "release_date": "today",
     "year": [
@@ -32,6 +31,7 @@
     "test_matrix_configurator": ["no", "yes"],
     "test_runner": ["pytest", "nose"],
     "command_line_interface": ["plain", "click", "no"],
+    "command_line_interface_bin_name": "nameless",
     "coveralls": ["no", "yes"],
     "codecov": ["yes", "no"],
     "landscape": ["no", "yes"],

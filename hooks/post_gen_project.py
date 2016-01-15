@@ -107,11 +107,11 @@ if __name__ == "__main__":
 {% endif %}
 """)
 
-    bin_name = '{{ cookiecutter.bin_name }}'
-    while bin_name.endswith('.py'):
-        bin_name = bin_name[:-3]
+    command_line_interface_bin_name = '{{ cookiecutter.command_line_interface_bin_name }}'
+    while command_line_interface_bin_name.endswith('.py'):
+        command_line_interface_bin_name = command_line_interface_bin_name[:-3]
 
-        if bin_name == '{{ cookiecutter.package_name|replace('-', '_') }}':
+        if command_line_interface_bin_name == '{{ cookiecutter.package_name|replace('-', '_') }}':
             warn("""
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!                                                                            !!
@@ -127,12 +127,12 @@ if __name__ == "__main__":
 !!                                                                            !!
 !!          To avoid this problem you have two options:                       !!
 !!                                                                            !!
-!!          * Remove the ".py" suffix from the `bin_name`.                    !!
+!!          * Remove the ".py" suffix from the `command_line_interface_bin_name`.                    !!
 !!                                                                            !!
 !!          * Use a different `package_name` {1} !!
 !!                                                                            !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 """.format(
-                '"{{ cookiecutter.bin_name }}" will shadow your package.'.ljust(65),
-                '(not "{0}").'.format(bin_name).ljust(32)))
+                '"{{ cookiecutter.command_line_interface_bin_name }}" will shadow your package.'.ljust(65),
+                '(not "{0}").'.format(command_line_interface_bin_name).ljust(32)))
         break
