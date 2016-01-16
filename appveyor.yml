@@ -39,18 +39,10 @@ environment:
     - ENV: matrix-nose-fndef-pndef-no-yes
     - ENV: matrix-nose-fndef-pndef-plain-no
     - ENV: matrix-nose-fndef-pndef-plain-yes
-    - ENV: matrix-nose-fndef-pndoublequote-no-no
-    - ENV: matrix-nose-fndef-pndoublequote-no-yes
-    - ENV: matrix-nose-fndef-pnquote-no-no
-    - ENV: matrix-nose-fndef-pnquote-no-yes
-    - ENV: matrix-nose-fndef-pntriplequote-no-no
-    - ENV: matrix-nose-fndef-pntriplequote-no-yes
-    - ENV: matrix-nose-fndoublequote-pndef-no-no
-    - ENV: matrix-nose-fndoublequote-pndef-no-yes
-    - ENV: matrix-nose-fnquote-pndef-no-no
-    - ENV: matrix-nose-fnquote-pndef-no-yes
-    - ENV: matrix-nose-fntriplequote-pndef-no-no
-    - ENV: matrix-nose-fntriplequote-pndef-no-yes
+    - ENV: matrix-nose-fndef-pnquotes-no-no
+    - ENV: matrix-nose-fndef-pnquotes-no-yes
+    - ENV: matrix-nose-fnquotes-pndef-no-no
+    - ENV: matrix-nose-fnquotes-pndef-no-yes
     - ENV: matrix-pytest-cext-cython-fndef-pndef-click-no
     - ENV: matrix-pytest-cext-cython-fndef-pndef-click-yes
     - ENV: matrix-pytest-cext-cython-fndef-pndef-no-no
@@ -85,18 +77,10 @@ environment:
     - ENV: matrix-pytest-fndef-pndef-no-yes
     - ENV: matrix-pytest-fndef-pndef-plain-no
     - ENV: matrix-pytest-fndef-pndef-plain-yes
-    - ENV: matrix-pytest-fndef-pndoublequote-no-no
-    - ENV: matrix-pytest-fndef-pndoublequote-no-yes
-    - ENV: matrix-pytest-fndef-pnquote-no-no
-    - ENV: matrix-pytest-fndef-pnquote-no-yes
-    - ENV: matrix-pytest-fndef-pntriplequote-no-no
-    - ENV: matrix-pytest-fndef-pntriplequote-no-yes
-    - ENV: matrix-pytest-fndoublequote-pndef-no-no
-    - ENV: matrix-pytest-fndoublequote-pndef-no-yes
-    - ENV: matrix-pytest-fnquote-pndef-no-no
-    - ENV: matrix-pytest-fnquote-pndef-no-yes
-    - ENV: matrix-pytest-fntriplequote-pndef-no-no
-    - ENV: matrix-pytest-fntriplequote-pndef-no-yes
+    - ENV: matrix-pytest-fndef-pnquotes-no-no
+    - ENV: matrix-pytest-fndef-pnquotes-no-yes
+    - ENV: matrix-pytest-fnquotes-pndef-no-no
+    - ENV: matrix-pytest-fnquotes-pndef-no-yes
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-no
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-yes
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-no-no
@@ -191,18 +175,10 @@ environment:
     - ENV: plain-nose-fndef-pndef-no-yes
     - ENV: plain-nose-fndef-pndef-plain-no
     - ENV: plain-nose-fndef-pndef-plain-yes
-    - ENV: plain-nose-fndef-pndoublequote-no-no
-    - ENV: plain-nose-fndef-pndoublequote-no-yes
-    - ENV: plain-nose-fndef-pnquote-no-no
-    - ENV: plain-nose-fndef-pnquote-no-yes
-    - ENV: plain-nose-fndef-pntriplequote-no-no
-    - ENV: plain-nose-fndef-pntriplequote-no-yes
-    - ENV: plain-nose-fndoublequote-pndef-no-no
-    - ENV: plain-nose-fndoublequote-pndef-no-yes
-    - ENV: plain-nose-fnquote-pndef-no-no
-    - ENV: plain-nose-fnquote-pndef-no-yes
-    - ENV: plain-nose-fntriplequote-pndef-no-no
-    - ENV: plain-nose-fntriplequote-pndef-no-yes
+    - ENV: plain-nose-fndef-pnquotes-no-no
+    - ENV: plain-nose-fndef-pnquotes-no-yes
+    - ENV: plain-nose-fnquotes-pndef-no-no
+    - ENV: plain-nose-fnquotes-pndef-no-yes
     - ENV: plain-pytest-cext-cython-fndef-pndef-click-no
     - ENV: plain-pytest-cext-cython-fndef-pndef-click-yes
     - ENV: plain-pytest-cext-cython-fndef-pndef-no-no
@@ -237,18 +213,10 @@ environment:
     - ENV: plain-pytest-fndef-pndef-no-yes
     - ENV: plain-pytest-fndef-pndef-plain-no
     - ENV: plain-pytest-fndef-pndef-plain-yes
-    - ENV: plain-pytest-fndef-pndoublequote-no-no
-    - ENV: plain-pytest-fndef-pndoublequote-no-yes
-    - ENV: plain-pytest-fndef-pnquote-no-no
-    - ENV: plain-pytest-fndef-pnquote-no-yes
-    - ENV: plain-pytest-fndef-pntriplequote-no-no
-    - ENV: plain-pytest-fndef-pntriplequote-no-yes
-    - ENV: plain-pytest-fndoublequote-pndef-no-no
-    - ENV: plain-pytest-fndoublequote-pndef-no-yes
-    - ENV: plain-pytest-fnquote-pndef-no-no
-    - ENV: plain-pytest-fnquote-pndef-no-yes
-    - ENV: plain-pytest-fntriplequote-pndef-no-no
-    - ENV: plain-pytest-fntriplequote-pndef-no-yes
+    - ENV: plain-pytest-fndef-pnquotes-no-no
+    - ENV: plain-pytest-fndef-pnquotes-no-yes
+    - ENV: plain-pytest-fnquotes-pndef-no-no
+    - ENV: plain-pytest-fnquotes-pndef-no-yes
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-no
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-yes
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-no-no
