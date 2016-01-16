@@ -117,6 +117,14 @@ You will be asked for these fields:
             "no"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
+    * - ``test_matrix_separate_coverage``
+      - .. code:: python
+
+            "no"
+      - Enable this to have a separate env for measuring coverage. Indicated if you want to run doctests or collect tests
+        from ``src``.
+
+        Note that ``test_matrix_separate_coverage == 'no'`` only works if you also have ``test_matrix_configurator == 'no'``.
     * - ``test_runner``
       - .. code:: python
 

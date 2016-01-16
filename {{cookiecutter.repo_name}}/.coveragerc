@@ -1,9 +1,19 @@
 [paths]
+{%- if cookiecutter.test_matrix_configurator|lower == 'yes' %}
 source = src
+{%- else %}
+source =
+   src/{{ cookiecutter.package_name }}
+   */site-packages/{{ cookiecutter.package_name }}
+{%- endif %}
 
 [run]
 branch = True
+{% if cookiecutter.test_matrix_configurator|lower == 'yes' -%}
 source = src
+{% else -%}
+source = {{ cookiecutter.package_name }}
+{% endif -%}
 parallel = true
 
 [report]
