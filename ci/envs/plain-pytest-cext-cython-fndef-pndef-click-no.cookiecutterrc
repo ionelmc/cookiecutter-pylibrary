@@ -1,0 +1,9 @@
+default_context:
+  c_extension_cython: 'yes'
+  c_extension_optional: 'no'
+  c_extension_support: 'yes'
+  command_line_interface: click
+  rtd_theme: 'no'
+  test_matrix_configurator: 'no'
+  test_matrix_separate_coverage: 'no'
+  test_runner: pytest

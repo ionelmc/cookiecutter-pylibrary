@@ -5,12 +5,24 @@ matrix:
   fast_finish: true
 environment:
   matrix:
+    - ENV: matrix-nose-cext-cython-fndef-pndef-click-no
+    - ENV: matrix-nose-cext-cython-fndef-pndef-click-yes
+    - ENV: matrix-nose-cext-cython-fndef-pndef-no-no
+    - ENV: matrix-nose-cext-cython-fndef-pndef-no-yes
+    - ENV: matrix-nose-cext-cython-fndef-pndef-plain-no
+    - ENV: matrix-nose-cext-cython-fndef-pndef-plain-yes
     - ENV: matrix-nose-cext-fndef-pndef-click-no
     - ENV: matrix-nose-cext-fndef-pndef-click-yes
     - ENV: matrix-nose-cext-fndef-pndef-no-no
     - ENV: matrix-nose-cext-fndef-pndef-no-yes
     - ENV: matrix-nose-cext-fndef-pndef-plain-no
     - ENV: matrix-nose-cext-fndef-pndef-plain-yes
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-click-no
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-no-no
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: matrix-nose-cext-optional-cython-fndef-pndef-plain-yes
     - ENV: matrix-nose-cext-optional-fndef-pndef-click-no
     - ENV: matrix-nose-cext-optional-fndef-pndef-click-yes
     - ENV: matrix-nose-cext-optional-fndef-pndef-no-no
@@ -39,12 +51,24 @@ environment:
     - ENV: matrix-nose-fnquote-pndef-no-yes
     - ENV: matrix-nose-fntriplequote-pndef-no-no
     - ENV: matrix-nose-fntriplequote-pndef-no-yes
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-click-no
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-click-yes
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-no-no
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-no-yes
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-plain-no
+    - ENV: matrix-pytest-cext-cython-fndef-pndef-plain-yes
     - ENV: matrix-pytest-cext-fndef-pndef-click-no
     - ENV: matrix-pytest-cext-fndef-pndef-click-yes
     - ENV: matrix-pytest-cext-fndef-pndef-no-no
     - ENV: matrix-pytest-cext-fndef-pndef-no-yes
     - ENV: matrix-pytest-cext-fndef-pndef-plain-no
     - ENV: matrix-pytest-cext-fndef-pndef-plain-yes
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-click-no
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-no-no
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: matrix-pytest-cext-optional-cython-fndef-pndef-plain-yes
     - ENV: matrix-pytest-cext-optional-fndef-pndef-click-no
     - ENV: matrix-pytest-cext-optional-fndef-pndef-click-yes
     - ENV: matrix-pytest-cext-optional-fndef-pndef-no-no
@@ -73,12 +97,84 @@ environment:
     - ENV: matrix-pytest-fnquote-pndef-no-yes
     - ENV: matrix-pytest-fntriplequote-pndef-no-no
     - ENV: matrix-pytest-fntriplequote-pndef-no-yes
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-no
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-no-no
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-click-no
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-no-no
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-nose-cext-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-click-no
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-no-no
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-nose-cext-optional-cython-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-click-no
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-no-no
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-nose-cext-optional-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-nose-fndef-pndef-click-no
+    - ENV: matrix-separatecover-nose-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-nose-fndef-pndef-no-no
+    - ENV: matrix-separatecover-nose-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-nose-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-nose-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-click-no
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-no-no
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-pytest-cext-cython-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-click-no
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-no-no
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-pytest-cext-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-click-no
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-no-no
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-pytest-cext-optional-cython-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-click-no
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-no-no
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-pytest-cext-optional-fndef-pndef-plain-yes
+    - ENV: matrix-separatecover-pytest-fndef-pndef-click-no
+    - ENV: matrix-separatecover-pytest-fndef-pndef-click-yes
+    - ENV: matrix-separatecover-pytest-fndef-pndef-no-no
+    - ENV: matrix-separatecover-pytest-fndef-pndef-no-yes
+    - ENV: matrix-separatecover-pytest-fndef-pndef-plain-no
+    - ENV: matrix-separatecover-pytest-fndef-pndef-plain-yes
+    - ENV: plain-nose-cext-cython-fndef-pndef-click-no
+    - ENV: plain-nose-cext-cython-fndef-pndef-click-yes
+    - ENV: plain-nose-cext-cython-fndef-pndef-no-no
+    - ENV: plain-nose-cext-cython-fndef-pndef-no-yes
+    - ENV: plain-nose-cext-cython-fndef-pndef-plain-no
+    - ENV: plain-nose-cext-cython-fndef-pndef-plain-yes
     - ENV: plain-nose-cext-fndef-pndef-click-no
     - ENV: plain-nose-cext-fndef-pndef-click-yes
     - ENV: plain-nose-cext-fndef-pndef-no-no
     - ENV: plain-nose-cext-fndef-pndef-no-yes
     - ENV: plain-nose-cext-fndef-pndef-plain-no
     - ENV: plain-nose-cext-fndef-pndef-plain-yes
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-click-no
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-no-no
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: plain-nose-cext-optional-cython-fndef-pndef-plain-yes
     - ENV: plain-nose-cext-optional-fndef-pndef-click-no
     - ENV: plain-nose-cext-optional-fndef-pndef-click-yes
     - ENV: plain-nose-cext-optional-fndef-pndef-no-no
@@ -107,12 +203,24 @@ environment:
     - ENV: plain-nose-fnquote-pndef-no-yes
     - ENV: plain-nose-fntriplequote-pndef-no-no
     - ENV: plain-nose-fntriplequote-pndef-no-yes
+    - ENV: plain-pytest-cext-cython-fndef-pndef-click-no
+    - ENV: plain-pytest-cext-cython-fndef-pndef-click-yes
+    - ENV: plain-pytest-cext-cython-fndef-pndef-no-no
+    - ENV: plain-pytest-cext-cython-fndef-pndef-no-yes
+    - ENV: plain-pytest-cext-cython-fndef-pndef-plain-no
+    - ENV: plain-pytest-cext-cython-fndef-pndef-plain-yes
     - ENV: plain-pytest-cext-fndef-pndef-click-no
     - ENV: plain-pytest-cext-fndef-pndef-click-yes
     - ENV: plain-pytest-cext-fndef-pndef-no-no
     - ENV: plain-pytest-cext-fndef-pndef-no-yes
     - ENV: plain-pytest-cext-fndef-pndef-plain-no
     - ENV: plain-pytest-cext-fndef-pndef-plain-yes
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-click-no
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-no-no
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: plain-pytest-cext-optional-cython-fndef-pndef-plain-yes
     - ENV: plain-pytest-cext-optional-fndef-pndef-click-no
     - ENV: plain-pytest-cext-optional-fndef-pndef-click-yes
     - ENV: plain-pytest-cext-optional-fndef-pndef-no-no
@@ -141,6 +249,66 @@ environment:
     - ENV: plain-pytest-fnquote-pndef-no-yes
     - ENV: plain-pytest-fntriplequote-pndef-no-no
     - ENV: plain-pytest-fntriplequote-pndef-no-yes
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-no
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-yes
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-no-no
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-no-yes
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-plain-no
+    - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-click-no
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-click-yes
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-no-no
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-no-yes
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-plain-no
+    - ENV: plain-separatecover-nose-cext-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-click-no
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-no-no
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: plain-separatecover-nose-cext-optional-cython-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-click-no
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-click-yes
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-no-no
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-no-yes
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-plain-no
+    - ENV: plain-separatecover-nose-cext-optional-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-nose-fndef-pndef-click-no
+    - ENV: plain-separatecover-nose-fndef-pndef-click-yes
+    - ENV: plain-separatecover-nose-fndef-pndef-no-no
+    - ENV: plain-separatecover-nose-fndef-pndef-no-yes
+    - ENV: plain-separatecover-nose-fndef-pndef-plain-no
+    - ENV: plain-separatecover-nose-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-click-no
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-click-yes
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-no-no
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-no-yes
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-plain-no
+    - ENV: plain-separatecover-pytest-cext-cython-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-click-no
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-click-yes
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-no-no
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-no-yes
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-plain-no
+    - ENV: plain-separatecover-pytest-cext-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-click-no
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-click-yes
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-no-no
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-no-yes
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-plain-no
+    - ENV: plain-separatecover-pytest-cext-optional-cython-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-click-no
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-click-yes
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-no-no
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-no-yes
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-plain-no
+    - ENV: plain-separatecover-pytest-cext-optional-fndef-pndef-plain-yes
+    - ENV: plain-separatecover-pytest-fndef-pndef-click-no
+    - ENV: plain-separatecover-pytest-fndef-pndef-click-yes
+    - ENV: plain-separatecover-pytest-fndef-pndef-no-no
+    - ENV: plain-separatecover-pytest-fndef-pndef-no-yes
+    - ENV: plain-separatecover-pytest-fndef-pndef-plain-no
+    - ENV: plain-separatecover-pytest-fndef-pndef-plain-yes
 init:
   - "echo %CTX%"
   - "set"
