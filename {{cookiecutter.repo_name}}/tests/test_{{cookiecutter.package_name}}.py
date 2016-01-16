@@ -5,13 +5,14 @@ from {{ cookiecutter.package_name }}.cli import main
 {%- elif cookiecutter.command_line_interface|lower == 'plain' %}
 from {{ cookiecutter.package_name }}.cli import main
 {%- endif %}
-{%- if cookiecutter.test_matrix_configurator|lower == 'yes' and cookiecutter.test_matrix_configurator|lower == 'no' %}
+{%- if cookiecutter.test_matrix_configurator|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' or
+       cookiecutter.command_line_interface != 'no' %}
 import {{ cookiecutter.package_name }}
 {%- endif %}
 
 
 def test_main():
-{%- if cookiecutter.test_matrix_configurator|lower == 'yes' and cookiecutter.test_matrix_configurator|lower == 'no' %}
+{%- if cookiecutter.test_matrix_configurator|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
     assert 'site-packages' in {{ cookiecutter.package_name }}.__file__
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
