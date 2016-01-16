@@ -17,7 +17,7 @@ Overview
         | {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
           {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
         {{ '' }}
-        {%- if cookiecutter.landscape|lower == 'yes' or cookiecutter.scrutinizer|lower == 'yes' or cookiecutter.codacy|lower == 'yes' or cookiecutter.codeclimate|lower == 'yes' -%}
+        {%- if cookiecutter.landscape|lower == 'yes' or cookiecutter.scrutinizer|lower == 'yes' or cookiecutter.codacy|lower == 'yes' or cookiecutter.codeclimate|lower == 'yes' %}
         | {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
           {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
           {%- if cookiecutter.codacy|lower == 'yes' %} |codacy|{% endif -%}
