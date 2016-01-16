@@ -6,7 +6,7 @@ from {{ cookiecutter.package_name }}.cli import main
 from {{ cookiecutter.package_name }}.cli import main
 {%- endif %}
 {%- if cookiecutter.test_matrix_configurator|lower == 'yes' and cookiecutter.test_matrix_configurator|lower == 'no' or
-       cookiecutter.command_line_interface != 'no' %}
+       cookiecutter.command_line_interface == 'no' %}
 import {{ cookiecutter.package_name }}
 {%- endif %}
 
