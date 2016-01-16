@@ -8,12 +8,14 @@ env:
   matrix:
     - TOXENV=check
 {% for env in ['py27', 'py33', 'py34', 'py35', 'pypy'] %}
-    - TOXENV={{ env }}-cover
+    - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif %}
       {%- if cookiecutter.coveralls|lower == 'yes' %}
         {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
+{%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
     - TOXENV={{ env }}-nocov
+{%- endif %}
 {%- endfor %}
 before_install:
   - python --version
