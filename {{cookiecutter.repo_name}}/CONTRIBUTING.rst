@@ -37,7 +37,8 @@ Development
 
 To set up `{{ cookiecutter.repo_name }}` for local development:
 
-1. `Fork {{ cookiecutter.repo_name }} on GitHub <https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/fork>`_.
+1. Fork `{{ cookiecutter.repo_name }} <https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}>`_
+   (look for the "Fork" button).
 2. Clone your fork locally::
 
     git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
