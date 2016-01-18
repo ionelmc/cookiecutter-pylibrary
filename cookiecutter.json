@@ -40,6 +40,7 @@
     "codacy" : ["no", "yes"],
     "codeclimate" : ["no", "yes"],
     "sphinx_theme": ["readthedocs", "sphinx-py3doc-enhanced-theme"],
+    "sphinx_doctest": ["no", "yes"],
     "travis": ["yes", "no"],
     "appveyor": ["yes", "no"],
     "requiresio": ["yes", "no"]

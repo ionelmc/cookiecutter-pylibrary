@@ -122,7 +122,7 @@ You will be asked for these fields:
 
             "no"
       - Enable this to have a separate env for measuring coverage. Indicated if you want to run doctests or collect tests
-        from ``src``.
+        from ``src`` with pytest.
 
         Note that ``test_matrix_separate_coverage == 'no'`` only works if you also have ``test_matrix_configurator == 'no'``.
     * - ``test_runner``
@@ -197,6 +197,14 @@ You will be asked for these fields:
         Suggested alternative: `sphinx-py3doc-enhanced-theme
         <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
         the Python 3 documentation.
+    * - ``sphinx_doctest``
+      - .. code:: python
+
+            "no"
+      - Set to ``"yes"`` if you want to enable doctesting in the `docs` environment. Works best with
+        ``test_matrix_separate_coverage == 'no'``.
+
+        Read more about `doctest support in Sphinx <http://www.sphinx-doc.org/en/stable/ext/doctest.html>`_.
     * - ``travis``
       - .. code:: python
 

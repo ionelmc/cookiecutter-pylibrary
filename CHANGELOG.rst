@@ -11,6 +11,8 @@ master
 * Rename ``bin_name`` to ``command_line_interface_bin_name`` for more clarity.
 * Added ``test_matrix_separate_coverage`` option with default to ``"no"``. Previously the template generated two environment
   flavors in ``tox.ini``: ``cover`` and ``nocov`` (what ``test_matrix_separate_coverage == "yes"`` would generate now).
+* Added ``sphinx_doctest`` option to complement the lack of doctest support when ``test_matrix_separate_coverage == "no"`` is
+  used.
 
 v1.11 (2016-01-05)
 ------------------

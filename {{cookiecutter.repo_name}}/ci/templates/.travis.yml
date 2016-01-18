@@ -7,6 +7,7 @@ env:
     - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
+    - TOXENV=docs
 {% if cookiecutter.test_matrix_configurator == "yes" %}
 {%- raw -%}
 {% for env, config in tox_environments|dictsort %}{{ '' }}
