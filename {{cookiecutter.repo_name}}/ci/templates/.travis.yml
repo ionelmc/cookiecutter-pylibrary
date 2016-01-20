@@ -22,13 +22,22 @@ env:
 {% else %}
 {%- raw -%}
 {% for env in tox_environments %}{{ '' }}
-    - TOXENV={{ env }}{% if 'cover' in env %}{% endraw %}
+    - TOXENV={{ env }}{% endraw %}
+    {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw %}
+      {% if 'cover' in env %}{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {% if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif %}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}
-{% endfor %}
+      {%- raw %}{% endif -%}{% endraw %}
+    {%- else %}
+      {%- if cookiecutter.coveralls|lower == 'yes' %}
+        {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+      {%- endif %}
+      {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
+    {%- endif %}
+{%- raw %}
+{%- endfor %}
 {%- endraw %}
 {% endif %}
 before_install:
