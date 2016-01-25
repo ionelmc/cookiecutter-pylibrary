@@ -14,7 +14,7 @@ environment:
 {%- raw %}
 {% for env, config in tox_environments|dictsort %}{% if config.python in ('python2.7', 'python3.3', 'python3.4', 'python3.5') %}
     - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.codecov|lower == 'yes' %}{% raw %}{% if config.cover %}{% endraw -%}
-        ## {%- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif %}
+        {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
       {%- raw %}{% endif %}{%- endraw %}{% endif %}{% raw %}'
       TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}\python.exe
@@ -23,7 +23,7 @@ environment:
       PYTHON_ARCH: '32'
 
     - TOXENV: '{{ env }}{% endraw -%}{% if cookiecutter.codecov|lower == 'yes' -%}{% raw %}{% if config.cover %}{% endraw -%}
-        ## {%- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -%}
+        {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
       {%- raw %}{% endif %}{% endraw %}{% endif %}{% raw %}'
       TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}-x64\python.exe
