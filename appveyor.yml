@@ -29,20 +29,12 @@ environment:
     - ENV: matrix-nose-cext-optional-fndef-pndef-no-yes
     - ENV: matrix-nose-cext-optional-fndef-pndef-plain-no
     - ENV: matrix-nose-cext-optional-fndef-pndef-plain-yes
-    - ENV: matrix-nose-fnaccents-pndef-no-no
-    - ENV: matrix-nose-fnaccents-pndef-no-yes
-    - ENV: matrix-nose-fndef-pnaccents-no-no
-    - ENV: matrix-nose-fndef-pnaccents-no-yes
     - ENV: matrix-nose-fndef-pndef-click-no
     - ENV: matrix-nose-fndef-pndef-click-yes
     - ENV: matrix-nose-fndef-pndef-no-no
     - ENV: matrix-nose-fndef-pndef-no-yes
     - ENV: matrix-nose-fndef-pndef-plain-no
     - ENV: matrix-nose-fndef-pndef-plain-yes
-    - ENV: matrix-nose-fndef-pnquotes-no-no
-    - ENV: matrix-nose-fndef-pnquotes-no-yes
-    - ENV: matrix-nose-fnquotes-pndef-no-no
-    - ENV: matrix-nose-fnquotes-pndef-no-yes
     - ENV: matrix-pytest-cext-cython-fndef-pndef-click-no
     - ENV: matrix-pytest-cext-cython-fndef-pndef-click-yes
     - ENV: matrix-pytest-cext-cython-fndef-pndef-no-no
@@ -67,20 +59,12 @@ environment:
     - ENV: matrix-pytest-cext-optional-fndef-pndef-no-yes
     - ENV: matrix-pytest-cext-optional-fndef-pndef-plain-no
     - ENV: matrix-pytest-cext-optional-fndef-pndef-plain-yes
-    - ENV: matrix-pytest-fnaccents-pndef-no-no
-    - ENV: matrix-pytest-fnaccents-pndef-no-yes
-    - ENV: matrix-pytest-fndef-pnaccents-no-no
-    - ENV: matrix-pytest-fndef-pnaccents-no-yes
     - ENV: matrix-pytest-fndef-pndef-click-no
     - ENV: matrix-pytest-fndef-pndef-click-yes
     - ENV: matrix-pytest-fndef-pndef-no-no
     - ENV: matrix-pytest-fndef-pndef-no-yes
     - ENV: matrix-pytest-fndef-pndef-plain-no
     - ENV: matrix-pytest-fndef-pndef-plain-yes
-    - ENV: matrix-pytest-fndef-pnquotes-no-no
-    - ENV: matrix-pytest-fndef-pnquotes-no-yes
-    - ENV: matrix-pytest-fnquotes-pndef-no-no
-    - ENV: matrix-pytest-fnquotes-pndef-no-yes
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-no
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-click-yes
     - ENV: matrix-separatecover-nose-cext-cython-fndef-pndef-no-no
@@ -165,20 +149,12 @@ environment:
     - ENV: plain-nose-cext-optional-fndef-pndef-no-yes
     - ENV: plain-nose-cext-optional-fndef-pndef-plain-no
     - ENV: plain-nose-cext-optional-fndef-pndef-plain-yes
-    - ENV: plain-nose-fnaccents-pndef-no-no
-    - ENV: plain-nose-fnaccents-pndef-no-yes
-    - ENV: plain-nose-fndef-pnaccents-no-no
-    - ENV: plain-nose-fndef-pnaccents-no-yes
     - ENV: plain-nose-fndef-pndef-click-no
     - ENV: plain-nose-fndef-pndef-click-yes
     - ENV: plain-nose-fndef-pndef-no-no
     - ENV: plain-nose-fndef-pndef-no-yes
     - ENV: plain-nose-fndef-pndef-plain-no
     - ENV: plain-nose-fndef-pndef-plain-yes
-    - ENV: plain-nose-fndef-pnquotes-no-no
-    - ENV: plain-nose-fndef-pnquotes-no-yes
-    - ENV: plain-nose-fnquotes-pndef-no-no
-    - ENV: plain-nose-fnquotes-pndef-no-yes
     - ENV: plain-pytest-cext-cython-fndef-pndef-click-no
     - ENV: plain-pytest-cext-cython-fndef-pndef-click-yes
     - ENV: plain-pytest-cext-cython-fndef-pndef-no-no
@@ -203,10 +179,8 @@ environment:
     - ENV: plain-pytest-cext-optional-fndef-pndef-no-yes
     - ENV: plain-pytest-cext-optional-fndef-pndef-plain-no
     - ENV: plain-pytest-cext-optional-fndef-pndef-plain-yes
-    - ENV: plain-pytest-fnaccents-pndef-no-no
-    - ENV: plain-pytest-fnaccents-pndef-no-yes
-    - ENV: plain-pytest-fndef-pnaccents-no-no
-    - ENV: plain-pytest-fndef-pnaccents-no-yes
+    - ENV: plain-pytest-fnaccents-pnaccents-no-no
+    - ENV: plain-pytest-fnaccents-pnaccents-no-yes
     - ENV: plain-pytest-fndef-pndef-click-no
     - ENV: plain-pytest-fndef-pndef-click-yes
     - ENV: plain-pytest-fndef-pndef-no-no
@@ -217,6 +191,8 @@ environment:
     - ENV: plain-pytest-fndef-pnquotes-no-yes
     - ENV: plain-pytest-fnquotes-pndef-no-no
     - ENV: plain-pytest-fnquotes-pndef-no-yes
+    - ENV: plain-pytest-fnquotes-pnquotes-no-no
+    - ENV: plain-pytest-fnquotes-pnquotes-no-yes
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-no
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-click-yes
     - ENV: plain-separatecover-nose-cext-cython-fndef-pndef-no-no
