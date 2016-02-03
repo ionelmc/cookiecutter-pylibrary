@@ -22,6 +22,8 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor|
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
 
+.. contents:: Table of Contents
+
 Features
 --------
 
@@ -63,8 +65,8 @@ them, just run this in your shell or command prompt::
 
   pip install tox cookiecutter
 
-Usage
------
+Usage and options
+-----------------
 
 This template is more involved than the regular `cookiecutter-pypackage
 <https://github.com/audreyr/cookiecutter-pypackage>`_.
@@ -285,15 +287,34 @@ You should read `Semantic Versioning 2.0.0 <http://semver.org/>`_ before bumping
 Building and uploading
 ''''''''''''''''''''''
 
-To make a release of the project on PyPI, the most simple usage is::
+Before building dists make sure you got a clean build area::
 
-  python setup.py release
-  twine upload dist/*
+    rm -rf build
+    rm -rf src/*.egg-info
 
-Explanations:
+Note:
 
-* ``release`` is aliased to ``register clean sdist bdist_wheel``, see ``setup.cfg``.
-* `twine <https://pypi.python.org/pypi/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
+    Dirty ``build`` or ``egg-info`` dirs can cause problems: missing or stale files in the resulting dist or
+    strange and confusing errors. Avoid having them around.
+
+Then you should check that you got no packaging issues::
+
+    tox -e check
+
+And then you can build the ``sdist``, and if possible, the ``bdist_wheel`` too::
+
+    python setup.py clean --all sdist bdist_wheel
+
+To make a release of the project on PyPI, assuming you got some distributions in ``dist/``, the most simple usage is::
+
+    twine register dist/*
+    twine upload --skip-existing dist/*
+
+Note:
+
+    `twine <https://pypi.python.org/pypi/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
+    You can still use the old ``python setup.py register sdist bdist_wheel upload`` but it's not very secure - your PyPI
+    password will be sent over plaintext.
 
 Changelog
 ---------
