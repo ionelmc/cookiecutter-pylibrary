@@ -13,6 +13,10 @@ master
   flavors in ``tox.ini``: ``cover`` and ``nocov`` (what ``test_matrix_separate_coverage == "yes"`` would generate now).
 * Added ``sphinx_doctest`` option to complement the lack of doctest support when ``test_matrix_separate_coverage == "no"`` is
   used.
+* Added ``isort`` checks in ``tox.ini``. Contributed by Fábio C. Barrionuevo da Luz in `#50
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/50>`_.
+* Removed ``"extension-coveralls"`` if it's not used. Contributed by Fábio C. Barrionuevo da Luz in `#49
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/49>`_.
 
 v1.11 (2016-01-05)
 ------------------
