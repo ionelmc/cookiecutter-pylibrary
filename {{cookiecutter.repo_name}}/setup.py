@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import
+from __future__ import print_function
 
 import io
 {% if cookiecutter.c_extension_support|lower == 'yes' -%}
@@ -16,14 +17,17 @@ from os.path import relpath
 {% endif -%}
 from os.path import splitext
 
+{% if cookiecutter.c_extension_support|lower == 'yes' -%}
+from setuptools import Extension
+{%- endif %}
 from setuptools import find_packages
 from setuptools import setup
 {%- if cookiecutter.c_extension_support|lower == 'yes' -%}
 {%- if cookiecutter.c_extension_optional|lower == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
-from setuptools import Extension
 {%- if cookiecutter.c_extension_cython|lower == 'yes' %}
+
 try:
     # Allow installing package without any Cython available. This
     # assumes you are going to include the .c files in your sdist.
