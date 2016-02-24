@@ -17,6 +17,7 @@ master
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/50>`_.
 * Removed ``"extension-coveralls"`` if it's not used. Contributed by Fábio C. Barrionuevo da Luz in `#49
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/49>`_.
+* Fixed issues when running ``ci/bootstrap.py`` on Python 3.
 
 v1.11 (2016-01-05)
 ------------------
