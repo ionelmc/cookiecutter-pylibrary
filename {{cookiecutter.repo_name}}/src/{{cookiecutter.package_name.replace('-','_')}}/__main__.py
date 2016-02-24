@@ -13,7 +13,6 @@ import sys
 {%- endif %}
 from {{cookiecutter.package_name}}.cli import main
 
-
 if __name__ == "__main__":
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
     main()
