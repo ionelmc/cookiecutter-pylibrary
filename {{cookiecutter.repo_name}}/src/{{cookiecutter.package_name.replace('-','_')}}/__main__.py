@@ -10,7 +10,7 @@ Why does this file exist, and why __main__? For more info, read:
 """
 {%- if cookiecutter.command_line_interface|lower == 'plain' %}
 import sys
-{%- endif %}
+{% endif %}
 from {{cookiecutter.package_name}}.cli import main
 
 if __name__ == "__main__":
