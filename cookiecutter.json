@@ -30,7 +30,7 @@
     "c_extension_optional": ["no", "yes"],
     "test_matrix_configurator": ["no", "yes"],
     "test_matrix_separate_coverage": ["no", "yes"],
-    "test_runner": ["pytest", "nose"],
+    "test_runner": ["pytest", "nose", "unittest"],
     "command_line_interface": ["plain", "click", "no"],
     "command_line_interface_bin_name": "nameless",
     "coveralls": ["no", "yes"],
