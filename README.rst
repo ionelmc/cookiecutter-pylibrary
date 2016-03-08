@@ -15,10 +15,10 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor|
 *Notes*:
 
 * This is largely designed to address this `blog post about packaging python
-  libraries <http://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
+  libraries <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
 
   * ... and it will save you from `packaging pitfalls
-    <http://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
+    <https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
 
