@@ -19,7 +19,7 @@ from os.path import splitext
 
 {% if cookiecutter.c_extension_support|lower == 'yes' -%}
 from setuptools import Extension
-{%- endif %}
+{% endif -%}
 from setuptools import find_packages
 from setuptools import setup
 {%- if cookiecutter.c_extension_support|lower == 'yes' -%}
