@@ -35,7 +35,7 @@ extlinks = {
     'pr': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
 }
 
-{%- if cookiecutter.sphinx_theme|lower != 'readthedocs' %}
+{%- if cookiecutter.sphinx_theme|lower != 'sphinx-rtd-theme' %}
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]

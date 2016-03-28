@@ -39,7 +39,7 @@
     "scrutinizer": ["no", "yes"],
     "codacy" : ["no", "yes"],
     "codeclimate" : ["no", "yes"],
-    "sphinx_theme": ["readthedocs", "sphinx-py3doc-enhanced-theme"],
+    "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "travis": ["yes", "no"],
     "appveyor": ["yes", "no"],

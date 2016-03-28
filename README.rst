@@ -191,10 +191,8 @@ You will be asked for these fields:
     * - ``sphinx_theme``
       - .. code:: python
 
-            "readthedocs"
+            "sphinx-rtd-theme"
       - What Sphinx_ theme to use.
-
-        If theme is different than ``"readthedocs"`` then it's also going to be added in ``docs/requirements.txt``.
 
         Suggested alternative: `sphinx-py3doc-enhanced-theme
         <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
