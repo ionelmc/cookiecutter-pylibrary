@@ -18,6 +18,10 @@ master
 * Removed ``"extension-coveralls"`` if it's not used. Contributed by Fábio C. Barrionuevo da Luz in `#49
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/49>`_.
 * Fixed issues when running ``ci/bootstrap.py`` on Python 3.
+* Fixed issues with Sphinx configuration so it works properly with Sphinx 1.4. Contributed by Sean Fisk in `#55
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/55>`_.
+* Changed default options to use templating and reuse the `project_name`. Contributed by Christoph Sarnowski in `#56
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/56>`_.
 
 v1.11 (2016-01-05)
 ------------------
