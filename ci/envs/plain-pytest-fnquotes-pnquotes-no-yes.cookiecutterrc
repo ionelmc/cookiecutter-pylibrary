@@ -4,7 +4,9 @@ default_context:
   c_extension_support: 'no'
   command_line_interface: 'no'
   full_name: Io"'nel
+  package_name: nameless
   project_name: Name"'less
+  repo_name: python-nameless
   rtd_theme: 'yes'
   test_matrix_configurator: 'no'
   test_matrix_separate_coverage: 'no'

@@ -46,6 +46,8 @@ if __name__ == "__main__":
 
     for (alias, conf) in matrix.from_file(join(base_path, "ci", "setup.cfg")).items():
         tox_environments[alias] = conf
+        conf['repo_name'] = 'python-nameless'
+        conf['package_name'] = 'nameless'
         with open(join(base_path, "ci", "envs", alias + '.cookiecutterrc'), "w") as fh:
             fh.write(yaml.safe_dump(
                 dict(default_context={k: v for k, v in conf.items() if v}),
