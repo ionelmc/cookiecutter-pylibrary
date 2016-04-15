@@ -151,13 +151,13 @@ You will be asked for these fields:
     * - ``cookiecutter.coveralls``
       - .. code:: python
 
-            "yes"
+            "no"
       - Enable pushing coverage data to Coveralls_ and add badge in ``README.rst``.
 
     * - ``cookiecutter.codecov``
       - .. code:: python
 
-            "no"
+            "yes"
       - Enable pushing coverage data to Codecov_ and add badge in ``README.rst``.
 
         **Note:** Doesn't support pushing C extension coverage yet.
