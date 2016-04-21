@@ -22,6 +22,7 @@ master
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/55>`_.
 * Changed default options to use templating and reuse the `project_name`. Contributed by Christoph Sarnowski in `#56
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/56>`_.
+* Extend default coverage reporting to include tests.
 
 v1.11 (2016-01-05)
 ------------------
