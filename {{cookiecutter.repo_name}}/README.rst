@@ -112,7 +112,7 @@ Installation
 Documentation
 =============
 
-https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.org/
+https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
 
 Development
 ===========
