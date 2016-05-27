@@ -83,42 +83,112 @@ You will be asked for these fields:
     * - Template variable
       - Default
       - Description
+
+    * - ``full_name``
+      - .. code:: python
+
+            "Ionel Cristian Maries"
+      - Main author of this library or application (used in ``AUTHORS.rst`` and ``setup.py``).
+
+        Can be set in your ``~/.cookiecutterrc`` config file.
+
+    * - ``email``
+      - .. code:: python
+
+            "contact@ionelmc.ro"
+      - Contact email of the author (used in ``AUTHORS.rst`` and ``setup.py``).
+
+        Can be set in your ``~/.cookiecutterrc`` config file.
+
+    * - ``website``
+      - .. code:: python
+
+            "https://blog.ionelmc.ro"
+      - Website of the author (used in ``AUTHORS.rst``).
+
+        Can be set in your ``~/.cookiecutterrc`` config file.
+
+    * - ``github_username``
+      - .. code:: python
+
+            "ionelmc"
+      - GitHub user name of this project (used for GitHub link).
+
+        Can be set in your ``~/.cookiecutterrc`` config file.
+
     * - ``project_name``
       - .. code:: python
 
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
+
     * - ``repo_name``
       - .. code:: python
 
             "python-nameless"
-      - Repository name on github.
+      - Repository name on GitHub (and project's root directory name).
+
     * - ``package_name``
       - .. code:: python
 
             "nameless"
       - Python package name (whatever you would import).
+
     * - ``distribution_name``
       - .. code:: python
 
             "nameless"
       - PyPI distribution name (what you would ``pip install``).
+
+    * - ``project_short_description``
+      - .. code:: python
+
+            "An example package [...]"
+      - One line description of the project (used in ``README.rst`` and ``setup.py``).
+
+    * - ``release_date``
+      - .. code:: python
+
+            "today"
+      - Release date of the project (ISO 8601 format) default to today (used in ``CHANGELOG.rst``).
+
+    * - ``year``
+      - .. code:: python
+
+            "now"
+      - Copyright year (used in Sphinx ``conf.py``).
+
+    * - ``version``
+      - .. code:: python
+
+            "0.1.0"
+      - Release version (see ``.bumpversion.cfg`` and in Sphinx ``conf.py``).
+
     * - ``c_extension_support``
       - .. code:: python
 
             "no"
       - Support C extensions (will slighly change the outputted ``setup.py``)
+
+    * - ``c_extension_cython``
+      - .. code:: python
+
+            "no"
+      - Support Cython extensions (will slighly change the outputted ``setup.py``)
+
     * - ``c_extension_optional``
       - .. code:: python
 
             "no"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
+
     * - ``test_matrix_configurator``
       - .. code:: python
 
             "no"
       - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
         don't need this.
+
     * - ``test_matrix_separate_coverage``
       - .. code:: python
 
@@ -127,11 +197,13 @@ You will be asked for these fields:
         from ``src`` with pytest.
 
         Note that ``test_matrix_separate_coverage == 'no'`` only works if you also have ``test_matrix_configurator == 'no'``.
+
     * - ``test_runner``
       - .. code:: python
 
             "pytest"
       - Test runner to use. Available options: ``pytest`` or ``nose``.
+
     * - ``command_line_interface``
       - .. code:: python
 
@@ -139,6 +211,7 @@ You will be asked for these fields:
       - Option to enable a CLI (a bin/executable file). Available options:
 
         * ``plain`` - a very simple command.
+        * ``argparse`` - a command implemented with ``argparse``.
         * ``click`` - a command implemented with `click <http://click.pocoo.org/>`_ - which you can use to build more complex commands.
         * ``no`` - no CLI at all.
 
@@ -146,7 +219,7 @@ You will be asked for these fields:
       - .. code:: python
 
             "nameless"
-      - Name of the CLI bin/executable file.
+      - Name of the CLI bin/executable file (set the console script name in ``setup.py``).
 
     * - ``cookiecutter.coveralls``
       - .. code:: python
@@ -180,7 +253,7 @@ You will be asked for these fields:
             "no"
       - Add a Codacy_ badge in ``README.rst``.
 
-	    **Note:** After importing the project in Codacy, find the hexadecimal project ID from settings and replace it in badge URL
+        **Note:** After importing the project in Codacy, find the hexadecimal project ID from settings and replace it in badge URL
 
     * - ``cookiecutter.codeclimate``
       - .. code:: python
@@ -197,6 +270,7 @@ You will be asked for these fields:
         Suggested alternative: `sphinx-py3doc-enhanced-theme
         <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
         the Python 3 documentation.
+
     * - ``sphinx_doctest``
       - .. code:: python
 
@@ -205,16 +279,19 @@ You will be asked for these fields:
         ``test_matrix_separate_coverage == 'no'``.
 
         Read more about `doctest support in Sphinx <http://www.sphinx-doc.org/en/stable/ext/doctest.html>`_.
+
     * - ``travis``
       - .. code:: python
 
             "yes"
-      - If you want the Travis_ badge and configuration.
+      - If you want the Travis-CI_ badge and configuration.
+
     * - ``appveyor``
       - .. code:: python
 
             "yes"
       - If you want the AppVeyor_ badge and configuration.
+
     * - ``requiresio``
       - .. code:: python
 
