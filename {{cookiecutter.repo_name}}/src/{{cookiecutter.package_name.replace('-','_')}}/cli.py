@@ -16,6 +16,8 @@ Why does this file exist, and why not put this in __main__?
 """
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 import click
+{%- elif cookiecutter.command_line_interface|lower == 'argparse' %}
+import argparse
 {%- else %}
 import sys
 {%- endif %}
@@ -26,6 +28,15 @@ import sys
 @click.argument('names', nargs=-1)
 def main(names):
     click.echo(repr(names))
+{% elif cookiecutter.command_line_interface|lower == 'argparse' -%}
+parser = argparse.ArgumentParser(description='Command description.')
+parser.add_argument('names', metavar='NAME', nargs=argparse.ZERO_OR_MORE,
+                    help="A name of something.")
+
+
+def main(args=None):
+    args = parser.parse_args(args=args)
+    print(args.names)
 {%- else -%}
 def main(argv=sys.argv):
     """

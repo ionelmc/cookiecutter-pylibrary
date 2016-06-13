@@ -2,7 +2,7 @@
 from click.testing import CliRunner
 
 from {{ cookiecutter.package_name }}.cli import main
-{%- elif cookiecutter.command_line_interface|lower == 'plain' %}
+{%- elif cookiecutter.command_line_interface|lower in ['plain', 'argparse'] %}
 from {{ cookiecutter.package_name }}.cli import main
 {%- endif %}
 {%- if cookiecutter.test_matrix_configurator|lower == 'yes' and cookiecutter.test_matrix_configurator|lower == 'no' or
@@ -21,6 +21,8 @@ def test_main():
 
     assert result.output == '()\n'
     assert result.exit_code == 0
+{%- elif cookiecutter.command_line_interface|lower == 'argparse' %}
+    main([])
 {%- elif cookiecutter.command_line_interface|lower == 'plain' %}
     assert main([]) == 0
 {%- else %}

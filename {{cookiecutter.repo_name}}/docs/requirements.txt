@@ -1,5 +1,3 @@
 sphinx>=1.3
-{%- if cookiecutter.sphinx_theme|lower != 'readthedocs' %}
 {{ cookiecutter.sphinx_theme|replace('_', '-') }}
-{%- endif %}
 -e .
