@@ -8,7 +8,7 @@ source =
 {%- endif %}
 
 [run]
-branch = True
+branch = true
 {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
 source =
     src
