@@ -137,7 +137,7 @@ setup(
         'cython',
     ] if Cython else [],
 {%- endif %}
-{%- if cookiecutter.command_line_interface|lower in ['plain', 'click'] %}
+{%- if cookiecutter.command_line_interface|lower != 'no' %}
     entry_points={
         'console_scripts': [
             '{{ cookiecutter.command_line_interface_bin_name }} = {{ cookiecutter.package_name|replace('-', '_') }}.cli:main',
