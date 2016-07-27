@@ -22,7 +22,10 @@ master
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/55>`_.
 * Changed default options to use templating and reuse the `project_name`. Contributed by Christoph Sarnowski in `#56
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/56>`_.
-* Extend default coverage reporting to include tests.
+* Extended default coverage reporting to include tests.
+* Fixed trailing newline. Contributed in `#67 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/67>`_.
+* Fixed missing ``console_scripts`` entrypoint and improve nose configuration. Contributed by Laurent Laporte in `#64
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/64>`_.
 
 v1.11 (2016-01-05)
 ------------------
