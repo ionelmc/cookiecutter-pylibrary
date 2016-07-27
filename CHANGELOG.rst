@@ -26,6 +26,9 @@ master
 * Fixed trailing newline. Contributed in `#67 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/67>`_.
 * Fixed missing ``console_scripts`` entrypoint and improve nose configuration. Contributed by Laurent Laporte in `#64
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/64>`_.
+* Improved code style in a bunch of files. Contributed by Laurent Laporte in `#62
+  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/62>`_.
+  
 
 v1.11 (2016-01-05)
 ------------------
