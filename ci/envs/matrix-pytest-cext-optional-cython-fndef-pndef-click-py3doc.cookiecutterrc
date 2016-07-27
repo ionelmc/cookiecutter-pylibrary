@@ -1,0 +1,11 @@
+default_context:
+  c_extension_cython: 'yes'
+  c_extension_optional: 'yes'
+  c_extension_support: 'yes'
+  command_line_interface: click
+  package_name: nameless
+  repo_name: python-nameless
+  sphinx_theme: sphinx-py3doc-enhanced-theme
+  test_matrix_configurator: 'yes'
+  test_matrix_separate_coverage: 'no'
+  test_runner: pytest
