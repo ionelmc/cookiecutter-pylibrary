@@ -10,8 +10,9 @@ from __future__ import unicode_literals
 
 import argparse
 import os
-import requests
 import zipfile
+
+import requests
 
 
 def make_auth_headers():
@@ -64,7 +65,7 @@ def download_latest_artifacts(account_project, build_id):
 
 def ensure_dirs(filename):
     """Make sure the directories exist for `filename`."""
-    dirname, _ = os.path.split(filename)
+    dirname = os.path.dirname(filename)
     if dirname and not os.path.exists(dirname):
         os.makedirs(dirname)
 
@@ -89,6 +90,7 @@ def unpack_zipfile(filename):
             print(u"      extracting {}".format(name))
             ensure_dirs(name)
             z.extract(name)
+
 
 parser = argparse.ArgumentParser(description='Download artifacts from AppVeyor.')
 parser.add_argument('--id',
