@@ -28,7 +28,8 @@ master
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/64>`_.
 * Improved code style in a bunch of files. Contributed by Laurent Laporte in `#62
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/62>`_.
-  
+* Fixed coverage combining in coveralls/codecov tox envs. Now append mode is used, to avoid discarding coverage data.
+
 
 v1.11 (2016-01-05)
 ------------------
