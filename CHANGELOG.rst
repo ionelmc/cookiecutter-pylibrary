@@ -3,8 +3,8 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-master
-------
+v1.12 (2016-08-20)
+------------------
 
 * Removed all references to Python 2.6 from various config files. Contributed by Lucas Wiman,
   `#48 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/48>`_.
