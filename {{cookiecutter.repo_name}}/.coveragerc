@@ -9,9 +9,15 @@ source =
 
 [run]
 branch = true
+{%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
 source =
     src
     tests
+{%- else %}
+source =
+    {{ cookiecutter.package_name }}
+    tests
+{%- endif %}
 parallel = true
 
 [report]
