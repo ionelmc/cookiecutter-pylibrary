@@ -11,7 +11,7 @@ env:
 {% if cookiecutter.test_matrix_configurator == "yes" %}
 {%- raw -%}
 {% for env, config in tox_environments|dictsort %}{{ '' }}
-    - TOXENV={{ env }}{% if config.cover %}{% endraw %}
+    - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
@@ -24,13 +24,13 @@ env:
 {% for env in tox_environments %}{{ '' }}
     - TOXENV={{ env }}{% endraw -%}
     {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw -%}
-      {% if 'cover' in env %}{% endraw %}
+      {% if 'cover' in env %},report{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
       {%- raw %}{% endif -%}{% endraw %}
-    {%- else %}
+    {%- else %},report
       {%- if cookiecutter.coveralls|lower == 'yes' %}
         {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
