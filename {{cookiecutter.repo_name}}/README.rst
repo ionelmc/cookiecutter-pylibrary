@@ -25,7 +25,8 @@ Overview
         {%- endif -%}
 {{ '' }}
     * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+      - | |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+        | |commits-since|
 
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
@@ -74,6 +75,10 @@ Overview
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
+    :alt: Commits since latest release
+    :target: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
 
 .. |downloads| image:: https://img.shields.io/pypi/dm/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package monthly downloads
