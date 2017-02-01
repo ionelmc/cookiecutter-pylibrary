@@ -138,7 +138,7 @@ v1.2 (2015-04-11)
 v1.1 (2015-03-28)
 -----------------
 
-* Added support for `nose <http://nose.readthedocs.org/>`_ test runner. Contributed by Alexander Artemenko, `#8
+* Added support for `nose <http://nose.readthedocs.io/>`_ test runner. Contributed by Alexander Artemenko, `#8
   <https://github.com/ionelmc/cookiecutter-pylibrary/issues/8>`_ `#9
   <https://github.com/ionelmc/cookiecutter-pylibrary/pull/9>`_.
 * Strip all text roles from ``long_description`` in ``setup.py``.
