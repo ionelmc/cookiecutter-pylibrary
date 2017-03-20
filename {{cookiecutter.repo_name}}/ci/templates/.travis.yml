@@ -25,7 +25,7 @@ matrix:
 {%- endraw %}
 {% else %}
 {%- raw -%}
-{% for env in tox_environments %}
+{% for env in tox_environments %}{{ '' }}
     - python: '{{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
       env:
         - TOXENV={{ env }}{% endraw -%}
@@ -43,7 +43,7 @@ matrix:
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
     {%- endif %}
 {%- raw %}
-{% endfor %}
+{% endfor %}{{ '' }}
 {%- endraw %}
 {%- endif %}
 before_install:
