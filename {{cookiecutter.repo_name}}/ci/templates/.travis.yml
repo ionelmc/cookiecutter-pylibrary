@@ -13,20 +13,21 @@ matrix:
 {% if cookiecutter.test_matrix_configurator == "yes" %}
 {%- raw -%}
 {% for env, config in tox_environments|dictsort %}
-    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+    - python: {{ env.split('-')[0] }}
       env:
         - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}
+      {%- raw %}{% endif %}
+
 {% endfor %}
 {%- endraw %}
 {% else %}
 {%- raw -%}
 {% for env in tox_environments %}
-    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+    - python: {{ env.split('-')[0] }}
       env:
         - TOXENV={{ env }}{% endraw -%}
     {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw -%}
@@ -42,6 +43,7 @@ matrix:
       {%- endif %}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
     {%- endif %}
+
 {%- raw %}
 {% endfor %}
 {%- endraw %}
