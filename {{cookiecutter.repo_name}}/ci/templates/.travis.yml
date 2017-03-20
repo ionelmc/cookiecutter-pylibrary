@@ -1,6 +1,6 @@
 language: python
-python: '3.5'
 sudo: false
+cache: pip
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
@@ -8,10 +8,14 @@ env:
   matrix:
     - TOXENV=check
     - TOXENV=docs
+matrix:
+  include:
 {% if cookiecutter.test_matrix_configurator == "yes" %}
 {%- raw -%}
-{% for env, config in tox_environments|dictsort %}{{ '' }}
-    - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
+{% for env, config in tox_environments|dictsort %}
+    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+      env:
+        - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
           {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
@@ -21,8 +25,10 @@ env:
 {%- endraw %}
 {% else %}
 {%- raw -%}
-{% for env in tox_environments %}{{ '' }}
-    - TOXENV={{ env }}{% endraw -%}
+{% for env in tox_environments %}
+    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+      env:
+        - TOXENV={{ env }}{% endraw -%}
     {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw -%}
       {% if 'cover' in env %},report{% endraw %}
         {%- if cookiecutter.coveralls|lower == 'yes' -%}
@@ -39,7 +45,7 @@ env:
 {%- raw %}
 {% endfor %}
 {%- endraw %}
-{% endif %}
+{%- endif %}
 before_install:
   - python --version
   - uname -a
@@ -55,11 +61,6 @@ script:
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
-before_cache:
-  - rm -rf $HOME/.cache/pip/log
-cache:
-  directories:
-    - $HOME/.cache/pip
 notifications:
   email:
     on_success: never

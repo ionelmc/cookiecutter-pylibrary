@@ -1,6 +1,6 @@
 language: python
-python: '3.5'
 sudo: false
+cache: pip
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
@@ -8,8 +8,12 @@ env:
   matrix:
     - TOXENV=check
     - TOXENV=docs
-{% for env in ['py27', 'py33', 'py34', 'py35', 'pypy'] %}
-    - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif %},report
+matrix:
+  include:
+{%- for env in ['py27', 'py33', 'py34', 'py35', 'py36', 'pypy'] %}
+    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+      env:
+        - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif %},report
       {%- if cookiecutter.coveralls|lower == 'yes' %}
         {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
@@ -33,11 +37,6 @@ script:
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
-before_cache:
-  - rm -rf $HOME/.cache/pip/log
-cache:
-  directories:
-    - $HOME/.cache/pip
 notifications:
   email:
     on_success: never
