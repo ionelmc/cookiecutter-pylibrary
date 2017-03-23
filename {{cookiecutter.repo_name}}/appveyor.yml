@@ -10,7 +10,7 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
-{% for env in ['py27', 'py34', 'py35', 'py36'] %}
+{%- for env in ['py27', 'py33', 'py34', 'py35', 'py36'] %}{{ '' }}
     - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif -%}
       {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
@@ -18,7 +18,6 @@ environment:
       PYTHON_HOME: C:\Python{{ env[2:4] }}
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
-
     - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif -%}
       {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
@@ -29,14 +28,12 @@ environment:
       PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
-
 {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
     - TOXENV: '{{ env }}-nocov'
       TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
       PYTHON_HOME: C:\Python{{ env[2:4] }}
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
-
     - TOXENV: '{{ env }}-nocov'
       TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
       {% if env.startswith(('py2', 'py33', 'py34')) -%}
@@ -46,7 +43,7 @@ environment:
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
 {%- endif %}
-{% endfor %}
+{%- endfor %}
 init:
   - ps: echo $env:TOXENV
   - ps: ls C:\Python*

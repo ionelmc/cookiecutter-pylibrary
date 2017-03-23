@@ -11,7 +11,7 @@ env:
 matrix:
   include:
 {%- for env in ['py27', 'py33', 'py34', 'py35', 'py36', 'pypy'] %}
-    - python: {{ env.split('-')[0] if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}
+    - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
       env:
         - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif %},report
       {%- if cookiecutter.coveralls|lower == 'yes' %}
@@ -19,7 +19,9 @@ matrix:
       {%- endif %}
       {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
 {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
-    - TOXENV={{ env }}-nocov
+    - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
+      env:
+        - TOXENV={{ env }}-nocov
 {%- endif %}
 {%- endfor %}
 before_install:
