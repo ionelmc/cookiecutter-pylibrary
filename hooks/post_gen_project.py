@@ -24,6 +24,8 @@ def replace_contents(filename, what, replacement):
         fh.write(changelog.replace(what, replacement))
 
 if __name__ == "__main__":
+    shutil.copyfile(join('licenses', 'LICENSE.{{cookiecutter.license|lower|replace(" ", "")}}'), 'LICENSE')
+    shutil.rmtree('licenses')
     today = datetime.date.today()
     replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
