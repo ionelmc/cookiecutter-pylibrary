@@ -5,7 +5,7 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 
 master
 ------------------
-* Added ability to choose between BSD 2-Clause and Apache 2.0 licenses. Contributed by Jacob Scott, `#79 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/79>`_. 
+* Added ability to choose between BSD 2-Clause and Apache 2.0 licenses. Contributed by Jacob Scott, `#80 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/80>`_. 
 
 v1.12 (2016-08-20)
 ------------------
