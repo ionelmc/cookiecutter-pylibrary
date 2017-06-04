@@ -301,8 +301,8 @@ You will be asked for these fields:
     * - ``license``
       - .. code:: python
 
-            "BSD"
-      - Set to ``"BSD"`` if you want the BSD 2-clause license, or ``"Apache"`` if you want the Apache 2.0 license.
+            "BSD 2-Clause"
+      - Set to your desired license.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
