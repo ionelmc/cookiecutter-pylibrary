@@ -29,7 +29,7 @@ Features
 
 This is an "all inclusive" sort of template.
 
-* BSD 2-clause license.
+* Choice of BSD 2-clause or Apache 2.0 license.
 * Tox_ for managing test environments for Python 2.7, 3.3, PyPy etc.
 * Pytest_ or Nose_ for testing Python 2.7, 3.3, PyPy etc.
 * *Optional* support for creating a tests matrix out of dependencies and python versions.
@@ -297,6 +297,12 @@ You will be asked for these fields:
 
             "yes"
       - If you want the `requires.io`_ badge and configuration.
+
+    * - ``license``
+      - .. code:: python
+
+            "BSD 2-Clause"
+      - Set to your desired license.
 
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::

@@ -44,5 +44,6 @@
     "sphinx_doctest": ["no", "yes"],
     "travis": ["yes", "no"],
     "appveyor": ["yes", "no"],
-    "requiresio": ["yes", "no"]
+    "requiresio": ["yes", "no"],
+    "license": ["BSD 2-Clause", "Apache 2.0"]
 }
