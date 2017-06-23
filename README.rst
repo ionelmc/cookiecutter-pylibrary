@@ -221,13 +221,26 @@ You will be asked for these fields:
             "nameless"
       - Name of the CLI bin/executable file (set the console script name in ``setup.py``).
 
-    * - ``cookiecutter.coveralls``
+    * - ``license``
+      - .. code:: python
+
+            "BSD license"
+      - License to use. Available options:
+
+        * BSD license
+        * MIT license
+        * ISC license
+        * Apache Software License 2.0
+
+        What license to pick? https://choosealicense.com/
+
+    * - ``coveralls``
       - .. code:: python
 
             "no"
       - Enable pushing coverage data to Coveralls_ and add badge in ``README.rst``.
 
-    * - ``cookiecutter.codecov``
+    * - ``codecov``
       - .. code:: python
 
             "yes"
@@ -235,19 +248,19 @@ You will be asked for these fields:
 
         **Note:** Doesn't support pushing C extension coverage yet.
 
-    * - ``cookiecutter.landscape``
+    * - ``landscape``
       - .. code:: python
 
             "no"
       - Add a Landscape_ badge in ``README.rst``.
 
-    * - ``cookiecutter.scrutinizer``
+    * - ``scrutinizer``
       - .. code:: python
 
             "no"
       - Add a Scrutinizer_ badge in ``README.rst``.
 
-    * - ``cookiecutter.codacy``
+    * - ``codacy``
       - .. code:: python
 
             "no"
@@ -255,7 +268,7 @@ You will be asked for these fields:
 
         **Note:** After importing the project in Codacy, find the hexadecimal project ID from settings and replace it in badge URL
 
-    * - ``cookiecutter.codeclimate``
+    * - ``codeclimate``
       - .. code:: python
 
             "no"
