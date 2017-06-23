@@ -3,6 +3,11 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+master
+------
+
+* Added `license` option. Contributed by Samuel Bishop in `#83 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/83>`_.
+
 v1.12 (2016-08-20)
 ------------------
 
