@@ -398,7 +398,7 @@ To make a release of the project on PyPI, assuming you got some distributions in
     twine register dist/*
     twine upload --skip-existing dist/*.whl dist/*.gz dist/*.zip
 
-In ZSH you can use this to upload everything in ``dist/`` that ain't a linux-specific wheel::
+In ZSH you can use this to upload everything in ``dist/`` that ain't a linux-specific wheel (you may need ``setopt extended_glob``)::
 
     twine upload --skip-existing dist/*.(whl|gz|zip)~dist/*linux*.whl
 
