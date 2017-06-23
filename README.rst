@@ -383,7 +383,18 @@ And then you can build the ``sdist``, and if possible, the ``bdist_wheel`` too::
 To make a release of the project on PyPI, assuming you got some distributions in ``dist/``, the most simple usage is::
 
     twine register dist/*
-    twine upload --skip-existing dist/*
+    twine upload --skip-existing dist/*.whl dist/*.gz dist/*.zip
+
+In ZSH you can use this to upload everything in ``dist/`` that ain't a linux-specific wheel::
+
+    twine upload --skip-existing dist/*.(whl|gz|zip)~dist/*linux*.whl
+
+For making and uploading `manylinux1 <https://github.com/pypa/manylinux>`_ wheels you can use this contraption::
+
+    docker run --rm -itv $(pwd):/code quay.io/pypa/manylinux1_x86_64 bash -c 'set -eux; cd code; rm -rf wheelhouse; for variant in /opt/python/*; do rm -rf dist build *.egg-info && $variant/bin/python setup.py clean --all bdist_wheel; auditwheel repair dist/*.whl; done; rm -rf dist build *.egg-info'
+    twine upload --skip-existing wheelhouse/*.whl
+    docker run --rm -itv $(pwd):/code quay.io/pypa/manylinux1_i686 bash -c 'set -eux; cd code; rm -rf wheelhouse; for variant in /opt/python/*; do rm -rf dist build *.egg-info && $variant/bin/python setup.py clean --all bdist_wheel; auditwheel repair dist/*.whl; done; rm -rf dist build *.egg-info'
+    twine upload --skip-existing wheelhouse/*.whl
 
 Note:
 
