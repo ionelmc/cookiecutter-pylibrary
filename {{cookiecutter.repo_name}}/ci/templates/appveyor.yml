@@ -41,11 +41,11 @@ environment:
 {% else %}
 {%- raw -%}
 {% for env in tox_environments %}{{ '' }}{% if env.startswith(('py2', 'py3')) %}
-    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %}
+    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %},report
         {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
       {%- raw %}{% endif %}{%- endraw -%}
-    {%- else -%}
+    {%- else -%},report
         {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
     {%- endif -%}
@@ -54,11 +54,11 @@ environment:
       PYTHON_HOME: C:\Python{{ env[2:4] }}
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
-    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %}
+    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %},report
         {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
       {%- raw %}{%- endif %}{%- endraw -%}
-    {%- else -%}
+    {%- else -%},report
         {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
     {%- endif -%}
