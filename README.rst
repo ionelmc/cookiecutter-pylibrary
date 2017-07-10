@@ -46,7 +46,7 @@ This is an "all inclusive" sort of template.
 
   * Check if your ``README.rst`` is valid.
   * Check if the ``MANIFEST.in`` has any issues.
-  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks)
+  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks) or ``pylama``
 
 Requirements
 ------------
@@ -203,6 +203,12 @@ You will be asked for these fields:
 
             "pytest"
       - Test runner to use. Available options: ``pytest`` or ``nose``.
+
+    * - ``linter``
+      - .. code:: python
+
+	    "flake8"
+      - Linter to use for ``tox -e check``. Available options: ``flake8`` or ``pylama``
 
     * - ``command_line_interface``
       - .. code:: python
