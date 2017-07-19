@@ -1,7 +1,8 @@
 language: python
-python:
-  - 3.5
-sudo: false
+sudo: required
+dist: trusty
+python: 3.6
+group: deprecated-2017Q2
 cache:
   directories:
   - $HOME/.pip/wheels
@@ -21,14 +22,7 @@ before_install:
 install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
-  - pip install -U wheel setuptools
-  - pip wheel tox virtualenv cookiecutter bumpversion
-  - pip wheel pytest-capturelog pytest-cov pytest
-  - pip wheel nose coverage
-  - pip wheel cpp-coveralls
-  - pip wheel jinja2 matrix
-  - pip wheel docutils check-manifest flake8 readme-renderer pygments
-  - pip install -I -U tox cookiecutter bumpversion
+  - pip install -U wheel setuptools tox cookiecutter bumpversion
 script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
