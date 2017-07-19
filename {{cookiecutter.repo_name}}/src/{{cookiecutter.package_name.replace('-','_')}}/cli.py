@@ -21,14 +21,15 @@ import argparse
 {%- else %}
 import sys
 {%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
 
 
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
 @click.command()
 @click.argument('names', nargs=-1)
 def main(names):
     click.echo(repr(names))
-{% elif cookiecutter.command_line_interface|lower == 'argparse' -%}
+{%- elif cookiecutter.command_line_interface|lower == 'argparse' %}
+
 parser = argparse.ArgumentParser(description='Command description.')
 parser.add_argument('names', metavar='NAME', nargs=argparse.ZERO_OR_MORE,
                     help="A name of something.")
@@ -37,7 +38,9 @@ parser.add_argument('names', metavar='NAME', nargs=argparse.ZERO_OR_MORE,
 def main(args=None):
     args = parser.parse_args(args=args)
     print(args.names)
-{% else -%}
+{%- else %}
+
+
 def main(argv=sys.argv):
     """
     Args:
@@ -51,4 +54,4 @@ def main(argv=sys.argv):
 
     print(argv)
     return 0
-{% endif -%}
+{%- endif %}
