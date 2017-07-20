@@ -104,11 +104,11 @@ setup(
         'License :: OSI Approved :: BSD License',
 {%- elif cookiecutter.license == "MIT license" %}
         'License :: OSI Approved :: MIT License',
-{% elif cookiecutter.license == "ISC license" %}
+{%- elif cookiecutter.license == "ISC license" %}
         'License :: OSI Approved :: ISC License (ISCL)',
-{% else %}
+{%- else %}
         'License :: OSI Approved :: Apache Software License',
-{% endif -%}
+{%- endif %}
         'Operating System :: Unix',
         'Operating System :: POSIX',
         'Operating System :: Microsoft :: Windows',
