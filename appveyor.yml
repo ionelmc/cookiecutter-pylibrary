@@ -1,6 +1,7 @@
 build: off
 version: '{branch}-{build}'
-cache: 
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
 matrix:
   fast_finish: true
 environment:

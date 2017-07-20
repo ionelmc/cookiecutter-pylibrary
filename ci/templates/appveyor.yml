@@ -1,6 +1,7 @@
 build: off
 version: '{branch}-{build}'
-cache: C:\Users\appveyor\pip\wheels
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
 matrix:
   fast_finish: true
 environment:
