@@ -18,11 +18,11 @@ BASE_URL = "https://www.python.org/ftp/python/"
 GET_PIP_URL = "https://bootstrap.pypa.io/get-pip.py"
 GET_PIP_PATH = "C:\get-pip.py"
 URLS = {
-    ("2.7", "64"): BASE_URL + "2.7.10/python-2.7.13.amd64.msi",
-    ("2.7", "32"): BASE_URL + "2.7.10/python-2.7.13.msi",
+    ("2.7", "64"): BASE_URL + "2.7.13/python-2.7.13.amd64.msi",
+    ("2.7", "32"): BASE_URL + "2.7.13/python-2.7.13.msi",
     # NOTE: no .msi installer for 3.3.6
-    ("3.3", "64"): BASE_URL + "3.3.3/python-3.3.5.amd64.msi",
-    ("3.3", "32"): BASE_URL + "3.3.3/python-3.3.5.msi",
+    ("3.3", "64"): BASE_URL + "3.3.5/python-3.3.5.amd64.msi",
+    ("3.3", "32"): BASE_URL + "3.3.5/python-3.3.5.msi",
     ("3.4", "64"): BASE_URL + "3.4.4/python-3.4.4.amd64.msi",
     ("3.4", "32"): BASE_URL + "3.4.4/python-3.4.4.msi",
     ("3.5", "64"): BASE_URL + "3.5.4/python-3.5.4-amd64.exe",
