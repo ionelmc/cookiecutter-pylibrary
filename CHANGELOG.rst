@@ -6,7 +6,17 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 master
 ------
 
+v1.13 (2017-10-24)
+------------------
+
 * Added `license` option. Contributed by Samuel Bishop in `#83 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/83>`_.
+* Various small fixes to test and coverage configuration.
+* Added the "commits since" badge in ``README.rst``.
+* Removed download count badge (obsolete).
+* Changed travis configuration to use a newer PyPy.
+* Added more information about building/uploading package.
+* Added support for using PyLama instead of flake8.
+  Contributed by William Hughes in `#86 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/86>`_.
 
 v1.12 (2016-08-20)
 ------------------
