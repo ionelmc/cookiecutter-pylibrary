@@ -6,6 +6,9 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 master
 ------
 
+* Simplified pytest configuration in some cases.
+* Fixed bumpversion configuration to not replace every matching string (like dependency pins).
+
 v1.13 (2017-10-24)
 ------------------
 
