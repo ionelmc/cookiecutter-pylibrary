@@ -34,5 +34,5 @@ def test_main():
 
 
 def test_{{ cookiecutter.c_extension_function }}():
-    assert {{ cookiecutter.c_extension_function }}(['a', 'bc', 'abc']) == 'abc'
+    assert {{ cookiecutter.c_extension_function }}([b'a', b'bc', b'abc']) == b'abc'
 {%- endif %}
