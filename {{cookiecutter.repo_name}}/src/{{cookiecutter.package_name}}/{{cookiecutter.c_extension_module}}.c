@@ -54,8 +54,6 @@ static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObjec
 
     Py_DECREF(len);
     Py_DECREF(max);
-    Py_DECREF(args);
-    Py_DECREF(kwargs);
 
     return result;
 }
