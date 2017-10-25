@@ -4,4 +4,4 @@ Usage
 
 To use {{ cookiecutter.project_name }} in a project::
 
-	import {{ cookiecutter.package_name|replace('-', '_') }}
+	import {{ cookiecutter.package_name }}

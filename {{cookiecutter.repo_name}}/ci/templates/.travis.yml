@@ -16,10 +16,10 @@ matrix:
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else env.split('-')[0] }}'
       env:
         - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
-        {%- if cookiecutter.coveralls|lower == 'yes' -%}
-          {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+        {%- if cookiecutter.coveralls == 'yes' -%}
+          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
-        {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
+        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
       {%- raw %}{% endif -%}
 {% endfor %}
 {%- endraw %}
@@ -29,18 +29,18 @@ matrix:
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
       env:
         - TOXENV={{ env }}{% endraw -%}
-    {%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' %}{% raw -%}
+    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw -%}
       {% if 'cover' in env %},report{% endraw %}
-        {%- if cookiecutter.coveralls|lower == 'yes' -%}
-          {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+        {%- if cookiecutter.coveralls == 'yes' -%}
+          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
         {%- endif -%}
-        {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif -%}
+        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
       {%- raw %}{% endif -%}{% endraw %}
     {%- else %},report
-      {%- if cookiecutter.coveralls|lower == 'yes' %}
-        {%- if cookiecutter.c_extension_support|lower == "yes" %},extension-coveralls{% endif %},coveralls
+      {%- if cookiecutter.coveralls == 'yes' %}
+        {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
-      {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}
+      {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
     {%- endif %}
 {%- raw %}
 {%- endfor %}{{ '' }}

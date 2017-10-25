@@ -10,18 +10,18 @@ Overview
     * - docs
       - |docs|
     * - tests
-      - | {%- if cookiecutter.travis|lower == 'yes' %} |travis|{% endif -%}
-          {%- if cookiecutter.appveyor|lower == 'yes' %} |appveyor|{% endif -%}
-          {%- if cookiecutter.requiresio|lower == 'yes' %} |requires|{% endif -%}
+      - | {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
+          {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
+          {%- if cookiecutter.requiresio == 'yes' %} |requires|{% endif -%}
         {{ '' }}
-        | {%- if cookiecutter.coveralls|lower == 'yes' %} |coveralls|{% endif -%}
-          {%- if cookiecutter.codecov|lower == 'yes' %} |codecov|{% endif -%}
+        | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
+          {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
         {{ '' }}
-        {%- if cookiecutter.landscape|lower == 'yes' or cookiecutter.scrutinizer|lower == 'yes' or cookiecutter.codacy|lower == 'yes' or cookiecutter.codeclimate|lower == 'yes' %}
-        | {%- if cookiecutter.landscape|lower == 'yes' %} |landscape|{% endif -%}
-          {%- if cookiecutter.scrutinizer|lower == 'yes' %} |scrutinizer|{% endif -%}
-          {%- if cookiecutter.codacy|lower == 'yes' %} |codacy|{% endif -%}
-          {%- if cookiecutter.codeclimate|lower == 'yes' %} |codeclimate|{% endif -%}
+        {%- if cookiecutter.landscape == 'yes' or cookiecutter.scrutinizer == 'yes' or cookiecutter.codacy == 'yes' or cookiecutter.codeclimate == 'yes' %}
+        | {%- if cookiecutter.landscape == 'yes' %} |landscape|{% endif -%}
+          {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
+          {%- if cookiecutter.codacy == 'yes' %} |codacy|{% endif -%}
+          {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
         {%- endif -%}
 {{ '' }}
     * - package
@@ -32,42 +32,42 @@ Overview
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
 {{ '' }}
-{%- if cookiecutter.travis|lower == 'yes' %}
+{%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
-{%- if cookiecutter.appveyor|lower == 'yes' %}
+{%- if cookiecutter.appveyor == 'yes' %}
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}?branch=master&svg=true
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
-{%- if cookiecutter.requiresio|lower == 'yes' %}
+{%- if cookiecutter.requiresio == 'yes' %}
 .. |requires| image:: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch=master
     :alt: Requirements Status
     :target: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/requirements/?branch=master
 {% endif %}
-{%- if cookiecutter.coveralls|lower == 'yes' %}
+{%- if cookiecutter.coveralls == 'yes' %}
 .. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch=master&service=github
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
-{%- if cookiecutter.codecov|lower == 'yes' %}
+{%- if cookiecutter.codecov == 'yes' %}
 .. |codecov| image:: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/coverage.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
-{%- if cookiecutter.landscape|lower == 'yes' %}
+{%- if cookiecutter.landscape == 'yes' %}
 .. |landscape| image:: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master/landscape.svg?style=flat
     :target: https://landscape.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master
     :alt: Code Quality Status
 {% endif %}
-{%- if cookiecutter.codacy|lower == 'yes' %}
+{%- if cookiecutter.codacy == 'yes' %}
 .. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg
     :target: https://www.codacy.com/app/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
     :alt: Codacy Code Quality Status
 {% endif %}
-{%- if cookiecutter.codeclimate|lower == 'yes' %}
+{%- if cookiecutter.codeclimate == 'yes' %}
 .. |codeclimate| image:: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/badges/gpa.svg
    :target: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
@@ -91,7 +91,7 @@ Overview
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg
     :alt: Supported implementations
     :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
-{% if cookiecutter.scrutinizer|lower == 'yes' %}
+{% if cookiecutter.scrutinizer == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/

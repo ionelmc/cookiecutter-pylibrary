@@ -12,16 +12,16 @@ environment:
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
 {%- for env in ['py27', 'py33', 'py34', 'py35', 'py36'] %}{{ '' }}
-    - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif -%},report
-      {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
-      {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
+    - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}-cover{% endif -%},report
+      {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
+      {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
       PYTHON_HOME: C:\Python{{ env[2:4] }}
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
-    - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}-cover{% endif -%},report
-      {#- if cookiecutter.coveralls|lower == 'yes' %},coveralls{% endif -#}
-      {%- if cookiecutter.codecov|lower == 'yes' %},codecov{% endif %}'
+    - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}-cover{% endif -%},report
+      {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
+      {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
       {% if env.startswith(('py2', 'py33', 'py34')) -%}
       WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}
@@ -29,7 +29,7 @@ environment:
       PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
-{%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
+{%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
     - TOXENV: '{{ env }}-nocov'
       TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
       PYTHON_HOME: C:\Python{{ env[2:4] }}
@@ -56,7 +56,7 @@ install:
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
   - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
-{% if cookiecutter.c_extension_support|lower == 'yes' %}
+{% if cookiecutter.c_extension_support == 'yes' %}
 after_test:
   - IF "%TOXENV:~-6,6%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
 {% endif %}

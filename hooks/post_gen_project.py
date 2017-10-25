@@ -29,7 +29,7 @@ if __name__ == "__main__":
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
 
-{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
+{% if cookiecutter.test_matrix_configurator == "yes" %}
     print("""
 ################################################################################
 
@@ -45,16 +45,26 @@ if __name__ == "__main__":
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
 {% endif %}
 
-{%- if cookiecutter.command_line_interface|lower == 'no' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name|replace('-', '_') }}', '__main__.py'))
-    os.unlink(join('src', '{{ cookiecutter.package_name|replace('-', '_') }}', 'cli.py'))
+{%- if cookiecutter.command_line_interface == 'no' %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '__main__.py'))
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
 {% endif %}
 
-{%- if cookiecutter.test_matrix_configurator|lower == 'no' %}
+{%- if cookiecutter.test_matrix_configurator == 'no' %}
     os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
 
-{%- if cookiecutter.appveyor|lower == 'no' %}
+{%- if cookiecutter.c_extension_support == 'yes' %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+{%- elif cookiecutter.c_extension_support == 'cffi' %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
+{%- elif cookiecutter.c_extension_support == 'cython' %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+{%- endif %}
+
+{%- if cookiecutter.appveyor == 'no' %}
     os.unlink(join('ci', 'appveyor-bootstrap.py'))
     os.unlink(join('ci', 'appveyor-download.py'))
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
@@ -63,7 +73,7 @@ if __name__ == "__main__":
         os.unlink(join('ci', 'templates', 'appveyor.yml'))
 {% endif %}
 
-{%- if cookiecutter.travis|lower == 'no' %}
+{%- if cookiecutter.travis == 'no' %}
     os.unlink('.travis.yml')
     if os.path.exists(join('ci', 'templates', '.travis.yml')):
         os.unlink(join('ci', 'templates', '.travis.yml'))
@@ -93,7 +103,7 @@ if __name__ == "__main__":
         git remote add origin git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.git
         git push -u origin master
 
-{% if cookiecutter.test_matrix_configurator|lower == "yes" %}
+{% if cookiecutter.test_matrix_configurator == "yes" %}
     To reconfigure your test/CI settings run:
 
         tox -e bootstrap
@@ -111,7 +121,7 @@ if __name__ == "__main__":
     while command_line_interface_bin_name.endswith('.py'):
         command_line_interface_bin_name = command_line_interface_bin_name[:-3]
 
-        if command_line_interface_bin_name == '{{ cookiecutter.package_name|replace('-', '_') }}':
+        if command_line_interface_bin_name == '{{ cookiecutter.package_name }}':
             warn("""
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!                                                                            !!

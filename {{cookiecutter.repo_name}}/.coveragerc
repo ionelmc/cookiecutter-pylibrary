@@ -1,5 +1,5 @@
 [paths]
-{%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
+{%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
 source = src
 {%- else %}
 source =
@@ -9,7 +9,7 @@ source =
 
 [run]
 branch = true
-{%- if cookiecutter.test_matrix_separate_coverage|lower == 'yes' or cookiecutter.test_matrix_configurator|lower == 'yes' %}
+{%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
 source =
     src
     tests
