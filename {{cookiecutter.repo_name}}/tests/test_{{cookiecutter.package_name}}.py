@@ -1,7 +1,6 @@
 {%- if cookiecutter.command_line_interface == 'click' %}
 from click.testing import CliRunner
-{%- endif %}
-
+{% endif %}
 {%- if cookiecutter.c_extension_support != 'no' %}
 from {{ cookiecutter.package_name }} import {{ cookiecutter.c_extension_function }}
 {%- endif %}

@@ -63,6 +63,10 @@ if __name__ == "__main__":
 {%- elif cookiecutter.c_extension_support == 'cython' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+    try:
+        subprocess.check_call(['tox', '-e', 'cythonize'])
+    except Exception:
+        subprocess.check_call([sys.executable, '-mtox', '-e', 'cythonize'])
 {%- else %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
