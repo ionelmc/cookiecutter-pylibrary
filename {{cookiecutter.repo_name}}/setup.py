@@ -15,12 +15,12 @@ from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
-{% if cookiecutter.c_extension_support != 'no' -%}
+{% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
 from os.path import relpath
 {% endif -%}
 from os.path import splitext
 
-{% if cookiecutter.c_extension_support != 'no' -%}
+{% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
 from setuptools import Extension
 {% endif -%}
 from setuptools import find_packages

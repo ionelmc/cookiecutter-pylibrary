@@ -30,7 +30,7 @@
     "c_extension_support": ["no", "yes", "cffi", "cython"],
     "c_extension_optional": ["no", "yes"],
     "c_extension_module": ["_{{ cookiecutter.package_name }}"],
-    "c_extension_function": ["longest"],
+    "c_extension_function": "longest",
     "test_matrix_configurator": ["no", "yes"],
     "test_matrix_separate_coverage": ["no", "yes"],
     "test_runner": ["pytest", "nose"],
