@@ -54,13 +54,17 @@ if __name__ == "__main__":
     os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
 
-{%- if cookiecutter.c_extension_support == 'yes' %}
+{%- if cookiecutter.c_extension_support == 'no' %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
 {%- elif cookiecutter.c_extension_support == 'cython' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+{%- else %}
+    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
 {%- endif %}
 

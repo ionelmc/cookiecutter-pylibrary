@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import io
-{% if cookiecutter.c_extension_support == 'yes' -%}
+{% if cookiecutter.c_extension_support != 'no' -%}
 import os
 {% endif -%}
 import re
@@ -15,21 +15,21 @@ from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
-{% if cookiecutter.c_extension_support == 'yes' -%}
+{% if cookiecutter.c_extension_support != 'no' -%}
 from os.path import relpath
 {% endif -%}
 from os.path import splitext
 
-{% if cookiecutter.c_extension_support == 'yes' -%}
+{% if cookiecutter.c_extension_support != 'no' -%}
 from setuptools import Extension
 {% endif -%}
 from setuptools import find_packages
 from setuptools import setup
-{%- if cookiecutter.c_extension_support == 'yes' -%}
+{%- if cookiecutter.c_extension_support != 'no' -%}
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
-{%- if cookiecutter.c_extension_cython == 'yes' %}
+{%- if cookiecutter.c_extension_support == 'cython' %}
 
 try:
     # Allow installing package without any Cython available. This
@@ -48,7 +48,7 @@ def read(*names, **kwargs):
     ).read()
 
 
-{% if cookiecutter.c_extension_support == 'yes' -%}
+{% if cookiecutter.c_extension_support != 'no' -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).

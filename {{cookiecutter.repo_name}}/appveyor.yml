@@ -56,7 +56,7 @@ install:
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
   - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
-{% if cookiecutter.c_extension_support == 'yes' %}
+{% if cookiecutter.c_extension_support != 'no' %}
 after_test:
   - IF "%TOXENV:~-6,6%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
 {% endif %}
