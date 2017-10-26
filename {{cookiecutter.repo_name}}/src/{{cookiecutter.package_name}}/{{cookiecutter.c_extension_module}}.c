@@ -30,30 +30,35 @@ static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObjec
 
     PyObject* module_dict = PyModule_GetDict(module);
     PyObject* len = PyDict_GetItemString(module_dict, "len");
-    if (len) {
-        Py_INCREF(len);
-    } else {
+    if (!len) {
         Py_DECREF(module);
         return NULL;
     }
     PyObject* max = PyDict_GetItemString(module_dict, "max");
-    if (max) {
-        Py_INCREF(max);
-    } else {
+    if (!max) {
         Py_DECREF(module);
         return NULL;
     }
     Py_DECREF(module);
 
     PyObject* args = PyTuple_New(1);
+    if (!args) {
+        return NULL;
+    }
+    Py_INCREF(value);
     PyTuple_SetItem(args, 0, value);
+
     PyObject* kwargs = PyDict_New();
+    if (!kwargs) {
+        Py_DECREF(args);
+        return NULL;
+    }
     PyDict_SetItemString(kwargs, "key", len);
 
     PyObject* result = PyObject_Call(max, args, kwargs);
 
-    Py_DECREF(len);
-    Py_DECREF(max);
+    Py_DECREF(args);
+    Py_DECREF(kwargs);
 
     return result;
 }
