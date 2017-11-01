@@ -41,7 +41,7 @@ This is an "all inclusive" sort of template.
   * isort_
   * bumpversion_
 
-* Support for C extensions (including coverage measurement for the C code).
+* Support for C extensions (including coverage measurement for the C code). See c_extension_support_.
 * Packaging and code quality checks. This template comes with a tox environment (``check``) that will:
 
   * Check if your ``README.rst`` is valid.
@@ -168,11 +168,14 @@ You will be asked for these fields:
       - .. code:: python
 
             "no"
-      - Support C extensions (will slighly change the outputted ``setup.py``). Available options:
+      - .. _c_extension_support:
+
+        Support C extensions (will slighly change the outputted ``setup.py``). Available options:
 
         * ``"yes"`` - to generate a Python C extension
         * ``"cffi"`` - to generate CFFI bindings against a C library
         * ``"cython"`` - to generate a Cython extension
+
 
     * - ``c_extension_optional``
       - .. code:: python
@@ -446,7 +449,7 @@ Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, `
   with ``__init__.py``) and modules (simple ``.py`` files that go straigh in ``site-packages``). There's no good place
   for that extra file if you're distributing modules.
 
-  But this isn't so bad - `bumpversion <https://pypi.python.org/pypi/bumpversion>`_ manages the version string quite
+  But this isn't so bad - bumpversion_ manages the version string quite
   neatly.
 
 .. [#] Example, an ``__about__.py`` file.
