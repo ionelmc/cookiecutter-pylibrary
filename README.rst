@@ -168,13 +168,11 @@ You will be asked for these fields:
       - .. code:: python
 
             "no"
-      - Support C extensions (will slighly change the outputted ``setup.py``)
+      - Support C extensions (will slighly change the outputted ``setup.py``). Available options:
 
-    * - ``c_extension_cython``
-      - .. code:: python
-
-            "no"
-      - Support Cython extensions (will slighly change the outputted ``setup.py``)
+        * ``"yes"`` - to generate a Python C extension
+        * ``"cffi"`` - to generate CFFI bindings against a C library
+        * ``"cython"`` - to generate a Cython extension
 
     * - ``c_extension_optional``
       - .. code:: python
