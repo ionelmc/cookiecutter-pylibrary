@@ -103,13 +103,13 @@ setup(
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-{%- if cookiecutter.license == "BSD license" %}
+{%- if cookiecutter.license in ["BSD 2-Clause License", "BSD 3-Clause License"] %}
         'License :: OSI Approved :: BSD License',
 {%- elif cookiecutter.license == "MIT license" %}
         'License :: OSI Approved :: MIT License',
 {%- elif cookiecutter.license == "ISC license" %}
         'License :: OSI Approved :: ISC License (ISCL)',
-{%- else %}
+{%- elif cookiecutter.license == "Apache Software License 2.0" %}
         'License :: OSI Approved :: Apache Software License',
 {%- endif %}
         'Operating System :: Unix',
