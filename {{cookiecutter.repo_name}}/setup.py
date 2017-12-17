@@ -111,6 +111,10 @@ setup(
         'License :: OSI Approved :: ISC License (ISCL)',
 {%- elif cookiecutter.license == "Apache Software License 2.0" %}
         'License :: OSI Approved :: Apache Software License',
+{%- elif cookiecutter.license == "GPLv3" %}
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'
+{%- elif cookiecutter.license == "GPLv2" %}
+        'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)'
 {%- endif %}
         'Operating System :: Unix',
         'Operating System :: POSIX',

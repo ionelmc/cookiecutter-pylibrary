@@ -26,7 +26,7 @@
         "2005-2017"
     ],
     "version": "0.1.0",
-    "license": ["BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0"],
+    "license": ["BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0", "GPLv3+", "GPLv2+"],
     "c_extension_support": ["no", "yes", "cffi", "cython"],
     "c_extension_optional": ["no", "yes"],
     "c_extension_module": "_{{ cookiecutter.package_name }}",
