@@ -17,6 +17,7 @@ from {{ cookiecutter.package_name }} import main
 
 {%- if cookiecutter.test_runner == "unittest" %}
 
+
 class TestClass(unittest.TestCase):
 
     def test_main(self):
@@ -43,6 +44,7 @@ class TestClass(unittest.TestCase):
 {%- endif %}
 
 {%- else %}
+
 
 def test_main():
 {%- if cookiecutter.test_matrix_configurator == 'yes' and cookiecutter.test_matrix_configurator == 'no' %}
