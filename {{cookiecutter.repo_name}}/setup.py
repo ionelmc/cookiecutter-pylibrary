@@ -111,6 +111,10 @@ setup(
         'License :: OSI Approved :: ISC License (ISCL)',
 {%- elif cookiecutter.license == "Apache Software License 2.0" %}
         'License :: OSI Approved :: Apache Software License',
+{%- elif cookiecutter.license == "GPLv3" %}
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'
+{%- elif cookiecutter.license == "GPLv2" %}
+        'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)'
 {%- endif %}
         'Operating System :: Unix',
         'Operating System :: POSIX',
@@ -141,6 +145,13 @@ setup(
         'cffi>=1.0.0',
 {%- endif %}
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
+    ],
+    tests_require=[
+{%- if cookiecutter.test_runner|lower == 'pytest' %}
+        'pytest',
+{%- else %}
+        # eg: 'pytest',
+{%- endif %}
     ],
     extras_require={
         # eg:

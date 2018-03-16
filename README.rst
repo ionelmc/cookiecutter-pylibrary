@@ -4,13 +4,13 @@ cookiecutter-pylibrary
 
 Cookiecutter_ template for a Python python library. |travis| |appveyor|
 
-.. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
+.. |travis| image:: http://img.shields.io/travis/cmarquardt/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/ionelmc/cookiecutter-pylibrary
+    :target: https://travis-ci.org/cmarquardt/cookiecutter-pylibrary
 
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=AppVeyor
+.. |appveyor| image:: https://img.shields.io/appveyor/ci/cmarquardt/cookiecutter-pylibrary/master.svg?style=flat&label=AppVeyor
     :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
+    :target: https://ci.appveyor.com/project/cmarquardt/cookiecutter-pylibrary
 
 *Notes*:
 
@@ -21,6 +21,7 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor|
     <https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
+* This repository is a fork of the original cookiecutter recipe with updates I find useful. Feel free to clone, raise issues,...
 
 .. contents:: Table of Contents
 

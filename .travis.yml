@@ -46,6 +46,16 @@ env:
     - ENV=matrix-separatecover-pytest-nocli-py3doc-flake8
     - ENV=matrix-separatecover-pytest-nocli-rtd-flake8
     - ENV=matrix-separatecover-pytest-plain-py3doc-flake8
+    - ENV=matrix-separatecover-unittest-argparse-py3doc-flake8
+    - ENV=matrix-separatecover-unittest-click-py3doc-flake8
+    - ENV=matrix-separatecover-unittest-nocli-py3doc-flake8
+    - ENV=matrix-separatecover-unittest-nocli-rtd-flake8
+    - ENV=matrix-separatecover-unittest-plain-py3doc-flake8
+    - ENV=matrix-unittest-argparse-py3doc-flake8
+    - ENV=matrix-unittest-click-py3doc-flake8
+    - ENV=matrix-unittest-nocli-py3doc-flake8
+    - ENV=matrix-unittest-nocli-rtd-flake8
+    - ENV=matrix-unittest-plain-py3doc-flake8
     - ENV=plain-nose-argparse-py3doc-flake8
     - ENV=plain-nose-click-py3doc-flake8
     - ENV=plain-nose-nocli-py3doc-flake8
@@ -95,6 +105,16 @@ env:
     - ENV=plain-separatecover-pytest-nocli-py3doc-flake8
     - ENV=plain-separatecover-pytest-nocli-rtd-flake8
     - ENV=plain-separatecover-pytest-plain-py3doc-flake8
+    - ENV=plain-separatecover-unittest-argparse-py3doc-flake8
+    - ENV=plain-separatecover-unittest-click-py3doc-flake8
+    - ENV=plain-separatecover-unittest-nocli-py3doc-flake8
+    - ENV=plain-separatecover-unittest-nocli-rtd-flake8
+    - ENV=plain-separatecover-unittest-plain-py3doc-flake8
+    - ENV=plain-unittest-argparse-py3doc-flake8
+    - ENV=plain-unittest-click-py3doc-flake8
+    - ENV=plain-unittest-nocli-py3doc-flake8
+    - ENV=plain-unittest-nocli-rtd-flake8
+    - ENV=plain-unittest-plain-py3doc-flake8
 before_install:
   - python --version
   - virtualenv --version
