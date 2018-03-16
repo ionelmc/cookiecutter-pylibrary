@@ -27,7 +27,7 @@
         "2005-2018"
     ],
     "version": "0.1.0",
-    "license": ["BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0", "GPLv3+", "GPLv2+"],
+    "license": ["GPLv2+", "GPLv3+", "BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0"],
     "c_extension_support": ["no", "yes", "cffi", "cython"],
     "c_extension_optional": ["no", "yes"],
     "c_extension_module": "_{{ cookiecutter.package_name }}",
@@ -39,7 +39,7 @@
     "command_line_interface": ["plain", "argparse", "click", "no"],
     "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}",
     "coveralls": ["no", "yes"],
-    "codecov": ["yes", "no"],
+    "codecov": ["no", "yes"],
     "landscape": ["no", "yes"],
     "scrutinizer": ["no", "yes"],
     "codacy" : ["no", "yes"],
@@ -48,5 +48,5 @@
     "sphinx_doctest": ["no", "yes"],
     "travis": ["yes", "no"],
     "appveyor": ["yes", "no"],
-    "requiresio": ["yes", "no"]
+    "requiresio": ["no", "yes"]
 }
