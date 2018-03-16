@@ -65,6 +65,7 @@ def test_main():
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' %}
 
+
 def test_{{ cookiecutter.c_extension_function }}():
     assert {{ cookiecutter.c_extension_function }}([b'a', b'bc', b'abc']) == b'abc'
 {%- endif %}
