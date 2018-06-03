@@ -6,43 +6,43 @@
 # Packages
 *.egg
 *.egg-info
-dist
-build
-eggs
 .eggs
-parts
-bin
-var
-sdist
-wheelhouse
-develop-eggs
 .installed.cfg
+bin
+build
+develop-eggs
+dist
+eggs
 lib
 lib64
-venv*/
+parts
 pyvenv*/
+sdist
+var
+venv*/
+wheelhouse
 
 # Installer logs
 pip-log.txt
 
 # Unit test / coverage reports
 .coverage
-.tox
 .coverage.*
-nosetests.xml
+.tox
 coverage.xml
 htmlcov
+nosetests.xml
 
 # Translations
 *.mo
 
 # Mr Developer
+*.iml
+*.komodoproject
+.idea
 .mr.developer.cfg
 .project
 .pydevproject
-.idea
-*.iml
-*.komodoproject
 
 # Complexity
 output/*.html
@@ -53,12 +53,12 @@ docs/_build
 
 .DS_Store
 *~
-.*.sw[po]
-.build
-.ve
-.env
-.cache
-.pytest
-.bootstrap
-.appveyor.token
 *.bak
+.*.sw[po]
+.appveyor.token
+.bootstrap
+.build
+.cache
+.env
+.pytest
+.ve
