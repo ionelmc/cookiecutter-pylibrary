@@ -463,7 +463,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
 .. _Travis-CI: http://travis-ci.org/
-.. _Tox: http://testrun.org/tox/
+.. _Tox: https://tox.readthedocs.io/en/latest/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Coveralls: https://coveralls.io/
 .. _ReadTheDocs: https://readthedocs.org/
