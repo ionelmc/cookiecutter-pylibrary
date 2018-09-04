@@ -11,7 +11,7 @@ environment:
       PYTHON_HOME: C:\Python27
       PYTHON_VERSION: '2.7'
       PYTHON_ARCH: '32'
-{%- for env in ['py27', 'py34', 'py35', 'py36'] %}{{ '' }}
+{%- for env in ['py27', 'py34', 'py35', 'py36', 'py37'] %}{{ '' }}
     - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}-cover{% endif -%},report
       {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
       {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}'

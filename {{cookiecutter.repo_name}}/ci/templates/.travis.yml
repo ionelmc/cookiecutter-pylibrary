@@ -14,6 +14,10 @@ matrix:
 {% raw -%}
 {%- for env, config in tox_environments|dictsort %}{{ '' }}
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else env.split('-')[0] }}'
+{% if env.startswith('py37') %}
+      dist: xenial
+      sudo: required
+{% endif %}
       env:
         - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
         {%- if cookiecutter.coveralls == 'yes' -%}
@@ -27,6 +31,10 @@ matrix:
 {%- raw -%}
 {%- for env in tox_environments %}{{ '' }}
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
+{% if env.startswith('py37') %}
+      dist: xenial
+      sudo: required
+{% endif %}
       env:
         - TOXENV={{ env }}{% endraw -%}
     {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw -%}

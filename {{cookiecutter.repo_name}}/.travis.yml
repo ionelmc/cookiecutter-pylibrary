@@ -10,8 +10,12 @@ env:
     - TOXENV=docs
 matrix:
   include:
-{%- for env in ['py27', 'py34', 'py35', 'py36', 'pypy'] %}
+{%- for env in ['py27', 'py34', 'py35', 'py36', 'py37', 'pypy'] %}
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
+{%- if env.startswith('py37') %}
+      dist: xenial
+      sudo: required
+{%- endif %}
       env:
         - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}-cover{% endif %},report
       {%- if cookiecutter.coveralls == 'yes' %}
@@ -20,6 +24,10 @@ matrix:
       {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
 {%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
     - python: '{{ '{0[0]}-5.4'.format(env.split('-')) if env.startswith('pypy') else '{0[2]}.{0[3]}'.format(env) }}'
+{%- if env.startswith('py37') %}
+      dist: xenial
+      sudo: required
+{%- endif %}
       env:
         - TOXENV={{ env }}-nocov
 {%- endif %}
