@@ -3,8 +3,8 @@
 source = src
 {%- else %}
 source =
-   src/{{ cookiecutter.package_name }}
-   */site-packages/{{ cookiecutter.package_name }}
+   src
+   */site-packages
 {%- endif %}
 
 [run]
