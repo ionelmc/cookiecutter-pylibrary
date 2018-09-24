@@ -54,7 +54,7 @@ if __name__ == "__main__":
     os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
 {% endif %}
 
-{%- if cookiecutter.test_matrix_configurator == 'no' %}
+{%- if cookiecutter.test_matrix_configurator == 'no' and cookiecutter.test_matrix_separate_coverage == 'no' %}
     os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
 
