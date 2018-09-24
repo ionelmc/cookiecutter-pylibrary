@@ -29,6 +29,10 @@ if __name__ == "__main__":
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
 
+{% if cookiecutter.sphinx_docs == "no" %}
+    shutil.rmtree('docs')
+{% endif %}
+
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     print("""
 ################################################################################

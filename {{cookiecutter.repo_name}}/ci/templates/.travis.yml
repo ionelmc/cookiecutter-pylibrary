@@ -7,7 +7,9 @@ env:
     - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
+{%- if cookiecutter.sphinx_docs == "yes" %}
     - TOXENV=docs
+{%- endif %}
 matrix:
   include:
 {% if cookiecutter.test_matrix_configurator == "yes" -%}

@@ -7,7 +7,9 @@ env:
     - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
+{%- if cookiecutter.sphinx_docs == "yes" %}
     - TOXENV=docs
+{%- endif %}
 matrix:
   include:
 {%- for env in ['py27', 'py34', 'py35', 'py36', 'py37', 'pypy'] %}

@@ -28,9 +28,11 @@ Overview
       - | |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
 
+{% if cookiecutter.sphinx_docs == "yes" -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
+{% endif %}
 {{ '' }}
 {%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
@@ -113,7 +115,16 @@ Installation
 Documentation
 =============
 
+{% if cookiecutter.sphinx_docs == "yes" %}
 https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
+{% else %}
+To use the project:
+
+.. code-block:: python
+
+    import {{ cookiecutter.package_name }}
+    {{ cookiecutter.package_name }}.{{ cookiecutter.c_extension_function }}()
+{% endif %}
 
 Development
 ===========
