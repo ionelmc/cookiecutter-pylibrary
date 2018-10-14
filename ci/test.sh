@@ -30,4 +30,6 @@ bumpversion patch
 bumpversion minor
 bumpversion major
 safe_sed 's/sphinx-build -b linkcheck/#/' tox.ini
+safe_sed 's/,py37,/,/' tox.ini
+safe_sed 's/,pypy3,/,/' tox.ini
 tox

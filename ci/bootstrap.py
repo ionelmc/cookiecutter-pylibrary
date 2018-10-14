@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/python3.6
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
@@ -22,9 +22,9 @@ if __name__ == "__main__":
         import subprocess
         print("Making bootstrap env in: {0} ...".format(env_path))
         try:
-            subprocess.check_call(["virtualenv", env_path, '--python=python3.5'])
+            subprocess.check_call(["virtualenv", env_path, '--python=python3.6'])
         except Exception:
-            subprocess.check_call([sys.executable, "-m", "virtualenv", env_path, '--python=python3.5'])
+            subprocess.check_call([sys.executable, "-m", "virtualenv", env_path, '--python=python3.6'])
         print("Installing `jinja2` and `matrix` into bootstrap environment ...")
         subprocess.check_call([join(bin_path, "pip"), "install", "jinja2", "matrix", "pyyaml"])
     activate = join(bin_path, "activate_this.py")
