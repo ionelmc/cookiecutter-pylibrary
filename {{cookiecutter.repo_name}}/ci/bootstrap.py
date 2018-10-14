@@ -51,7 +51,6 @@ if __name__ == "__main__":
         python = conf["python_versions"]
         deps = conf["dependencies"]
         tox_environments[alias] = {
-            "python": "python" + python if "py" not in python else python,
             "deps": deps.split(),
         }
         if "coverage_flags" in conf:

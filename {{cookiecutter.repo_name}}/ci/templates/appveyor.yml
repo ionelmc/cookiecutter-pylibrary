@@ -13,27 +13,27 @@ environment:
       PYTHON_ARCH: '32'
 {% if cookiecutter.test_matrix_configurator == "yes" %}
 {%- raw -%}
-{% for env, config in tox_environments|dictsort %}{{ '' }}{% if config.python.startswith('python') %}
+{% for env, config in tox_environments|dictsort %}{{ '' }}{% if env.startswith(('py2', 'py3')) %}
     - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.codecov == 'yes' %}{% raw %}{% if config.cover %}{% endraw -%},report
         {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
       {%- raw %}{% endif %}{%- endraw %}{% endif %}{% raw %}'
-      TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}\python.exe
-      PYTHON_HOME: C:\{{ config.python.replace('.', '').capitalize() }}
-      PYTHON_VERSION: '{{ config.python[-3:] }}'
+      TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
+      PYTHON_HOME: C:\Python{{ env[2:4] }}
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
     - TOXENV: '{{ env }}{% endraw -%}{% if cookiecutter.codecov == 'yes' -%}{% raw %}{% if config.cover %}{% endraw -%},report
         {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
       {%- raw %}{% endif %}{% endraw %}{% endif %}{% raw %}'
-      TOXPYTHON: C:\{{ config.python.replace('.', '').capitalize() }}-x64\python.exe
-      {%- if config.python != 'python3.5' %}
+      TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
+      {%- if env.startswith(('py2', 'py34')) %}
 
-      WINDOWS_SDK_VERSION: v7.{{ '1' if config.python[-3] == '3' else '0' }}
+      WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}
       {%- endif %}
 
-      PYTHON_HOME: C:\{{ config.python.replace('.', '').capitalize() }}-x64
-      PYTHON_VERSION: '{{ config.python[-3:] }}'
+      PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
+      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
 
 {% endif %}{% endfor %}

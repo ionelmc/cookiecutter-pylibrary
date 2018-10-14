@@ -13,7 +13,7 @@ env:
 matrix:
   include:
 {%- for env in ['py27', 'py34', 'py35', 'py36', 'py37', 'pypy', 'pypy3'] %}
-    - python: '{{ "{0[0]}".format(env.split("-")) if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
+    - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {%- if env.startswith('py37') %}
       dist: xenial
       sudo: required
@@ -25,7 +25,7 @@ matrix:
       {%- endif %}
       {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
 {%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
-    - python: '{{ "{0[0]}".format(env.split("-")) if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
+    - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {%- if env.startswith('py37') %}
       dist: xenial
       sudo: required
