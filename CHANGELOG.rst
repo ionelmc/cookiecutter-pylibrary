@@ -8,11 +8,28 @@ master
 
 * Simplified pytest configuration in some cases.
 * Fixed bumpversion configuration to not replace every matching string (like dependency pins).
+* Changed travis configuration to install latest PyPy (6.0)
+* Added an env for PyPy3 in Tox/Travis configuration.
+* Dropped Python 3.3 support.
+  Contributed by Labrys of Knossos in `#97 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/97>`_.
+* Added Python 3.7 support.
+* Made documentation optional (the new ``sphinx_docs`` option).
+* Changed ``setup.py`` to avoid leaving unclosed file handles.
+* Now using ``pytest`` instead of ``py.test``.
+  Contributed by Ville Skyttä in `#92 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/92>`_.
+* Added mypy and pytest caches to ``.gitignore``.
+  Contributed by Nate Marks and Labrys of Knossos in `#99 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/99>`_
+  and `#95 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/95>`_
+* Added support for generating a CFFI binding project.
+* Fixed ``ci/bootstrap.py`` to work properly when mixing up Python 2 and 3 (``execv`` instead of broken
+  ``activate_this.py``).
+* Various template fixes (spacing, conditions, etc).
 
 v1.13 (2017-10-24)
 ------------------
 
-* Added `license` option. Contributed by Samuel Bishop in `#83 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/83>`_.
+* Added `license` option.
+  Contributed by Samuel Bishop in `#83 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/83>`_.
 * Various small fixes to test and coverage configuration.
 * Added the "commits since" badge in ``README.rst``.
 * Removed download count badge (obsolete).
@@ -27,25 +44,27 @@ v1.12 (2016-08-20)
 * Removed all references to Python 2.6 from various config files. Contributed by Lucas Wiman,
   `#48 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/48>`_.
 * Rename ``bin_name`` to ``command_line_interface_bin_name`` for more clarity.
-* Added ``test_matrix_separate_coverage`` option with default to ``"no"``. Previously the template generated two environment
-  flavors in ``tox.ini``: ``cover`` and ``nocov`` (what ``test_matrix_separate_coverage == "yes"`` would generate now).
-* Added ``sphinx_doctest`` option to complement the lack of doctest support when ``test_matrix_separate_coverage == "no"`` is
-  used.
-* Added ``isort`` checks in ``tox.ini``. Contributed by Fábio C. Barrionuevo da Luz in `#50
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/50>`_.
-* Removed ``"extension-coveralls"`` if it's not used. Contributed by Fábio C. Barrionuevo da Luz in `#49
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/49>`_.
+* Added ``test_matrix_separate_coverage`` option with default to ``"no"``. Previously the template generated two
+  environment flavors in ``tox.ini``: ``cover`` and ``nocov`` (what ``test_matrix_separate_coverage == "yes"`` would
+  generate now).
+* Added ``sphinx_doctest`` option to complement the lack of doctest support when
+  ``test_matrix_separate_coverage == "no"`` is used.
+* Added ``isort`` checks in ``tox.ini``.
+  Contributed by Fábio C. Barrionuevo da Luz in `#50 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/50>`_.
+* Removed ``"extension-coveralls"`` if it's not used.
+  Contributed by Fábio C. Barrionuevo da Luz in `#49 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/49>`_.
 * Fixed issues when running ``ci/bootstrap.py`` on Python 3.
-* Fixed issues with Sphinx configuration so it works properly with Sphinx 1.4. Contributed by Sean Fisk in `#55
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/55>`_.
-* Changed default options to use templating and reuse the `project_name`. Contributed by Christoph Sarnowski in `#56
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/56>`_.
+* Fixed issues with Sphinx configuration so it works properly with Sphinx 1.4.
+  Contributed by Sean Fisk in `#55 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/55>`_.
+* Changed default options to use templating and reuse the `project_name`.
+  Contributed by Christoph Sarnowski in `#56 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/56>`_.
 * Extended default coverage reporting to include tests.
-* Fixed trailing newline. Contributed in `#67 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/67>`_.
-* Fixed missing ``console_scripts`` entrypoint and improve nose configuration. Contributed by Laurent Laporte in `#64
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/64>`_.
-* Improved code style in a bunch of files. Contributed by Laurent Laporte in `#62
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/62>`_.
+* Fixed trailing newline.
+  Contributed in `#67 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/67>`_.
+* Fixed missing ``console_scripts`` entrypoint and improve nose configuration.
+  Contributed by Laurent Laporte in `#64 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/64>`_.
+* Improved code style in a bunch of files.
+  Contributed by Laurent Laporte in `#62 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/62>`_.
 * Fixed coverage combining in coveralls/codecov tox envs. Now append mode is used, to avoid discarding coverage data.
 
 
@@ -53,13 +72,13 @@ v1.11 (2016-01-05)
 ------------------
 
 * Added ``.editorconfig``.
-* Changed Travis config: pip's cache is saved, libsegfault.so now works on all signals (like ABRT) and pytest-travis-fold
-  is included by default.
-* Use the builtin ``napoleon`` extension in Sphinx 1.3. Contributed by Christer van der Meeren, `#37
-  <https://github.com/ionelmc/cookiecutter-pylibrary/pull/37>`_.
+* Changed Travis config: pip's cache is saved, libsegfault.so now works on all signals (like ABRT) and
+  ``pytest-travis-fold`` is included by default.
+* Use the builtin ``napoleon`` extension in Sphinx 1.3.
+  Contributed by Christer van der Meeren, `#37 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/37>`_.
 * Enable the ``extlinks`` extension from Sphinx.
-* Added ``bin_name`` options and warnings when ``bin_name`` could be problematic (eg: it has ``.py`` extension and same name
-  as the ``package_name``).
+* Added ``bin_name`` options and warnings when ``bin_name`` could be problematic (eg: it has ``.py`` extension and same
+  name as the ``package_name``).
 * Added Python 3.5 to classifiers (``setup.py``).
 * Renamed the tox environment names to be more similar with the tox defaults (if ``test_matrix_generator`` is ``"no"``).
 * Added few comments and tweaks in ``setup.py`` to make it easy to switch to Cython extensions.
@@ -78,13 +97,17 @@ v1.9 (2015-08-06)
 -----------------
 
 * Changed badge images to be served over https.
-* Fix wrong path and missing passenv in the tox.ini template. Closed `#24 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/24>`_.
+* Fix wrong path and missing passenv in the tox.ini template.
+  Closed `#24 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/24>`_.
 * Excluded *.dylib in ``MANIFEST.in``.
-* Replaced dashes with underscores in package name. Closed `#23 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/23>`_.
-* Added Codeclimate and Codacy badge placeholders. Contributed by kaidokert, `#22 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/22>`_.
+* Replaced dashes with underscores in package name.
+  Closed `#23 <https://github.com/ionelmc/cookiecutter-pylibrary/issues/23>`_.
+* Added Codeclimate and Codacy badge placeholders.
+  Contributed by kaidokert, `#22 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/22>`_.
 * Minor cleanup in ``tox.ini``.
 * Fixed long heading underlines in generated RST documents.
-* Changed tox configuration to use ``skip_install`` instead of ``usedevelop`` for envs that don't need to import anything.
+* Changed tox configuration to use ``skip_install`` instead of ``usedevelop`` for envs that don't need to import
+  anything.
 * Fixed missing interpreter for the spell env.
 * Moved bumpversion configuration out of ``setup.cfg``. Unfortunately bumpversion removes comments from the
   config file, so ``setup.cfg`` is not a good place.
@@ -125,7 +148,8 @@ v1.5 (2015-06-18)
 * Made support and badges for landscape, scrutinizer, coveralls and codecov switchable at project creation time.
 * Disabled all the pypip.in badges (server has way too much downtime).
 * Fixed a whitespace issue in outputed ``tox.ini``.
-* Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme. Contributed by Christer van der Meeren, `#20 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/20>`_.
+* Added option to use any Sphinx theme. Default changed to ``readthedocs`` theme.
+  Contributed by Christer van der Meeren, `#20 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/20>`_.
 * Added a ``.cookiecutterrc`` file to help with regenerating projects.
 * Prettied up the badges (SVG badges, better grouping).
 * Corrected the use of the deprecated 'files' option anymore in bumpversion configuration.
@@ -136,20 +160,25 @@ v1.4 (2015-06-05)
 -----------------
 
 * Add ``passenv = *`` in the resulting ``tox.ini``. Fixes various inconveniences caused by the restricted
-  subprocess environments in `tox-2.0`. Contributed by Christer van der Meeren, `#11 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/11>`_.
+  subprocess environments in `tox-2.0`.
+  Contributed by Christer van der Meeren, `#11 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/11>`_.
 
 v1.3 (2015-05-06)
 -----------------
 
-* Cleanup and extend ``.gitignore`` a bit. Contributed by Ludovic Gasc, `#10 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/10>`_.
+* Cleanup and extend ``.gitignore`` a bit.
+  Contributed by Ludovic Gasc, `#10 <https://github.com/ionelmc/cookiecutter-pylibrary/pull/10>`_.
 
 v1.2 (2015-04-11)
 -----------------
 
-* Changed the string repr routine for name/description/email to dump unicode literals instead of utf8 encoded bytestrings.
+* Changed the string repr routine for name/description/email to dump unicode literals instead of utf8 encoded
+  bytestrings.
 
-  If you run cookiecutter on Python 2 you'll get unicode escapes ("\uXXXX") and on Python 3 you'll get the pretty gliphs.
-* Fixed the ``bootstrap.py`` script (that's used for the ``test_matrix_configurator`` mode) to work from any current working directory.
+  If you run cookiecutter on Python 2 you'll get unicode escapes ("\uXXXX") and on Python 3 you'll get the pretty
+  gliphs.
+* Fixed the ``bootstrap.py`` script (that's used for the ``test_matrix_configurator`` mode) to work from any current
+  working directory.
 * Included the branch name in the AppVeyor build number.
 * Make the CLI optional and add support for using `click`.
 
