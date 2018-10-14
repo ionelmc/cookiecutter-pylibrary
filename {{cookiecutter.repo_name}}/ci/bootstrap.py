@@ -26,11 +26,12 @@ if __name__ == "__main__":
             subprocess.check_call(["virtualenv", env_path])
         except subprocess.CalledProcessError:
             subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
-        print("Installing `jinja2` {% if cookiecutter.test_matrix_configurator == "yes" %}and `matrix` {% endif %}into bootstrap environment...")
-        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix"{% endif %}])
-    activate = join(bin_path, "activate_this.py")
-    # noinspection PyCompatibility
-    exec(compile(open(activate, "rb").read(), activate, "exec"), dict(__file__=activate))
+        print("Installing `jinja2` into bootstrap environment...")
+        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
+    python_executable = join(bin_path, "python")
+    if not os.path.samefile(python_executable, sys.executable):
+        print("Re-executing with: {0}".format(python_executable))
+        os.execv(python_executable, [python_executable, __file__])
 
     import jinja2
 {% if cookiecutter.test_matrix_configurator == "yes" %}
