@@ -42,10 +42,11 @@ except ImportError:
 
 
 def read(*names, **kwargs):
-    return io.open(
+    with io.open(
         join(dirname(__file__), *names),
         encoding=kwargs.get('encoding', 'utf8')
-    ).read()
+    ) as fh:
+        return fh.read()
 
 
 {% if cookiecutter.c_extension_support != 'no' -%}
