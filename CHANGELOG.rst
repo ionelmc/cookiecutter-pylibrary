@@ -3,8 +3,8 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-master
-------
+v1.14 (2019-10-16)
+------------------
 
 * Simplified pytest configuration in some cases.
 * Fixed bumpversion configuration to not replace every matching string (like dependency pins).
