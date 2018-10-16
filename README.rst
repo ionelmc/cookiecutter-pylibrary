@@ -2,7 +2,7 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python python library. |travis| |appveyor|
+Cookiecutter_ template for a Python python library. |travis| |appveyor| |requiresio|
 
 .. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
@@ -12,6 +12,10 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor|
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
 
+.. |requiresio| image:: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements.svg?branch=master
+     :target: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements/?branch=master
+     :alt: Requirements Status
+     
 *Notes*:
 
 * This is largely designed to address this `blog post about packaging python
