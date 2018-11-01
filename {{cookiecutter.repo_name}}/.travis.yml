@@ -19,12 +19,12 @@ matrix:
       sudo: required
 {%- endif %}
       env:
-        - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}-cover{% endif %},report
+        - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' %}-cover{% endif %},report
       {%- if cookiecutter.coveralls == 'yes' %}
         {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
       {%- endif %}
       {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-{%- if cookiecutter.test_matrix_separate_coverage == 'yes' or cookiecutter.test_matrix_configurator == 'yes' %}
+{%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}
     - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {%- if env.startswith('py37') %}
       dist: xenial
