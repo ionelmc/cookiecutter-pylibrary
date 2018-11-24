@@ -25,6 +25,8 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor| |require
     <https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
 * There's a bare library using this template (if you're curious about the final
   result): https://github.com/ionelmc/python-nameless.
+* If you have a web application (not a library) you might want to take a look at
+  `django-docker <https://github.com/evozon/django-docker>`_.
 
 .. contents:: Table of Contents
 
