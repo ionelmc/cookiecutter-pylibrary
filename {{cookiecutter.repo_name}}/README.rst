@@ -76,7 +76,7 @@ Overview
 {% endif %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+    :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
@@ -84,15 +84,15 @@ Overview
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+    :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/{{ cookiecutter.distribution_name }}.svg
     :alt: Supported versions
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+    :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg
     :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/{{ cookiecutter.distribution_name }}
+    :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 {% if cookiecutter.scrutinizer == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg
     :alt: Scrutinizer Status

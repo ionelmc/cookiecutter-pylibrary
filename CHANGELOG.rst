@@ -192,7 +192,7 @@ v1.1 (2015-03-28)
 * Added contributing guide for the template.
 * Improved the tests for the template (minor perm and path issues).
 * The ``setup.py release`` doesn't upload anymore. Added instructions for using `twine
-  <https://pypi.python.org/pypi/twine>`_.
+  <https://pypi.org/project/twine>`_.
 * Minor glob simplification in ``MANIFEST.in``.
 
 v1.0 (2015-03-24)
