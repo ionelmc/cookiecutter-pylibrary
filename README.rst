@@ -65,7 +65,7 @@ Projects using this template have these minimal dependencies:
   problem :)
 
 To get quickly started on a new system, just `install setuptools
-<https://pypi.python.org/pypi/setuptools#installation-instructions>`_ and then `install pip
+<https://pypi.org/project/setuptools#installation-instructions>`_ and then `install pip
 <https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to required install Tox_ and Cookiecutter_. To install
 them, just run this in your shell or command prompt::
 
@@ -294,7 +294,7 @@ You will be asked for these fields:
       - What Sphinx_ theme to use.
 
         Suggested alternative: `sphinx-py3doc-enhanced-theme
-        <https://pypi.python.org/pypi/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
+        <https://pypi.org/project/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
         the Python 3 documentation.
 
     * - ``sphinx_doctest``
@@ -424,7 +424,7 @@ For making and uploading `manylinux1 <https://github.com/pypa/manylinux>`_ wheel
 
 Note:
 
-    `twine <https://pypi.python.org/pypi/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
+    `twine <https://pypi.org/project/twine>`_ is a tool that you can use to securely upload your releases to PyPI.
     You can still use the old ``python setup.py register sdist bdist_wheel upload`` but it's not very secure - your PyPI
     password will be sent over plaintext.
 
@@ -473,13 +473,13 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Sphinx: http://sphinx-doc.org/
 .. _Coveralls: https://coveralls.io/
 .. _ReadTheDocs: https://readthedocs.org/
-.. _Setuptools: https://pypi.python.org/pypi/setuptools
+.. _Setuptools: https://pypi.org/project/setuptools
 .. _Pytest: http://pytest.org/
 .. _AppVeyor: http://www.appveyor.com/
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _Nose: http://nose.readthedocs.org/
-.. _isort: https://pypi.python.org/pypi/isort
-.. _bumpversion: https://pypi.python.org/pypi/bumpversion
+.. _isort: https://pypi.org/project/isort
+.. _bumpversion: https://pypi.org/project/bumpversion
 .. _Codecov: http://codecov.io/
 .. _Landscape: https://landscape.io/
 .. _Scrutinizer: https://scrutinizer-ci.com/
