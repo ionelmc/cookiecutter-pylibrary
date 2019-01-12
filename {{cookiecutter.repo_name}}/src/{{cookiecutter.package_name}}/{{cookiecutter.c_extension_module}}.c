@@ -20,42 +20,50 @@ char* {{ cookiecutter.c_extension_function }}(int argc, char *argv[]) {
 #include "Python.h"
 
 static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObject *value) {
+    PyObject *module;
+    PyObject *module_dict;
+    PyObject *len;
+    PyObject *max;
+    PyObject *args;
+    PyObject *kwargs;
+    PyObject *result;
+
     #if PY_MAJOR_VERSION < 3
-      PyObject* module = PyImport_ImportModule("__builtin__");
+      module = PyImport_ImportModule("__builtin__");
     #else
-      PyObject* module = PyImport_ImportModule("builtins");
+      module = PyImport_ImportModule("builtins");
     #endif
     if (!module)
         return NULL;
 
-    PyObject* module_dict = PyModule_GetDict(module);
-    PyObject* len = PyDict_GetItemString(module_dict, "len");
+    module_dict = PyModule_GetDict(module);
+    len = PyDict_GetItemString(module_dict, "len");
     if (!len) {
         Py_DECREF(module);
         return NULL;
     }
-    PyObject* max = PyDict_GetItemString(module_dict, "max");
+    max = PyDict_GetItemString(module_dict, "max");
     if (!max) {
         Py_DECREF(module);
         return NULL;
     }
     Py_DECREF(module);
 
-    PyObject* args = PyTuple_New(1);
+    args = PyTuple_New(1);
     if (!args) {
         return NULL;
     }
     Py_INCREF(value);
     PyTuple_SetItem(args, 0, value);
 
-    PyObject* kwargs = PyDict_New();
+    kwargs = PyDict_New();
     if (!kwargs) {
         Py_DECREF(args);
         return NULL;
     }
     PyDict_SetItemString(kwargs, "key", len);
 
-    PyObject* result = PyObject_Call(max, args, kwargs);
+    result = PyObject_Call(max, args, kwargs);
 
     Py_DECREF(args);
     Py_DECREF(kwargs);
