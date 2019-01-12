@@ -54,7 +54,7 @@ if __name__ == "__main__":
     os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
 {% endif %}
 
-{%- if cookiecutter.test_matrix_configurator == 'no' and cookiecutter.test_matrix_separate_coverage == 'no' %}
+{%- if cookiecutter.test_matrix_configurator == 'no' %}
     os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
     You can also run:
 
-        ci/bootstrap.py
+        ./ci/bootstrap.py
 {% else %}
     The project doesn't use the test matrix configurator, but in case
     you change your mind just edit `setup.cfg` and run `ci/bootstrap.py`.

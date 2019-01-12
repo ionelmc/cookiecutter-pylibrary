@@ -7,9 +7,9 @@ environment:
     WITH_COMPILER: 'cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd'
   matrix:
     - TOXENV: check
-      TOXPYTHON: C:\Python27\python.exe
-      PYTHON_HOME: C:\Python27
-      PYTHON_VERSION: '2.7'
+      TOXPYTHON: C:\Python36\python.exe
+      PYTHON_HOME: C:\Python36
+      PYTHON_VERSION: '3.6'
       PYTHON_ARCH: '32'
 {%- for env in ['py27', 'py34', 'py35', 'py36', 'py37'] %}{{ '' }}
     - TOXENV: '{{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' %}-cover{% endif -%},report
@@ -23,9 +23,9 @@ environment:
       {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
       {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}'
       TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
-      {% if env.startswith(('py2', 'py34')) -%}
+      {%- if env.startswith(('py2', 'py34')) %}
       WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}
-      {% endif -%}
+      {%- endif %}
       PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'
@@ -37,9 +37,9 @@ environment:
       PYTHON_ARCH: '32'
     - TOXENV: '{{ env }}-nocov'
       TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
-      {% if env.startswith(('py2', 'py34')) -%}
+      {%- if env.startswith(('py2', 'py34')) %}
       WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}
-      {% endif -%}
+      {%- endif %}
       PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '64'

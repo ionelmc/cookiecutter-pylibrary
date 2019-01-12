@@ -7,62 +7,51 @@ environment:
     WITH_COMPILER: 'cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd'
   matrix:
     - TOXENV: check
-      TOXPYTHON: C:\Python27\python.exe
-      PYTHON_HOME: C:\Python27
-      PYTHON_VERSION: '2.7'
+      TOXPYTHON: C:\Python36\python.exe
+      PYTHON_HOME: C:\Python36
+      PYTHON_VERSION: '3.6'
       PYTHON_ARCH: '32'
-{% if cookiecutter.test_matrix_configurator == "yes" %}
-{%- raw -%}
-{% for env, config in tox_environments|dictsort %}{{ '' }}{% if env.startswith(('py2', 'py3')) %}
-    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.codecov == 'yes' %}{% raw %}{% if config.cover %}{% endraw -%},report
+{% if cookiecutter.test_matrix_configurator == "yes" -%}
+    {{ "{% for env, config in tox_environments|dictsort %}" }}
+{%- else -%}
+    {{ "{% for env in tox_environments %}" }}
+{%- endif -%}
+{{ "{{ '' }}{% if env.startswith(('py2', 'py3')) %}" }}
+    - TOXENV: {{ "'{{ env }}" }}
+        {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
+            {%- if cookiecutter.test_matrix_configurator == "yes" -%}
+                {{ "{% if config.cover %}" }}
+            {%- else -%}
+                {{ "{% if env.endswith('-cover') %}" }}
+            {%- endif -%}
+        {%- endif -%}
+        ,report
         {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-      {%- raw %}{% endif %}{%- endraw %}{% endif %}{% raw %}'
+        {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
+            {{ "{% endif %}" }}
+        {%- endif %}{{ "'" }}
+{%- raw %}
       TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
       PYTHON_HOME: C:\Python{{ env[2:4] }}
       PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
       PYTHON_ARCH: '32'
-    - TOXENV: '{{ env }}{% endraw -%}{% if cookiecutter.codecov == 'yes' -%}{% raw %}{% if config.cover %}{% endraw -%},report
-        {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif %}{% endraw %}{% endif %}{% raw %}'
-      TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
-      {%- if env.startswith(('py2', 'py34')) %}
-
-      WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}
-      {%- endif %}
-
-      PYTHON_HOME: C:\Python{{ env[2:4] }}-x64
-      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
-      PYTHON_ARCH: '64'
-
-{% endif %}{% endfor %}
 {%- endraw %}
-{% else %}
-{%- raw -%}
-{% for env in tox_environments %}{{ '' }}{% if env.startswith(('py2', 'py3')) %}
-    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %},report
+    - TOXENV: {{ "'{{ env }}" }}
+        {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
+            {%- if cookiecutter.test_matrix_configurator == "yes" -%}
+                {{ "{% if config.cover %}" }}
+            {%- else -%}
+                {{ "{% if env.endswith('-cover') %}" }}
+            {%- endif -%}
+        {%- endif -%}
+        ,report
         {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
         {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-      {%- raw %}{% endif %}{%- endraw -%}
-    {%- else -%},report
-        {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-    {%- endif -%}
-{%- raw %}'
-      TOXPYTHON: C:\Python{{ env[2:4] }}\python.exe
-      PYTHON_HOME: C:\Python{{ env[2:4] }}
-      PYTHON_VERSION: '{{ env[2] }}.{{ env[3] }}'
-      PYTHON_ARCH: '32'
-    - TOXENV: '{{ env }}{% endraw %}{% if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw %}{% if 'cover' in env %}{% endraw %},report
-        {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-      {%- raw %}{%- endif %}{%- endraw -%}
-    {%- else -%},report
-        {#- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -#}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-    {%- endif -%}
-{%- raw %}'
+        {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
+            {{ "{% endif %}" }}
+        {%- endif %}{{ "'" }}
+{%- raw %}
       TOXPYTHON: C:\Python{{ env[2:4] }}-x64\python.exe
       {%- if env.startswith(('py2', 'py34')) %}
 
@@ -74,7 +63,6 @@ environment:
       PYTHON_ARCH: '64'
 {% endif %}{% endfor %}
 {%- endraw %}
-{% endif -%}
 init:
   - ps: echo $env:TOXENV
   - ps: ls C:\Python*
