@@ -23,7 +23,7 @@ if os.getenv('SPELLCHECK'):
 source_suffix = '.rst'
 master_doc = 'index'
 project = {{ '{0!r}'.format(cookiecutter.project_name) }}
-year = {{ '{0!r}'.format('<YEAR>' if cookiecutter.year == 'now' else cookiecutter.year) }}
+year = '{% if cookiecutter.year_from == cookiecutter.year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.year_to }}{% endif %}'
 author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
 version = release = {{ '{0!r}'.format(cookiecutter.version) }}
