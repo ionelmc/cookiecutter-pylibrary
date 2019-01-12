@@ -25,7 +25,7 @@
         "2006-2019",
         "2005-2019"
     ],
-    "version": "0.1.0",
+    "version": "0.0.0",
     "license": ["BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0"],
     "c_extension_support": ["no", "yes", "cffi", "cython"],
     "c_extension_optional": ["no", "yes"],
