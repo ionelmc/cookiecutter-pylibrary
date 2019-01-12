@@ -1,5 +1,4 @@
 language: python
-sudo: false
 cache: pip
 env:
   global:
@@ -12,11 +11,10 @@ env:
 {%- endif %}
 matrix:
   include:
-{%- for env in ['py27', 'py34', 'py35', 'py36', 'py37', 'pypy', 'pypy3'] %}
+{%- for env in ['py27', 'py34', 'py35', 'py36', 'py37', 'pypy', 'pypy3'] %}{{ '' }}
     - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {%- if env.startswith('py37') %}
       dist: xenial
-      sudo: required
 {%- endif %}
       env:
         - TOXENV={{ env }}{% if cookiecutter.test_matrix_separate_coverage == 'yes' %}-cover{% endif %},report
@@ -28,7 +26,6 @@ matrix:
     - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {%- if env.startswith('py37') %}
       dist: xenial
-      sudo: required
 {%- endif %}
       env:
         - TOXENV={{ env }}-nocov

@@ -1,5 +1,4 @@
 language: python
-sudo: false
 cache: pip
 env:
   global:
@@ -18,7 +17,6 @@ matrix:
     - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {% if env.startswith('py37') %}
       dist: xenial
-      sudo: required
 {% endif %}
       env:
         - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
@@ -35,7 +33,6 @@ matrix:
     - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
 {% if env.startswith('py37') %}
       dist: xenial
-      sudo: required
 {% endif %}
       env:
         - TOXENV={{ env }}{% endraw -%}
