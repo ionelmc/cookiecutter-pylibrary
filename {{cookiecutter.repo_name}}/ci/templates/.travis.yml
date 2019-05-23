@@ -15,53 +15,38 @@ matrix:
         - TOXENV=docs
 {%- endif %}
 {% if cookiecutter.test_matrix_configurator == "yes" -%}
-{% raw -%}
-{%- for env, config in tox_environments|dictsort %}{{ '' }}
-{% if env.startswith("pypy3") %}
-    - python: 'pypy3.5-6.0'
-{% elif env.startswith("pypy") %}
-    - python: 'pypy2.7-6.0'
-{% else %}
-    - python: '{{ "{0[2]}.{0[3]}".format(env) }}'
-{% endif %}
-      env:
-        - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
-        {%- if cookiecutter.coveralls == 'yes' -%}
-          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-        {%- endif -%}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}
-{% endfor %}
-{%- endraw %}
-{% else %}
-{%- raw -%}
-{%- for env in tox_environments %}{{ '' }}
-{% if env.startswith("pypy3") %}
-    - python: 'pypy3.5-6.0'
-{% elif env.startswith("pypy") %}
-    - python: 'pypy2.7-6.0'
-{% else %}
-    - python: '{{ "{0[2]}.{0[3]}".format(env) }}'
-{% endif %}
-      env:
-        - TOXENV={{ env }}{% endraw -%}
-    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw -%}
-      {% if 'cover' in env %},report{% endraw %}
-        {%- if cookiecutter.coveralls == 'yes' -%}
-          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-        {%- endif -%}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}{% endraw %}
-    {%- else %},report
-      {%- if cookiecutter.coveralls == 'yes' %}
-        {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-      {%- endif %}
-      {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-    {%- endif %}
-{%- raw %}
-{%- endfor %}{{ '' }}
-{%- endraw %}
+{{ "{%- for env, config in tox_environments|dictsort %}{{ '' }}" }}
+{%- else -%}
+{{ "{%- for env in tox_environments %}{{ '' }}" }}
 {%- endif %}
+    - env:
+        - TOXENV={{ "{{ env }}" }}
+{%- if cookiecutter.test_matrix_configurator == "yes" -%}
+    {{ "{% if config.cover %}" }}
+{%- else %}
+    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{{ "{% if 'cover' in env %}" }}{% endif %}
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
+    {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif -%}
+    ,coveralls
+{%- endif %}
+{%- if cookiecutter.codecov == 'yes' -%}
+    ,codecov
+{%- endif %}
+{%- if cookiecutter.test_matrix_configurator == "yes" -%}
+    {{ "{% endif %}" }}
+{%- else %}
+    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' -%}{{ "{% endif %}" }}{%- endif %}
+{%- endif %}
+{{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
+        - TOXPYTHON=pypy3
+      python: 'pypy3.5-6.0'
+{{ "{%- elif env.startswith('pypy') %}{{ '' }}" }}
+      python: 'pypy2.7-6.0'
+{{ "{%- else %}{{ '' }}" }}
+      python: {{ "'{{ '{0[2]}.{0[3]}'.format(env) }}'" }}
+{{ "{%- endif %}" }}
+{{ "{%- endfor %}{{ '' }}" }}
 before_install:
   - python --version
   - uname -a

@@ -33,22 +33,6 @@ if __name__ == "__main__":
     shutil.rmtree('docs')
 {% endif %}
 
-{% if cookiecutter.test_matrix_configurator == "yes" %}
-    print("""
-################################################################################
-
-    For your convenience, the test environments are getting configured for the
-    first time, as you have selected "yes" for `test_matrix_configurator` ...
-""")
-    try:
-        subprocess.check_call(['tox'])
-    except Exception:
-        try:
-            subprocess.check_call([sys.executable, '-mtox'])
-        except Exception:
-            subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
-{% endif %}
-
 {%- if cookiecutter.command_line_interface == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '__main__.py'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
@@ -80,16 +64,29 @@ if __name__ == "__main__":
     os.unlink(join('ci', 'appveyor-bootstrap.py'))
     os.unlink(join('ci', 'appveyor-download.py'))
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
-    os.unlink('appveyor.yml')
-    if os.path.exists(join('ci', 'templates', 'appveyor.yml')):
-        os.unlink(join('ci', 'templates', 'appveyor.yml'))
+    os.unlink(join('ci', 'templates', 'appveyor.yml'))
+    if os.path.exists('appveyor.yml'):
+        os.unlink('appveyor.yml')
 {% endif %}
 
 {%- if cookiecutter.travis == 'no' %}
-    os.unlink('.travis.yml')
-    if os.path.exists(join('ci', 'templates', '.travis.yml')):
-        os.unlink(join('ci', 'templates', '.travis.yml'))
+    os.unlink(join('ci', 'templates', '.travis.yml'))
+    if os.path.exists('.travis.yml'):
+        os.unlink('.travis.yml')
 {% endif %}
+
+    print("""
+################################################################################
+
+    Generating CI configuration ...
+""")
+    try:
+        subprocess.check_call(['tox', '-e', 'bootstrap'])
+    except Exception:
+        try:
+            subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap'])
+        except Exception:
+            subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
 
     print("""
 ################################################################################
@@ -104,6 +101,8 @@ if __name__ == "__main__":
         {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
 {%- endfor %}
 
+    See .cookiecutterrc for instructions on regenerating the project.
+
 ################################################################################
 
     To get started run these:
@@ -116,17 +115,16 @@ if __name__ == "__main__":
         git push -u origin master
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}
-    To reconfigure your test/CI settings run:
+    To regenerate your tox.ini, .travis.yml or appveyor.yml run:
+{% else %}
+    To regenerate your .travis.yml or appveyor.yml run:
+{% endif %}
 
         tox -e bootstrap
 
     You can also run:
 
         ./ci/bootstrap.py
-{% else %}
-    The project doesn't use the test matrix configurator, but in case
-    you change your mind just edit `setup.cfg` and run `ci/bootstrap.py`.
-{% endif %}
 """)
 
     command_line_interface_bin_name = '{{ cookiecutter.command_line_interface_bin_name }}'
