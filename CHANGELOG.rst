@@ -3,6 +3,14 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.15 (2019-05-25)
+------------------
+
+* Updated various URLS.
+* Changed ``years`` to ``year_from`` and ``year_to`` to have less fuss when regenerating a project.
+* Fixed various configuration issues (broken envs, coverage configuration, travis configuration etc).
+* Added project urls and python version requirements in ``setup.py``.
+
 v1.14 (2018-10-16)
 ------------------
 
