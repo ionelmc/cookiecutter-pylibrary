@@ -3,7 +3,7 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-v1.14 (2019-10-16)
+v1.14 (2018-10-16)
 ------------------
 
 * Simplified pytest configuration in some cases.
