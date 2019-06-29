@@ -1,61 +1,52 @@
 language: python
-sudo: false
-cache: pip
+dist: xenial
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
-  matrix:
-    - TOXENV=check
-{%- if cookiecutter.sphinx_docs == "yes" %}
-    - TOXENV=docs
-{%- endif %}
 matrix:
   include:
-{% if cookiecutter.test_matrix_configurator == "yes" -%}
-{% raw -%}
-{%- for env, config in tox_environments|dictsort %}{{ '' }}
-    - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
-{% if env.startswith('py37') %}
-      dist: xenial
-      sudo: required
-{% endif %}
+    - python: '3.6'
       env:
-        - TOXENV={{ env }}{% if config.cover %},report{% endraw %}
-        {%- if cookiecutter.coveralls == 'yes' -%}
-          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-        {%- endif -%}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}
-{% endfor %}
-{%- endraw %}
-{% else %}
-{%- raw -%}
-{%- for env in tox_environments %}{{ '' }}
-    - python: '{{ env.split("-")[0] if env.startswith("pypy") else "{0[2]}.{0[3]}".format(env) }}'
-{% if env.startswith('py37') %}
-      dist: xenial
-      sudo: required
-{% endif %}
+        - TOXENV=check
+{%- if cookiecutter.sphinx_docs == "yes" %}
+    - python: '3.6'
       env:
-        - TOXENV={{ env }}{% endraw -%}
-    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{% raw -%}
-      {% if 'cover' in env %},report{% endraw %}
-        {%- if cookiecutter.coveralls == 'yes' -%}
-          {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-        {%- endif -%}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
-      {%- raw %}{% endif -%}{% endraw %}
-    {%- else %},report
-      {%- if cookiecutter.coveralls == 'yes' %}
-        {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif %},coveralls
-      {%- endif %}
-      {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
-    {%- endif %}
-{%- raw %}
-{%- endfor %}{{ '' }}
-{%- endraw %}
+        - TOXENV=docs
 {%- endif %}
+{% if cookiecutter.test_matrix_configurator == "yes" -%}
+{{ "{%- for env, config in tox_environments|dictsort %}{{ '' }}" }}
+{%- else -%}
+{{ "{%- for env in tox_environments %}{{ '' }}" }}
+{%- endif %}
+    - env:
+        - TOXENV={{ "{{ env }}" }}
+{%- if cookiecutter.test_matrix_configurator == "yes" -%}
+    {{ "{% if config.cover %}" }}
+{%- else %}
+    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{{ "{% if 'cover' in env %}" }}{% endif %}
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
+    {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif -%}
+    ,coveralls
+{%- endif %}
+{%- if cookiecutter.codecov == 'yes' -%}
+    ,codecov
+{%- endif %}
+{%- if cookiecutter.test_matrix_configurator == "yes" -%}
+    {{ "{% endif %}" }}
+{%- else %}
+    {%- if cookiecutter.test_matrix_separate_coverage == 'yes' -%}{{ "{% endif %}" }}{%- endif %}
+{%- endif %}
+{{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
+        - TOXPYTHON=pypy3
+      python: 'pypy3.5-6.0'
+{{ "{%- elif env.startswith('pypy') %}{{ '' }}" }}
+      python: 'pypy2.7-6.0'
+{{ "{%- else %}{{ '' }}" }}
+      python: {{ "'{{ '{0[2]}.{0[3]}'.format(env) }}'" }}
+{{ "{%- endif %}" }}
+{{ "{%- endfor %}{{ '' }}" }}
 before_install:
   - python --version
   - uname -a
@@ -66,27 +57,6 @@ install:
   - easy_install --version
   - pip --version
   - tox --version
-  - |
-    set -ex
-    if [[ $TRAVIS_PYTHON_VERSION == 'pypy' ]]; then
-        (cd $HOME
-         wget https://bitbucket.org/pypy/pypy/downloads/pypy2-v6.0.0-linux64.tar.bz2
-         tar xf pypy2-*.tar.bz2
-         pypy2-*/bin/pypy -m ensurepip
-         pypy2-*/bin/pypy -m pip install -U virtualenv)
-        export PATH=$(echo $HOME/pypy2-*/bin):$PATH
-        export TOXPYTHON=$(echo $HOME/pypy2-*/bin/pypy)
-    fi
-    if [[ $TRAVIS_PYTHON_VERSION == 'pypy3' ]]; then
-        (cd $HOME
-         wget https://bitbucket.org/pypy/pypy/downloads/pypy3-v6.0.0-linux64.tar.bz2
-         tar xf pypy3-*.tar.bz2
-         pypy3-*/bin/pypy3 -m ensurepip
-         pypy3-*/bin/pypy3 -m pip install -U virtualenv)
-        export PATH=$(echo $HOME/pypy3-*/bin):$PATH
-        export TOXPYTHON=$(echo $HOME/pypy3-*/bin/pypy3)
-    fi
-    set +x
 script:
   - tox -v
 after_failure:

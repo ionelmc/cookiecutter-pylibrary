@@ -27,13 +27,12 @@ Overview
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
-
-{% if cookiecutter.sphinx_docs == "yes" -%}
+{{ '' }}
+{%- if cookiecutter.sphinx_docs == "yes" -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
 {% endif %}
-{{ '' }}
 {%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
     :alt: Travis-CI Build Status
@@ -65,7 +64,7 @@ Overview
     :alt: Code Quality Status
 {% endif %}
 {%- if cookiecutter.codacy == 'yes' %}
-.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg
+.. |codacy| image:: https://img.shields.io/codacy/grade/{{ cookiecutter.codacy_projectid }}.svg
     :target: https://www.codacy.com/app/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
     :alt: Codacy Code Quality Status
 {% endif %}

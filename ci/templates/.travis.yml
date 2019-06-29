@@ -1,5 +1,4 @@
 language: python
-sudo: required
 dist: trusty
 python: 3.6
 group: deprecated-2017Q2
