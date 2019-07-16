@@ -29,6 +29,8 @@ if __name__ == "__main__":
         print("Installing `jinja2` into bootstrap environment...")
         subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
     python_executable = join(bin_path, "python")
+    if not os.path.exists(python_executable):
+        python_executable += '.exe'
     if not os.path.samefile(python_executable, sys.executable):
         print("Re-executing with: {0}".format(python_executable))
         os.execv(python_executable, [python_executable, __file__])
