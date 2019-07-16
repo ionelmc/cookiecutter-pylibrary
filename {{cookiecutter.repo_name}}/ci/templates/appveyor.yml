@@ -5,7 +5,16 @@ cache:
 environment:
   global:
     WITH_COMPILER: 'cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd'
-  matrix:
+{%- if cookiecutter.c_extension_test_pypi == 'yes' %}
+    TWINE_USERNAME: '{{ cookiecutter.c_extension_test_pypi_username }}'
+    TWINE_PASSWORD:
+      secure: '{{ cookiecutter.c_extension_test_pypi_appveyor_secret }}'
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
+    COVERALLS_REPO_TOKEN:
+      secure: '{{ cookiecutter.coveralls_token }}'
+{%- endif %}
+  matrix:Fix aasdasdasd
     - TOXENV: check
       TOXPYTHON: C:\Python36\python.exe
       PYTHON_HOME: C:\Python36

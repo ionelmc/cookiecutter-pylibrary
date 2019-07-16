@@ -4,6 +4,10 @@ env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
+{%- if cookiecutter.c_extension_test_pypi == 'yes' %}
+    - TWINE_USERNAME={{ cookiecutter.c_extension_test_pypi_username }}
+    {{ cookiecutter.c_extension_test_pypi_travis_secret }}
+{% endif %}
 matrix:
   include:
     - python: '3.6'
