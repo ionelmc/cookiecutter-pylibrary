@@ -86,7 +86,9 @@ class optional_build_ext(build_ext):
 setup(
     name='{{ cookiecutter.distribution_name }}',
     version='{{ cookiecutter.version }}',
+{%- if cookiecutter.license != "no" %}
     license='{{ cookiecutter.license }}',
+{%- endif %}
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
@@ -94,7 +96,9 @@ setup(
     ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('ub') }},
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
+{%- if cookiecutter.repo_hosting != "no" %}
+    url='https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}',
+{%- endif %}
     packages=find_packages('src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
@@ -104,7 +108,8 @@ setup(
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-{%- if cookiecutter.license in ["BSD 2-Clause License", "BSD 3-Clause License"] %}
+{%- if cookiecutter.license == "no" %}
+{%- elif cookiecutter.license in ["BSD 2-Clause License", "BSD 3-Clause License"] %}
         'License :: OSI Approved :: BSD License',
 {%- elif cookiecutter.license == "MIT license" %}
         'License :: OSI Approved :: MIT License',
@@ -131,15 +136,18 @@ setup(
         # 'Programming Language :: Python :: Implementation :: Stackless',
         'Topic :: Utilities',
     ],
+{%- if cookiecutter.repo_hosting != "no" %}
     project_urls={
 {%- if cookiecutter.sphinx_docs == "yes" %}
         'Documentation': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/',
         'Changelog': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/en/latest/changelog.html',
 {%- else %}
-        'Changelog': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
+        'Changelog': 'https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
 {%- endif %}
-        'Issue Tracker': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues',
+        'Issue Tracker': 'https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues',
     },
+{%- endif %}
+
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],

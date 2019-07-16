@@ -111,7 +111,7 @@ if __name__ == "__main__":
         git init
         git add --all
         git commit -m "Add initial project skeleton."
-        git remote add origin git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.git
+        git remote add origin git@{{ cookiecutter.repo_hosting }}.com:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
         git push -u origin master
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}

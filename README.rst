@@ -15,7 +15,7 @@ Cookiecutter_ template for a Python python library. |travis| |appveyor| |require
 .. |requiresio| image:: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements.svg?branch=master
      :target: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements/?branch=master
      :alt: Requirements Status
-     
+
 *Notes*:
 
 * This is largely designed to address this `blog post about packaging python
@@ -114,7 +114,7 @@ You will be asked for these fields:
 
         Can be set in your ``~/.cookiecutterrc`` config file.
 
-    * - ``github_username``
+    * - ``repo_username``
       - .. code:: python
 
             "ionelmc"
@@ -127,6 +127,13 @@ You will be asked for these fields:
 
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
+
+    * - ``repo_hosting``
+      - .. code:: python
+
+            "github"
+      - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab"`` and such but various
+        things will be broken (like Travis configuration).
 
     * - ``repo_name``
       - .. code:: python

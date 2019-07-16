@@ -31,8 +31,8 @@ version = release = {{ '{0!r}'.format(cookiecutter.version) }}
 pygments_style = 'trac'
 templates_path = ['.']
 extlinks = {
-    'issue': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
-    'pr': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
+    'issue': ('https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
+    'pr': ('https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
 }
 
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
@@ -40,7 +40,7 @@ import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
-    'githuburl': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/'
+    'githuburl': 'https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/'
 }
 {%- else %}
 # on_rtd is whether we are on readthedocs.org
