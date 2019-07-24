@@ -167,11 +167,18 @@ setup(
         #   ':python_version=="2.6"': ['argparse'],
     },
     tests_require=['{{cookiecutter.test_runner}}'],
-{%- if cookiecutter.c_extension_support == 'cython' %}
-    setup_requires=[
-        'cython',
-    ] if Cython else [],
-{%- endif %}
+    setup_requires=(
+        []
+{% if cookiecutter.test_runner == 'pytest' %}
+        + ['pytest-runner']
+{% endif %}
+{% if cookiecutter.c_extension_support == 'cython' %}
+        + ['cython'] if Cython else []
+{% endif %}
+{% if cookiecutter.c_extension_support == 'cffi' %}
+        + ['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else []
+{% endif %}
+    ),
 {%- if cookiecutter.command_line_interface != 'no' %}
     entry_points={
         'console_scripts': [
@@ -184,9 +191,6 @@ setup(
     cmdclass={'build_ext': optional_build_ext},
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-    setup_requires=[
-        'cffi>=1.0.0',
-    ] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [],
     cffi_modules=[i + ':ffi' for i in glob('src/*/_*_build.py')],
 {%- else %}
     ext_modules=[
