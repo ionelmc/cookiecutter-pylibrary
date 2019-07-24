@@ -169,14 +169,14 @@ setup(
     tests_require=['{{cookiecutter.test_runner}}'],
     setup_requires=(
         []
-{% if cookiecutter.test_runner == 'pytest' %}
+{%- if cookiecutter.test_runner == 'pytest' %}
         + ['pytest-runner']
 {% endif %}
-{% if cookiecutter.c_extension_support == 'cython' %}
-        + ['cython'] if Cython else []
+{%- if cookiecutter.c_extension_support == 'cython' %}
+        + (['cython'] if Cython else [])
 {% endif %}
-{% if cookiecutter.c_extension_support == 'cffi' %}
-        + ['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else []
+{%- if cookiecutter.c_extension_support == 'cffi' %}
+        + (['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [])
 {% endif %}
     ),
 {%- if cookiecutter.command_line_interface != 'no' %}
