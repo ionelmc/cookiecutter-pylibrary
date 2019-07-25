@@ -167,15 +167,25 @@ setup(
         #   ':python_version=="2.6"': ['argparse'],
     },
 {%- if cookiecutter.test_runner == 'pytest' -%}
-{% set cookiecutter.setup_requires_from_test_runner %}'pytest-runner', {% endset %}
+{% set setup_requires_from_test_runner %}
+        'pytest-runner',{% endset %}
 {%- else -%}
-{% set cookiecutter.setup_requires_from_test_runner %}{% endset %}
+{% set setup_requires_from_test_runner %}{% endset %}
 {%- endif -%}
 {%- if cookiecutter.c_extension_support == 'cython' %}
-    setup_requires = [{{cookiecutter.setup_requires_from_test_runner}}'cython'] if Cython else [{{cookiecutter.setup_requires_from_test_runner}}]
+    setup_requires = [{{setup_requires_from_test_runner}}
+        'cython',
+    ] if Cython else [{{setup_requires_from_test_runner}}
+    ]
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
-    setup_requires = [{{cookiecutter.setup_requires_from_test_runner}}'cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [{{cookiecutter.setup_requires_from_test_runner}}],
-{% endif %}
+    setup_requires = [{{setup_requires_from_test_runner}}
+        'cffi>=1.0.0',
+    ] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [{{setup_requires_from_test_runner}}
+    ],
+{%- else %}
+    setup_requires = [{{setup_requires_from_test_runner}}
+    ],
+{%- endif -%}
 {%- if cookiecutter.command_line_interface != 'no' %}
     entry_points={
         'console_scripts': [
