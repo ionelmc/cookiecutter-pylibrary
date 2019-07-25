@@ -166,7 +166,6 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
-    tests_require=['{{cookiecutter.test_runner}}'],
     setup_requires=list(filter(None, [
 {%- if cookiecutter.test_runner == 'pytest' %}
         'pytest-runner',
