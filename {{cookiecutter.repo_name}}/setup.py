@@ -176,7 +176,7 @@ setup(
     setup_requires = [{{setup_requires_from_test_runner}}
         'cython',
     ] if Cython else [{{setup_requires_from_test_runner}}
-    ]
+    ],
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
     setup_requires = [{{setup_requires_from_test_runner}}
         'cffi>=1.0.0',
