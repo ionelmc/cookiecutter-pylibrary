@@ -225,6 +225,12 @@ You will be asked for these fields:
       - Whether to use the test_runner for python setup.py test.
         Note that this will also add to ``setup_requires`` if a test-runner is needed.
 
+    * - ``run_tests_that_are_installed_with_package``
+      - .. code:: python
+
+            "pytest"
+      - Run tests in the source directory (that is, tests installed with the package).
+
     * - ``linter``
       - .. code:: python
 
