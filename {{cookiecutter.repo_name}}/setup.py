@@ -167,18 +167,17 @@ setup(
         #   ':python_version=="2.6"': ['argparse'],
     },
     tests_require=['{{cookiecutter.test_runner}}'],
-    setup_requires=(
-        []
+    setup_requires=list(filter(None, [
 {%- if cookiecutter.test_runner == 'pytest' %}
-        + ['pytest-runner']
+        'pytest-runner',
 {% endif %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
-        + (['cython'] if Cython else [])
+        ['cython'] if Cython else None,
 {% endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-        + (['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [])
+        ['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else None,
 {% endif %}
-    ),
+    ])),
 {%- if cookiecutter.command_line_interface != 'no' %}
     entry_points={
         'console_scripts': [
