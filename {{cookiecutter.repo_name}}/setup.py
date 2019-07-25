@@ -171,10 +171,10 @@ setup(
         'pytest-runner',
 {% endif %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
-        ['cython'] if Cython else None,
+        'cython' if Cython else None,
 {% endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-        ['cffi>=1.0.0'] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else None,
+        'cffi>=1.0.0' if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else None,
 {% endif %}
     ])),
 {%- if cookiecutter.command_line_interface != 'no' %}
