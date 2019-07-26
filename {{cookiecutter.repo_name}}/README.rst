@@ -26,9 +26,9 @@ Overview
 {{ '' }}
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
-{% if cookiecutter.repo_hosting == "github" %}
+{%- if cookiecutter.repo_hosting == "github" %}
         | |commits-since|
-{% endif %}
+{%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
