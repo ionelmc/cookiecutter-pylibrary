@@ -64,9 +64,9 @@ if __name__ == "__main__":
     os.unlink(join('ci', 'appveyor-bootstrap.py'))
     os.unlink(join('ci', 'appveyor-download.py'))
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
-    os.unlink(join('ci', 'templates', 'appveyor.yml'))
-    if os.path.exists('appveyor.yml'):
-        os.unlink('appveyor.yml')
+    os.unlink(join('ci', 'templates', '.appveyor.yml'))
+    if os.path.exists('.appveyor.yml'):
+        os.unlink('.appveyor.yml')
 {% endif %}
 
 {%- if cookiecutter.travis == 'no' %}
@@ -115,9 +115,9 @@ if __name__ == "__main__":
         git push -u origin master
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}
-    To regenerate your tox.ini, .travis.yml or appveyor.yml run:
+    To regenerate your tox.ini, .travis.yml or .appveyor.yml run:
 {% else %}
-    To regenerate your .travis.yml or appveyor.yml run:
+    To regenerate your .travis.yml or .appveyor.yml run:
 {% endif %}
 
         tox -e bootstrap
