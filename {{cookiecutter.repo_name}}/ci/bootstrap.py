@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import os
 import sys
@@ -8,6 +10,13 @@ from os.path import abspath
 from os.path import dirname
 from os.path import exists
 from os.path import join
+from os.path import normpath
+
+try:
+    from os.path import samefile
+except ImportError:
+    def samefile(a, b):
+        return normpath(abspath(a)) == normpath(abspath(b))
 
 
 if __name__ == "__main__":
@@ -31,7 +40,7 @@ if __name__ == "__main__":
     python_executable = join(bin_path, "python")
     if not os.path.exists(python_executable):
         python_executable += '.exe'
-    if not os.path.samefile(python_executable, sys.executable):
+    if not samefile(python_executable, sys.executable):
         print("Re-executing with: {0}".format(python_executable))
         os.execv(python_executable, [python_executable, __file__])
 
