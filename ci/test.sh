@@ -1,7 +1,7 @@
-#!/bin/bash -eE
+#!/bin/bash -eux
 shopt -s xpg_echo
 
-if [ -z "$1" ]; then
+if [[ -z "$1" ]]; then
     echo Usage:
     echo    $0 env-name
     exit 1
