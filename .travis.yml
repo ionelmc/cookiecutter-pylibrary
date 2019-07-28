@@ -200,6 +200,7 @@ script:
       PR=""
     fi
     git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
+  - echo Done.
 
 notifications:
   email:
