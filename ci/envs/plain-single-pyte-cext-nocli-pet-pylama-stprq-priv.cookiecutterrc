@@ -1,7 +1,6 @@
 default_context:
   c_extension_optional: 'no'
   c_extension_support: 'yes'
-  c_extension_test_pypi: 'no'
   c_extension_test_pypi_appveyor_secret: fDwCnDhQiptm9a4ZcFpgyQ==
   codacy: 'yes'
   codacy_projectid: 862e7946
