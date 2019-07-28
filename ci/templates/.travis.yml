@@ -32,12 +32,12 @@ script:
   - git --version
   - ci/test.sh $ENV
   - |
-    set -ex
+    set -eux
     cd python-nameless
-    if [[ -n "$TRAVIS_PULL_REQUEST" ]]; then
-      $PR="pr${TRAVIS_PULL_REQUEST}-"
+    if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
+      PR="pr${TRAVIS_PULL_REQUEST}-"
     else
-      $PR=""
+      PR=""
     fi
     git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
 
