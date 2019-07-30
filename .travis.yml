@@ -192,7 +192,7 @@ script:
   - git --version
   - ci/test.sh $ENV
   - |
-    set -eux
+    set -x
     cd python-nameless
     if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
       PR="pr${TRAVIS_PULL_REQUEST}-"
