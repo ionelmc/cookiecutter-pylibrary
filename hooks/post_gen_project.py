@@ -75,6 +75,10 @@ if __name__ == "__main__":
         os.unlink('.travis.yml')
 {% endif %}
 
+{%- if cookiecutter.repo_hosting == 'no' %}
+    os.unlink('CONTRIBUTING.rst')
+{% endif %}
+
     print("""
 ################################################################################
 
