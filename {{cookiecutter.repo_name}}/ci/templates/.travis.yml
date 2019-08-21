@@ -1,13 +1,13 @@
 language: python
 dist: xenial
+cache: false
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
     - TWINE_USERNAME={{ cookiecutter.c_extension_test_pypi_username }}
-    {{ cookiecutter.c_extension_test_pypi_travis_secret }}
-{% endif %}
+{%- endif %}
 matrix:
   include:
     - python: '3.6'
@@ -23,6 +23,21 @@ matrix:
 {%- else -%}
 {{ "{%- for env in tox_environments %}{{ '' }}" }}
 {%- endif %}
+{%- if cookiecutter.travis_osx == "yes" %}
+{{ "{%- if 'py37' in env or 'py27' in env %}{{ '' }}" }}
+{{ "    - os: osx" }}
+{{ "      language: generic" }}
+{{ "      cache:" }}
+{{ "        directories:" }}
+{{ "          - $HOME/Library/Caches/Homebrew" }}
+{{ "          - $HOME/Library/Caches/pip" }}
+{{ "      env:" }}
+{{ "        - TOXENV={{ env }}" }}
+{{ "{%- if 'nocov' in env %}{{ '' }}" }}
+{{ "        - WHEEL_PATH=.tox/dist" }}
+{{ "{%- endif %}" }}
+{{ "{%- endif %}{{ '' }}" }}
+{%- endif %}
     - env:
         - TOXENV={{ "{{ env }}" }}
 {%- if cookiecutter.test_matrix_configurator == "yes" -%}
@@ -30,17 +45,23 @@ matrix:
 {%- else %}
     {%- if cookiecutter.test_matrix_separate_coverage == 'yes' %}{{ "{% if 'cover' in env %}" }}{% endif %}
 {%- endif %}
+{%- if cookiecutter.codecov == 'yes' -%}
+    ,codecov
+{%- endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
     {%- if cookiecutter.c_extension_support != "no" %},extension-coveralls{% endif -%}
     ,coveralls
-{%- endif %}
-{%- if cookiecutter.codecov == 'yes' -%}
-    ,codecov
 {%- endif %}
 {%- if cookiecutter.test_matrix_configurator == "yes" -%}
     {{ "{% endif %}" }}
 {%- else %}
     {%- if cookiecutter.test_matrix_separate_coverage == 'yes' -%}{{ "{% endif %}" }}{%- endif %}
+{%- endif %}
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+{{ "{%- if 'pypy' not in env and 'nocov' in env %}{{ '' }}" }}
+{{ "        - WHEEL_MANYLINUX1=cp{{ env.split('-')[0][2:] }}" }}
+{{ "        - WHEEL_PATH=wheelhouse" }}
+{{ "{%- endif %}" }}
 {%- endif %}
 {{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
         - TOXPYTHON=pypy3
@@ -54,15 +75,43 @@ matrix:
 before_install:
   - python --version
   - uname -a
-  - lsb_release -a
+  - lsb_release -a || true
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+  - |
+    if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+      [[ $TOXENV =~ py3 ]] && brew upgrade python
+      [[ $TOXENV =~ py2 ]] && brew install python@2
+      export PATH="/usr/local/opt/python/libexec/bin:${PATH}"
+    fi
+{%- endif %}
 install:
-  - pip install tox
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+  - python -mpip install --progress-bar=off --verbose twine tox-wheel -rci/requirements.txt
+{%- else %}
+  - python -mpip install --progress-bar=off --verbose tox -rci/requirements.txt
+{%- endif %}
   - virtualenv --version
   - easy_install --version
   - pip --version
   - tox --version
 script:
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+  - |
+    (
+    set -eux
+    if [[ -n ${WHEEL_MANYLINUX1:-} ]]; then
+      docker run --rm --user $UID -itv $(pwd):/code ionelmc/manylinux $WHEEL_MANYLINUX1
+      tox --installpkg $WHEEL_PATH/*.whl -v
+    else
+      tox -v
+    fi
+    if [[ -n ${WHEEL_PATH:-} ]]; then
+      twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing $WHEEL_PATH/*.whl
+    fi
+    )
+{%- else %}
   - tox -v
+{%- endif %}
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat

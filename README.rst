@@ -218,7 +218,7 @@ You will be asked for these fields:
             "pytest"
       - Test runner to use. Available options: ``pytest`` or ``nose``.
 
-    * - ``test_runner_used_for_setuppy_test``
+    * - ``setup_py_uses_test_runner``
       - .. code:: python
 
             "no"

@@ -1,18 +1,15 @@
 version: '{branch}-{build}'
 build: off
-cache:
-  - '%LOCALAPPDATA%\pip\Cache'
 environment:
   global:
-    WITH_COMPILER: 'cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd'
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
-    TWINE_USERNAME: '{{ cookiecutter.c_extension_test_pypi_username }}'
-    TWINE_PASSWORD:
-      secure: '{{ cookiecutter.c_extension_test_pypi_appveyor_secret }}'
+    TWINE_USERNAME: {{ cookiecutter.c_extension_test_pypi_username }}
 {%- endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
-    COVERALLS_REPO_TOKEN:
-      secure: '{{ cookiecutter.coveralls_token }}'
+    COVERALLS_EXTRAS: '-v'
+{%- if cookiecutter.coveralls_token.strip() not in '-' %}
+    COVERALLS_REPO_TOKEN: {{ cookiecutter.coveralls_token }}
+{%- endif %}
 {%- endif %}
   matrix:
     - TOXENV: check
@@ -27,7 +24,7 @@ environment:
 {%- endif %}
 {{ "{% if env.startswith(('py2', 'py3')) %}" }}
 {%- for arch in ['32', '64'] %}
-    - TOXENV: {{ "'{{ env }}" }}
+    - TOXENV: {{ "{{ env }}" }}
         {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
             {%- if cookiecutter.test_matrix_configurator == "yes" -%}
                 {{ "{% if config.cover %}" }}
@@ -35,40 +32,55 @@ environment:
                 {{ "{% if env.endswith('-cover') %}" }}
             {%- endif -%}
         {%- endif -%}
-        {%- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -%}
         {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
+        {%- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -%}
         {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
             {{ "{% endif %}" }}
-        {%- endif %}{{ "'" }}
+        {%- endif %}
+{{ '' }}
       TOXPYTHON: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}\python.exe
       PYTHON_HOME: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}
       PYTHON_VERSION: {{ "'{{ env[2] }}.{{ env[3] }}'"}}
       PYTHON_ARCH: '{{ arch }}'
-{{ "{% if env.startswith(('py2', 'py34')) %}" }}
-      WINDOWS_SDK_VERSION: {{ "v7.{{ '1' if env.startswith('py3') else '0' }}" }}
+{{ "{% if 'nocov' in env %}" }}
+{{ "      WHEEL_PATH: .tox/dist" }}
 {{ "{% endif %}" }}
+{%- if arch == '64' %}
+{{ "{% if env.startswith(('py2', 'py34')) %}" }}
+{{ "      WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}" }}
+{{ "{% endif %}" }}
+{%- endif %}
 {%- endfor %}
 {{ "{% endif %}{% endfor %}" }}
 init:
   - ps: echo $env:TOXENV
   - ps: ls C:\Python*
 install:
-  - python -u ci\appveyor-bootstrap.py
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose twine tox-wheel -rci/requirements.txt'
+{%- else %}
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose tox -rci/requirements.txt'
+{%- endif %}
   - '%PYTHON_HOME%\Scripts\virtualenv --version'
   - '%PYTHON_HOME%\Scripts\easy_install --version'
   - '%PYTHON_HOME%\Scripts\pip --version'
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
-  - '%WITH_COMPILER% %PYTHON_HOME%\Scripts\tox'
-{% if cookiecutter.c_extension_support != 'no' %}
+  - cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd %PYTHON_HOME%\Scripts\tox
+{%- if cookiecutter.c_extension_support != 'no' %}
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+on_success:
+  - IF DEFINED WHEEL_PATH %PYTHON_HOME%\Scripts\twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing %WHEEL_PATH%/*.whl
+{% else %}
 after_test:
   - IF "%TOXENV:~-6,6%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
-{% endif %}
+artifacts:
+  - path: dist\*
+{%- endif %}
+{%- endif %}
 on_failure:
   - ps: dir "env:"
   - ps: get-content .tox\*\log\*
-artifacts:
-  - path: dist\*
 
 ### To enable remote debugging uncomment this (also, see: http://www.appveyor.com/docs/how-to/rdp-to-build-worker):
 # on_finish:
