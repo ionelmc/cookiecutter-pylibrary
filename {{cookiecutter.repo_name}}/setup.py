@@ -95,7 +95,13 @@ setup(
     version='{{ cookiecutter.version }}',
 {%- endif %}
 {%- if cookiecutter.license != "no" %}
-    license='{{ cookiecutter.license }}',
+    license='{{ {
+        "BSD 2-Clause License": "BSD-2-Clause",
+        "BSD 3-Clause License": "BSD-3-Clause",
+        "MIT license": "MIT",
+        "ISC license": "ISC",
+        "Apache Software License 2.0": "Apache-2.0"}[cookiecutter.license]
+    }}',
 {%- endif %}
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
     long_description='%s\n%s' % (
