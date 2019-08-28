@@ -195,7 +195,15 @@ You will be asked for these fields:
 
             "no"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
+    * - ``c_extension_test_pypi``
+      - .. code:: python
 
+            "no"
+      - Enables wheel publishing to https://test.pypi.org/ by using `tox-wheel <https://pypi.org/project/tox-wheel/>`_
+        and `manylinux1 <https://hub.docker.com/r/ionelmc/manylinux>`_.
+
+        You should only use this with ``c_extension_support``. If your project produces universal wheels this won't work
+        well.
     * - ``test_matrix_configurator``
       - .. code:: python
 
@@ -224,11 +232,18 @@ You will be asked for these fields:
             "no"
       - Whether to use the test_runner for python setup.py test.
         Note that this will also add to ``setup_requires`` if a test-runner is needed.
+    * - ``setup_py_uses_setuptools_scm``
+      - .. code:: python
 
+            "no"
+      - Enables the use of `setuptools-scm <https://pypi.org/project/setuptools-scm/>`_. You can continue using
+        bumpversion_ with this enabled.
+
+        Recommended if you use ``c_extension_test_pypi == 'yes'`` as it will publish unique wheels for each commit.
     * - ``linter``
       - .. code:: python
 
-	    "flake8"
+        "flake8"
       - Linter to use for ``tox -e check``. Available options: ``flake8`` or ``pylama``
 
     * - ``command_line_interface``
@@ -325,7 +340,14 @@ You will be asked for these fields:
 
             "yes"
       - If you want the Travis-CI_ badge and configuration.
+    * - ``travis_osx``
+      - .. code:: python
 
+            "no"
+      - Enables OSX support in the Travis-CI_ configuration. To keep things simple and easy to understand only Brew
+        Python 2 and 3 will be used.
+
+        You probably want to enable this if you use ``c_extension_test_pypi == 'yes'``.
     * - ``appveyor``
       - .. code:: python
 
