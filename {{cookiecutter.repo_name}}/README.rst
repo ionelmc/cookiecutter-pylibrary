@@ -36,7 +36,7 @@ Overview
     :alt: Documentation Status
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
-.. |travis| image:: https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
+.. |travis| image:: https://api.travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
@@ -95,7 +95,7 @@ Overview
     :alt: Supported implementations
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 {% if cookiecutter.scrutinizer == 'yes' %}
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
