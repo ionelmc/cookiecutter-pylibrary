@@ -240,6 +240,13 @@ You will be asked for these fields:
         bumpversion_ with this enabled.
 
         Recommended if you use ``c_extension_test_pypi == 'yes'`` as it will publish unique wheels for each commit.
+    * - ``allow_tests_inside_package``
+      - .. code:: python
+
+            "no"
+      - Collect tests that are inside the package (in other works, tests that are installed with the package).
+
+        The outside of package `tests` directory will still exist and be collected.
     * - ``linter``
       - .. code:: python
 

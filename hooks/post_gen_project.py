@@ -68,6 +68,9 @@ if __name__ == "__main__":
 {%- if cookiecutter.test_matrix_configurator == 'no' %}
     os.unlink(join('ci', 'templates', 'tox.ini'))
 {% endif %}
+{%- if cookiecutter.allow_tests_inside_package == 'no' %}
+    shutil.rmtree(join('src', '{{ cookiecutter.package_name }}', 'tests'))
+{% endif %}
 
 {%- if cookiecutter.c_extension_support == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
