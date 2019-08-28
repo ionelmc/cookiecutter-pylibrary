@@ -88,7 +88,7 @@ setup(
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
     use_scm_version={
         'local_scheme': 'dirty-tag',
-        'write_to': 'src/lazy_object_proxy/_version.py',
+        'write_to': 'src/{{ cookiecutter.package_name }}/_version.py',
         'fallback_version': '1.4.1',
     },
 {%- else %}
@@ -149,6 +149,9 @@ setup(
         # 'Programming Language :: Python :: Implementation :: Jython',
         # 'Programming Language :: Python :: Implementation :: Stackless',
         'Topic :: Utilities',
+{%- if cookiecutter.repo_hosting == "no" %}
+        'Private :: Do Not Upload',
+{%- endif %}
     ],
 {%- if cookiecutter.repo_hosting != "no" %}
     project_urls={

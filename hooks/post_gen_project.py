@@ -113,6 +113,10 @@ if __name__ == "__main__":
     os.unlink('MANIFEST.in')
 {% endif %}
 
+{%- if cookiecutter.license == "no" %}
+    os.unlink('LICENSE')
+{% endif %}
+
     print("""
 ################################################################################
 
