@@ -42,6 +42,7 @@
     "test_matrix_separate_coverage": ["no", "yes"],
     "test_runner": ["pytest", "nose"],
     "test_runner_used_for_setuppy_test": ["no", "yes"],
+    "allow_tests_inside_package": ["no", "yes"],
     "linter": ["flake8", "pylama"],
     "command_line_interface": ["plain", "argparse", "click", "no"],
     "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}",
