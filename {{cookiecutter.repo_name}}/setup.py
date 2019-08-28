@@ -89,7 +89,7 @@ setup(
     use_scm_version={
         'local_scheme': 'dirty-tag',
         'write_to': 'src/{{ cookiecutter.package_name }}/_version.py',
-        'fallback_version': '1.4.1',
+        'fallback_version': '{{ cookiecutter.version }}',
     },
 {%- else %}
     version='{{ cookiecutter.version }}',
