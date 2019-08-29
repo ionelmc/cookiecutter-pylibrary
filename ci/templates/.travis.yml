@@ -39,6 +39,8 @@ script:
     else
       PR=""
     fi
+    git diff
+    git reset --hard
     bumpversion --new-version=0.$TRAVIS_JOB_NUMBER minor
     git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
   - echo Done.
