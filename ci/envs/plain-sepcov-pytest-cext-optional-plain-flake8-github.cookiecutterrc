@@ -21,7 +21,7 @@ default_context:
   scrutinizer: 'yes'
   setup_py_uses_setuptools_scm: 'no'
   setup_py_uses_test_runner: 'yes'
-  sphinx_theme: sphinx-py3doc-enhanced-theme
+  sphinx_docs: 'no'
   test_matrix_configurator: 'no'
   test_matrix_separate_coverage: 'yes'
   test_runner: pytest
