@@ -57,9 +57,9 @@ init:
   - ps: ls C:\Python*
 install:
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
-  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose twine tox-wheel -rci/requirements.txt'
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off twine tox-wheel -rci/requirements.txt'
 {%- else %}
-  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose tox -rci/requirements.txt'
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off tox -rci/requirements.txt'
 {%- endif %}
   - '%PYTHON_HOME%\Scripts\virtualenv --version'
   - '%PYTHON_HOME%\Scripts\easy_install --version'
