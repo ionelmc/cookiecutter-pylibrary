@@ -3,6 +3,7 @@ default_context:
   c_extension_support: cython
   c_extension_test_pypi: 'yes'
   c_extension_test_pypi_appveyor_secret: fDwCnDhQiptm9a4ZcFpgyQ==
+  c_extension_test_pypi_username: ionel
   codacy: 'yes'
   codacy_projectid: 862e7946
   codeclimate: 'yes'
