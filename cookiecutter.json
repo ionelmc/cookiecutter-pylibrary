@@ -56,6 +56,7 @@
     "sphinx_docs": ["yes", "no"],
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
+    "documentation_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
     "travis": ["yes", "no"],
     "travis_osx": ["no", "yes"],
     "appveyor": ["yes", "no"],
