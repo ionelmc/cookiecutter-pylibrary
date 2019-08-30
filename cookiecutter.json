@@ -4,7 +4,7 @@
     "website": "https://blog.ionelmc.ro",
     "project_name": "Nameless",
     "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
-    "repo_hosting": ["github", "gitlab", "no"],
+    "repo_hosting": ["github.com", "gitlab.com", "no"],
     "repo_username": "ionelmc",
     "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
     "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
