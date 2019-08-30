@@ -73,10 +73,12 @@ For merging, you should:
 3. Add a note to ``CHANGELOG.rst`` about the changes.
 4. Add yourself to ``AUTHORS.rst``.
 
+{%- if cookiecutter.travis == 'yes' %}
 .. [1] If you don't have all the necessary python versions available locally you can rely on Travis - it will
        `run the tests <https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull_requests>`_ for each change you add in the pull request.
 
        It will be slower though ...
+{% endif %}
 
 Tips
 ----
