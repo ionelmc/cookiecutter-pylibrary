@@ -91,7 +91,6 @@ if __name__ == "__main__":
 {%- endif %}
 
 {%- if cookiecutter.appveyor == 'no' %}
-    os.unlink(join('ci', 'appveyor-download.py'))
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
     os.unlink(join('ci', 'templates', '.appveyor.yml'))
     if os.path.exists('.appveyor.yml'):
