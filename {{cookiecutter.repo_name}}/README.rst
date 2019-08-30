@@ -1,7 +1,7 @@
 ========
 Overview
 ========
-{% if cookiecutter.repo_hosting != "no" %}
+{% if cookiecutter.repo_hosting == "github.com" %}
 .. start-badges
 
 .. list-table::
