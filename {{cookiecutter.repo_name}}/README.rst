@@ -81,7 +81,7 @@ Overview
 {% if cookiecutter.repo_hosting == "github" %}
 .. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
+    :target: https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
 {% endif %}
 .. |wheel| image:: https://img.shields.io/pypi/wheel/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Wheel
