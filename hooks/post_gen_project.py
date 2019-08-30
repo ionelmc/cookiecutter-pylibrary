@@ -97,6 +97,10 @@ if __name__ == "__main__":
     unlink_if_exists('.travis.yml')
 {% endif %}
 
+{%- if 'gitlab' not in cookiecutter.repo_hosting %}
+    os.unlink('.gitlab-ci.yml')
+{% endif %}
+
 {%- if cookiecutter.repo_hosting == 'no' %}
     os.unlink('CONTRIBUTING.rst')
 {% endif %}

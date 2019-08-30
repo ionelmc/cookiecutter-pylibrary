@@ -1,0 +1,117 @@
+image: dahanna/python.3.7-git-tox-alpine
+
+{% if cookiecutter.ci_https_proxy != "no" -%}
+variables:
+  # HTTP_PROXY is used to pull docker images.
+  HTTP_PROXY: {{cookiecutter.ci_https_proxy}}
+  # HTTPS_PROXY is used to install Python packages such as tox.
+  HTTPS_PROXY: {{cookiecutter.ci_https_proxy}}
+  # If we don't include NO_PROXY, we will get "fatal unable to update url base from redirection"
+  # when trying to fetch the gitlab-ci-token.
+  NO_PROXY: 127.0.0.1,localhost,.lan,.local,.home,/var/run/docker.sock,{{cookiecutter.repo_hosting_domain}}
+  # If some of the links in your documentation require a special PEM to verify,
+  # then sphinx -b linkcheck will fail without that PEM.
+  # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
+  # because the runner will only accept that PEM, not the defaults.
+  # Therefore you will usually want to bundle all certificates together with
+  # cat `python -c "import requests; print(requests.certs.where())"` ~/your.pem > ~/bundled.pem
+  # REQUESTS_CA_BUNDLE: ci/name-of-your-ca-bundle.pem
+{%- endif %}
+
+default:
+  before_script:
+    - right_after_pull_docker_image=$(date +%s)
+    - if [ -z ${SSH_PRIVATE_KEY+ABC} ]; then echo "SSH_PRIVATE_KEY is unset, so assuming you do not need SSH set up.";
+      else
+    # All of this will be skipped unless you set SSH_PRIVATE_KEY as a variable at https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/settings/ci_cd
+    {% raw -%}
+    - if [ ${#SSH_PRIVATE_KEY} -le 5 ]; then echo "SSH_PRIVATE_KEY looks far too short, something is wrong"; fi
+    {%- endraw %}
+    - apk add openssh-client || apt-get install --assume-yes openssh-client
+    - echo "adding openssh-client took $(( $(date +%s) - right_after_pull_docker_image)) seconds"
+
+    # ssh-agent -s starts the ssh-agent and then outputs shell commands to run.
+    - eval $(ssh-agent -s)
+
+    ##
+    ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store.
+    ## We're using tr to fix line endings which makes ed25519 keys work
+    ## without extra base64 encoding.
+    ## We use -d because the version of tr on alpine does not recognize --delete.
+    ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
+    ##
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+    ##
+    ## Create the SSH directory and give it the right permissions
+    ##
+    - mkdir --parents ~/.ssh
+    - ssh-keyscan -t rsa {{ cookiecutter.repo_hosting_domain }} >> ~/.ssh/known_hosts
+    - fi
+
+    ##
+    ## Optionally, if you will be using any Git commands, set the user name and
+    ## and email.
+    ##
+    #- git config --global user.email "{{ cookiecutter.email }}"
+    #- git config --global user.name "{{ cookiecutter.full_name }}"
+
+# In general we want to use tox -e docs, but GitLab.com will not deploy Pages
+# if the pages build fails.
+# The pages build will fail if you use tox -e docs with a link to your GitLab
+# Pages documentation that is not yet deployed, because tox -e docs includes
+# sphinx-build -b linkcheck. So the pages will never get deployed...
+# That's why we deploy pages with no checks here.
+# The tests will still run linkcheck on the documentation.
+# Since "It may take up to 30 minutes before the site is available after the
+# first deployment." (per GitLab), the tests will still fail for a little
+# while.
+pages:
+  tags:
+  - docker
+  stage: build
+  # On GitLab, the stages are build->test->deploy.
+  # If the test stage fails, the deploy stage is skipped.
+  script:
+  - pip install -r docs/requirements.txt
+  - sphinx-build -E -b html docs dist/docs
+  - mv dist/docs/ public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+test:
+  tags:
+  - docker
+  stage: test
+  script:
+  # apk add any needed packages not included in the image.
+  # check-manifest, used in tox -e check, requires git,
+  # so we need to either use an image that includes git or
+  # apk add git here.
+  - pip install --upgrade pip
+  # If using an image that does not include tox, we will
+  # need to pip install tox here.
+  # With --sitepackages, we can save time by installing once
+  # for both regular tests and documentation checks.
+  - pip install .
+  - git --version
+  - python --version
+  - python2 --version || echo "python2 is not installed."
+  - virtualenv --version
+  - pip --version
+  - tox --version
+  - uname --all
+  - lsb_release --all || echo "lsb_release is not supported on this host."
+  - start_tox=$(date +%s)
+  # When testing locally, we might not want to set sitepackages=true,
+  # because the local machine might have all kinds of weird things in the
+  # environment. But for continuous integration, we do want sitepackages=true,
+  # because it allows us to use a Docker image with some packages already
+  # installed to accelerate testing.
+  - tox --sitepackages
+  - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
+  - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+
