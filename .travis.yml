@@ -47,10 +47,12 @@ install:
 script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
+  - { # try
   - openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in publish-key.enc -out ~/.ssh/publish-key -d
   - chmod u=rw,og= ~/.ssh/publish-key
   - echo "Host github.com" >> ~/.ssh/config
   - echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
+  - } || echo "openssl failed with $?"
   - git --version
   - ci/test.sh $ENV
   - |
