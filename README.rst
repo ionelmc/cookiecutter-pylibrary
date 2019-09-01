@@ -323,6 +323,12 @@ You will be asked for these fields:
             "no"
       - Add a CodeClimate_ badge in ``README.rst``.
 
+    * - ``sphinx_docs``
+      - .. code:: python
+
+            "yes"
+      - Have Sphinx documentation.
+
     * - ``sphinx_theme``
       - .. code:: python
 
@@ -342,14 +348,13 @@ You will be asked for these fields:
 
         Read more about `doctest support in Sphinx <http://www.sphinx-doc.org/en/stable/ext/doctest.html>`_.
 
-    * - ``documentation_hosting``
+    * - ``sphinx_docs_hosting``
       - .. code:: python
 
             "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/"
       - Leave as default if your documentation will be hosted on readthedocs.
         If your documentation will be hosted elsewhere (such as GitHub Pages or GitLab Pages),
         enter the top-level URL.
-
 
     * - ``travis``
       - .. code:: python

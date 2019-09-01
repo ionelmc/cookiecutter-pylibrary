@@ -117,7 +117,7 @@ Documentation
 =============
 
 {% if cookiecutter.sphinx_docs == "yes" %}
-{{ cookiecutter.documentation_hosting }}
+{{ cookiecutter.sphinx_docs_hosting }}
 {% else %}
 To use the project:
 
