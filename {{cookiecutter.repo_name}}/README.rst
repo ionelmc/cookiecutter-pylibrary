@@ -117,7 +117,7 @@ Documentation
 =============
 
 {% if cookiecutter.sphinx_docs == "yes" %}
-https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
+{{ cookiecutter.sphinx_docs_hosting }}
 {% else %}
 To use the project:
 

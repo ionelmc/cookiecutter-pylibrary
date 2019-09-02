@@ -59,7 +59,7 @@ script:
     fi
     git diff
     git reset --hard
-    bumpversion --new-version=0.$TRAVIS_JOB_NUMBER minor
+    bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
     echo "Host github.com" >> ~/.ssh/config
     if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in publish-key.enc -out ~/.ssh/publish-key -d
     then

@@ -57,9 +57,9 @@ init:
   - ps: ls C:\Python*
 install:
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
-  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose twine tox-wheel -rci/requirements.txt'
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off twine tox-wheel -rci/requirements.txt'
 {%- else %}
-  - '%PYTHON_HOME%\python -mpip install --progress-bar=off --verbose tox -rci/requirements.txt'
+  - '%PYTHON_HOME%\python -mpip install --progress-bar=off tox -rci/requirements.txt'
 {%- endif %}
   - '%PYTHON_HOME%\Scripts\virtualenv --version'
   - '%PYTHON_HOME%\Scripts\easy_install --version'
@@ -67,16 +67,9 @@ install:
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
   - cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd %PYTHON_HOME%\Scripts\tox
-{%- if cookiecutter.c_extension_support != 'no' %}
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
 on_success:
   - IF DEFINED WHEEL_PATH %PYTHON_HOME%\Scripts\twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing %WHEEL_PATH%/*.whl
-{% else %}
-after_test:
-  - IF "%TOXENV:~-6,6%" == "-nocov" %WITH_COMPILER% %TOXPYTHON% setup.py bdist_wheel
-artifacts:
-  - path: dist\*
-{%- endif %}
 {%- endif %}
 on_failure:
   - ps: dir "env:"
