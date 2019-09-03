@@ -31,9 +31,15 @@ Overview
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
+{%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
+{%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting -%}
+.. |docs| image:: https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
+    :target: https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/master
+    :alt: Documentation Status
+{% endif %}
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://api.travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
