@@ -356,6 +356,13 @@ You will be asked for these fields:
         If your documentation will be hosted elsewhere (such as GitHub Pages or GitLab Pages),
         enter the top-level URL.
 
+    * - ``pypi``
+      - .. code:: python
+
+            "yes"
+      - If yes, this will insert links to your project page on PyPI.org.
+        Note that if your package is not (yet) on PyPI, this will cause tox -e docs to fail.
+
     * - ``travis``
       - .. code:: python
 
