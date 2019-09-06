@@ -75,7 +75,7 @@ Overview
    :target: https://codeclimate.com/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
-{%- if cookiecutter.pypi == 'yes' %}
+{%- if cookiecutter.upload_to_pypi.upload_immediately_and_link_to_pypi == "yes" %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Package latest release
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}

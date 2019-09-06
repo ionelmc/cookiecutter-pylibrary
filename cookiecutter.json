@@ -57,7 +57,11 @@
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
-    "pypi": ["yes", "no"],
+    "upload_to_pypi": [
+        {"upload_immediately_and_link_to_pypi": "yes", "disable_uploading_to_pypi": "no"},
+        {"upload_immediately_and_link_to_pypi": "no", "disable_uploading_to_pypi": "no"},
+        {"upload_immediately_and_link_to_pypi": "no", "disable_uploading_to_pypi": "yes"}
+    ],
     "travis": ["yes", "no"],
     "travis_osx": ["no", "yes"],
     "appveyor": ["yes", "no"],

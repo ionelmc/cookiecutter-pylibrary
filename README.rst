@@ -356,12 +356,15 @@ You will be asked for these fields:
         If your documentation will be hosted elsewhere (such as GitHub Pages or GitLab Pages),
         enter the top-level URL.
 
-    * - ``pypi``
+    * - ``upload_to_pypi``
       - .. code:: python
 
-            "yes"
-      - If yes, this will insert links to your project page on PyPI.org.
+            {"upload_immediately_and_link_to_pypi": "yes", "disable_uploading_to_pypi": "no"}
+      - By default, this will insert links to your project's page on PyPI.org.
         Note that if your package is not (yet) on PyPI, this will cause tox -e docs to fail.
+        If you choose "upload_immediately_and_link_to_pypi": "no", then these links will not be created.
+        If you specifically want to be sure your package will never be uploaded to PyPI,
+        you can set "disable_uploading_to_pypi": "yes".
 
     * - ``travis``
       - .. code:: python

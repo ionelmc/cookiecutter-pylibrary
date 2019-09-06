@@ -149,7 +149,7 @@ setup(
         # 'Programming Language :: Python :: Implementation :: Jython',
         # 'Programming Language :: Python :: Implementation :: Stackless',
         'Topic :: Utilities',
-{%- if cookiecutter.pypi == "no" %}
+{%- if cookiecutter.upload_to_pypi.disable_uploading_to_pypi == "yes" %}
         'Private :: Do Not Upload',
 {%- endif %}
     ],
