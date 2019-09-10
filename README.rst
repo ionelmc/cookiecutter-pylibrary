@@ -128,7 +128,7 @@ You will be asked for these fields:
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
 
-    * - ``repo_hosting``
+    * - ``repo_hosting_domain``
       - .. code:: python
 
             "github.com"
