@@ -110,8 +110,8 @@ setup(
     ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('ub') }},
-{%- if cookiecutter.repo_hosting != "no" %}
-    url='https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}',
+{%- if cookiecutter.repo_hosting_domain != "no" %}
+    url='https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}',
 {%- endif %}
     packages=find_packages('src'),
     package_dir={'': 'src'},
@@ -149,19 +149,19 @@ setup(
         # 'Programming Language :: Python :: Implementation :: Jython',
         # 'Programming Language :: Python :: Implementation :: Stackless',
         'Topic :: Utilities',
-{%- if cookiecutter.repo_hosting == "no" %}
+{%- if cookiecutter.repo_hosting_domain == "no" %}
         'Private :: Do Not Upload',
 {%- endif %}
     ],
-{%- if cookiecutter.repo_hosting != "no" %}
+{%- if cookiecutter.repo_hosting_domain != "no" %}
     project_urls={
 {%- if cookiecutter.sphinx_docs == "yes" %}
         'Documentation': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/',
         'Changelog': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/en/latest/changelog.html',
 {%- else %}
-        'Changelog': 'https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
+        'Changelog': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
 {%- endif %}
-        'Issue Tracker': 'https://{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues',
+        'Issue Tracker': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues',
     },
 {%- endif %}
     keywords=[
