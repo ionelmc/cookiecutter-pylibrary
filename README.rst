@@ -128,11 +128,11 @@ You will be asked for these fields:
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
 
-    * - ``repo_hosting``
+    * - ``repo_hosting_domain``
       - .. code:: python
 
-            "github"
-      - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab"`` and such but various
+            "github.com"
+      - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab.com"`` and such but various
         things will be broken (like Travis configuration).
 
     * - ``repo_name``

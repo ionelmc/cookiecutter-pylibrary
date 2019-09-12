@@ -16,7 +16,7 @@ default_context:
   linter: flake8
   package_name: nameless
   project_name: "Nam\xE9\"'less"
-  repo_hosting: github
+  repo_hosting_domain: github.com
   repo_name: python-nameless
   requiresio: 'yes'
   scrutinizer: 'yes'
