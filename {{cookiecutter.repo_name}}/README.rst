@@ -111,9 +111,16 @@ Overview
 Installation
 ============
 
+{% if cookiecutter.upload_to_pypi.upload_immediately_and_link_to_pypi == "no" %}If {{ cookiecutter.distribution_name }} has been uploaded to a devpi instance your pip is connected to, then you can install with{% endif -%}
 ::
 
     pip install {{ cookiecutter.distribution_name }}
+
+{% if 'git' in cookiecutter.repo_hosting -%}
+You can always install the bleeding-edge updates with::
+
+    pip install git+ssh://git@{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@master
+{%- endif %}
 
 Documentation
 =============
