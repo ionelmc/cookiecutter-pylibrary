@@ -8,7 +8,7 @@ little bit helps, and credit will always be given.
 Bug reports
 ===========
 
-When `reporting a bug <https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues>`_ please include:
+When `reporting a bug <https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues>`_ please include:
 
     * Your operating system name and version.
     * Any details about your local setup that might be helpful in troubleshooting.
@@ -24,7 +24,7 @@ articles, and such.
 Feature requests and feedback
 =============================
 
-The best way to send feedback is to file an issue at https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues.
+The best way to send feedback is to file an issue at https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are proposing a feature:
 
@@ -37,11 +37,11 @@ Development
 
 To set up `{{ cookiecutter.repo_name }}` for local development:
 
-1. Fork `{{ cookiecutter.repo_name }} <https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}>`_
+1. Fork `{{ cookiecutter.repo_name }} <https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}>`_
    (look for the "Fork" button).
 2. Clone your fork locally::
 
-    git clone git@{{ cookiecutter.repo_hosting }}.com:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
+    git clone git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
 
 3. Create a branch for local development::
 

@@ -1,7 +1,7 @@
 ========
 Overview
 ========
-{% if cookiecutter.repo_hosting != "no" %}
+{% if cookiecutter.repo_hosting_domain == "github.com" %}
 .. start-badges
 
 .. list-table::
@@ -26,14 +26,20 @@ Overview
 {{ '' }}
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
-{%- if cookiecutter.repo_hosting == "github" %}
+{%- if cookiecutter.repo_hosting_domain == "github.com" %}
         | |commits-since|
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
+{%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
+{%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting_domain -%}
+.. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/master
+    :alt: Documentation Status
+{% endif %}
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://api.travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
@@ -79,10 +85,10 @@ Overview
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Package latest release
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
-{% if cookiecutter.repo_hosting == "github" %}
-.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
+{% if cookiecutter.repo_hosting_domain == "github.com" %}
+.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting_domain }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
 {% endif %}
 .. |wheel| image:: https://img.shields.io/pypi/wheel/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Wheel
