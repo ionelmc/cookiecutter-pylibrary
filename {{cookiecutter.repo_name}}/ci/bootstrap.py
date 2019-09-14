@@ -31,10 +31,7 @@ if __name__ == "__main__":
         import subprocess
 
         print("Making bootstrap env in: {0} ...".format(env_path))
-        try:
-            subprocess.check_call(["virtualenv", env_path])
-        except subprocess.CalledProcessError:
-            subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
+        subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
         print("Installing `jinja2` into bootstrap environment...")
         subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
     python_executable = join(bin_path, "python")
