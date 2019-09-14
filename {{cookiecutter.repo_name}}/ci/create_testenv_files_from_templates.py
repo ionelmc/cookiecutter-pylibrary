@@ -15,6 +15,7 @@ import os
 from os.path import join
 
 if __name__ == "__main__":
+    base_path = dirname(dirname(abspath(__file__)))
     jinja = jinja2.Environment(
         loader=jinja2.FileSystemLoader(join(base_path, "ci", "templates")),
         trim_blocks=True,
