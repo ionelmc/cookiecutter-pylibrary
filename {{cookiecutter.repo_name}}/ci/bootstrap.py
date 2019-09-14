@@ -34,7 +34,7 @@ if __name__ == "__main__":
         print("Installing `jinja2` into bootstrap environment...")
         subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
         subprocess.check_call([join(bin_path, "pip"), "install", "tox"])
-    bin_path = join(env_path, sys.platform == "win32" ? "Scripts" : "bin")
+    bin_path = join(env_path, "Scripts" if sys.platform == "win32" else "bin")
     python_executable = join(bin_path, "python")
     if not os.path.exists(python_executable):
         python_executable += '.exe'
