@@ -12,6 +12,8 @@ import subprocess
 {% endif %}
 import sys
 import os
+from os.path import abspath
+from os.path import dirname
 from os.path import join
 
 if __name__ == "__main__":
