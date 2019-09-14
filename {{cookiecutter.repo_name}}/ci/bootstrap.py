@@ -43,6 +43,10 @@ if __name__ == "__main__":
     # a new virtual environment will get an executable that is a symlink to
     # the parent Python executable. The path used to activate it nevertheless
     # causes the executable to use that virtual environment.
+    # Obviously we need to worry about an infinite loop here.
+    # != is probably safe, but what would definitely be safe would be to split
+    # the rest of this file into a separate script and unconditionally execute
+    # that with python_executable.
     if python_executable != sys.executable:
         print("Re-executing with: {0}".format(python_executable))
         os.execv(python_executable, [python_executable, __file__])
