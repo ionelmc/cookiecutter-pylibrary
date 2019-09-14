@@ -23,10 +23,6 @@ if __name__ == "__main__":
     base_path = dirname(dirname(abspath(__file__)))
     print("Project path: {0}".format(base_path))
     env_path = join(base_path, ".tox", "bootstrap")
-    if sys.platform == "win32":
-        bin_path = join(env_path, "Scripts")
-    else:
-        bin_path = join(env_path, "bin")
     if not exists(env_path):
         import subprocess
 
@@ -38,6 +34,7 @@ if __name__ == "__main__":
         print("Installing `jinja2` into bootstrap environment...")
         subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
         subprocess.check_call([join(bin_path, "pip"), "install", "tox"])
+    bin_path = join(env_path, sys.platform == "win32" ? "Scripts" : "bin")
     python_executable = join(bin_path, "python")
     if not os.path.exists(python_executable):
         python_executable += '.exe'
