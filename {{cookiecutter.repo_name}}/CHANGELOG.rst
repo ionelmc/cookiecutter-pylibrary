@@ -1,8 +1,8 @@
 
 Changelog
 =========
-{% set datestring = '<TODAY>' if cookiecutter.release_date == 'today' else cookiecutter.release_date %}
+{% set datestring = 'datetime.date.today().strftime("%Y-%m-%d")' if cookiecutter.release_date == 'today' else cookiecutter.release_date %}
 {{ cookiecutter.version }} ({{ datestring }})
-{% for _ in cookiecutter.version %}-{% endfor %}-{% for _ in datestring %}-{% endfor %}
+{% for _ in cookiecutter.version %}-{% endfor %}--{{ '-' * (4+1+2+1+2 if cookiecutter.release_date == 'today' else len(datestring)) }}-
 
 * First release on PyPI.

@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
 
     today = datetime.date.today()
-    replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
+    replace_contents('CHANGELOG.rst', 'datetime.date.today().strftime("%Y-%m-%d")', datetime.date.today().strftime("%Y-%m-%d"))
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
 
