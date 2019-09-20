@@ -49,18 +49,18 @@ script:
   - git config --global user.name "Your Name"
   - git --version
   - ci/test.sh $ENV
+  - cd python-nameless
+  - git diff
   - |
     set -x
-    cd python-nameless
     if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
       PR="pr${TRAVIS_PULL_REQUEST}-"
     else
       PR=""
     fi
-    git diff
     set +x
   - |
-    if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in publish-key.enc -out ~/.ssh/publish-key -d; then
+    if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
       chmod u=rw,og= ~/.ssh/publish-key
       echo "Host github.com" >> ~/.ssh/config
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
