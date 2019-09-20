@@ -69,6 +69,7 @@ script:
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key
+      tox --sitepackages
     fi
   - echo Done.
 
