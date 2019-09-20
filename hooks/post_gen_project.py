@@ -52,9 +52,6 @@ if __name__ == "__main__":
 
 
     today = datetime.date.today()
-    replace_contents('CHANGELOG.rst',
-                     'hooks/post_gen_project.py replace this with datetime.date.today().strftime("%Y-%m-%d")',
-                     datetime.date.today().strftime("%Y-%m-%d"))
     replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
     replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
 
