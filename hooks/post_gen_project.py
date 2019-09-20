@@ -20,11 +20,6 @@ else:
         for line in text.splitlines():
             secho(line, fg="yellow", bold=True)
 
-def replace_contents(filename, what, replacement):
-    with open(filename) as fh:
-        changelog = fh.read()
-    with open(filename, 'w') as fh:
-        fh.write(changelog.replace(what, replacement))
 
 if __name__ == "__main__":
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
@@ -49,11 +44,6 @@ if __name__ == "__main__":
     sys.exit(1)
 {%- endif %}
 {%- endif %}
-
-
-    today = datetime.date.today()
-    replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
-    replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
 
 {% if cookiecutter.sphinx_docs == "no" %}
     shutil.rmtree('docs')
