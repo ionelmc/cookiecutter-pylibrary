@@ -58,8 +58,10 @@ script:
       PR=""
     fi
     git diff
+  # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
     git reset --hard
     bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
+  # set +x ensures the values of the secret variables are not printed in cleartext.
     set +x
   - |
     if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in publish-key.enc -out ~/.ssh/publish-key -d; then
@@ -69,7 +71,6 @@ script:
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key
-      tox --sitepackages
     fi
   - echo Done.
 
