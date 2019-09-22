@@ -58,9 +58,6 @@ script:
       PR=""
     fi
     git diff
-  # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
-    git reset --hard
-    bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
   # set +x ensures the values of the secret variables are not printed in cleartext.
     set +x
   - |
@@ -68,9 +65,13 @@ script:
       chmod u=rw,og= ~/.ssh/publish-key
       echo "Host github.com" >> ~/.ssh/config
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
+  # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
+      git reset --hard
+      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key
+      tox --sitepackages
     fi
   - echo Done.
 
