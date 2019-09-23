@@ -6,9 +6,10 @@ Overview
 
 .. list-table::
     :stub-columns: 1
-
+{% if cookiecutter.sphinx_docs == "yes" %}
     * - docs
       - |docs|
+{%- endif %}
     * - tests
       - | {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
