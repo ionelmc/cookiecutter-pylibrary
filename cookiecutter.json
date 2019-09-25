@@ -42,6 +42,8 @@
     "test_runner": ["pytest", "nose"],
     "setup_py_uses_test_runner": ["no", "yes"],
     "setup_py_uses_setuptools_scm": ["no", "yes"],
+    "pypi_badge": ["yes", "no"],
+    "pypi_disable_upload": ["no", "yes"],
     "allow_tests_inside_package": ["no", "yes"],
     "linter": ["flake8", "pylama"],
     "command_line_interface": ["plain", "argparse", "click", "no"],
@@ -58,11 +60,6 @@
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
-    "upload_to_pypi": [
-        {"upload_immediately_and_link_to_pypi": "yes", "disable_uploading_to_pypi": "no"},
-        {"upload_immediately_and_link_to_pypi": "no", "disable_uploading_to_pypi": "no"},
-        {"upload_immediately_and_link_to_pypi": "no", "disable_uploading_to_pypi": "yes"}
-    ],
     "travis": ["yes", "no"],
     "travis_osx": ["no", "yes"],
     "appveyor": ["yes", "no"],

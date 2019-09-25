@@ -24,10 +24,11 @@ Overview
           {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
         {%- endif -%}
 {{ '' }}
+{%- if cookiecutter.pypi_badge == "yes" or cookiecutter.repo_hosting_domain == "github.com" %}
     * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
-{%- if cookiecutter.repo_hosting_domain == "github.com" %}
-        | |commits-since|
+      - {% if cookiecutter.pypi_badge == "yes" %}| |version| |wheel| |supported-versions| |supported-implementations|
+        {{ '' }}{% endif %}
+        {%- if cookiecutter.repo_hosting_domain == "github.com" %}| |commits-since|{% endif %}
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
@@ -81,15 +82,11 @@ Overview
    :target: https://codeclimate.com/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
-{%- if cookiecutter.upload_to_pypi.upload_immediately_and_link_to_pypi == "yes" %}
+{%- if cookiecutter.pypi_badge == "yes" %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Package latest release
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
-{% if cookiecutter.repo_hosting_domain == "github.com" %}
-.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting_domain }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
-    :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
-{% endif %}
+
 .. |wheel| image:: https://img.shields.io/pypi/wheel/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Wheel
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
@@ -101,6 +98,11 @@ Overview
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg
     :alt: Supported implementations
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
+{% endif %}
+{%- if cookiecutter.repo_hosting_domain == "github.com" %}
+.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting_domain }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
+    :alt: Commits since latest release
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
 {% endif %}
 {% if cookiecutter.scrutinizer == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
@@ -117,14 +119,16 @@ Overview
 Installation
 ============
 
-{% if cookiecutter.upload_to_pypi.upload_immediately_and_link_to_pypi == "no" %}If {{ cookiecutter.distribution_name }} has been uploaded to a devpi instance your pip is connected to, then you can install with{% endif -%}
 ::
 
     pip install {{ cookiecutter.distribution_name }}
 
-{% if 'git' in cookiecutter.repo_hosting -%}
-You can always install the bleeding-edge updates with::
-
+You can also install the in-development version with::
+{% if cookiecutter.repo_hosting == "github.com" %}
+    pip install https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/archive/master.zip
+{% elif cookiecutter.repo_hosting == "gitlab.com" %}
+    pip install https://gitlab.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/archive/master/{{ cookiecutter.repo_name }}-master.zip
+{% else %}
     pip install git+ssh://git@{{ cookiecutter.repo_hosting }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@master
 {%- endif %}
 
