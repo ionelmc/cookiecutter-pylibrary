@@ -1,8 +1,12 @@
 
 Changelog
 =========
-
-{{ cookiecutter.version }} ({{ '<TODAY>' if cookiecutter.release_date == 'today' else cookiecutter.release_date }})
-------------------
+{% set datestring -%}
+{% if cookiecutter.release_date == 'today' -%}
+{% now 'utc', '%Y-%m-%d' %}
+{%- else %}{{ cookiecutter.release_date }}{% endif %}
+{%- endset %}
+{{ cookiecutter.version }} ({{ datestring }})
+{% for _ in cookiecutter.version %}-{% endfor %}--{{ '-' * (datestring|length) }}-
 
 * First release on PyPI.

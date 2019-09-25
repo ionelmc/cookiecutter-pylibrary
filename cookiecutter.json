@@ -5,7 +5,7 @@
     "project_name": "Nameless",
     "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
     "repo_hosting": ["github.com", "gitlab.com", "other domain not listed"],
-    "repo_hosting_domain": "{{ cookiecutteer.repo_hosting if cookiecutteer.repo_hosting != 'other domain not listed' else '' }}",
+    "repo_hosting_domain": "{{ cookiecutter.repo_hosting if cookiecutter.repo_hosting != 'other domain not listed' else '' }}",
     "repo_username": "ionelmc",
     "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
     "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
