@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import print_function
@@ -12,37 +12,41 @@ from os.path import exists
 from os.path import join
 from os.path import normpath
 
-try:
-    from os.path import samefile
-except ImportError:
-    def samefile(a, b):
-        return normpath(abspath(a)) == normpath(abspath(b))
 
+def check_call(args):
+    print("+", *args)
+    subprocess.check_call(args)
 
 if __name__ == "__main__":
     base_path = dirname(dirname(abspath(__file__)))
     print("Project path: {0}".format(base_path))
-    env_path = join(base_path, ".tox", "bootstrap")
-    if sys.platform == "win32":
-        bin_path = join(env_path, "Scripts")
-    else:
-        bin_path = join(env_path, "bin")
-    if not exists(env_path):
-        import subprocess
 
-        print("Making bootstrap env in: {0} ...".format(env_path))
-        try:
-            subprocess.check_call(["virtualenv", env_path])
-        except subprocess.CalledProcessError:
-            subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
-        print("Installing `jinja2` into bootstrap environment...")
-        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
-    python_executable = join(bin_path, "python")
-    if not os.path.exists(python_executable):
-        python_executable += '.exe'
-    if not samefile(python_executable, sys.executable):
+    if "--no-env" not in sys.argv[1:]:
+        env_path = join(base_path, ".tox", "bootstrap")
+        if sys.platform == "win32":
+            bin_path = join(env_path, "Scripts")
+        else:
+            bin_path = join(env_path, "bin")
+        if not exists(env_path):
+            import subprocess
+
+            print("Making bootstrap env in: {0} ...".format(env_path))
+            try:
+                check_call([sys.executable, "-m", "venv", env_path])
+            except subprocess.CalledProcessError:
+                try:
+                    check_call([sys.executable, "-m", "virtualenv", env_path])
+                except subprocess.CalledProcessError:
+                    check_call(["virtualenv", env_path])
+            print("Installing `jinja2` into bootstrap environment...")
+            check_call([join(bin_path, "pip"), "install", "jinja2", "tox"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix"{% endif %}])
+        python_executable = join(bin_path, "python")
+        if not os.path.exists(python_executable):
+            python_executable += '.exe'
+
         print("Re-executing with: {0}".format(python_executable))
-        os.execv(python_executable, [python_executable, __file__])
+        print("+ exec", python_executable, __file__, "--no-env")
+        os.execv(python_executable, [python_executable, __file__, "--no-env"])
 
     import jinja2
 {% if cookiecutter.test_matrix_configurator == "yes" %}
