@@ -35,5 +35,6 @@ safe_sed 's/py37,//' tox.ini
 safe_sed 's/py37-cover,//' tox.ini
 safe_sed 's/py37-nocov,//' tox.ini
 safe_sed 's/,pypy3}/}/' tox.ini
+safe_sed 's/pypy3,}/}/' tox.ini
 safe_sed 's/pypy3-cover,//' tox.ini
 safe_sed 's/pypy3-nocov,//' tox.ini
