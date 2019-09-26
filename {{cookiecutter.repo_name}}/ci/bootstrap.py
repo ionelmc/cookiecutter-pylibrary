@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import print_function
@@ -10,7 +10,6 @@ from os.path import abspath
 from os.path import dirname
 from os.path import exists
 from os.path import join
-from os.path import normpath
 
 
 def check_call(args):
