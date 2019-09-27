@@ -1,14 +1,15 @@
 ========
 Overview
 ========
-{% if cookiecutter.repo_hosting != "no" %}
+{% if cookiecutter.repo_hosting_domain == "github.com" %}
 .. start-badges
 
 .. list-table::
     :stub-columns: 1
-
+{% if cookiecutter.sphinx_docs == "yes" %}
     * - docs
       - |docs|
+{%- endif %}
     * - tests
       - | {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
@@ -24,16 +25,23 @@ Overview
           {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
         {%- endif -%}
 {{ '' }}
+{%- if cookiecutter.pypi_badge == "yes" or cookiecutter.repo_hosting_domain == "github.com" %}
     * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
-{%- if cookiecutter.repo_hosting == "github" %}
-        | |commits-since|
+      - {% if cookiecutter.pypi_badge == "yes" %}| |version| |wheel| |supported-versions| |supported-implementations|
+        {{ '' }}{% endif %}
+        {%- if cookiecutter.repo_hosting_domain == "github.com" %}| |commits-since|{% endif %}
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
+{%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
+{%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting_domain -%}
+.. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/master
+    :alt: Documentation Status
+{% endif %}
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
 .. |travis| image:: https://api.travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
@@ -75,14 +83,11 @@ Overview
    :target: https://codeclimate.com/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
+{%- if cookiecutter.pypi_badge == "yes" %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Package latest release
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
-{% if cookiecutter.repo_hosting == "github" %}
-.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
-    :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting }}.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
-{% endif %}
+
 .. |wheel| image:: https://img.shields.io/pypi/wheel/{{ cookiecutter.distribution_name }}.svg
     :alt: PyPI Wheel
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
@@ -94,6 +99,12 @@ Overview
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg
     :alt: Supported implementations
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
+{% endif %}
+{%- if cookiecutter.repo_hosting_domain == "github.com" %}
+.. |commits-since| image:: https://img.shields.io/{{ cookiecutter.repo_hosting_domain }}/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
+    :alt: Commits since latest release
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
+{% endif %}
 {% if cookiecutter.scrutinizer == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
     :alt: Scrutinizer Status
@@ -113,11 +124,20 @@ Installation
 
     pip install {{ cookiecutter.distribution_name }}
 
+You can also install the in-development version with::
+{% if cookiecutter.repo_hosting_domain == "github.com" %}
+    pip install https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/archive/master.zip
+{% elif cookiecutter.repo_hosting_domain == "gitlab.com" %}
+    pip install https://gitlab.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/archive/master/{{ cookiecutter.repo_name }}-master.zip
+{% else %}
+    pip install git+ssh://git@{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@master
+{%- endif %}
+
 Documentation
 =============
 
 {% if cookiecutter.sphinx_docs == "yes" %}
-https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
+{{ cookiecutter.sphinx_docs_hosting }}
 {% else %}
 To use the project:
 

@@ -9,31 +9,31 @@ env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
   matrix:
-    - ENV=matrix-sepcov-pytest-cext-plain-flake8-github
-    - ENV=matrix-single-pytest-cext-plain-flake8-github
-    - ENV=plain-sepcov-nose-pure-plain-flake8-github
-    - ENV=plain-sepcov-pytest-cext-optional-plain-flake8-github
-    - ENV=plain-sepcov-pytest-cext-plain-flake8-github
-    - ENV=plain-sepcov-pytest-cext-plain-flake8-scm-github-osx-publish
-    - ENV=plain-sepcov-pytest-cffi-plain-flake8-github
-    - ENV=plain-sepcov-pytest-cffi-plain-flake8-scm-github-osx-publish
-    - ENV=plain-sepcov-pytest-cython-plain-flake8-github
-    - ENV=plain-sepcov-pytest-cython-plain-flake8-scm-github-osx-publish
-    - ENV=plain-sepcov-pytest-pure-plain-flake8-github
-    - ENV=plain-single-nose-pure-argparse-flake8-github
-    - ENV=plain-single-nose-pure-click-flake8-github
-    - ENV=plain-single-nose-pure-nocli-flake8-github
-    - ENV=plain-single-nose-pure-plain-flake8-github
-    - ENV=plain-single-pytest-cext-optional-plain-flake8-github
-    - ENV=plain-single-pytest-cext-plain-flake8-github
-    - ENV=plain-single-pytest-cffi-plain-flake8-github
-    - ENV=plain-single-pytest-cython-plain-flake8-github
-    - ENV=plain-single-pytest-pure-argparse-flake8-github
-    - ENV=plain-single-pytest-pure-click-flake8-github
-    - ENV=plain-single-pytest-pure-nocli-flake8-github
-    - ENV=plain-single-pytest-pure-plain-flake8-github
-    - ENV=plain-single-pytest-pure-plain-flake8-private
-    - ENV=plain-single-pytest-pure-plain-pylama-github
+    - ENV=cext
+    - ENV=cext-optional
+    - ENV=cffi
+    - ENV=cython
+    - ENV=matrix-cext
+    - ENV=matrix-separate-cext
+    - ENV=nose-pure
+    - ENV=nose-pure-argparse
+    - ENV=nose-pure-click
+    - ENV=nose-pure-nocli
+    - ENV=pure
+    - ENV=pure-argparse
+    - ENV=pure-click
+    - ENV=pure-nocli
+    - ENV=pure-private
+    - ENV=pure-pylama
+    - ENV=separate-cext
+    - ENV=separate-cext-optional
+    - ENV=separate-cext-scm-osx-publish
+    - ENV=separate-cffi
+    - ENV=separate-cffi-scm-osx-publish
+    - ENV=separate-cython
+    - ENV=separate-cython-scm-osx-publish
+    - ENV=separate-nose-pure
+    - ENV=separate-pure
 before_install:
   - python --version
   - virtualenv --version
@@ -47,24 +47,31 @@ install:
 script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
-  - openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in publish-key.enc -out ~/.ssh/publish-key -d
-  - chmod u=rw,og= ~/.ssh/publish-key
-  - echo "Host github.com" >> ~/.ssh/config
-  - echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
   - git --version
   - ci/test.sh $ENV
+  - cd python-nameless
+  - git diff
   - |
     set -x
-    cd python-nameless
     if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
       PR="pr${TRAVIS_PULL_REQUEST}-"
     else
       PR=""
     fi
-    git diff
-    git reset --hard
-    bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
-    git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
+    set +x
+  - |
+    if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
+      chmod u=rw,og= ~/.ssh/publish-key
+      echo "Host github.com" >> ~/.ssh/config
+      echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
+      # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
+      git reset --hard
+      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
+      git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
+    else
+      echo Failed to get publish-key
+      tox --sitepackages
+    fi
   - echo Done.
 
 notifications:

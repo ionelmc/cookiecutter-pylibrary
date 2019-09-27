@@ -1,0 +1,56 @@
+build: off
+version: '{branch}-{build}'
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
+matrix:
+  fast_finish: true
+environment:
+  matrix:
+    - ENV: cext
+    - ENV: cext-optional
+    - ENV: cffi
+    - ENV: cython
+    - ENV: matrix-cext
+    - ENV: matrix-separate-cext
+    - ENV: nose-pure
+    - ENV: nose-pure-argparse
+    - ENV: nose-pure-click
+    - ENV: nose-pure-nocli
+    - ENV: pure
+    - ENV: pure-argparse
+    - ENV: pure-click
+    - ENV: pure-nocli
+    - ENV: pure-private
+    - ENV: pure-pylama
+    - ENV: separate-cext
+    - ENV: separate-cext-optional
+    - ENV: separate-cext-scm-osx-publish
+    - ENV: separate-cffi
+    - ENV: separate-cffi-scm-osx-publish
+    - ENV: separate-cython
+    - ENV: separate-cython-scm-osx-publish
+    - ENV: separate-nose-pure
+    - ENV: separate-pure
+init:
+  - "echo %CTX%"
+  - "set"
+  - ps: "ls C:\\Python*"
+install:
+  - ps: if (Test-Path c:/Users/appveyor/pip/wheels) { ls c:/Users/appveyor/pip/wheels } else { echo Wheelhouse missing. }
+  - ps: New-Item -Force -ItemType directory -Path "c:/Users/appveyor/pip/wheels"
+  - ps: ls c:/Users/appveyor/pip/wheels
+  - ps: Copy-Item -Path "./ci/pip.ini" -Destination "c:/Users/appveyor/pip/pip.ini" -Force
+  - ps: Invoke-WebRequest "https://bootstrap.pypa.io/ez_setup.py" -OutFile "c:\\ez_setup.py"
+  - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
+  - "c:\\python27\\python c:\\get-pip.py setuptools"
+  - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
+  - "c:\\python27\\Scripts\\pip wheel pytest-capturelog pytest-cov pytest"
+  - "c:\\python27\\Scripts\\pip wheel nose coverage"
+  - "c:\\python27\\Scripts\\pip wheel cpp-coveralls"
+  - "c:\\python27\\Scripts\\pip wheel jinja2 matrix"
+  - "c:\\python27\\Scripts\\pip wheel docutils check-manifest flake8 readme-renderer pygments"
+  - "c:\\python27\\Scripts\\pip install --upgrade tox virtualenv cookiecutter"
+test_script:
+  - git config --global user.email "you@example.com"
+  - git config --global user.name "Your Name"
+  - powershell ci\\test.ps1 $Env:ENV

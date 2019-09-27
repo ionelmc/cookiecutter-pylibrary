@@ -128,11 +128,11 @@ You will be asked for these fields:
             "Nameless"
       - Verbose project name, used in headings (docs, readme, etc).
 
-    * - ``repo_hosting``
+    * - ``repo_hosting_domain``
       - .. code:: python
 
-            "github"
-      - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab"`` and such but various
+            "github.com"
+      - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab.com"`` and such but various
         things will be broken (like Travis configuration).
 
     * - ``repo_name``
@@ -323,6 +323,12 @@ You will be asked for these fields:
             "no"
       - Add a CodeClimate_ badge in ``README.rst``.
 
+    * - ``sphinx_docs``
+      - .. code:: python
+
+            "yes"
+      - Have Sphinx documentation.
+
     * - ``sphinx_theme``
       - .. code:: python
 
@@ -341,6 +347,24 @@ You will be asked for these fields:
         ``test_matrix_separate_coverage == 'no'``.
 
         Read more about `doctest support in Sphinx <http://www.sphinx-doc.org/en/stable/ext/doctest.html>`_.
+
+    * - ``sphinx_docs_hosting``
+      - .. code:: python
+
+            "repo_name.readthedocs.io"
+      - Leave as default if your documentation will be hosted on readthedocs.
+        If your documentation will be hosted elsewhere (such as GitHub Pages or GitLab Pages),
+        enter the top-level URL.
+
+    * - ``upload_to_pypi``
+      - .. code:: python
+
+            {"upload_immediately_and_link_to_pypi": "yes", "disable_uploading_to_pypi": "no"}
+      - By default, this will insert links to your project's page on PyPI.org.
+        Note that if your package is not (yet) on PyPI, this will cause tox -e docs to fail.
+        If you choose "upload_immediately_and_link_to_pypi": "no", then these links will not be created.
+        If you specifically want to be sure your package will never be uploaded to PyPI,
+        you can set "disable_uploading_to_pypi": "yes".
 
     * - ``travis``
       - .. code:: python
