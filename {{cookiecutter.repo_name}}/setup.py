@@ -7,9 +7,9 @@ import io
 {% if cookiecutter.c_extension_support != 'no' -%}
 import os
 {% endif -%}
-{%- if cookiecutter.repo_hosting_domain == "no" %}
+{% if cookiecutter.repo_hosting_domain == "no" -%}
 import os.path
-{%- endif %}
+{% endif -%}
 import re
 {% if cookiecutter.c_extension_support == 'cffi' -%}
 import sys
