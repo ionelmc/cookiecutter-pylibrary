@@ -7,12 +7,12 @@ import io
 {% if cookiecutter.c_extension_support != 'no' -%}
 import os
 {% endif -%}
+import os.path
 import re
 {% if cookiecutter.c_extension_support == 'cffi' -%}
 import sys
 {% endif -%}
 from glob import glob
-import os.path
 from os.path import basename
 from os.path import dirname
 from os.path import join
