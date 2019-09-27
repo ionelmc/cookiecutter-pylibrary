@@ -7,6 +7,9 @@ import io
 {% if cookiecutter.c_extension_support != 'no' -%}
 import os
 {% endif -%}
+{% if cookiecutter.repo_hosting_domain == "no" -%}
+import os.path
+{% endif -%}
 import re
 {% if cookiecutter.c_extension_support == 'cffi' -%}
 import sys
@@ -110,7 +113,9 @@ setup(
     ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('ub') }},
-{%- if cookiecutter.repo_hosting_domain != "no" %}
+{%- if cookiecutter.repo_hosting_domain == "no" %}
+    url='file://' + os.path.abspath(dirname(__file__)),
+{%- else %}
     url='https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}',
 {%- endif %}
     packages=find_packages('src'),
