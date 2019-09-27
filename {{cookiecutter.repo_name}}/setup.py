@@ -12,6 +12,7 @@ import re
 import sys
 {% endif -%}
 from glob import glob
+import os.path
 from os.path import basename
 from os.path import dirname
 from os.path import join
@@ -110,7 +111,9 @@ setup(
     ),
     author={{ '{0!r}'.format(cookiecutter.full_name).lstrip('ub') }},
     author_email={{ '{0!r}'.format(cookiecutter.email).lstrip('ub') }},
-{%- if cookiecutter.repo_hosting_domain != "no" %}
+{%- if cookiecutter.repo_hosting_domain == "no" %}
+    url='file://' + os.path.abspath(dirname(__file__)),
+{%- else %}
     url='https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}',
 {%- endif %}
     packages=find_packages('src'),
