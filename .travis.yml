@@ -37,6 +37,7 @@ env:
 before_install:
   - python --version
   - virtualenv --version
+  - tox --version
   - pip --version
   - uname -a
   - lsb_release -a
