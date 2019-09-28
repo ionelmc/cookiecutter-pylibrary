@@ -5,11 +5,21 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+{%- if cookiecutter.test_matrix_configurator != "yes" %}
+import subprocess
+{%- endif %}
 import sys
 from os.path import abspath
 from os.path import dirname
 from os.path import exists
 from os.path import join
+
+import jinja2
+{% if cookiecutter.test_matrix_configurator == "yes" %}
+import matrix
+{% endif %}
+
+base_path = dirname(dirname(abspath(__file__)))
 
 
 def check_call(args):
@@ -44,12 +54,8 @@ def exec_in_env():
     os.execv(python_executable, [python_executable, __file__, "--no-env"])
 
 def main():
-    import jinja2
-{% if cookiecutter.test_matrix_configurator == "yes" %}
-    import matrix
-{% else %}
-    import subprocess
-{% endif %}
+    print("Project path: {0}".format(base_path))
+
     jinja = jinja2.Environment(
         loader=jinja2.FileSystemLoader(join(base_path, "ci", "templates")),
         trim_blocks=True,
@@ -89,9 +95,6 @@ def main():
     print("DONE.")
 
 if __name__ == "__main__":
-    base_path = dirname(dirname(abspath(__file__)))
-    print("Project path: {0}".format(base_path))
-
     args = sys.argv[1:]
     if args == ["--no-env"]:
         main()
