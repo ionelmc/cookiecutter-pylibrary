@@ -21,6 +21,10 @@ else:
             secho(line, fg="yellow", bold=True)
 
 
+def unlink_if_exists(path):
+    if os.path.exists(path):
+        os.unlink(path)
+
 if __name__ == "__main__":
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
 {%- if cookiecutter.test_matrix_separate_coverage == 'no' %}
@@ -82,18 +86,15 @@ if __name__ == "__main__":
 {%- if cookiecutter.appveyor == 'no' %}
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
     os.unlink(join('ci', 'templates', '.appveyor.yml'))
-    if os.path.exists('.appveyor.yml'):
-        os.unlink('.appveyor.yml')
+    unlink_if_exists('.appveyor.yml')
 {% endif %}
-    if os.path.exists('appveyor.yml'):
-        os.unlink('appveyor.yml')
-    if os.path.exists(join('ci', 'appveyor-bootstrap.py')):
-        os.unlink(join('ci', 'appveyor-bootstrap.py'))
+    unlink_if_exists(join('ci', 'templates', 'appveyor.yml'))
+    unlink_if_exists('appveyor.yml')
+    unlink_if_exists(join('ci', 'appveyor-bootstrap.py'))
 
 {%- if cookiecutter.travis == 'no' %}
     os.unlink(join('ci', 'templates', '.travis.yml'))
-    if os.path.exists('.travis.yml'):
-        os.unlink('.travis.yml')
+    unlink_if_exists('.travis.yml')
 {% endif %}
 
 {%- if cookiecutter.repo_hosting == 'no' %}
