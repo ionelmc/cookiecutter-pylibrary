@@ -187,24 +187,27 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
-{%- if cookiecutter.test_runner == 'pytest' and cookiecutter.setup_py_uses_test_runner == 'yes' -%}
-{% set setup_requires_from_test_runner %}
-        'pytest-runner',{% endset %}
-{%- else -%}
-{% set setup_requires_from_test_runner %}{% endset %}
-{%- endif -%}
+{% set setup_requires_interior -%}
+{%- if cookiecutter.test_runner == 'pytest' and cookiecutter.setup_py_uses_test_runner == 'yes' %}
+        'pytest-runner',{% endif %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+        'setuptools_scm>=3.3.1',{% endif %}
+{%- endset %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
-    setup_requires=[{{ setup_requires_from_test_runner }}
+    setup_requires=[{{ setup_requires_interior }}
         'cython',
-    ] if Cython else [{{ setup_requires_from_test_runner }}
+    ] if Cython else [{{ setup_requires_interior }}
     ],
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
-    setup_requires=[{{ setup_requires_from_test_runner }}
+    # We only require CFFI when compiling.
+    # pyproject.toml does not support requirements only for some build actions,
+    # but we can do it in setup.py.
+    setup_requires=[{{ setup_requires_interior }}
         'cffi>=1.0.0',
-    ] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [{{setup_requires_from_test_runner}}
+    ] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [{{setup_requires_interior}}
     ],
 {%- else %}
-    setup_requires=[{{ setup_requires_from_test_runner }}
+    setup_requires=[{{ setup_requires_interior }}
     ],
 {%- endif -%}
 {%- if cookiecutter.command_line_interface != 'no' %}
