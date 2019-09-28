@@ -187,7 +187,7 @@ setup(
         #   'rst': ['docutils>=0.11'],
         #   ':python_version=="2.6"': ['argparse'],
     },
-{% set setup_requires_interior -%}
+{%- set setup_requires_interior %}
 {%- if cookiecutter.test_runner == 'pytest' and cookiecutter.setup_py_uses_test_runner == 'yes' %}
         'pytest-runner',{% endif %}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
@@ -206,7 +206,7 @@ setup(
         'cffi>=1.0.0',
     ] if any(i.startswith('build') or i.startswith('bdist') for i in sys.argv) else [{{setup_requires_interior}}
     ],
-{%- else %}
+{%- elif setup_requires_interior.strip() %}
     setup_requires=[{{ setup_requires_interior }}
     ],
 {%- endif -%}
