@@ -64,10 +64,9 @@ matrix:
 {{ "{%- endif %}" }}
 {%- endif %}
 {{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
-        - TOXPYTHON=pypy3
-      python: 'pypy3.5-6.0'
+      python: 'pypy3'
 {{ "{%- elif env.startswith('pypy') %}{{ '' }}" }}
-      python: 'pypy2.7-6.0'
+      python: 'pypy'
 {{ "{%- else %}{{ '' }}" }}
       python: {{ "'{{ '{0[2]}.{0[3]}'.format(env) }}'" }}
 {{ "{%- endif %}" }}
