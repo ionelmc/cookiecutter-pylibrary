@@ -37,7 +37,6 @@ env:
 before_install:
   - python --version
   - virtualenv --version
-  - tox --version
   - pip --version
   - uname -a
   - lsb_release -a
@@ -45,6 +44,7 @@ install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
   - pip install -U wheel setuptools tox cookiecutter bumpversion
+  - tox --version
 script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
