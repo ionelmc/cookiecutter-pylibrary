@@ -83,10 +83,14 @@ First generate your project::
 
 You will be asked for these fields:
 
+.. note:: Fields that work together usually use the same prefix. If you answer "no" on the first one then the rest
+   won't have any effect so just ignore them. Maybe in the future cookiecutter will allow option hiding or something
+   like a wizard.
+
 .. list-table::
     :header-rows: 1
 
-    * - Template variable
+    * - Field
       - Default
       - Description
 
