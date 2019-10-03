@@ -14,11 +14,6 @@ from os.path import dirname
 from os.path import exists
 from os.path import join
 
-import jinja2
-{% if cookiecutter.test_matrix_configurator == "yes" %}
-import matrix
-{% endif %}
-
 base_path = dirname(dirname(abspath(__file__)))
 
 
@@ -54,6 +49,11 @@ def exec_in_env():
     os.execv(python_executable, [python_executable, __file__, "--no-env"])
 
 def main():
+    import jinja2
+{%- if cookiecutter.test_matrix_configurator == "yes" %}
+    import matrix
+{% endif %}
+
     print("Project path: {0}".format(base_path))
 
     jinja = jinja2.Environment(
