@@ -27,15 +27,13 @@ matrix:
 {{ "{%- if 'py37' in env or 'py27' in env %}{{ '' }}" }}
 {{ "    - os: osx" }}
 {{ "      language: generic" }}
-{{ "      cache:" }}
-{{ "        directories:" }}
-{{ "          - $HOME/Library/Caches/Homebrew" }}
-{{ "          - $HOME/Library/Caches/pip" }}
 {{ "      env:" }}
 {{ "        - TOXENV={{ env }}" }}
+{%- if cookiecutter.c_extension_test_pypi == "yes" %}
 {{ "{%- if 'nocov' in env %}{{ '' }}" }}
 {{ "        - WHEEL_PATH=.tox/dist" }}
 {{ "{%- endif %}" }}
+{%- endif %}
 {{ "{%- endif %}{{ '' }}" }}
 {%- endif %}
     - env:
@@ -76,7 +74,7 @@ before_install:
   - python --version
   - uname -a
   - lsb_release -a || true
-{%- if cookiecutter.c_extension_test_pypi == "yes" %}
+{%- if cookiecutter.travis_osx == "yes" %}
   - |
     if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
       [[ $TOXENV =~ py3 ]] && brew upgrade python
