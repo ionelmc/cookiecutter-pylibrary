@@ -484,7 +484,6 @@ And then you can build the ``sdist``, and if possible, the ``bdist_wheel`` too::
 
 To make a release of the project on PyPI, assuming you got some distributions in ``dist/``, the most simple usage is::
 
-    twine register dist/*
     twine upload --skip-existing dist/*.whl dist/*.gz dist/*.zip
 
 In ZSH you can use this to upload everything in ``dist/`` that ain't a linux-specific wheel (you may need ``setopt extended_glob``)::
