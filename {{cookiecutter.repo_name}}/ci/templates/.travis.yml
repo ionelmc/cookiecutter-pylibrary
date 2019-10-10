@@ -1,6 +1,10 @@
 language: python
 dist: xenial
 cache: false
+addons:
+  apt:
+    packages:
+      - libenchant-dev
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
@@ -14,6 +18,9 @@ matrix:
       env:
         - TOXENV=check
 {%- if cookiecutter.sphinx_docs == "yes" %}
+    - python: '3.6'
+      env:
+        - TOXENV=spell
     - python: '3.6'
       env:
         - TOXENV=docs
