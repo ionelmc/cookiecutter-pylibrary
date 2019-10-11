@@ -11,6 +11,6 @@ requires = [
 {%- if cookiecutter.c_extension_support == 'cython' %}
     "Cython",
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
-    "cffi>=1.0.0",
+    "cffi>=1.0.0; platform_python_implementation != 'PyPy'",
 {%- endif %}
 ]
