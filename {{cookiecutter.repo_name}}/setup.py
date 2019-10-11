@@ -195,7 +195,7 @@ setup(
 {%- endset %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
     setup_requires=[{{ setup_requires_interior }}
-        'cython',
+        'Cython',
     ] if Cython else [{{ setup_requires_interior }}
     ],
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
