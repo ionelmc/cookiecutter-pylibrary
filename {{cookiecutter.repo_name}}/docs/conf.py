@@ -19,14 +19,9 @@ if os.getenv('RUNNING_TOX_TESTENV_SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
     # If RUNNING_TOX_TESTENV_SPELLCHECK, then we do not want to run autodoc,
     # because there is no need to spellcheck the autodocs.
-    # https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx-core-events
-    def source_read_handler(app, docname, source):
-        for i,s in enumerate(source):
-            source[i] = s.replace('''.. automodule:: {{ cookiecutter.package_name }}
-    :members:''', '')
-    def setup(app):
-        app.connect('source-read', source_read_handler)
-    # alternate way to transform: https://github.com/sympy/sphinx-math-dollar/blob/master/sphinx_math_dollar/extension.py
+    # testenv:spell skips installing the module, so all that remains is to
+    # silence the warning when .. automodule:: {{ cookiecutter.package_name }} fails to import.
+    suppress_warnings = ['autodoc.import_object']
     spelling_show_suggestions = True
     spelling_lang = 'en_US'
 
