@@ -8,9 +8,7 @@ requires = [
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
     "setuptools_scm>=3.3.1",
 {%- endif %}
-{%- if cookiecutter.c_extension_support == 'cython' %}
-    "cython",
-{%- elif cookiecutter.c_extension_support == 'cffi' %}
+{%- if cookiecutter.c_extension_support == 'cffi' %}
     "cffi>=1.0.0",
 {%- endif %}
 ]
