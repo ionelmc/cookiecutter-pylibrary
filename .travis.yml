@@ -1,7 +1,6 @@
 language: python
-dist: trusty
+dist: xenial
 python: 3.6
-group: deprecated-2017Q2
 cache:
   directories:
   - $HOME/.pip/wheels
@@ -44,6 +43,7 @@ install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
   - pip install -U wheel setuptools tox cookiecutter bumpversion
+  - virtualenv --version
   - tox --version
 script:
   - git config --global user.email "you@example.com"
@@ -61,7 +61,7 @@ script:
     fi
     set +x
   - |
-    if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
+    if xopenssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
       chmod u=rw,og= ~/.ssh/publish-key
       echo "Host github.com" >> ~/.ssh/config
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
