@@ -36,8 +36,7 @@ environment:
         {%- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -%}
         {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
             {{ "{% endif %}" }}
-        {%- endif -%}
-{{ '' }}
+        {%- endif -%}{{ '{{ "" }}' }}
       TOXPYTHON: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}\python.exe
       PYTHON_HOME: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}
       PYTHON_VERSION: {{ "'{{ env[2] }}.{{ env[3] }}'"}}
