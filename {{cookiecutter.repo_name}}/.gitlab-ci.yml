@@ -9,13 +9,6 @@ variables:
   # If we don't include NO_PROXY, we will get "fatal unable to update url base from redirection"
   # when trying to fetch the gitlab-ci-token.
   NO_PROXY: 127.0.0.1,localhost,.lan,.local,.home,/var/run/docker.sock,{{cookiecutter.repo_hosting_domain}}
-  # If some of the links in your documentation require a special PEM to verify,
-  # then sphinx -b linkcheck will fail without that PEM.
-  # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
-  # because the runner will only accept that PEM, not the defaults.
-  # Therefore you will usually want to bundle all certificates together with
-  # cat `python -c "import requests; print(requests.certs.where())"` ~/your.pem > ~/bundled.pem
-  # REQUESTS_CA_BUNDLE: ci/name-of-your-ca-bundle.pem
 {%- endif %}
 
 default:
@@ -48,6 +41,38 @@ default:
     - mkdir --parents ~/.ssh
     - ssh-keyscan -t rsa {{ cookiecutter.repo_hosting_domain }} >> ~/.ssh/known_hosts
     - fi
+
+    - pip install --upgrade pip
+{% if cookiecutter.ci_https_proxy != "no" -%}
+    - if [ -z ${PROXY_CA_PEM+ABC} ]; then echo "PROXY_CA_PEM is unset, so assuming you do not need a merged CA certificate set up.";
+      else
+    # All of this will be skipped unless you set PROXY_CA_PEM in GitLab.
+    # You will usually want to cat your.pem | xclip and paste it in as a File on GitLab.
+    # See the KUBE_CA_PEM example at https://docs.gitlab.com/ee/ci/variables/README.html#variable-types
+    - right_before_pull_cert=$(date +%s)
+    {% raw -%}
+    - if [ ${#PROXY_CA_PEM} -ge 1024 ]; then echo "The PROXY_CA_PEM filename looks far too long, did you set it as a Variable instead of a File?"; fi
+    {%- endraw %}
+    # If some of the links in your documentation require a special PEM to verify,
+    # then sphinx -b linkcheck will fail without that PEM.
+    # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
+    # because the runner will only accept that PEM, not the defaults.
+    # Therefore you will usually want to bundle all certificates together with
+    # cat `python -c "import requests; print(requests.certs.where())"` ~/your.pem > ~/bundled.pem
+    # pip uses requests, but not the normal requests.
+    # pip uses a vendored version of requests, so that pip will still work if anything goes wrong with your requests installation.
+    # We find where that vendored version of requests keeps its certs and merge in the cert from PROXY_CA_PEM.
+    # On some systems, we might need to try the import twice, and the first time, it will fail with an AttributeError.
+    # Therefore we need a block to suppress the AttributeError, which requires a colon.
+    # But that causes parsing of .gitlab-ci.yml to fail with "before_script config should be an array of strings",
+    # so we need to wrap the entire line in ''.
+    # https://gitlab.com/gitlab-org/gitlab-foss/merge_requests/5481
+    - 'echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python'
+    - 'cat `echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python` $PROXY_CA_PEM > bundled.pem'
+    - export REQUESTS_CA_BUNDLE=bundled.pem
+    - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
+    - fi
+{%- endif %}
 
     ##
     ## Optionally, if you will be using any Git commands, set the user name and
@@ -91,7 +116,6 @@ test:
   # check-manifest, used in tox -e check, requires git,
   # so we need to either use an image that includes git or
   # apk add git here.
-  - pip install --upgrade pip
   # If using an image that does not include tox, we will
   # need to pip install tox here.
   # With --sitepackages, we can save time by installing once
