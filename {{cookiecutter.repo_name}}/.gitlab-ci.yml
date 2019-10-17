@@ -124,8 +124,10 @@ default:
 {%- endif %}
 
     ##
-    ## Optionally, if you will be using any Git commands, set the user name and
-    ## and email.
+    ## With all our proxy variables and certificates in place, we should now be
+    ## able to install from repositores, and optionally push to repositories.
+    ## Optionally, if you will be making any git commits, set the user name and
+    ## email.
     ##
     #- git config --global user.email "{{ cookiecutter.email }}"
     #- git config --global user.name "{{ cookiecutter.full_name }}"
