@@ -14,6 +14,8 @@ variables:
 default:
   before_script:
     - right_after_pull_docker_image=$(date +%s)
+    - echo $(whoami)
+    - echo $USER
     - if [ -z ${SSH_PRIVATE_KEY+ABC} ]; then echo "SSH_PRIVATE_KEY is unset, so assuming you do not need SSH set up.";
       else
     # All of this will be skipped unless you set SSH_PRIVATE_KEY as a variable at https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/settings/ci_cd
@@ -36,10 +38,57 @@ default:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
 
     ##
-    ## Create the SSH directory and give it the right permissions
+    ## Sometimes we may want to install directly from a git repository.
+    ## Using up-to-the-minute updates of dependencies in our own tests alerts
+    ## us if something breaks with the latest version of a dependency, even if
+    ## that dependency has not made a new release yet.
+    ## In order to pip install directly from git repositories,
+    ## we need to whitelist the public keys of the git servers.
+    ## You may want to add more lines for the domains of any other git servers
+    ## you want to install dependencies from (which may or may not include the
+    ## server that hosts your own repo).
+    ## Similarly, if you want to push to a secondary repo as part of your build
+    ## (as how cookiecutter-pylibrary builds examples and
+    ## pushes to python-nameless), ssh will need to be allowed to reach that
+    ## server.
     ##
     - mkdir --parents ~/.ssh
-    - ssh-keyscan -t rsa {{ cookiecutter.repo_hosting_domain }} >> ~/.ssh/known_hosts
+    - ssh-keyscan -t rsa github.com gitlab.com >> ~/.ssh/known_hosts
+    - fi
+
+    - if [ -z ${ETC_ENVIRONMENT_LOCATION+ABC} ]; then echo "ETC_ENVIRONMENT_LOCATION is unset, so assuming you do not need environment variables set.";
+      else
+    # All of this will be skipped unless you set ETC_ENVIRONMENT_LOCATION in GitLab.
+    # Strictly speaking, this serves the same function as .profile, being run before everything else.
+    # You *could* put arbitrary shell commands in the file, but the intended purpose is
+    # to save on manual work by allowing you to set only one GitLab variable that points
+    # to more variables to set.
+    # Special note if the environment file is used to set up a proxy with HTTPS_PROXY...
+    # $ETC_ENVIRONMENT_LOCATION must be a location that we can access *before* setting up the proxy variables.
+    - echo $ETC_ENVIRONMENT_LOCATION
+    # We do not want the script to hang waiting for a password if the private key is rejected.
+    - mkdir --parents ~/.ssh
+    - echo "PasswordAuthentication=no" >> ~/.ssh/config
+    - echo $SSH_PRIVATE_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_KEY is unset, this will just be empty.
+    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
+    - rm SSH.PRIVATE.KEY
+    - cat environment.sh
+    - set -o allexport
+    - source environment.sh
+    - set +o allexport
+    - fi
+
+    # We might potentially need SSH set up before we go get the environment file.
+    # But after we get the environment file, it might have some servers for us to whitelist.
+    # Alternatively, maybe there was no ETC_ENVIRONMENT_LOCATION
+    # and SERVERS_TO_WHITELIST_FOR_SSH is just manually set as a GitLab variable.
+    - if [ -z ${SERVERS_TO_WHITELIST_FOR_SSH+ABC} ]; then echo "SERVERS_TO_WHITELIST_FOR_SSH is unset, so assuming you do not need any servers whitelisted for SSH.";
+      else
+    - echo $SERVERS_TO_WHITELIST_FOR_SSH
+    - mkdir --parents ~/.ssh
+    # This may crash if SSH_PRIVATE_KEY was not set so we didn't install openssh-client.
+    # If SERVERS_TO_WHITELIST_FOR_SSH is set but SSH_PRIVATE_KEY is not, clearly something is very wrong.
+    - ssh-keyscan -t rsa $SERVERS_TO_WHITELIST_FOR_SSH >> ~/.ssh/known_hosts
     - fi
 
     - pip install --upgrade pip
