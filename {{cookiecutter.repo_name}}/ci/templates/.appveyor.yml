@@ -32,12 +32,11 @@ environment:
                 {{ "{% if env.endswith('-cover') %}" }}
             {%- endif -%}
         {%- endif -%}
-        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif %}
+        {%- if cookiecutter.codecov == 'yes' %},codecov{% endif -%}
         {%- if cookiecutter.coveralls == 'yes' %},coveralls{% endif -%}
         {%- if cookiecutter.test_matrix_separate_coverage == "yes" -%}
             {{ "{% endif %}" }}
-        {%- endif %}
-{{ '' }}
+        {%- endif -%}{{ '{{ "" }}' }}
       TOXPYTHON: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}\python.exe
       PYTHON_HOME: C:\Python{{ "{{ env[2:4] }}" }}{{ '' if arch == '32' else '-x64' }}
       PYTHON_VERSION: {{ "'{{ env[2] }}.{{ env[3] }}'"}}
@@ -46,8 +45,8 @@ environment:
 {{ "      WHEEL_PATH: .tox/dist" }}
 {{ "{% endif %}" }}
 {%- if arch == '64' %}
-{{ "{% if env.startswith(('py2', 'py34')) %}" }}
-{{ "      WINDOWS_SDK_VERSION: v7.{{ '1' if env.startswith('py3') else '0' }}" }}
+{{ "{% if env.startswith('py2') %}" }}
+{{ "      WINDOWS_SDK_VERSION: v7.0" }}
 {{ "{% endif %}" }}
 {%- endif %}
 {%- endfor %}

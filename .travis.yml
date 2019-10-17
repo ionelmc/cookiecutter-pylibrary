@@ -1,7 +1,6 @@
 language: python
-dist: trusty
-python: 3.6
-group: deprecated-2017Q2
+dist: xenial
+python: '3.7'
 cache:
   directories:
   - $HOME/.pip/wheels
@@ -44,6 +43,7 @@ install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
   - pip install -U wheel setuptools tox cookiecutter bumpversion
+  - virtualenv --version
   - tox --version
 script:
   - git config --global user.email "you@example.com"
@@ -71,6 +71,13 @@ script:
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key
+      mkdir -p ~/.local/bin
+      for name in pypy pypy3; do
+        curl -sSf -o $name.tar.bz2 https://storage.googleapis.com/travis-ci-language-archives/python/binaries/ubuntu/16.04/x86_64/$name.tar.bz2
+        tar xjf $name.tar.bz2 --directory /
+        rm $name.tar.bz2
+        ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
+      done
       tox --sitepackages
     fi
   - echo Done.

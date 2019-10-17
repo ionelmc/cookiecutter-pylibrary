@@ -21,6 +21,7 @@ def check_call(args):
     print("+", *args)
     subprocess.check_call(args)
 
+
 def exec_in_env():
     env_path = join(base_path, ".tox", "bootstrap")
     if sys.platform == "win32":
@@ -93,6 +94,7 @@ def main():
             fh.write(jinja.get_template(name).render(tox_environments=tox_environments))
         print("Wrote {}".format(name))
     print("DONE.")
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]

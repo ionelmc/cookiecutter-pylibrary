@@ -2,7 +2,9 @@
 from __future__ import unicode_literals
 
 import os
-
+{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+import traceback
+{%- endif %}
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -15,18 +17,22 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
-if os.getenv('SPELLCHECK'):
-    extensions += 'sphinxcontrib.spelling',
-    spelling_show_suggestions = True
-    spelling_lang = 'en_US'
-
 source_suffix = '.rst'
 master_doc = 'index'
 project = {{ '{0!r}'.format(cookiecutter.project_name) }}
 year = '{% if cookiecutter.year_from == cookiecutter.year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.year_to }}{% endif %}'
 author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
+{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+try:
+    from pkg_resources import get_distribution
+    version = release = get_distribution('{{ cookiecutter.package_name }}').version
+except Exception:
+    traceback.print_exc()
+    version = release = {{ '{0!r}'.format(cookiecutter.version) }}
+{%- else %}
 version = release = {{ '{0!r}'.format(cookiecutter.version) }}
+{%- endif %}
 
 pygments_style = 'trac'
 templates_path = ['.']
