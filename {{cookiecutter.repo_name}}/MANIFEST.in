@@ -16,7 +16,7 @@ include README.rst
 include pyproject.toml
 
 include tox.ini .travis.yml .appveyor.yml
-{% if 'gitlab' in cookiecutter.repo_hosting -%}
+{% if 'gitlab' in cookiecutter.repo_hosting_domain -%}
 include .gitlab-ci.yml
 {%- endif %}
 
