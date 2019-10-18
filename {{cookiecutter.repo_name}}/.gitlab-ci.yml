@@ -103,8 +103,11 @@ default:
     {%- endraw %}
     - echo "The PROXY_CA_PEM filename looks far too long, did you set it as a Variable instead of a File?"
     # If it's the full certificate rather than a filename, write it to a file and save the file name.
-    - echo $PROXY_CA_PEM > tmp.pem
-    - PROXY_CA_PEM=tmp.pem
+    - echo "$PROXY_CA_PEM" > tmp-proxy-ca.pem
+    # The quotes are very important here; echo $PROXY_CA_PEM will destroy the
+    # newlines, and requests will (silently!) fail to parse the certificate,
+    # leading to SSLError SSLCertVerificationError 'certificate verify failed self signed certificate in certificate chain (_ssl.c:1076)'
+    - PROXY_CA_PEM=tmp-proxy-ca.pem
       ; fi
     # If some of the links in your documentation require a special PEM to verify,
     # then sphinx -b linkcheck will fail without that PEM.
