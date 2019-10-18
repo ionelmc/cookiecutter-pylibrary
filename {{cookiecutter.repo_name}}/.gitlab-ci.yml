@@ -16,6 +16,31 @@ default:
     - right_after_pull_docker_image=$(date +%s)
     - echo $(whoami)
     - echo $USER
+
+    # If we need to apk add openssh-client, then we will need HTTPS_PROXY set first.
+    # The ETC_ENVIRONMENT_LOCATION is not generally intended for secret keys like the SSH_PRIVATE_KEY.
+    - if [ -z ${ETC_ENVIRONMENT_LOCATION+ABC} ]; then echo "ETC_ENVIRONMENT_LOCATION is unset, so assuming you do not need environment variables set.";
+      else
+    # All of this will be skipped unless you set ETC_ENVIRONMENT_LOCATION in GitLab.
+    # Strictly speaking, this serves the same function as .profile, being run before everything else.
+    # You *could* put arbitrary shell commands in the file, but the intended purpose is
+    # to save on manual work by allowing you to set only one GitLab variable that points
+    # to more variables to set.
+    # Special note if the environment file is used to set up a proxy with HTTPS_PROXY...
+    # $ETC_ENVIRONMENT_LOCATION must be a location that we can access *before* setting up the proxy variables.
+    - echo $ETC_ENVIRONMENT_LOCATION
+    # We do not want the script to hang waiting for a password if the private key is rejected.
+    - mkdir --parents ~/.ssh
+    - echo "PasswordAuthentication=no" >> ~/.ssh/config
+    - echo $SSH_PRIVATE_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_KEY is unset, this will just be empty.
+    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
+    - rm SSH.PRIVATE.KEY
+    - cat environment.sh
+    - set -o allexport
+    - source environment.sh
+    - set +o allexport
+    - fi
+
     - if [ -z ${SSH_PRIVATE_KEY+ABC} ]; then echo "SSH_PRIVATE_KEY is unset, so assuming you do not need SSH set up.";
       else
     # All of this will be skipped unless you set SSH_PRIVATE_KEY as a variable at https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/settings/ci_cd
@@ -51,31 +76,19 @@ default:
     ## (as how cookiecutter-pylibrary builds examples and
     ## pushes to python-nameless), ssh will need to be allowed to reach that
     ## server.
+    ## https://docs.travis-ci.com/user/ssh-known-hosts/
+    ## https://discuss.circleci.com/t/add-known-hosts-on-startup-via-config-yml-configuration/12022/2
+    ## Unfortunately, there seems to be no way to use ssh-keyscan on a server
+    ## that you can only reach through a proxy. Thus, a simple
+    ## ssh-keyscan -t rsa github.com gitlab.com >> ~/.ssh/known_hosts
+    ## will fail. As a workaround, I just grabbed their public keys now and
+    ## included them. These might go stale eventually, I'm not sure.
     ##
     - mkdir --parents ~/.ssh
-    - ssh-keyscan -t rsa github.com gitlab.com >> ~/.ssh/known_hosts
-    - fi
-
-    - if [ -z ${ETC_ENVIRONMENT_LOCATION+ABC} ]; then echo "ETC_ENVIRONMENT_LOCATION is unset, so assuming you do not need environment variables set.";
-      else
-    # All of this will be skipped unless you set ETC_ENVIRONMENT_LOCATION in GitLab.
-    # Strictly speaking, this serves the same function as .profile, being run before everything else.
-    # You *could* put arbitrary shell commands in the file, but the intended purpose is
-    # to save on manual work by allowing you to set only one GitLab variable that points
-    # to more variables to set.
-    # Special note if the environment file is used to set up a proxy with HTTPS_PROXY...
-    # $ETC_ENVIRONMENT_LOCATION must be a location that we can access *before* setting up the proxy variables.
-    - echo $ETC_ENVIRONMENT_LOCATION
-    # We do not want the script to hang waiting for a password if the private key is rejected.
-    - mkdir --parents ~/.ssh
-    - echo "PasswordAuthentication=no" >> ~/.ssh/config
-    - echo $SSH_PRIVATE_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_KEY is unset, this will just be empty.
-    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
-    - rm SSH.PRIVATE.KEY
-    - cat environment.sh
-    - set -o allexport
-    - source environment.sh
-    - set +o allexport
+    - echo "# github.com:22 SSH-2.0-babeld-f345ed5d\n" >> ~/.ssh/known_hosts
+    - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==\n" >> ~/.ssh/known_hosts
+    - echo "# gitlab.com:22 SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8\n" >> ~/.ssh/known_hosts
+    - echo "gitlab.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsj2bNKTBSpIYDEGk9KxsGh3mySTRgMtXL583qmBpzeQ+jqCMRgBqB98u3z++J1sKlXHWfM9dyhSevkMwSbhoR8XIq/U0tCNyokEi/ueaBMCvbcTHhO7FcwzY92WK4Yt0aGROY5qX2UKSeOvuP4D6TPqKF1onrSzH9bx9XUf2lEdWT/ia1NEKjunUqu1xOB/StKDHMoX4/OKyIzuS0q/T1zOATthvasJFoPrAjkohTyaDUz2LN5JoH839hViyEG82yB+MjcFV5MU3N1l1QL3cVUCh93xSaua1N85qivl+siMkPGbO5xR/En4iEY6K2XPASUEMaieWVNTRCtJ4S8H+9\n" >> ~/.ssh/known_hosts
     - fi
 
     # We might potentially need SSH set up before we go get the environment file.
