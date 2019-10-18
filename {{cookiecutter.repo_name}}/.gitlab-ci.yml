@@ -92,7 +92,6 @@ default:
     - fi
 
     - pip install --upgrade pip
-{% if cookiecutter.ci_https_proxy != "no" -%}
     - if [ -z ${PROXY_CA_PEM+ABC} ]; then echo "PROXY_CA_PEM is unset, so assuming you do not need a merged CA certificate set up.";
       else
     # All of this will be skipped unless you set PROXY_CA_PEM in GitLab.
@@ -126,7 +125,6 @@ default:
     - export REQUESTS_CA_BUNDLE=bundled.pem
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
     - fi
-{%- endif %}
 
     ##
     ## With all our proxy variables and certificates in place, we should now be
