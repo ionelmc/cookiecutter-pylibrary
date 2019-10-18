@@ -100,8 +100,13 @@ default:
     # See the KUBE_CA_PEM example at https://docs.gitlab.com/ee/ci/variables/README.html#variable-types
     - right_before_pull_cert=$(date +%s)
     {% raw -%}
-    - if [ ${#PROXY_CA_PEM} -ge 1024 ]; then echo "The PROXY_CA_PEM filename looks far too long, did you set it as a Variable instead of a File?"; fi
+    - if [ ${#PROXY_CA_PEM} -ge 1024 ]; then
     {%- endraw %}
+    - echo "The PROXY_CA_PEM filename looks far too long, did you set it as a Variable instead of a File?"
+    # If it's the full certificate rather than a filename, write it to a file and save the file name.
+    - echo $PROXY_CA_PEM > tmp.pem
+    - PROXY_CA_PEM=tmp.pem
+      ; fi
     # If some of the links in your documentation require a special PEM to verify,
     # then sphinx -b linkcheck will fail without that PEM.
     # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
