@@ -99,7 +99,7 @@ default:
     # since without a key of some kind we cannot use SSH anyway.
     # This allows us to share around a common ETC_ENVIRONMENT_LOCATION that includes SERVERS_TO_WHITELIST_FOR_SSH,
     # even though only some people actually use SSH for anything.
-    - if [ -z ${SERVERS_TO_WHITELIST_FOR_SSH+ABC} -a -z ${SSH_PRIVATE_KEY+ABC} ]; then echo "SERVERS_TO_WHITELIST_FOR_SSH is unset, so assuming you do not need any servers whitelisted for SSH.";
+    - if [ -z ${SERVERS_TO_WHITELIST_FOR_SSH+ABC} ] || [ -z ${SSH_PRIVATE_KEY+ABC} ]; then echo "SERVERS_TO_WHITELIST_FOR_SSH and SSH_PRIVATE_KEY are not both set, so assuming you do not need any servers whitelisted for SSH.";
       else
     - echo $SERVERS_TO_WHITELIST_FOR_SSH
     - mkdir --parents ~/.ssh
