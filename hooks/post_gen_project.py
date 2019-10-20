@@ -64,7 +64,9 @@ if __name__ == "__main__":
 {%- if cookiecutter.allow_tests_inside_package == 'no' %}
     shutil.rmtree(join('src', '{{ cookiecutter.package_name }}', 'tests'))
 {% endif %}
-
+{%- if not (cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes') %}
+    os.unlink('pyproject.toml')
+{% endif %}
 {%- if cookiecutter.c_extension_support == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
