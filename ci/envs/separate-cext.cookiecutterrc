@@ -16,14 +16,14 @@ default_context:
   linter: flake8
   package_name: nameless
   project_name: "Nam\xE9\"'less"
-  repo_hosting: github
+  repo_hosting_domain: github.com
   repo_name: python-nameless
   requiresio: 'yes'
   scrutinizer: 'yes'
   setup_py_uses_setuptools_scm: 'no'
   setup_py_uses_test_runner: 'yes'
   sphinx_docs: 'no'
-  test_matrix_configurator: 'yes'
+  test_matrix_configurator: 'no'
   test_matrix_separate_coverage: 'yes'
   test_runner: pytest
   travis_osx: no yes

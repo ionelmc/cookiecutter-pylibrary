@@ -13,6 +13,9 @@ include CHANGELOG.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
+{%- if cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+include pyproject.toml
+{%- endif %}
 
 include tox.ini .travis.yml .appveyor.yml
 

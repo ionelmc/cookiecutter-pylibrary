@@ -1,6 +1,6 @@
 default_context:
   c_extension_optional: 'no'
-  c_extension_support: cython
+  c_extension_support: 'no'
   c_extension_test_pypi: 'no'
   c_extension_test_pypi_appveyor_secret: fDwCnDhQiptm9a4ZcFpgyQ==
   c_extension_test_pypi_username: ionel
@@ -16,7 +16,7 @@ default_context:
   linter: flake8
   package_name: nameless
   project_name: "Nam\xE9\"'less"
-  repo_hosting: github
+  repo_hosting_domain: github.com
   repo_name: python-nameless
   requiresio: 'yes'
   scrutinizer: 'yes'
@@ -24,6 +24,6 @@ default_context:
   setup_py_uses_test_runner: 'yes'
   sphinx_docs: 'no'
   test_matrix_configurator: 'no'
-  test_matrix_separate_coverage: 'yes'
-  test_runner: pytest
+  test_matrix_separate_coverage: 'no'
+  test_runner: nose
   travis_osx: no yes

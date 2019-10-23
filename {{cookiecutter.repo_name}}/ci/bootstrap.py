@@ -5,23 +5,24 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+{%- if cookiecutter.test_matrix_configurator != "yes" %}
+import subprocess
+{%- endif %}
 import sys
 from os.path import abspath
 from os.path import dirname
 from os.path import exists
 from os.path import join
-from os.path import normpath
 
-try:
-    from os.path import samefile
-except ImportError:
-    def samefile(a, b):
-        return normpath(abspath(a)) == normpath(abspath(b))
+base_path = dirname(dirname(abspath(__file__)))
 
 
-if __name__ == "__main__":
-    base_path = dirname(dirname(abspath(__file__)))
-    print("Project path: {0}".format(base_path))
+def check_call(args):
+    print("+", *args)
+    subprocess.check_call(args)
+
+
+def exec_in_env():
     env_path = join(base_path, ".tox", "bootstrap")
     if sys.platform == "win32":
         bin_path = join(env_path, "Scripts")
@@ -32,24 +33,30 @@ if __name__ == "__main__":
 
         print("Making bootstrap env in: {0} ...".format(env_path))
         try:
-            subprocess.check_call(["virtualenv", env_path])
+            check_call([sys.executable, "-m", "venv", env_path])
         except subprocess.CalledProcessError:
-            subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
+            try:
+                check_call([sys.executable, "-m", "virtualenv", env_path])
+            except subprocess.CalledProcessError:
+                check_call(["virtualenv", env_path])
         print("Installing `jinja2` into bootstrap environment...")
-        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"])
+        check_call([join(bin_path, "pip"), "install", "jinja2", "tox"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix"{% endif %}])
     python_executable = join(bin_path, "python")
     if not os.path.exists(python_executable):
         python_executable += '.exe'
-    if not samefile(python_executable, sys.executable):
-        print("Re-executing with: {0}".format(python_executable))
-        os.execv(python_executable, [python_executable, __file__])
 
+    print("Re-executing with: {0}".format(python_executable))
+    print("+ exec", python_executable, __file__, "--no-env")
+    os.execv(python_executable, [python_executable, __file__, "--no-env"])
+
+def main():
     import jinja2
-{% if cookiecutter.test_matrix_configurator == "yes" %}
+{%- if cookiecutter.test_matrix_configurator == "yes" %}
     import matrix
-{% else %}
-    import subprocess
 {% endif %}
+
+    print("Project path: {0}".format(base_path))
+
     jinja = jinja2.Environment(
         loader=jinja2.FileSystemLoader(join(base_path, "ci", "templates")),
         trim_blocks=True,
@@ -87,3 +94,15 @@ if __name__ == "__main__":
             fh.write(jinja.get_template(name).render(tox_environments=tox_environments))
         print("Wrote {}".format(name))
     print("DONE.")
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if args == ["--no-env"]:
+        main()
+    elif not args:
+        exec_in_env()
+    else:
+        print("Unexpected arguments {0}".format(args), file=sys.stderr)
+        sys.exit(1)
+

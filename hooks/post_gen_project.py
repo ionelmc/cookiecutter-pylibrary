@@ -20,11 +20,10 @@ else:
         for line in text.splitlines():
             secho(line, fg="yellow", bold=True)
 
-def replace_contents(filename, what, replacement):
-    with open(filename) as fh:
-        changelog = fh.read()
-    with open(filename, 'w') as fh:
-        fh.write(changelog.replace(what, replacement))
+
+def unlink_if_exists(path):
+    if os.path.exists(path):
+        os.unlink(path)
 
 if __name__ == "__main__":
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
@@ -50,12 +49,6 @@ if __name__ == "__main__":
 {%- endif %}
 {%- endif %}
 
-
-    today = datetime.date.today()
-    replace_contents('CHANGELOG.rst', '<TODAY>', today.strftime("%Y-%m-%d"))
-    replace_contents(join('docs', 'conf.py'), '<YEAR>', today.strftime("%Y"))
-    replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
-
 {% if cookiecutter.sphinx_docs == "no" %}
     shutil.rmtree('docs')
 {% endif %}
@@ -71,7 +64,9 @@ if __name__ == "__main__":
 {%- if cookiecutter.allow_tests_inside_package == 'no' %}
     shutil.rmtree(join('src', '{{ cookiecutter.package_name }}', 'tests'))
 {% endif %}
-
+{%- if not (cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes') %}
+    os.unlink('pyproject.toml')
+{% endif %}
 {%- if cookiecutter.c_extension_support == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
@@ -93,18 +88,15 @@ if __name__ == "__main__":
 {%- if cookiecutter.appveyor == 'no' %}
     os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
     os.unlink(join('ci', 'templates', '.appveyor.yml'))
-    if os.path.exists('.appveyor.yml'):
-        os.unlink('.appveyor.yml')
+    unlink_if_exists('.appveyor.yml')
 {% endif %}
-    if os.path.exists('appveyor.yml'):
-        os.unlink('appveyor.yml')
-    if os.path.exists(join('ci', 'appveyor-bootstrap.py')):
-        os.unlink(join('ci', 'appveyor-bootstrap.py'))
+    unlink_if_exists(join('ci', 'templates', 'appveyor.yml'))
+    unlink_if_exists('appveyor.yml')
+    unlink_if_exists(join('ci', 'appveyor-bootstrap.py'))
 
 {%- if cookiecutter.travis == 'no' %}
     os.unlink(join('ci', 'templates', '.travis.yml'))
-    if os.path.exists('.travis.yml'):
-        os.unlink('.travis.yml')
+    unlink_if_exists('.travis.yml')
 {% endif %}
 
 {%- if cookiecutter.repo_hosting == 'no' %}
@@ -155,8 +147,9 @@ if __name__ == "__main__":
         git init
         git add --all
         git commit -m "Add initial project skeleton."
-        git remote add origin git@{{ cookiecutter.repo_hosting }}.com:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
-        git push -u origin master
+        git tag v{{ cookiecutter.version }}
+        git remote add origin git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
+        git push -u origin master v{{ cookiecutter.version }}
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     To regenerate your tox.ini, .travis.yml or .appveyor.yml run:
