@@ -153,6 +153,19 @@ default:
     #- git config --global user.email "{{ cookiecutter.email }}"
     #- git config --global user.name "{{ cookiecutter.full_name }}"
 
+    # With --sitepackages, we can save time by installing once
+    # for both regular tests and documentation checks.
+    # Building the documentation also requires the package to be importable,
+    # if using autodoc and its descendants.
+    # Note that the installation will be repeated, once for each job.
+    # The installation still will not be shared across jobs.
+    # This is not ideal, but if installation takes a very long time, then you
+    # might want to use a Docker image with most of your dependencies already
+    # installed.
+    - right_before_pip_install=$(date +%s)
+    - pip install .
+    - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
+
 # In general we want to use tox -e docs, but GitLab.com will not deploy Pages
 # if the pages build fails.
 # The pages build will fail if you use tox -e docs with a link to your GitLab
@@ -190,9 +203,6 @@ test:
   # apk add git here.
   # If using an image that does not include tox, we will
   # need to pip install tox here.
-  # With --sitepackages, we can save time by installing once
-  # for both regular tests and documentation checks.
-  - pip install .
   - git --version
   - python --version
   - python2 --version || echo "python2 is not installed."
