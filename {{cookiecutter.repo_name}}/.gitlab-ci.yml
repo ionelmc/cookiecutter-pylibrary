@@ -144,7 +144,10 @@ default:
     - ls bundled.pem
     # In the unlikely event that the image does not have Python available, the above command may silently fail to write bundled.pem.
     # Thus we check python --version above and double-check that bundled.pem exists with ls.
-    - export REQUESTS_CA_BUNDLE=bundled.pem
+    - export REQUESTS_CA_BUNDLE="${PWD}/bundled.pem"
+    # We include the working directory PWD so that REQUESTS_CA_BUNDLE can still be found from another directory.
+    # This seems to matter when activating and using a conda environment, for some reason.
+    - ls $REQUESTS_CA_BUNDLE
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
     - fi
 
