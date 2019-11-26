@@ -129,6 +129,7 @@ default:
     # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
     # because the runner will only accept that PEM, not the defaults.
     # Therefore you will usually want to bundle all certificates together with
+    - python --version
     # cat `python -c "import requests; print(requests.certs.where())"` ~/your.pem > ~/bundled.pem
     # pip uses requests, but not the normal requests.
     # pip uses a vendored version of requests, so that pip will still work if anything goes wrong with your requests installation.
@@ -140,6 +141,9 @@ default:
     # https://gitlab.com/gitlab-org/gitlab-foss/merge_requests/5481
     - 'echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python'
     - 'cat `echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python` $PROXY_CA_PEM > bundled.pem'
+    - ls bundled.pem
+    # In the unlikely event that the image does not have Python available, the above command may silently fail to write bundled.pem.
+    # Thus we check python --version above and double-check that bundled.pem exists with ls.
     - export REQUESTS_CA_BUNDLE=bundled.pem
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
     - fi
