@@ -1,0 +1,70 @@
+# From https://github.com/conda/cookiecutter-conda-python/blob/master/%7B%7Bcookiecutter.repo_name%7D%7D/conda.recipe/meta.yaml
+
+{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+{% raw -%}
+{% set data = load_setup_py_data() %}
+{%- endraw %}
+
+package:
+  name: {{ cookiecutter.package_name }}
+  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+  {% raw -%}
+  version: {{ data['version'] }}
+  {%- endraw %}
+
+source:
+  path: ..
+
+build:
+  # If the installation is complex, or different between Unix and Windows, use
+  # separate bld.bat and build.sh files instead of this key.  Add the line
+  # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
+  # "skip: True  # [not win]" to limit to Windows.
+  {% raw -%}
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
+  {%- endraw %}
+  {% if cookiecutter.command_line_interface != "no" -%}
+  {% raw -%}
+  entry_points:
+    {% for entry in setup_py['entry_points']['console_scripts'] %}
+      - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
+    {% endfor %}
+  {%- endraw %}
+  {% endif %}
+
+requirements:
+  # if you need compilers, uncomment these
+  #    read more at https://docs.conda.io/projects/conda-build/en/latest/resources/compiler-tools.html
+  # build:
+  {% raw -%}
+  #   - {{ compilers('c') }}
+  {%- endraw %}
+  host:
+    - python
+    - pip
+  run:
+    - python
+    {% raw -%}
+    # dependencies are defined in setup.py
+    {% for dep in data['install_requires'] %}
+    - {{ dep.lower() }}
+    {% endfor %}
+    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+    {%- endraw %}
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pytest
+    - pytest-cov
+  commands:
+    - pytest tests
+
+about:
+  home: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
+  summary: {{ cookiecutter.project_short_description }}
+  {% raw -%}
+  license: {{ setup_py.get('license') }}
+  {%- endraw %}
+  license_file: LICENSE
