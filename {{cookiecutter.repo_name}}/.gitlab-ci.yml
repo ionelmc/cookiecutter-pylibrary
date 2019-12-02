@@ -1,4 +1,4 @@
-image: dahanna/python.3.7-git-tox-alpine
+image: dahanna/python:alpine-miniconda-3.7-git-tox
 
 {% if cookiecutter.ci_https_proxy != "no" -%}
 variables:
@@ -106,6 +106,10 @@ default:
     - ssh-keyscan -t rsa $SERVERS_TO_WHITELIST_FOR_SSH >> ~/.ssh/known_hosts
     - fi
 
+    - CONDA_DIR=/opt/conda
+    - PATH=$CONDA_DIR/bin:$PATH
+    - source activate test-env
+
     - pip install --upgrade pip
     - if [ -z ${PROXY_CA_PEM+ABC} ]; then echo "PROXY_CA_PEM is unset, so assuming you do not need a merged CA certificate set up.";
       else
@@ -191,7 +195,29 @@ pages:
   # If the test stage fails, the deploy stage is skipped.
   script:
   - pip install -r docs/requirements.txt
+
+  # WordPress rejects uploading these kinds of files, but we can host a simple conda channel on GitLab Pages.
+  - ls /bin/sh
+  - ls /bin
+  - python -c "import sys; print(sys.platform)"
+  - right_before_conda_build=$(date +%s)
+  - conda info
+  - apk add bash
+  - mkdir docs/_static
+  - mkdir docs/_static/conda-channel
+  - mkdir docs/_static/conda-channel/linux-64
+  # $CONDA_DIR does not contain conda-bld
+  # Adding --bootstrap pointed at an environment containing all of the requirements (obtained by conda installing python-nameless and then conda uninstalling python-nameless) does not seem to reduce build time at all.
+  # Resource usage summary Total time 0:01:13.5 versus Resource usage summary Total time 0:01:12.3
+  - conda build . --channel conda-forge --output-folder docs/_static/conda-channel/
+  - echo "Building the conda package took $(( $(date +%s) - right_before_conda_build)) seconds total"
+  - ls docs/_static/conda-channel/
+  - ls docs/_static/conda-channel/linux-64/
+  - conda convert `ls docs/_static/conda-channel/linux-64/*.tar.bz2` --platform all --output-dir docs/_static/conda-channel/
+  - conda index docs/_static/conda-channel/ # doesn't seem to actually make any additional files beyond what conda build already makes
+
   - sphinx-build -E -b html docs dist/docs
+  - mv docs/_static/conda-channel dist/docs/_static
   - mv dist/docs/ public/
   artifacts:
     paths:
