@@ -7,7 +7,7 @@
 {%- endraw %}
 
 package:
-  name: {{ cookiecutter.package_name }}
+  name: {{ cookiecutter.distribution_name }}
   {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
   {% raw -%}
   version: {{ setup_py_data['get_version_for_conda_meta_yaml']() }}
