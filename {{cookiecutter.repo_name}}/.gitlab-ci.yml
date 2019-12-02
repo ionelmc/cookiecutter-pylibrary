@@ -209,7 +209,7 @@ pages:
   # $CONDA_DIR does not contain conda-bld
   # Adding --bootstrap pointed at an environment containing all of the requirements (obtained by conda installing python-nameless and then conda uninstalling python-nameless) does not seem to reduce build time at all.
   # Resource usage summary Total time 0:01:13.5 versus Resource usage summary Total time 0:01:12.3
-  - conda build . --channel conda-forge --output-folder docs/_static/conda-channel/
+  - conda build conda.recipe --channel conda-forge --output-folder docs/_static/conda-channel/ --no-test
   - echo "Building the conda package took $(( $(date +%s) - right_before_conda_build)) seconds total"
   - ls docs/_static/conda-channel/
   - ls docs/_static/conda-channel/linux-64/

@@ -52,6 +52,14 @@ def read(*names, **kwargs):
         return fh.read()
 
 
+def get_version_for_conda_meta_yaml():
+  """
+  load_setup_py_data() will actually run arbitrary code from setup.py, so in theory we ought to be able to get the version without needing to set it manually.
+  """
+  return '0.0.0'
+  # return pkg_resources.get_distribution(__name__).version
+
+
 {% if cookiecutter.c_extension_support != 'no' -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
@@ -94,6 +102,7 @@ setup(
         'write_to': 'src/{{ cookiecutter.package_name }}/_version.py',
         'fallback_version': '{{ cookiecutter.version }}',
     },
+    get_version_for_conda_meta_yaml=get_version_for_conda_meta_yaml,
 {%- else %}
     version='{{ cookiecutter.version }}',
 {%- endif %}
