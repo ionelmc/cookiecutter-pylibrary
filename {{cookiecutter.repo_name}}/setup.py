@@ -54,7 +54,8 @@ def read(*names, **kwargs):
 
 def get_version_for_conda_meta_yaml():
     """
-    load_setup_py_data() will actually run arbitrary code from setup.py, so in theory we ought to be able to get the version without needing to set it manually.
+    load_setup_py_data() will actually run arbitrary code from setup.py,
+    so in theory we ought to be able to get the version without needing to set it manually.
     """
     return '0.0.0'
     # return pkg_resources.get_distribution(__name__).version
