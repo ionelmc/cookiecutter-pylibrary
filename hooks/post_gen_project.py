@@ -51,6 +51,11 @@ if __name__ == "__main__":
 
 {% if cookiecutter.sphinx_docs == "no" %}
     shutil.rmtree('docs')
+    os.unlink('.readthedocs.yml')
+{%- else %}
+{%- if 'readthedocs' not in cookiecutter.sphinx_docs_hosting %}
+    os.unlink('.readthedocs.yml')
+{% endif %}
 {% endif %}
 
 {%- if cookiecutter.command_line_interface == 'no' %}
