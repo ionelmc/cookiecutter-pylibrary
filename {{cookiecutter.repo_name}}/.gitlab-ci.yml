@@ -34,7 +34,7 @@ default:
     - mkdir --parents ~/.ssh
     - echo "PasswordAuthentication=no" >> ~/.ssh/config
     - echo $SSH_PRIVATE_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_KEY is unset, this will just be empty.
-    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
+    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
     - rm SSH.PRIVATE.KEY
     - cat environment.sh
     - set -o allexport
