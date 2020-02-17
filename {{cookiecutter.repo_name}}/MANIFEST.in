@@ -17,6 +17,6 @@ include README.rst
 include pyproject.toml
 {%- endif %}
 
-include tox.ini .travis.yml .appveyor.yml
+include tox.ini .travis.yml .appveyor.yml{% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting %} .readthedocs.yml{% endif %}
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib
