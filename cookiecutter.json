@@ -12,6 +12,7 @@
     "project_short_description": "An example package. Generated with cookiecutter-pylibrary.",
     "release_date": "today",
     "year_from": [
+        "2020",
         "2019",
         "2018",
         "2017",
