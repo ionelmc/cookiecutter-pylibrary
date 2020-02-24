@@ -2,7 +2,7 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python python library. |travis| |appveyor| |requiresio|
+Cookiecutter_ template for a Python library. |travis| |appveyor| |requiresio|
 
 .. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
