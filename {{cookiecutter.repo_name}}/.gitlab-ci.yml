@@ -106,9 +106,13 @@ default:
     - ssh-keyscan -t rsa $SERVERS_TO_WHITELIST_FOR_SSH >> ~/.ssh/known_hosts
     - fi
 
+    - if [ -d /opt/conda ]; then
     - CONDA_DIR=/opt/conda
     - PATH=$CONDA_DIR/bin:$PATH
     - source activate test-env
+      ; else
+      echo "/opt/conda was not found on this container"
+      ; fi
 
     - pip install --upgrade pip
     - pip install --upgrade sphinx
@@ -201,6 +205,8 @@ pages:
   - ls /bin/sh
   - ls /bin
   - python -c "import sys; print(sys.platform)"
+  - if command -v conda; then echo "conda found"; else echo "conda not found"; fi
+  - if command -v conda; then
   - right_before_conda_build=$(date +%s)
   - conda info
   - apk add bash
@@ -215,10 +221,18 @@ pages:
   - ls docs/_static/conda-channel/
   - ls docs/_static/conda-channel/linux-64/
   - conda convert `ls docs/_static/conda-channel/linux-64/*.tar.bz2` --platform all --output-dir docs/_static/conda-channel/
-  - conda index docs/_static/conda-channel/ # doesn't seem to actually make any additional files beyond what conda build already makes
+  # conda index doesn't seem to actually make any additional files beyond what conda build already makes
+  - conda index docs/_static/conda-channel/
+    ; else
+    echo "conda not found in this container, so not building a conda package."
+    ; fi
 
   - sphinx-build -E -b html docs dist/docs
+
+  - if command -v conda; then
   - mv docs/_static/conda-channel dist/docs/_static
+    ; fi
+
   - mv dist/docs/ public/
   artifacts:
     paths:
