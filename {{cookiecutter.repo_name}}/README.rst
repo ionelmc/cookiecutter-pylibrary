@@ -64,7 +64,7 @@ Overview
     :target: https://coveralls.io/r/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.codecov == 'yes' %}
-.. |codecov| image:: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/coverage.svg?branch=master
+.. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/master/graphs/badge.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
