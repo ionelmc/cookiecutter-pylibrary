@@ -115,7 +115,6 @@ default:
       ; fi
 
     - pip install --upgrade pip
-    - pip install --upgrade sphinx
     - if [ -z ${PROXY_CA_PEM+ABC} ]; then echo "PROXY_CA_PEM is unset, so assuming you do not need a merged CA certificate set up.";
       else
     # All of this will be skipped unless you set PROXY_CA_PEM in GitLab.
@@ -257,6 +256,7 @@ test:
   - virtualenv --version
   - pip --version
   - python -m sphinx --version # linkcheck can spuriously fail on old versions of sphinx.
+  - pip install --upgrade sphinx
   - tox --version
   - uname --all
   - lsb_release --all || echo "lsb_release is not supported on this host."
