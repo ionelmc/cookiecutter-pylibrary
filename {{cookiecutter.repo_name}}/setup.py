@@ -103,7 +103,12 @@ setup(
         "BSD 3-Clause License": "BSD-3-Clause",
         "MIT license": "MIT",
         "ISC license": "ISC",
-        "Apache Software License 2.0": "Apache-2.0"}[cookiecutter.license]
+        "Apache Software License 2.0": "Apache-2.0",
+        "GNU Lesser General Public License v3 or later (LGPLv3+)": "GNU Lesser General Public License v3 or later (LGPLv3+)",
+        "GNU Lesser General Public License v3 (LGPLv3)": "GNU Lesser General Public License v3 (LGPLv3)",
+        "GNU Lesser General Public License v2.1 or later (LGPLv2+)": "GNU Lesser General Public License v2.1 or later (LGPLv2+)",
+        "GNU Lesser General Public License v2.1 (LGPLv2)": "GNU Lesser General Public License v2.1 (LGPLv2)",
+      }[cookiecutter.license]
     }}',
 {%- endif %}
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
@@ -136,6 +141,14 @@ setup(
         'License :: OSI Approved :: ISC License (ISCL)',
 {%- elif cookiecutter.license == "Apache Software License 2.0" %}
         'License :: OSI Approved :: Apache Software License',
+{%- elif 'LGPLv3+' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)'
+{%- elif 'LGPLv3' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)'
+{%- elif 'LGPLv2' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)'
+{%- elif 'LGPLv2' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)'
 {%- endif %}
         'Operating System :: Unix',
         'Operating System :: POSIX',
