@@ -104,10 +104,10 @@ setup(
         "MIT license": "MIT",
         "ISC license": "ISC",
         "Apache Software License 2.0": "Apache-2.0",
-        "GNU Lesser General Public License v3 or later (LGPLv3+)": "GNU Lesser General Public License v3 or later (LGPLv3+)",
-        "GNU Lesser General Public License v3 (LGPLv3)": "GNU Lesser General Public License v3 (LGPLv3)",
-        "GNU Lesser General Public License v2.1 or later (LGPLv2+)": "GNU Lesser General Public License v2.1 or later (LGPLv2+)",
-        "GNU Lesser General Public License v2.1 (LGPLv2)": "GNU Lesser General Public License v2.1 (LGPLv2)",
+        "GNU Lesser General Public License v3 or later (LGPLv3+)": "LGPL-3.0-or-later",
+        "GNU Lesser General Public License v3 (LGPLv3)": "LGPL-3.0-only",
+        "GNU Lesser General Public License v2.1 or later (LGPLv2+)": "LGPL-2.1-or-later",
+        "GNU Lesser General Public License v2.1 (LGPLv2)": "LGPL-2.1-only",
       }[cookiecutter.license]
     }}',
 {%- endif %}
