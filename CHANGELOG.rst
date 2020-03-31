@@ -3,6 +3,19 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+v1.16 (2020-03-31)
+------------------
+
+* Ignored files: .ipynb_checkpoints, .benchmarks
+* Reduce configuration (elide defaults) and remove copy-pasta stuff from docs.
+* Various CI, packaging, metadata and badge fixes.
+* Added .readthedocs.yml config file.
+* Added support for Python 3.8, dropped Python 3.4.
+* Added pyproject.toml to solve a bunch of packaging problems when setuptools-scm or Cython/CFFI are enabled.
+* Added options to customize where docs, repository and packages are hosted.
+* Added options to customize where tests are located.
+* Added GNU LGPL licenses.
+
 v1.15 (2019-05-25)
 ------------------
 
