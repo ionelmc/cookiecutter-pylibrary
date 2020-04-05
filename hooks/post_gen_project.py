@@ -110,6 +110,10 @@ if __name__ == "__main__":
     os.unlink('MANIFEST.in')
 {% endif %}
 
+{%- if cookiecutter.pre_commit == 'no' %}
+    os.unlink('.pre-commit-config.yaml')
+{% endif %}
+
 {%- if cookiecutter.license == "no" %}
     os.unlink('LICENSE')
 {% endif %}

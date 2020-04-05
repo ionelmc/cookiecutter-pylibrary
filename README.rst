@@ -256,7 +256,11 @@ You will be asked for these fields:
 
         "flake8"
       - Linter to use for ``tox -e check``. Available options: ``flake8`` or ``pylama``
+    * - ``pre_commit``
+      - .. code:: python
 
+        "no"
+      - Enable basic `pre-commit <https://pre-commit.com/>`_ configuration.
     * - ``command_line_interface``
       - .. code:: python
 

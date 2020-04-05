@@ -7,6 +7,10 @@ import os
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
 import traceback
 {%- endif %}
+{%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
+
+import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
+{%- endif %}
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -44,7 +48,6 @@ extlinks = {
 }
 
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
-import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
