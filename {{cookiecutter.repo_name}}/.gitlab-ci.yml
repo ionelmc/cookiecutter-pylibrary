@@ -177,6 +177,15 @@ default:
     # This is not ideal, but if installation takes a very long time, then you
     # might want to use a Docker image with most of your dependencies already
     # installed.
+
+    - python3 --version || echo "python3 is not found by that name."
+    # If the docs include a Jupyter notebook, we need ipykernel to build the docs (including running doctests).
+    # Without ipykernel, attempting to --execute Jupyter notebooks when building the documentation will fail with
+    # No such kernel named python3
+    - pip install ipykernel
+    - python -m ipykernel install
+    - pip install ipywidgets # without this, module 'plotly.graph_objects' has no attribute 'FigureWidget'
+
     - right_before_pip_install=$(date +%s)
     - pip install .
     - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
