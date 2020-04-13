@@ -178,6 +178,8 @@ default:
     # might want to use a Docker image with most of your dependencies already
     # installed.
 
+    - pip install --upgrade sphinx
+
     - python3 --version || echo "python3 is not found by that name."
     # If the docs include a Jupyter notebook, we need ipykernel to build the docs (including running doctests).
     # Without ipykernel, attempting to --execute Jupyter notebooks when building the documentation will fail with
@@ -265,7 +267,6 @@ test:
   - virtualenv --version
   - pip --version
   - python -m sphinx --version # linkcheck can spuriously fail on old versions of sphinx.
-  - pip install --upgrade sphinx
   - tox --version
   - uname --all
   - lsb_release --all || echo "lsb_release is not supported on this host."
