@@ -19,6 +19,9 @@ source =
     tests
 {%- endif %}
 parallel = true
+{%- if cookiecutter.c_extension_support == 'cython' %}
+plugins = Cython.Coverage
+{%- endif %}
 
 [report]
 show_missing = true

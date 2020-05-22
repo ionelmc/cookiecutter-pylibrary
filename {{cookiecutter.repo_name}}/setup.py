@@ -241,6 +241,7 @@ setup(
         Extension(
             splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
             sources=[path],
+            extra_compile_args=os.environ.get('SETUPPY_CFLAGS', '').split(),
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
