@@ -174,8 +174,8 @@ setup(
 {%- if cookiecutter.repo_hosting_domain != "no" %}
     project_urls={
 {%- if cookiecutter.sphinx_docs == "yes" %}
-        'Documentation': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/',
-        'Changelog': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/en/latest/changelog.html',
+        'Documentation': '{{ cookiecutter.sphinx_docs_hosting }}',
+        'Changelog': '{{ cookiecutter.sphinx_docs_hosting }}en/latest/changelog.html',
 {%- else %}
         'Changelog': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
 {%- endif %}
