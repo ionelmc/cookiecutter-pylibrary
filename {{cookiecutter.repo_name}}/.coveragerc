@@ -19,7 +19,7 @@ source =
     tests
 {%- endif %}
 parallel = true
-{%- if cookiecutter.c_extension_support == 'cython' %}
+{%- if cookiecutter.c_extension_support == 'cython' and cookiecutter.test_matrix_separate_coverage == 'no' %}
 plugins = Cython.Coverage
 {%- endif %}
 
