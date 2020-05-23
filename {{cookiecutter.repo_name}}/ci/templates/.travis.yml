@@ -5,6 +5,7 @@ env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
+    - LC_ALL=en_US.UTF-8
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
     - TWINE_USERNAME={{ cookiecutter.c_extension_test_pypi_username }}
 {%- endif %}
