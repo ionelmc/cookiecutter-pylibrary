@@ -27,6 +27,7 @@ matrix:
 {%- if cookiecutter.travis_osx == "yes" %}
 {{ "{%- if 'py37' in env or 'py27' in env %}{{ '' }}" }}
 {{ "    - os: osx" }}
+{{ "      osx_image: xcode11" }}
 {{ "      language: generic" }}
 {{ "      env:" }}
 {{ "        - TOXENV={{ env }}" }}
