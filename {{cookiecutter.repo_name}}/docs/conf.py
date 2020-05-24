@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-{%- if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' %}
+{% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 import os
-{%- endif %}
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+{% endif -%}
+{% if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
 {%- endif %}
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
