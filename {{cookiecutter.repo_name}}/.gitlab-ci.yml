@@ -48,7 +48,7 @@ default:
     {% raw -%}
     - if [ ${#SSH_PRIVATE_KEY} -le 5 ]; then echo "SSH_PRIVATE_KEY looks far too short, something is wrong"; fi
     {%- endraw %}
-    - apk add openssh-client || apt-get install --assume-yes openssh-client
+    - apk add openssh-client || apt-get install --assume-yes openssh-client || (apt-get update && apt-get install --assume-yes openssh-client)
     - echo "adding openssh-client took $(( $(date +%s) - right_after_pull_docker_image)) seconds"
 
     # ssh-agent -s starts the ssh-agent and then outputs shell commands to run.
@@ -261,10 +261,10 @@ test:
   # apk add git here.
   # If using an image that does not include tox, we will
   # need to pip install tox here.
-  - git --version
+  - git --version || echo "git is not installed."
   - python --version
   - python2 --version || echo "python2 is not installed."
-  - virtualenv --version
+  - virtualenv --version || echo "virtualenv is not installed."
   - pip --version
   - python -m sphinx --version # linkcheck can spuriously fail on old versions of sphinx.
   - tox --version
