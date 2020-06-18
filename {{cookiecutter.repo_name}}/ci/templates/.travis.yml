@@ -5,6 +5,7 @@ env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
+    - LANG=en_US.UTF-8
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
     - TWINE_USERNAME={{ cookiecutter.c_extension_test_pypi_username }}
 {%- endif %}
@@ -26,6 +27,7 @@ matrix:
 {%- if cookiecutter.travis_osx == "yes" %}
 {{ "{%- if 'py37' in env or 'py27' in env %}{{ '' }}" }}
 {{ "    - os: osx" }}
+{{ "      osx_image: xcode11" }}
 {{ "      language: generic" }}
 {{ "      env:" }}
 {{ "        - TOXENV={{ env }}" }}

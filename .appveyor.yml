@@ -7,7 +7,6 @@ matrix:
 environment:
   matrix:
     - ENV: cext
-    - ENV: cext-optional
     - ENV: cffi
     - ENV: cython
     - ENV: matrix-cext
@@ -23,7 +22,6 @@ environment:
     - ENV: pure-private
     - ENV: pure-pylama
     - ENV: separate-cext
-    - ENV: separate-cext-optional
     - ENV: separate-cext-scm-osx-publish
     - ENV: separate-cffi
     - ENV: separate-cffi-scm-osx-publish

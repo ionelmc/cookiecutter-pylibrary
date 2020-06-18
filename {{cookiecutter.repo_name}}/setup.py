@@ -114,7 +114,12 @@ setup(
         "BSD 3-Clause License": "BSD-3-Clause",
         "MIT license": "MIT",
         "ISC license": "ISC",
-        "Apache Software License 2.0": "Apache-2.0"}[cookiecutter.license]
+        "Apache Software License 2.0": "Apache-2.0",
+        "GNU Lesser General Public License v3 or later (LGPLv3+)": "LGPL-3.0-or-later",
+        "GNU Lesser General Public License v3 (LGPLv3)": "LGPL-3.0-only",
+        "GNU Lesser General Public License v2.1 or later (LGPLv2+)": "LGPL-2.1-or-later",
+        "GNU Lesser General Public License v2.1 (LGPLv2)": "LGPL-2.1-only",
+      }[cookiecutter.license]
     }}',
 {%- endif %}
     description={{ '{0!r}'.format(cookiecutter.project_short_description).lstrip('ub') }},
@@ -147,6 +152,14 @@ setup(
         'License :: OSI Approved :: ISC License (ISCL)',
 {%- elif cookiecutter.license == "Apache Software License 2.0" %}
         'License :: OSI Approved :: Apache Software License',
+{%- elif 'LGPLv3+' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)'
+{%- elif 'LGPLv3' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)'
+{%- elif 'LGPLv2' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)'
+{%- elif 'LGPLv2' in cookiecutter.license %}
+        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)'
 {%- endif %}
         'Operating System :: Unix',
         'Operating System :: POSIX',
@@ -157,6 +170,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         # uncomment if you test on these interpreters:
@@ -171,8 +185,8 @@ setup(
 {%- if cookiecutter.repo_hosting_domain != "no" %}
     project_urls={
 {%- if cookiecutter.sphinx_docs == "yes" %}
-        'Documentation': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/',
-        'Changelog': 'https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/en/latest/changelog.html',
+        'Documentation': '{{ cookiecutter.sphinx_docs_hosting }}',
+        'Changelog': '{{ cookiecutter.sphinx_docs_hosting }}en/latest/changelog.html',
 {%- else %}
         'Changelog': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst',
 {%- endif %}
@@ -238,6 +252,7 @@ setup(
         Extension(
             splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
             sources=[path],
+            extra_compile_args=os.environ.get('SETUPPY_CFLAGS', '').split(),
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
