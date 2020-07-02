@@ -109,7 +109,7 @@ default:
     - if [ -d /opt/conda ]; then
     - CONDA_DIR=/opt/conda
     - PATH=$CONDA_DIR/bin:$PATH
-    - source activate test-env
+    - if source activate test-env; then true; else echo "conda env named test-env not found"; fi
       ; else
       echo "/opt/conda was not found on this container"
       ; fi
