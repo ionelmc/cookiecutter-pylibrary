@@ -14,6 +14,10 @@ variables:
 default:
   before_script:
     - right_after_pull_docker_image=$(date +%s)
+    - cat /etc/os-release || echo "cat /etc/os-release failed."
+    - lsb_release -a || echo "lsb_release -a failed."
+    - hostnamectl || echo "hostnamectl failed."
+    - uname -r || echo "uname -r failed."
     - echo $(whoami)
     - echo $USER
 
