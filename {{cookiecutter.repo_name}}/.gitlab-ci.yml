@@ -41,9 +41,14 @@ default:
     - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
     - rm SSH.PRIVATE.KEY
     - cat environment.sh
+    # If the environment file wants to hack on our PATH, we usually want to ignore that part.
+    - SAVED_PATH=$PATH
     - set -o allexport
-    - source environment.sh || . ./environment.sh
+    # image gcr.io/kaniko-project/executor:debug (BusyBox v1.31.1) chokes on source environment.sh and also inexplicably chokes on the if-statement or ||
+    # - if source environment.sh; then true; else . ./environment.sh; fi
+    - . ./environment.sh
     - set +o allexport
+    - PATH=$SAVED_PATH
     - fi
 
     - if [ -z ${SSH_PRIVATE_DEPLOY_KEY+ABC} ]; then echo "SSH_PRIVATE_DEPLOY_KEY is unset, so assuming you do not need SSH set up.";
