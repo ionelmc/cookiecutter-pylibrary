@@ -42,7 +42,7 @@ default:
     - rm SSH.PRIVATE.KEY
     - cat environment.sh
     - set -o allexport
-    - source environment.sh
+    - source environment.sh || . ./environment.sh
     - set +o allexport
     - fi
 
