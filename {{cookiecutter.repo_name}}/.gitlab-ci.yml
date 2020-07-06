@@ -57,7 +57,7 @@ default:
     {% raw -%}
     - if [ ${#SSH_PRIVATE_DEPLOY_KEY} -le 5 ]; then echo "SSH_PRIVATE_DEPLOY_KEY looks far too short, something is wrong"; fi
     {%- endraw %}
-    - apk add openssh-client || apt-get install --assume-yes openssh-client || (apt-get update && apt-get install --assume-yes openssh-client)
+    - apk add openssh-client || apt-get install --assume-yes openssh-client || (apt-get update && apt-get install --assume-yes openssh-client)  || echo "Failed to install openssh-client; proceeding anyway to see if this image has its own SSH."
     - echo "adding openssh-client took $(( $(date +%s) - right_after_pull_docker_image)) seconds"
 
     # ssh-agent -s starts the ssh-agent and then outputs shell commands to run.
