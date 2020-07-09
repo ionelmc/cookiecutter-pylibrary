@@ -187,7 +187,7 @@ default:
     # might want to use a Docker image with most of your dependencies already
     # installed.
 
-    - pip install --upgrade sphinx
+    - pip install --upgrade sphinx tox
 
     - python3 --version || echo "python3 is not found by that name."
     # If the docs include a Jupyter notebook, we need ipykernel to build the docs (including running doctests).
