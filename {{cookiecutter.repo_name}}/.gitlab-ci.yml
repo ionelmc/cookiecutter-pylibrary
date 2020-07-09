@@ -187,7 +187,7 @@ default:
     # might want to use a Docker image with most of your dependencies already
     # installed.
 
-    - pip install --upgrade sphinx tox
+    - pip install --upgrade sphinx
 
     - python3 --version || echo "python3 is not found by that name."
     # If the docs include a Jupyter notebook, we need ipykernel to build the docs (including running doctests).
@@ -272,6 +272,7 @@ test:
   # apk add git here.
   # If using an image that does not include tox, we will
   # need to pip install tox here.
+  - pip install tox
   - git --version || echo "git is not installed."
   - python --version
   - python2 --version || echo "python2 is not installed."
