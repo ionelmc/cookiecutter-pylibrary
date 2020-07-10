@@ -86,9 +86,9 @@ before_install:
 {%- endif %}
 install:
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
-  - python -mpip install --progress-bar=off twine tox-wheel -rci/requirements.txt
+  - python -m pip install --progress-bar=off twine tox-wheel -rci/requirements.txt
 {%- else %}
-  - python -mpip install --progress-bar=off tox -rci/requirements.txt
+  - python -m pip install --progress-bar=off tox -rci/requirements.txt
 {%- endif %}
   - virtualenv --version
   - easy_install --version
