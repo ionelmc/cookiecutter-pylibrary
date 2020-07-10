@@ -1,5 +1,5 @@
 """
-Entrypoint module, in case you use `python -m{{cookiecutter.package_name}}`.
+Entrypoint module, in case you use `python -m {{cookiecutter.package_name}}`.
 
 
 Why does this file exist, and why __main__? For more info, read:
