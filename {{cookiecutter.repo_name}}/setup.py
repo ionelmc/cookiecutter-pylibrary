@@ -6,6 +6,9 @@ from __future__ import print_function
 import io
 {% if cookiecutter.c_extension_support != 'no' -%}
 import os
+{% if cookiecutter.c_extension_support == 'yes' -%}
+import platform
+{% endif -%}
 {% endif -%}
 {% if cookiecutter.repo_hosting_domain == "no" -%}
 import os.path
@@ -52,12 +55,23 @@ def read(*names, **kwargs):
         return fh.read()
 
 
-{% if cookiecutter.c_extension_support != 'no' -%}
+{% if cookiecutter.c_extension_support in ['yes', 'cython'] -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
-if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
-    os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
+if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUP_PY_EXT_COVERAGE') == 'yes'
+{%- if cookiecutter.c_extension_support == 'yes' %} and platform.system() == 'Linux'{% endif %}:
+{%- if cookiecutter.c_extension_support == 'cython' %}
+    CFLAGS = os.environ['CFLAGS'] = '-DCYTHON_TRACE=1'
+    LFLAGS = os.environ['LFLAGS'] = ''
+{%- elif cookiecutter.c_extension_support == 'yes' %}
+    CFLAGS = os.environ['CFLAGS'] = '-fprofile-arcs -ftest-coverage'
+    LFLAGS = os.environ['LFLAGS'] = '-lgcov'
+{%- endif %}
+else:
+    CFLAGS = ''
+    LFLAGS = ''
+
 
 {% if cookiecutter.c_extension_optional == 'yes' %}
 class optional_build_ext(build_ext):
@@ -241,7 +255,8 @@ setup(
         Extension(
             splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
             sources=[path],
-            extra_compile_args=os.environ.get('SETUPPY_CFLAGS', '').split(),
+            extra_compile_args=CFLAGS.split(),
+            extra_link_args=LFLAGS.split(),
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
