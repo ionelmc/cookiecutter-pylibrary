@@ -46,15 +46,6 @@ except ImportError:
 {%- endif %}
 {%- endif %}
 
-
-def read(*names, **kwargs):
-    with io.open(
-        join(dirname(__file__), *names),
-        encoding=kwargs.get('encoding', 'utf8')
-    ) as fh:
-        return fh.read()
-
-
 {% if cookiecutter.c_extension_support in ['yes', 'cython'] -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
@@ -73,7 +64,7 @@ else:
     LFLAGS = ''
 
 
-{% if cookiecutter.c_extension_optional == 'yes' %}
+{% if cookiecutter.c_extension_optional == 'yes' -%}
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
@@ -100,6 +91,14 @@ class optional_build_ext(build_ext):
 
 {% endif -%}
 {% endif -%}
+def read(*names, **kwargs):
+    with io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get('encoding', 'utf8')
+    ) as fh:
+        return fh.read()
+
+
 setup(
     name='{{ cookiecutter.distribution_name }}',
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
