@@ -41,7 +41,7 @@ To set up `{{ cookiecutter.repo_name }}` for local development:
    (look for the "Fork" button).
 2. Clone your fork locally::
 
-    git clone git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
+    git clone git@{{ cookiecutter.repo_hosting_domain }}:YOURGITHUBNAME/{{ cookiecutter.repo_name }}.git
 
 3. Create a branch for local development::
 
