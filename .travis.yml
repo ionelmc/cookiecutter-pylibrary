@@ -3,7 +3,7 @@ dist: xenial
 python: '3.7'
 cache:
   directories:
-  - $HOME/.pip/wheels
+    - $HOME/.pip/wheels
 env:
   global:
     LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
