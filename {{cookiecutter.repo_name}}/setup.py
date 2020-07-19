@@ -4,26 +4,26 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import io
-{% if cookiecutter.c_extension_support != 'no' -%}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
 import os
-{% if cookiecutter.c_extension_support == 'yes' -%}
+{%- if cookiecutter.c_extension_support == 'yes' %}
 import platform
-{% endif -%}
-{% endif -%}
-{% if cookiecutter.repo_hosting_domain == "no" -%}
+{%- endif -%}
+{%- endif -%}
+{%- if cookiecutter.repo_hosting_domain == "no" %}
 import os.path
-{% endif -%}
+{%- endif %}
 import re
-{% if cookiecutter.c_extension_support == 'cffi' -%}
+{%- if cookiecutter.c_extension_support == 'cffi' %}
 import sys
-{% endif -%}
+{%- endif %}
 from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
-{% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
+{%- if cookiecutter.c_extension_support not in ['no', 'cffi'] %}
 from os.path import relpath
-{% endif -%}
+{%- endif %}
 from os.path import splitext
 
 {% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
@@ -31,7 +31,7 @@ from setuptools import Extension
 {% endif -%}
 from setuptools import find_packages
 from setuptools import setup
-{%- if cookiecutter.c_extension_support != 'no' -%}
+{%- if cookiecutter.c_extension_support != 'no' %}
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
@@ -46,6 +46,7 @@ except ImportError:
 {%- endif %}
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' %}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
 
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
@@ -62,6 +63,7 @@ if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUP_PY_EXT_COVERAGE') == '
 else:
     CFLAGS = ''
     LFLAGS = ''
+{%- endif %}
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 
 
@@ -254,8 +256,10 @@ setup(
         Extension(
             splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
             sources=[path],
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
             extra_compile_args=CFLAGS.split(),
             extra_link_args=LFLAGS.split(),
+{%- endif %}
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
