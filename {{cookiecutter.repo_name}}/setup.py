@@ -45,8 +45,8 @@ except ImportError:
     Cython = None
 {%- endif %}
 {%- endif %}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
 
-{% if cookiecutter.c_extension_support in ['yes', 'cython'] -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
@@ -62,9 +62,9 @@ if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUP_PY_EXT_COVERAGE') == '
 else:
     CFLAGS = ''
     LFLAGS = ''
+{%- if cookiecutter.c_extension_optional == 'yes' %}
 
 
-{% if cookiecutter.c_extension_optional == 'yes' -%}
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
@@ -87,10 +87,10 @@ class optional_build_ext(build_ext):
         print('')
         print('    ' + repr(e))
         print('*' * 80)
+{%- endif %}
+{%- endif %}
 
 
-{% endif -%}
-{% endif -%}
 def read(*names, **kwargs):
     with io.open(
         join(dirname(__file__), *names),
