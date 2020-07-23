@@ -150,7 +150,7 @@ To use the project:
 Development
 ===========
 
-To run the all tests run::
+To run all the tests run::
 
     tox
 
