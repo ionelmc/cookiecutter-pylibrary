@@ -6,7 +6,6 @@
     "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
     "repo_hosting": ["github.com", "gitlab.com", "other domain not listed"],
     "repo_hosting_domain": "{{ cookiecutter.repo_hosting if cookiecutter.repo_hosting != 'other domain not listed' else '' }}",
-    "ci_https_proxy": "no",
     "repo_username": "ionelmc",
     "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
     "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",

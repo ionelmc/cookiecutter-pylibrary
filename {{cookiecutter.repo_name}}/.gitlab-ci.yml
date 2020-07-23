@@ -1,16 +1,5 @@
 image: dahanna/python:alpine-miniconda-3.7-git-tox
 
-{% if cookiecutter.ci_https_proxy != "no" -%}
-variables:
-  # HTTP_PROXY is used to pull docker images.
-  HTTP_PROXY: {{cookiecutter.ci_https_proxy}}
-  # HTTPS_PROXY is used to install Python packages such as tox.
-  HTTPS_PROXY: {{cookiecutter.ci_https_proxy}}
-  # If we don't include NO_PROXY, we will get "fatal unable to update url base from redirection"
-  # when trying to fetch the gitlab-ci-token.
-  NO_PROXY: 127.0.0.1,localhost,.lan,.local,.home,/var/run/docker.sock,{{cookiecutter.repo_hosting_domain}}
-{%- endif %}
-
 default:
   before_script:
     - right_after_pull_docker_image=$(date +%s)

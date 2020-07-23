@@ -139,12 +139,6 @@ You will be asked for these fields:
       - Use ``"no"`` for no hosting (various links will disappear). You can also use ``"gitlab.com"`` and such but various
         things will be broken (like Travis configuration).
 
-    * - ``ci_https_proxy``
-      - .. code:: python
-
-            null
-      - If your CI runner requires an HTTPS proxy, then you can specify it here.
-
     * - ``repo_name``
       - .. code:: python
 
