@@ -1,12 +1,11 @@
 language: python
 dist: xenial
-python: '3.7'
-cache:
-  directories:
-  - $HOME/.pip/wheels
+python: '3.8'
+cache: pip
 env:
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=libSegFault.so
+    - SEGFAULT_SIGNALS=all
   matrix:
 {% for env, config in tox_environments|dictsort %}
     - ENV={{ env }}
