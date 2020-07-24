@@ -225,7 +225,7 @@ default:
   #Hidden job to use as an "extends" template
   only:
     variables:
-      - $BUILD_DOCKER_IMAGE
+      - $BUILD_DOCKER_IMAGE != null
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -426,7 +426,7 @@ test-built-image:
   extends: test
   only:
     variables:
-      - $BUILD_DOCKER_IMAGE
+      - $BUILD_DOCKER_IMAGE != null
   image:
     name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     entrypoint: [""]
