@@ -134,6 +134,7 @@ if __name__ == "__main__":
             subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap'])
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
+            subprocess.check_call([sys.executable, join('ci', 'assembler.py')])
 
     print("""
 ################################################################################
