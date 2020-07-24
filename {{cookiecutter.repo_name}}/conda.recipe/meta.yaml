@@ -74,12 +74,17 @@ test:
   commands:
     - pytest tests
 
+# If editing this file, beware that conda build can produce some inscrutable errors.
+# For example, if you replace setup_py_data.get('license') with setup_py.get('license')
+# (representing a misspelling of a variable name you might want to add),
+# conda buidl will vomit forth TypeError: 'NoneType' object is not callable,
+# with no hint as to what NoneType object is being called or where or when or why.
 about:
   home: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
   summary: {{ cookiecutter.project_short_description }}
 {%- if cookiecutter.license != "no" %}
   {% raw -%}
-  license: {{ setup_py.get('license') }}
+  license: {{ setup_py_data.get('license') }}
   {%- endraw %}
   license_file: LICENSE
 {%- endif %}

@@ -104,15 +104,27 @@ default:
     - ssh-keyscan -t rsa $SERVERS_TO_WHITELIST_FOR_SSH >> ~/.ssh/known_hosts
     - fi
 
+    - if command -v conda; then echo "command finds conda"; else echo "command does not find conda"; fi
     - if [ -d /opt/conda ]; then
     - CONDA_DIR=/opt/conda
     - PATH=$CONDA_DIR/bin:$PATH
-    - if source activate test-env; then true; else echo "conda env named test-env not found"; fi
+    # Now PATH will find conda's "activate" script.
+    # Annoyingly, conda activate is not idempotent.
+    # We have to avoid activating the env twice, else we will get an error.
+    # When a conda env is activated, it sets $CONDA_DEFAULT_ENV to its own name.
+    - if [ "$CONDA_DEFAULT_ENV" = "test-env" ]; then echo "This image already has test-env activated.";
+      else
+    - conda env list
+    - fi
+    - if [ "$CONDA_DEFAULT_ENV" = "test-env" ] || source activate test-env; then true; else echo "No conda env named test-env was found, so not activating any particular env."; fi
       ; else
       echo "/opt/conda was not found on this container"
       ; fi
 
-    - pip install --upgrade pip
+    # If PROXY_CA_PEM is provided, we'll merge it with pip's cert store.
+    # We unconditionally upgrade pip first, in case pip gets upgraded later in the build.
+    - if command -v python; then python -m pip install --upgrade pip; fi
+
     - if [ -z ${PROXY_CA_PEM+ABC} ]; then echo "PROXY_CA_PEM is unset, so assuming you do not need a merged CA certificate set up.";
       else
     # All of this will be skipped unless you set PROXY_CA_PEM in GitLab.
@@ -130,6 +142,8 @@ default:
     # leading to SSLError SSLCertVerificationError 'certificate verify failed self signed certificate in certificate chain (_ssl.c:1076)'
     - PROXY_CA_PEM=tmp-proxy-ca.pem
       ; fi
+
+    - if command -v python; then
     # If some of the links in your documentation require a special PEM to verify,
     # then sphinx -b linkcheck will fail without that PEM.
     # But setting REQUESTS_CA_BUNDLE to that PEM will cause other links to fail,
@@ -156,6 +170,7 @@ default:
     - ls $REQUESTS_CA_BUNDLE
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
     - fi
+    - fi
 
     ##
     ## With all our proxy variables and certificates in place, we should now be
@@ -176,15 +191,15 @@ default:
     # might want to use a Docker image with most of your dependencies already
     # installed.
 
-    - pip install --upgrade sphinx
-
     - python3 --version || echo "python3 is not found by that name."
     # If the docs include a Jupyter notebook, we need ipykernel to build the docs (including running doctests).
     # Without ipykernel, attempting to --execute Jupyter notebooks when building the documentation will fail with
     # No such kernel named python3
+    - if command -v jupyter; then
     - pip install ipykernel
     - python -m ipykernel install
     - pip install ipywidgets # without this, module 'plotly.graph_objects' has no attribute 'FigureWidget'
+    - fi
 
     - right_before_pip_install=$(date +%s)
     - pip install .
@@ -215,7 +230,11 @@ pages:
   - python -c "import sys; print(sys.platform)"
   - if command -v conda; then echo "conda found"; else echo "conda not found"; fi
   - if command -v conda; then
-  - if source activate test-env; then
+  - if [ "$CONDA_DEFAULT_ENV" = "test-env" ]; then
+  # How should we decide whether or not to build a conda package?
+  # The thing is that building a conda package takes additional build time,
+  # and many people don't use them.
+  # For now, the magic env name is what controls it.
   - right_before_conda_build=$(date +%s)
   - conda info
   - apk add bash
@@ -232,7 +251,7 @@ pages:
   - conda convert `ls docs/_static/conda-channel/linux-64/*.tar.bz2` --platform all --output-dir docs/_static/conda-channel/
   # conda index doesn't seem to actually make any additional files beyond what conda build already makes
   - conda index docs/_static/conda-channel/
-    ; else echo "No conda env named test-env found in this container, so not building a conda package."; fi
+    ; else echo "The conda env named test-env is not activated, so not building a conda package."; fi
     ; else
     echo "conda not found in this container, so not building a conda package."
     ; fi
@@ -277,6 +296,12 @@ test:
   # environment. But for continuous integration, we do want sitepackages=true,
   # because it allows us to use a Docker image with some packages already
   # installed to accelerate testing.
+  # However, Pygments presents a problem. Lots of Docker images you might want to use
+  # have older versions of Pygments that will break your build.
+  # (sphinx uses Pygments and so does readme-renderer, used by tox -e check.)
+  # pkg_resources.VersionConflict (Pygments 2.4.2 (/opt/conda/envs/test-env/lib/python3.7/site-packages), Requirement.parse('Pygments>=2.5.1'))
+  # If an old version of Pygments is installed, we upgrade it first.
+  - if python -m pip show Pygments; then python -m pip install --upgrade Pygments; fi
   - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"

@@ -50,6 +50,7 @@ def read(*names, **kwargs):
         encoding=kwargs.get('encoding', 'utf8')
     ) as fh:
         return fh.read()
+{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
 
 
 def get_version_for_conda_meta_yaml():
@@ -60,6 +61,7 @@ def get_version_for_conda_meta_yaml():
     """
     return '0.0.0'
     # return pkg_resources.get_distribution(__name__).version
+{%- endif %}
 
 
 {% if cookiecutter.c_extension_support != 'no' -%}
@@ -104,9 +106,11 @@ setup(
         'write_to': 'src/{{ cookiecutter.package_name }}/_version.py',
         'fallback_version': '{{ cookiecutter.version }}',
     },
-    get_version_for_conda_meta_yaml=get_version_for_conda_meta_yaml,
 {%- else %}
     version='{{ cookiecutter.version }}',
+{%- endif %}
+{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
+    get_version_for_conda_meta_yaml=get_version_for_conda_meta_yaml,
 {%- endif %}
 {%- if cookiecutter.license != "no" %}
     license='{{ {
