@@ -360,6 +360,7 @@ You will be asked for these fields:
         visualizations that you want to include in the documentation. Since those are large binary files,
         you don't want to add them to git. So you'll generate them on-the-fly when the documentation is
         built.
+        You should also set this to ``"yes"`` if you want to use GitLab Pages to host your conda package.
 
     * - ``sphinx_doctest``
       - .. code:: python
