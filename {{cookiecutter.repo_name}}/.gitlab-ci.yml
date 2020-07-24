@@ -1,11 +1,13 @@
 image: dahanna/python:alpine-miniconda-3.7-git-tox
 
+{% if cookiecutter.docs_require_package == 'yes' -%}
 stages:
   - buildimage
-  # If we are not using doctest, then pages does not actually require the Docker image.
   - pages
   - build
   - test
+
+{% endif -%}
 
 default:
   before_script:
@@ -207,12 +209,14 @@ default:
     - python -m ipykernel install
     - pip install ipywidgets # without this, module 'plotly.graph_objects' has no attribute 'FigureWidget'
     - fi
-
+{% if cookiecutter.docs_require_package == 'yes' %}
     - if command -v python; then
+    # We install the package separately so that we can continuously monitor how long installation takes.
     - right_before_pip_install=$(date +%s)
     - python -m pip install .
     - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
     - fi
+{%- endif %}
 
     - echo "before_script took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
 
@@ -222,7 +226,11 @@ default:
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
+{%- if cookiecutter.docs_require_package == 'yes' %}
+  stage: buildimage
+{%- else %}
   stage: build
+{%- endif %}
   script:
     - echo "Building and shipping image to $CI_REGISTRY_IMAGE"
       #Build date for opencontainers
@@ -280,12 +288,23 @@ build-for-gitlab-project-registry:
 # Since "It may take up to 30 minutes before the site is available after the
 # first deployment." (per GitLab), the tests will still fail for a little
 # while.
+# The magic around GitLab pages is in the name of the job. It has to be named "pages", and nothing else.
 pages:
   tags:
   - docker
   stage: build
   # On GitLab, the stages are build->test->deploy.
   # If the test stage fails, the deploy stage is skipped.
+{%- if cookiecutter.docs_require_package == 'yes' %}
+  # If building the documentation requires your package installed,
+  # and building your package takes some time,
+  # you might be able to save some time by building a Docker image and using it for both the pages and test jobs.
+  # Unfortunately, GitLab does not have a way to specify a primary and fallback image or anything,
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/issues/25020
+  # so we can't do this automatically.
+  # Similarly, we can't hack around this using "only" as we did for the test job,
+  # because only one job can have the magic name "pages".
+{%- endif %}
   script:
   - pip install -r docs/requirements.txt
 
@@ -334,7 +353,12 @@ pages:
     paths:
     - public
   only:
-  - master
+    refs:
+      - master
+{%- if cookiecutter.docs_require_package == 'no' %}
+    changes:
+      - docs/**/*
+{%- endif %}
 
 test:
   tags:
@@ -350,13 +374,25 @@ test:
   # Thus the test job comes after the Pages job, but skips downloading artifacts.
   dependencies: []
   script:
+{%- if cookiecutter.docs_require_package == 'no' %}
+  # We install the package separately so that we can continuously monitor how long installation takes.
+  # Note that pip install . will always reinstall the package even if it is already installed.
+  # However, its dependencies will not be reinstalled.
+  # If installation nevertheless takes a nontrivial amount of time, and you're building a Docker image anyway,
+  # you could skip reinstalling here.
+  - right_before_pip_install=$(date +%s)
+  - python -m pip install .
+  - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
+{%- endif %}
+  # If using an image that does not include tox, we will
+  # need to pip install tox here.
+  - pip install tox
+
   # apk add any needed packages not included in the image.
   # check-manifest, used in tox -e check, requires git,
   # so we need to either use an image that includes git or
   # apk add git here.
-  # If using an image that does not include tox, we will
-  # need to pip install tox here.
-  - pip install tox
+
   - git --version || echo "git is not installed."
   - python --version
   - python2 --version || echo "python2 is not installed."

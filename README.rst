@@ -347,6 +347,20 @@ You will be asked for these fields:
         <https://pypi.org/project/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
         the Python 3 documentation.
 
+    * - ``docs_require_package``
+      - .. code:: python
+
+            "no"
+      - Set to ``"yes"`` if you want to enable using your package when building documentation.
+        Leave as ``"no"`` if you want your docs to build as quickly as possible, to show live updates.
+        You *can* still use doctests and specify skipif on all of them so that doctests will be run by
+        tox but passed through when just building the documentation.
+
+        Your documentation will absolutely require your package if, for example, your package produces
+        visualizations that you want to include in the documentation. Since those are large binary files,
+        you don't want to add them to git. So you'll generate them on-the-fly when the documentation is
+        built.
+
     * - ``sphinx_doctest``
       - .. code:: python
 
