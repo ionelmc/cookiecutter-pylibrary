@@ -1,0 +1,9 @@
+.tox
+.eggs
+.git
+.pytest_cache
+examples/
+tests/
+pip-wheel-metadata/
+htmlcov/
+

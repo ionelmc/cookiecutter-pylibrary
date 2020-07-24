@@ -1,5 +1,12 @@
 image: dahanna/python:alpine-miniconda-3.7-git-tox
 
+stages:
+  - buildimage
+  # If we are not using doctest, then pages does not actually require the Docker image.
+  - pages
+  - build
+  - test
+
 default:
   before_script:
     - right_after_pull_docker_image=$(date +%s)
@@ -201,11 +208,67 @@ default:
     - pip install ipywidgets # without this, module 'plotly.graph_objects' has no attribute 'FigureWidget'
     - fi
 
+    - if command -v python; then
     - right_before_pip_install=$(date +%s)
-    - pip install .
+    - python -m pip install .
     - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
+    - fi
 
     - echo "before_script took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+
+
+.build_with_kaniko:
+  #Hidden job to use as an "extends" template
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  stage: build
+  script:
+    - echo "Building and shipping image to $CI_REGISTRY_IMAGE"
+      #Build date for opencontainers
+    - BUILDDATE="'$(date '+%FT%T%z' | sed -E -n 's/(\+[0-9]{2})([0-9]{2})$/\1:\2/p')'" #rfc 3339 date
+    - IMAGE_LABELS="$IMAGE_LABELS --label org.opencontainers.image.created=$BUILDDATE --label build-date=$BUILDDATE"
+      #Description for opencontainers
+    - BUILDTITLE=$(echo $CI_PROJECT_TITLE | tr " " "_")
+    - IMAGE_LABELS="$IMAGE_LABELS --label org.opencontainers.image.title=$BUILDTITLE --label org.opencontainers.image.description=$BUILDTITLE"
+      #Add ref.name for opencontainers
+    - IMAGE_LABELS="$IMAGE_LABELS --label org.opencontainers.image.ref.name=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+      #Build Version Label and Tag from git tag, LastVersionTagInGit was placed by a previous job artifact
+    - if [[ "$VERSIONLABELMETHOD" == "LastVersionTagInGit" ]]; then VERSIONLABEL=$(cat VERSIONTAG.txt); fi
+    - if [[ "$VERSIONLABELMETHOD" == "OnlyIfThisCommitHasVersion" ]]; then VERSIONLABEL=$CI_COMMIT_TAG; fi
+    - | 
+      if [[ ! -z "$VERSIONLABEL" ]]; then 
+        IMAGE_LABELS="$IMAGE_LABELS --label org.opencontainers.image.version=$VERSIONLABEL"
+        ADDITIONALTAGLIST="$ADDITIONALTAGLIST $VERSIONLABEL"
+      fi
+    - ADDITIONALTAGLIST="$ADDITIONALTAGLIST $CI_COMMIT_REF_NAME $CI_COMMIT_SHORT_SHA"
+    - if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then ADDITIONALTAGLIST="$ADDITIONALTAGLIST latest"; fi
+    - | 
+      if [[ -n "$ADDITIONALTAGLIST" ]]; then 
+        for TAG in $ADDITIONALTAGLIST; do 
+          FORMATTEDTAGLIST="${FORMATTEDTAGLIST} --tag $CI_REGISTRY_IMAGE:$TAG "; 
+        done; 
+      fi
+      #Reformat Docker tags to kaniko's --destination argument:
+    - FORMATTEDTAGLIST=$(echo "${FORMATTEDTAGLIST}" | sed s/\-\-tag/\-\-destination/g)
+    - echo $FORMATTEDTAGLIST
+    - echo $IMAGE_LABELS
+    - echo $http_proxy
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64)\"}}}" > /kaniko/.docker/config.json
+    # --build-arg HTTP_PROXY=$http_proxy is needed for e.g. apk add, when we fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --build-arg HTTP_PROXY=$http_proxy --build-arg HTTPS_PROXY=$https_proxy --build-arg NO_PROXY=$no_proxy --build-arg BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git $FORMATTEDTAGLIST $IMAGE_LABELS
+
+
+build-for-gitlab-project-registry:
+  extends: .build_with_kaniko
+  environment:
+    #This is only here for completeness; since there are no CI CD Variables with this scope, the project defaults are used
+    # to push to this projects docker registry
+    name: push-to-gitlab-project-registry
+  only:
+    variables:
+      - $BUILD_DOCKER_IMAGE
 
 # In general we want to use tox -e docs, but GitLab.com will not deploy Pages
 # if the pages build fails.
@@ -299,7 +362,8 @@ test:
   - python2 --version || echo "python2 is not installed."
   - virtualenv --version || echo "virtualenv is not installed."
   - pip --version
-  - python -m sphinx --version # linkcheck can spuriously fail on old versions of sphinx.
+  # linkcheck can spuriously fail on old versions of sphinx.
+  - python -m sphinx --version || echo "sphinx is not installed."
   - tox --version
   - uname --all
   - lsb_release --all || echo "lsb_release is not supported on this host."
@@ -318,4 +382,16 @@ test:
   - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+  only:
+    variables:
+      - $BUILD_DOCKER_IMAGE == null
+
+test-built-image:
+  extends: test
+  only:
+    variables:
+      - $BUILD_DOCKER_IMAGE
+  image:
+    name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    entrypoint: [""]
 
