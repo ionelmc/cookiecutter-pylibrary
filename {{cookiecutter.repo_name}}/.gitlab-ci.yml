@@ -36,7 +36,10 @@ default:
     - mkdir --parents ~/.ssh
     - echo "PasswordAuthentication=no" >> ~/.ssh/config
     - echo $SSH_PRIVATE_DEPLOY_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_DEPLOY_KEY is unset, this will just be empty.
-    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
+    # The BusyBox version of wget pays attention to http_proxy, but not no_proxy, a dangerous combination.
+    # The BusyBox version of wget permits a special option --proxy off to ignore http_proxy.
+    # Note the difference from --no-proxy used by GNU wget.
+    - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || (wget --help && wget --proxy off $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber) || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
     - rm SSH.PRIVATE.KEY
     - cat environment.sh
     # If the environment file wants to hack on our PATH, we usually want to ignore that part.
