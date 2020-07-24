@@ -253,6 +253,7 @@ pages:
   - conda convert `ls docs/_static/conda-channel/linux-64/*.tar.bz2` --platform all --output-dir docs/_static/conda-channel/
   # conda index doesn't seem to actually make any additional files beyond what conda build already makes
   - conda index docs/_static/conda-channel/
+  - echo "Building the conda channel took $(( $(date +%s) - right_before_conda_build)) seconds total"
     ; else echo "The conda env named test-env is not activated, so not building a conda package."; fi
     ; else
     echo "conda not found in this container, so not building a conda package."
