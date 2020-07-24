@@ -205,6 +205,8 @@ default:
     - pip install .
     - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
 
+    - echo "before_script took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+
 # In general we want to use tox -e docs, but GitLab.com will not deploy Pages
 # if the pages build fails.
 # The pages build will fail if you use tox -e docs with a link to your GitLab
@@ -263,6 +265,7 @@ pages:
     ; fi
 
   - mv dist/docs/ public/
+  - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
   artifacts:
     paths:
     - public
