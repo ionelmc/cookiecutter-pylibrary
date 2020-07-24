@@ -276,6 +276,15 @@ test:
   tags:
   - docker
   stage: test
+  # https://docs.gitlab.com/ee/ci/yaml/#dependencies
+  # By default, all artifacts from all previous stages are passed.
+  # And the entire website of a Pages job must be in the artifacts.
+  # This can take a nontrivial amount of time, especially if you're hosting a conda package that way,
+  # or if the gitlab-runner is pretty far from the GitLab instance server.
+  # We want the Pages job to run first because we want to immediately see our changes to the documentation
+  # without waiting on the testing to double-check that we don't have any broken links and such.
+  # Thus the test job comes after the Pages job, but skips downloading artifacts.
+  dependencies: []
   script:
   # apk add any needed packages not included in the image.
   # check-manifest, used in tox -e check, requires git,
