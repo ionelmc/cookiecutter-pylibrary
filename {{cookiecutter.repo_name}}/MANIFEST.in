@@ -21,7 +21,8 @@ include tox.ini .travis.yml .appveyor.yml{% if cookiecutter.sphinx_docs == 'yes'
 {% if 'gitlab' in cookiecutter.repo_hosting_domain -%}
 include .gitlab-ci.yml
 include conda.recipe/meta.yaml
-include .dockerignore Dockerfile
+include .dockerignore
+include dockerfiles/test.Dockerfile dockerfiles/slim.Dockerfile dockerfiles/before_script.sh
 {%- endif %}
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib
