@@ -54,13 +54,29 @@ include:
       fi
       #Reformat Docker tags to kaniko's --destination argument:
     - FORMATTEDTAGLIST=$(echo "${FORMATTEDTAGLIST}" | sed s/\-\-tag/\-\-destination/g)
-    - echo $FORMATTEDTAGLIST
-    - echo $IMAGE_LABELS
-    - echo $http_proxy
+
+    - BUILD_ARGS="$BUILD_ARGS --build-arg BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git"
+    # For cleanliness, we would prefer to leave build-args *unset* if they are unset here.
+    # Thus, we don't want to unconditionally pass --build-arg ETC_ENVIRONMENT_LOCATION=$ETC_ENVIRONMENT_LOCATION,
+    # as that would set ETC_ENVIRONMENT_LOCATION to an empty string if ETC_ENVIRONMENT_LOCATION were unset here.
+    - if [ -z ${ETC_ENVIRONMENT_LOCATION+ABC} ]; then echo "ETC_ENVIRONMENT_LOCATION is unset, so leaving it unset in the build."; else BUILD_ARGS="$BUILD_ARGS --build-arg ETC_ENVIRONMENT_LOCATION=$ETC_ENVIRONMENT_LOCATION"; fi
+    # Currently, kaniko does not support Docker BuildKit --secrets.
+    # However, currently, kaniko does not save any --build-arg values in the history.
+    # https://github.com/GoogleContainerTools/kaniko/issues/1327
+    # But this is not guaranteed to always remain true.
+    # For now, until kaniko sorts out how they want to handle secrets,
+    # we smuggle in any secrets with a magic variable name that is not stored by either docker build or kaniko.
+    # https://docs.docker.com/engine/reference/builder/#predefined-args
+    - if [ -z ${SSH_PRIVATE_DEPLOY_KEY+ABC} ]; then echo "SSH_PRIVATE_DEPLOY_KEY is unset, so leaving FTP_PROXY unset in the build."; else BUILD_ARGS="$BUILD_ARGS --build-arg FTP_PROXY=$SSH_PRIVATE_DEPLOY_KEY"; fi
+
+    - echo "FORMATTEDTAGLIST = $FORMATTEDTAGLIST"
+    - echo "IMAGE_LABELS = $IMAGE_LABELS"
+    - echo "BUILD_ARGS = $BUILD_ARGS"
+
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64)\"}}}" > /kaniko/.docker/config.json
     # --build-arg HTTP_PROXY=$http_proxy is needed for e.g. apk add, when we fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/dockerfiles/test.Dockerfile --build-arg ETC_ENVIRONMENT_LOCATION=$ETC_ENVIRONMENT_LOCATION --build-arg BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git $FORMATTEDTAGLIST $IMAGE_LABELS
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/dockerfiles/test.Dockerfile $BUILD_ARGS $FORMATTEDTAGLIST $IMAGE_LABELS
 
 
 build-for-gitlab-project-registry:

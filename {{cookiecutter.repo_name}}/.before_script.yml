@@ -14,13 +14,17 @@ default:
     - if [ -z ${ETC_ENVIRONMENT_LOCATION+ABC} ]; then echo "ETC_ENVIRONMENT_LOCATION is unset, so assuming you do not need environment variables set.";
       else
     # All of this will be skipped unless you set ETC_ENVIRONMENT_LOCATION in GitLab.
+    # Note that this will not be skipped if ETC_ENVIRONMENT_LOCATION is set to empty;
+    # you could set ETC_ENVIRONMENT_LOCATION to empty for some special behavior, but you're on your own there.
+    - if [ -z ${ETC_ENVIRONMENT_LOCATION} ]; then echo "ETC_ENVIRONMENT_LOCATION is set to the empty string; I hope you know why, because I certainly do not."; fi
+
     # Strictly speaking, this serves the same function as .profile, being run before everything else.
     # You *could* put arbitrary shell commands in the file, but the intended purpose is
     # to save on manual work by allowing you to set only one GitLab variable that points
     # to more variables to set.
     # Special note if the environment file is used to set up a proxy with HTTPS_PROXY...
     # $ETC_ENVIRONMENT_LOCATION must be a location that we can access *before* setting up the proxy variables.
-    - echo $ETC_ENVIRONMENT_LOCATION
+    - echo "ETC_ENVIRONMENT_LOCATION = $ETC_ENVIRONMENT_LOCATION"
     # We do not want the script to hang waiting for a password if the private key is rejected.
     - mkdir --parents ~/.ssh
     - echo "PasswordAuthentication=no" >> ~/.ssh/config
@@ -29,7 +33,7 @@ default:
     # The BusyBox version of wget permits a special option --proxy off to ignore http_proxy.
     # Note the difference from --no-proxy used by GNU wget.
     - wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || (wget --help && wget --proxy off $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber) || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
-    - rm SSH.PRIVATE.KEY
+    - rm SSH.PRIVATE.KEY # Make sure to clean up that private key in case we want to use this script when building a Docker image.
     - cat environment.sh
     # If the environment file wants to hack on our PATH, we usually want to ignore that part.
     - SAVED_PATH=$PATH
@@ -61,6 +65,8 @@ default:
     ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
     ##
     - echo "$SSH_PRIVATE_DEPLOY_KEY" | tr -d '\r' | ssh-add -
+    - echo "Added the private SSH deploy key with public fingerprint $(ssh-add -l)"
+    - echo "WARNING! If you use this script to build a Docker image (rather than just run tests), make sure to delete the deploy key with ssh-add -D after installing the relevant repos."
 
     ##
     ## Sometimes we may want to install directly from a git repository.
@@ -100,7 +106,7 @@ default:
     # even though only some people actually use SSH for anything.
     - if [ -z ${SERVERS_TO_WHITELIST_FOR_SSH+ABC} ] || [ -z ${SSH_PRIVATE_DEPLOY_KEY+ABC} ]; then echo "SERVERS_TO_WHITELIST_FOR_SSH and SSH_PRIVATE_DEPLOY_KEY are not both set, so assuming you do not need any servers whitelisted for SSH.";
       else
-    - echo $SERVERS_TO_WHITELIST_FOR_SSH
+    - echo "SERVERS_TO_WHITELIST_FOR_SSH = $SERVERS_TO_WHITELIST_FOR_SSH"
     - mkdir --parents ~/.ssh
     - ssh-keyscan -t rsa $SERVERS_TO_WHITELIST_FOR_SSH >> ~/.ssh/known_hosts
     - fi
@@ -168,7 +174,7 @@ default:
     - export REQUESTS_CA_BUNDLE="${PWD}/bundled.pem"
     # We include the working directory PWD so that REQUESTS_CA_BUNDLE can still be found from another directory.
     # This seems to matter when activating and using a conda environment, for some reason.
-    - ls $REQUESTS_CA_BUNDLE
+    - echo "REQUESTS_CA_BUNDLE found at $(ls $REQUESTS_CA_BUNDLE)"
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
     - fi
     - fi
