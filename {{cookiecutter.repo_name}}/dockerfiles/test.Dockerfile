@@ -8,16 +8,18 @@ ARG BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git
 FROM $BASE_IMAGE
 ARG ETC_ENVIRONMENT_LOCATION
 
-# .dockerignore keeps .tox and so forth out of the COPY
 COPY dockerfiles/before_script.sh .
-# The before_script.sh script sets several environment variables.
-# Environment variables do *not* persist across Docker RUN lines.
-# See also https://vsupalov.com/set-dynamic-environment-variable-during-docker-image-build/
+
+# .dockerignore keeps .tox and so forth out of the COPY.
 COPY . {{cookiecutter.repo_name}}
-# If we ran before_script in a separate RUN before the COPY,
+# If we ran before_script in a separate RUN before the COPY of the code,
 # then that layer could stay cached when the repo contents changed,
 # but it's more valuable to keep all the environment variables confined to a single RUN.
 # before_script.sh shouldn't take long to run anyway.
+
+# The before_script.sh script sets several environment variables.
+# Environment variables do *not* persist across Docker RUN lines.
+# See also https://vsupalov.com/set-dynamic-environment-variable-during-docker-image-build/
 RUN if [ -z ${FTP_PROXY+ABC} ]; then echo "FTP_PROXY is unset, so not doing any shenanigans."; else SETTER="SSH_PRIVATE_DEPLOY_KEY=${FTP_PROXY}"; fi \
     && ${SETTER} . ./before_script.sh \
     && wget http://www.google.com/index.html && echo "wget works" && rm index.html \
