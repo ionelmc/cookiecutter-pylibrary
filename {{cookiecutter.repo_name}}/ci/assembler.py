@@ -14,4 +14,3 @@ if __name__ == "__main__":
     with open(os.path.join('dockerfiles', 'before_script.sh'), 'w') as scriptFile:
         for line in yml['default']['before_script']:
             print(line, file=scriptFile)
-
