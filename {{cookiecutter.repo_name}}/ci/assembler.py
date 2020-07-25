@@ -10,8 +10,8 @@ import os.path
 import yaml
 
 if __name__ == "__main__":
-  yml = yaml.safe_load(open('.before_script.yml'))
-  with open(os.path.join('dockerfiles', 'before_script.sh'), 'w') as scriptFile:
-    for line in yml['default']['before_script']:
-      print(line, file=scriptFile)
+    yml = yaml.safe_load(open('.before_script.yml'))
+    with open(os.path.join('dockerfiles', 'before_script.sh'), 'w') as scriptFile:
+        for line in yml['default']['before_script']:
+            print(line, file=scriptFile)
 
