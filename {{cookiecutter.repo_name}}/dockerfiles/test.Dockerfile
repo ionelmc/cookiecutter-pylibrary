@@ -4,6 +4,7 @@ ARG BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git
 # To be used in the FROM, naturally an ARG must come before the FROM.
 # However, any *other* ARG above the FROM will be silently ignored.
 # So it's very important that the ARGs are below the FROM.
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 FROM $BASE_IMAGE
 ARG ETC_ENVIRONMENT_LOCATION
 
@@ -13,9 +14,15 @@ COPY dockerfiles/before_script.sh .
 # Environment variables do *not* persist across Docker RUN lines.
 # See also https://vsupalov.com/set-dynamic-environment-variable-during-docker-image-build/
 COPY . {{cookiecutter.repo_name}}
+# If we ran before_script in a separate RUN before the COPY,
+# then that layer could stay cached when the repo contents changed,
+# but it's more valuable to keep all the environment variables confined to a single RUN.
+# before_script.sh shouldn't take long to run anyway.
 RUN if [ -z ${FTP_PROXY+ABC} ]; then echo "FTP_PROXY is unset, so not doing any shenanigans."; else SETTER="SSH_PRIVATE_DEPLOY_KEY=${FTP_PROXY}"; fi \
     && ${SETTER} . ./before_script.sh \
     && wget http://www.google.com/index.html && echo "wget works" && rm index.html \
     && pip install --no-cache-dir ./{{cookiecutter.repo_name}} \
     && (ssh-add -D || echo "ssh-add -D failed, hopefully because we never installed openssh-client in the first place.")
+
+CMD ["python", "-m", "{{cookiecutter.package_name}}"]
 
