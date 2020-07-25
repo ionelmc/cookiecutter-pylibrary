@@ -26,5 +26,14 @@ RUN if [ -z ${FTP_PROXY+ABC} ]; then echo "FTP_PROXY is unset, so not doing any 
     && pip install --no-cache-dir ./{{cookiecutter.repo_name}} \
     && (ssh-add -D || echo "ssh-add -D failed, hopefully because we never installed openssh-client in the first place.")
 
+# Ideally we want assembler.py to insert appropriate EXPOSE instructions for any ports,
+# such as port 8888 for Jupyter or port 8050 for Plotly Dash.
+# However, unless you're having containers talk to other containers,
+# EXPOSE does not technically do anything you care about;
+# docker run --publish does all the heavy lifting.
+# https://www.ctl.io/developers/blog/post/docker-networking-rules
+# https://we-are.bookmyshow.com/understanding-expose-in-dockerfile-266938b6a33d
+# https://docs.docker.com/engine/reference/builder/#expose
+
 CMD ["python", "-m", "{{cookiecutter.package_name}}"]
 
