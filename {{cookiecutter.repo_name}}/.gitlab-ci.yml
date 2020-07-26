@@ -141,12 +141,7 @@ test:
   - python2 --version || echo "python2 is not installed."
   - virtualenv --version || echo "virtualenv is not installed."
   - pip --version
-  - (python -m sphinx --version && python -c "import sphinx; sphinx.version_info < (3,1,2,'final',0) and print('linkcheck can spuriously fail on older versions of Sphinx. If you are seeing anything like 403 Client Error Forbidden, consider upgrading Sphinx.')") || echo "sphinx is not installed."
-  - tox --version
-  - uname --all
-  - lsb_release --all || echo "lsb_release is not supported on this host."
-  - start_tox=$(date +%s)
-  # When testing locally, we might not want to set sitepackages=true,
+  # When testing locally, we might not want to set tox sitepackages=true,
   # because the local machine might have all kinds of weird things in the
   # environment. But for continuous integration, we do want sitepackages=true,
   # because it allows us to use a Docker image with some packages already
@@ -157,6 +152,13 @@ test:
   # pkg_resources.VersionConflict (Pygments 2.4.2 (/opt/conda/envs/test-env/lib/python3.7/site-packages), Requirement.parse('Pygments>=2.5.1'))
   # If an old version of Pygments is installed, we upgrade it first.
   - if python -m pip show Pygments; then python -m pip install --upgrade Pygments; fi
+  # Note that upgrading sphinx (as we might be about to do) might not automatically upgrade Pygments,
+  # hence specifically checking for Pygments first.
+  - (python -m sphinx --version && python -c "import sphinx; sphinx.version_info < (3,1,2,'final',0) and print('linkcheck can spuriously fail on older versions of Sphinx. If you are seeing anything like 403 Client Error Forbidden, consider upgrading Sphinx.')") || echo "sphinx is not installed."
+  - tox --version
+  - uname --all
+  - lsb_release --all || echo "lsb_release is not supported on this host."
+  - start_tox=$(date +%s)
   - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"

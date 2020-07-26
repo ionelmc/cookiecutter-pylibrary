@@ -1,3 +1,13 @@
+# https://docs.gitlab.com/ee/ci/yaml/#yaml-anchors-for-script
+# could group these commands into logical chunks
+# .something: &something
+#   - echo 'something'
+# job_name:
+#   script:
+#     - *something
+#     - echo 'this is the script'
+# but if pyyaml doesn't support that then would be hard to convert to script for Docker build
+
 default:
   before_script:
     - right_after_pull_docker_image=$(date +%s)

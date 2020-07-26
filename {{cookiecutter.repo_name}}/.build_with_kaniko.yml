@@ -1,5 +1,6 @@
 .build_with_kaniko:
-  #Hidden job to use as an "extends" template
+  # Hidden job to use as an "extends" template
+  # https://docs.gitlab.com/ee/ci/yaml/#hide-jobs
   only:
     variables:
       - $BUILD_DOCKER_IMAGE != null

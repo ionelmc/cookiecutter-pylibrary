@@ -1,3 +1,5 @@
+# Byte-compiled / optimized / DLL files
+# .pyc, .pyd, .pyo
 *.py[cod]
 __pycache__
 
