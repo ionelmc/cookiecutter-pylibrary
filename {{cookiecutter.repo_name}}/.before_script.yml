@@ -175,7 +175,7 @@ default:
     - fi
 
     - right_before_install_nss=$(date +%s)
-    - if [ -d $HOME/.pki/nssdb ]; then echo "$HOME/.pki/nssdb already exists; leaving it alone.";
+    - if [ -d $HOME/.pki/nssdb ]; then ls -l $HOME/.pki/nssdb/;
       else
     - echo "$HOME/.pki/nssdb not found; looking to create it."
     - if command -v apk; then
