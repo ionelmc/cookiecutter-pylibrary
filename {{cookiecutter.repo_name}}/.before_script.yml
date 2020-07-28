@@ -178,11 +178,11 @@ default:
     - if [ -d $HOME/.pki/nssdb ]; then echo "$HOME/.pki/nssdb already exists; leaving it alone.";
       else
     - echo "$HOME/.pki/nssdb not found; looking to create it."
+    - if command -v apk; then
     - if [ -d pki/nssdb/ ]; then
     - echo "Found pki/nssdb/ so copying that."
     - else
     - echo "No NSS DB found, but $PROXY_CA_PEM found, so creating an NSS DB."
-    - if command -v apk; then
     - apk add nss-tools
     - mkdir --parents pki/nssdb/
     # create https://www.dogtagpki.org/wiki/NSS_Database#Creating_Database
@@ -194,7 +194,6 @@ default:
     # Ideally we wouldn't apk del this if it was already installed, but apk doesn't seem to provide a way to check that.
     # apk dell nss-tools doesn't apk del nss, so this probably isn't a big deal.
     - apk del nss-tools
-    - fi
     - fi
     - ls -l pki/nssdb/
     - mkdir --parents $HOME/.pki/nssdb/
@@ -210,6 +209,7 @@ default:
     - cp -r pki/nssdb/ $HOME/.pki/
     - echo $HOME/.pki/nssdb
     - ls -l $HOME/.pki/nssdb
+    - fi
     - fi
     - echo "adding cert to nss db took $(( $(date +%s) - right_before_install_nss)) seconds"
 
