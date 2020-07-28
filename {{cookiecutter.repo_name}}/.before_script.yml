@@ -186,13 +186,13 @@ default:
     - apk add nss-tools
     - mkdir --parents pki/nssdb/
     # create https://www.dogtagpki.org/wiki/NSS_Database#Creating_Database
-    - certutil --help
+    # - certutil --help crashes?
     - certutil -N -d pki/nssdb/ --empty-password
     # $HOME/.pki/nssdb seems to be where Chromium looks, at least
     # - certutil -d  -A -t "P,," -n proxycert -i $PROXY_CA_PEM does not seem to matter, the C version is required for chromium at least
     - certutil -d sql:pki/nssdb/ -A -t "C,," -n proxycertasCA -i $PROXY_CA_PEM
     # Ideally we wouldn't apk del this if it was already installed, but apk doesn't seem to provide a way to check that.
-    # apk dell nss-tools doesn't apk del nss, so this probably isn't a big deal.
+    # apk del nss-tools doesn't apk del nss, so this probably isn't a big deal.
     - apk del nss-tools
     - fi
     - ls -l pki/nssdb/
