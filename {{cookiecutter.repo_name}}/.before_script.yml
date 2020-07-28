@@ -167,7 +167,8 @@ default:
 
     - if command -v wget; then
     - right_before_set_up_wget=$(date +%s)
-    - wget --version
+    # wget --version does not work with BusyBox wget
+    # Does BusyBox wget pay attention to .wgetrc?
     - echo "ca_certificate=$(pwd)/$PROXY_CA_PEM" >> $HOME/.wgetrc
     - cat $HOME/.wgetrc
     - echo "Setting up wget took $(( $(date +%s) - right_before_pull_cert)) seconds"
