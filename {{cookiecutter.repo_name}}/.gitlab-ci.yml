@@ -158,6 +158,7 @@ test:
   - tox --version
   - uname --all
   - lsb_release --all || echo "lsb_release is not supported on this host."
+  - python -m {{cookiecutter.package_name}} --help
   - start_tox=$(date +%s)
   - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
