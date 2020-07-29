@@ -13,6 +13,7 @@
   stage: build
 {%- endif %}
   script:
+    - start_build_with_kaniko=$(date +%s)
     - echo "Building and shipping image to $CI_REGISTRY_IMAGE"
       #Build date for opencontainers
     - BUILDDATE="'$(date '+%FT%T%z' | sed -E -n 's/(\+[0-9]{2})([0-9]{2})$/\1:\2/p')'" #rfc 3339 date
@@ -62,5 +63,8 @@
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64)\"}}}" > /kaniko/.docker/config.json
     # --build-arg HTTP_PROXY=$http_proxy is needed for e.g. apk add, when we fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+    - right_before_kaniko_executor=$(date +%s)
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/dockerfiles/test.Dockerfile $BUILD_ARGS $FORMATTEDTAGLIST $IMAGE_LABELS
+    - echo "/kaniko/executor took $(( $(date +%s) - right_before_kaniko_executor)) seconds"
+    - echo "build_with_kaniko took $(( $(date +%s) - start_build_with_kaniko)) seconds total"
 
