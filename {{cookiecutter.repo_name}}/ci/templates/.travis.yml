@@ -5,6 +5,7 @@ env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
+    - LANG=en_US.UTF-8
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
     - TWINE_USERNAME={{ cookiecutter.c_extension_test_pypi_username }}
 {%- endif %}
@@ -24,8 +25,9 @@ matrix:
 {{ "{%- for env in tox_environments %}{{ '' }}" }}
 {%- endif %}
 {%- if cookiecutter.travis_osx == "yes" %}
-{{ "{%- if 'py37' in env or 'py27' in env %}{{ '' }}" }}
+{{ "{%- if 'py38' in env or 'py27' in env %}{{ '' }}" }}
 {{ "    - os: osx" }}
+{{ "      osx_image: xcode11" }}
 {{ "      language: generic" }}
 {{ "      env:" }}
 {{ "        - TOXENV={{ env }}" }}
@@ -57,8 +59,7 @@ matrix:
 {%- endif %}
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
 {{ "{%- if 'pypy' not in env and 'nocov' in env %}{{ '' }}" }}
-{{ "        - WHEEL_MANYLINUX1=cp{{ env.split('-')[0][2:] }}" }}
-{{ "        - WHEEL_PATH=wheelhouse" }}
+{{ "        - WHEEL_MANYLINUX=\"1 cp{{ env.split('-')[0][2:] }}\"" }}
 {{ "{%- endif %}" }}
 {%- endif %}
 {{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
@@ -68,7 +69,7 @@ matrix:
       python: 'pypy'
 {{ "{%- else %}{{ '' }}" }}
       python: {{ "'{{ '{0[2]}.{0[3]}'.format(env) }}'" }}
-{{ "{%- endif %}" }}
+{{ "{%- endif %}{{ '' }}" }}
 {{ "{%- endfor %}{{ '' }}" }}
 before_install:
   - python --version
@@ -97,9 +98,10 @@ script:
   - |
     (
     set -eux
-    if [[ -n ${WHEEL_MANYLINUX1:-} ]]; then
-      docker run --rm --user $UID -itv $(pwd):/code ionelmc/manylinux $WHEEL_MANYLINUX1
-      tox --installpkg $WHEEL_PATH/*.whl -v
+    if [[ -n ${WHEEL_MANYLINUX:-} ]]; then
+      docker run --rm --user $UID -v $(pwd):/code ionelmc/manylinux:manylinux$WHEEL_MANYLINUX
+      tox --installpkg wheelhouse/*.whl -v
+      export WHEEL_PATH=wheelhouse
     else
       tox -v
     fi
@@ -111,8 +113,8 @@ script:
   - tox -v
 {%- endif %}
 after_failure:
-  - more .tox/log/* | cat
-  - more .tox/*/log/* | cat
+  - cat .tox/log/*
+  - cat .tox/*/log/*
 notifications:
   email:
     on_success: never

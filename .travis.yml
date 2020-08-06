@@ -1,15 +1,13 @@
 language: python
 dist: xenial
-python: '3.7'
-cache:
-  directories:
-  - $HOME/.pip/wheels
+python: '3.8'
+cache: pip
 env:
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=libSegFault.so
+    - SEGFAULT_SIGNALS=all
   matrix:
     - ENV=cext
-    - ENV=cext-optional
     - ENV=cffi
     - ENV=cython
     - ENV=matrix-cext
@@ -25,7 +23,6 @@ env:
     - ENV=pure-private
     - ENV=pure-pylama
     - ENV=separate-cext
-    - ENV=separate-cext-optional
     - ENV=separate-cext-scm-osx-publish
     - ENV=separate-cffi
     - ENV=separate-cffi-scm-osx-publish

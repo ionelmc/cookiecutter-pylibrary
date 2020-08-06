@@ -13,6 +13,13 @@ def {{ cookiecutter.c_extension_function }}(args):
     else:
         return _ffi.string(result)
 {%- elif cookiecutter.c_extension_support != 'no' %}
-
+{%- if cookiecutter.c_extension_optional == 'yes' %}
+try:
+    from .{{ cookiecutter.c_extension_module }} import {{ cookiecutter.c_extension_function }}  # noqa
+except ImportError:
+    def {{ cookiecutter.c_extension_function }}(args):
+        return max(args, key=len)
+{%- else %}
 from .{{ cookiecutter.c_extension_module }} import {{ cookiecutter.c_extension_function }}  # noqa
+{%- endif %}
 {%- endif %}

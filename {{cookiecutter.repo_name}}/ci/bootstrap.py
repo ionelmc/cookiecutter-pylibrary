@@ -5,9 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
-{%- if cookiecutter.test_matrix_configurator != "yes" %}
 import subprocess
-{%- endif %}
 import sys
 from os.path import abspath
 from os.path import dirname
@@ -49,11 +47,12 @@ def exec_in_env():
     print("+ exec", python_executable, __file__, "--no-env")
     os.execv(python_executable, [python_executable, __file__, "--no-env"])
 
+
 def main():
     import jinja2
 {%- if cookiecutter.test_matrix_configurator == "yes" %}
     import matrix
-{% endif %}
+{%- endif %}
 
     print("Project path: {0}".format(base_path))
 
@@ -66,7 +65,6 @@ def main():
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     tox_environments = {}
     for (alias, conf) in matrix.from_file(join(base_path, "setup.cfg")).items():
-        python = conf["python_versions"]
         deps = conf["dependencies"]
         tox_environments[alias] = {
             "deps": deps.split(),
@@ -105,4 +103,3 @@ if __name__ == "__main__":
     else:
         print("Unexpected arguments {0}".format(args), file=sys.stderr)
         sys.exit(1)
-

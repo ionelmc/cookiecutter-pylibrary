@@ -2,7 +2,7 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python python library. |travis| |appveyor| |requiresio|
+Cookiecutter_ template for a Python library. |travis| |appveyor| |requiresio|
 
 .. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
     :alt: Travis-CI Build Status
@@ -256,7 +256,11 @@ You will be asked for these fields:
 
         "flake8"
       - Linter to use for ``tox -e check``. Available options: ``flake8`` or ``pylama``
+    * - ``pre_commit``
+      - .. code:: python
 
+        "no"
+      - Enable basic `pre-commit <https://pre-commit.com/>`_ configuration.
     * - ``command_line_interface``
       - .. code:: python
 

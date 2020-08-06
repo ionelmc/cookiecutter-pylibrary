@@ -1,7 +1,7 @@
 version: '{branch}-{build}'
 build: off
 environment:
-  global:
+{%- set environment_global_interior %}
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
     TWINE_USERNAME: {{ cookiecutter.c_extension_test_pypi_username }}
 {%- endif %}
@@ -10,6 +10,10 @@ environment:
 {%- if cookiecutter.coveralls_token.strip() not in '-' %}
     COVERALLS_REPO_TOKEN: {{ cookiecutter.coveralls_token }}
 {%- endif %}
+{%- endif %}
+{%- endset %}
+{%- if environment_global_interior %}
+  global:{{ environment_global_interior }}
 {%- endif %}
   matrix:
     - TOXENV: check

@@ -54,6 +54,10 @@ docs/_build
 .build
 .ve
 .bootstrap
+
+# Notebook Checkpoints
+.ipynb_checkpoints/
+
 # Cookiecutter
 output/
 boilerplate/

@@ -51,6 +51,9 @@ if __name__ == "__main__":
 
 {% if cookiecutter.sphinx_docs == "no" %}
     shutil.rmtree('docs')
+    os.unlink('.readthedocs.yml')
+{%- elif 'readthedocs' not in cookiecutter.sphinx_docs_hosting %}
+    os.unlink('.readthedocs.yml')
 {% endif %}
 
 {%- if cookiecutter.command_line_interface == 'no' %}
@@ -64,7 +67,9 @@ if __name__ == "__main__":
 {%- if cookiecutter.allow_tests_inside_package == 'no' %}
     shutil.rmtree(join('src', '{{ cookiecutter.package_name }}', 'tests'))
 {% endif %}
-
+{%- if not (cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes') %}
+    os.unlink('pyproject.toml')
+{% endif %}
 {%- if cookiecutter.c_extension_support == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
@@ -103,6 +108,10 @@ if __name__ == "__main__":
 
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
     os.unlink('MANIFEST.in')
+{% endif %}
+
+{%- if cookiecutter.pre_commit == 'no' %}
+    os.unlink('.pre-commit-config.yaml')
 {% endif %}
 
 {%- if cookiecutter.license == "no" %}
@@ -145,8 +154,9 @@ if __name__ == "__main__":
         git init
         git add --all
         git commit -m "Add initial project skeleton."
+        git tag v{{ cookiecutter.version }}
         git remote add origin git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
-        git push -u origin master
+        git push -u origin master v{{ cookiecutter.version }}
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     To regenerate your tox.ini, .travis.yml or .appveyor.yml run:

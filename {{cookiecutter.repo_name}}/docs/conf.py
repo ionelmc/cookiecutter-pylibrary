@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+{% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 import os
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+{% endif -%}
+{% if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
+{%- endif %}
+{%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
+
+import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 {%- endif %}
 
 extensions = [
@@ -42,7 +48,6 @@ extlinks = {
 }
 
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
-import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
