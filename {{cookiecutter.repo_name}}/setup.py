@@ -113,6 +113,7 @@ def get_version_for_conda_meta_yaml():
     # return pkg_resources.get_distribution(__name__).version
 {%- endif %}
 
+
 setup(
     name='{{ cookiecutter.distribution_name }}',
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
