@@ -4,23 +4,26 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import io
-{% if cookiecutter.c_extension_support != 'no' -%}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
 import os
-{% endif -%}
-{% if cookiecutter.repo_hosting_domain == "no" -%}
+{%- if cookiecutter.c_extension_support == 'yes' %}
+import platform
+{%- endif -%}
+{%- endif -%}
+{%- if cookiecutter.repo_hosting_domain == "no" %}
 import os.path
-{% endif -%}
+{%- endif %}
 import re
-{% if cookiecutter.c_extension_support == 'cffi' -%}
+{%- if cookiecutter.c_extension_support == 'cffi' %}
 import sys
-{% endif -%}
+{%- endif %}
 from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
-{% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
+{%- if cookiecutter.c_extension_support not in ['no', 'cffi'] %}
 from os.path import relpath
-{% endif -%}
+{%- endif %}
 from os.path import splitext
 
 {% if cookiecutter.c_extension_support not in ['no', 'cffi'] -%}
@@ -28,7 +31,7 @@ from setuptools import Extension
 {% endif -%}
 from setuptools import find_packages
 from setuptools import setup
-{%- if cookiecutter.c_extension_support != 'no' -%}
+{%- if cookiecutter.c_extension_support != 'no' %}
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
@@ -42,36 +45,29 @@ except ImportError:
     Cython = None
 {%- endif %}
 {%- endif %}
-
-
-def read(*names, **kwargs):
-    with io.open(
-        join(dirname(__file__), *names),
-        encoding=kwargs.get('encoding', 'utf8')
-    ) as fh:
-        return fh.read()
-{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
-
-
-def get_version_for_conda_meta_yaml():
-    """
-    load_setup_py_data() will actually run arbitrary code from setup.py,
-    so in theory we ought to be able to get the version without needing to set it manually.
-    https://stackoverflow.com/questions/38919840/get-package-version-for-conda-meta-yaml-from-source-file
-    """
-    return '0.0.0'
-    # return pkg_resources.get_distribution(__name__).version
-{%- endif %}
-
+{%- if cookiecutter.c_extension_support != 'no' %}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
 
 {% if cookiecutter.c_extension_support != 'no' -%}
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
-if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
-    os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
+if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUP_PY_EXT_COVERAGE') == 'yes'
+{%- if cookiecutter.c_extension_support == 'yes' %} and platform.system() == 'Linux'{% endif %}:
+{%- if cookiecutter.c_extension_support == 'cython' %}
+    CFLAGS = os.environ['CFLAGS'] = '-DCYTHON_TRACE=1'
+    LFLAGS = os.environ['LFLAGS'] = ''
+{%- elif cookiecutter.c_extension_support == 'yes' %}
+    CFLAGS = os.environ['CFLAGS'] = '-fprofile-arcs -ftest-coverage'
+    LFLAGS = os.environ['LFLAGS'] = '-lgcov'
+{%- endif %}
+else:
+    CFLAGS = ''
+    LFLAGS = ''
+{%- endif %}
+{%- if cookiecutter.c_extension_optional == 'yes' %}
 
-{% if cookiecutter.c_extension_optional == 'yes' %}
+
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
@@ -94,10 +90,30 @@ class optional_build_ext(build_ext):
         print('')
         print('    ' + repr(e))
         print('*' * 80)
+{%- endif %}
+{%- endif %}
 
 
-{% endif -%}
-{% endif -%}
+def read(*names, **kwargs):
+    with io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get('encoding', 'utf8')
+    ) as fh:
+        return fh.read()
+
+{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
+
+
+def get_version_for_conda_meta_yaml():
+    """
+    load_setup_py_data() will actually run arbitrary code from setup.py,
+    so in theory we ought to be able to get the version without needing to set it manually.
+    https://stackoverflow.com/questions/38919840/get-package-version-for-conda-meta-yaml-from-source-file
+    """
+    return '0.0.0'
+    # return pkg_resources.get_distribution(__name__).version
+{%- endif %}
+
 setup(
     name='{{ cookiecutter.distribution_name }}',
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
@@ -256,7 +272,10 @@ setup(
         Extension(
             splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
             sources=[path],
-            extra_compile_args=os.environ.get('SETUPPY_CFLAGS', '').split(),
+{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
+            extra_compile_args=CFLAGS.split(),
+            extra_link_args=LFLAGS.split(),
+{%- endif %}
             include_dirs=[dirname(path)]
         )
         for root, _, _ in os.walk('src')
