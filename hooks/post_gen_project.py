@@ -107,7 +107,6 @@ if __name__ == "__main__":
     os.unlink('.before_script.yml')
     os.unlink('.build_with_kaniko.yml')
     os.unlink('.dockerignore')
-    os.unlink('dockerfiles/before_script.sh')
     os.unlink('dockerfiles/slim.Dockerfile')
     os.unlink('dockerfiles/test.Dockerfile')
     os.unlink('conda.recipe/meta.yaml')
