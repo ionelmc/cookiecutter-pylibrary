@@ -230,8 +230,15 @@ default:
     # But that causes parsing of .gitlab-ci.yml to fail with "before_script config should be an array of strings",
     # so we need to wrap the entire line in ''.
     # https://gitlab.com/gitlab-org/gitlab-foss/merge_requests/5481
-    - 'echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python'
-    - 'cat `echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python` $PROXY_CA_PEM > bundled.pem'
+    # - 'echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python'
+    # - 'cat `echo -e "import contextlib\nwith contextlib.suppress(AttributeError): import pip._vendor.requests\nfrom pip._vendor.requests.certs import where\nprint(where())" | python` $PROXY_CA_PEM > bundled.pem'
+    # Unfortunately, echo -e is not supported on all platforms (onthe official TensorFlow image, in particular),
+    # resulting in a mysterious SyntaxError on "-e import contextlib".
+    # Thus, we cannot use linebreaks.
+    # Still, for the sake of transparency we don't want to call out to an opaque script.
+    # We can operate the context manager manually.
+    - python -c "import contextlib; contextManager = contextlib.suppress(AttributeError); contextManager.__enter__(); import pip._vendor.requests; contextManager.__exit__(None,None,None); from pip._vendor.requests.certs import where; print(where())"
+    - cat $(python -c "import contextlib; contextManager = contextlib.suppress(AttributeError); contextManager.__enter__(); import pip._vendor.requests; contextManager.__exit__(None,None,None); from pip._vendor.requests.certs import where; print(where())") ${PROXY_CA_PEM} > bundled.pem
     - ls bundled.pem
     # In the unlikely event that the image does not have Python available, the above command may silently fail to write bundled.pem.
     # Thus we check python --version above and double-check that bundled.pem exists with ls.
