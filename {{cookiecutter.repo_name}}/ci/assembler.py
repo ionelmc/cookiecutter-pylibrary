@@ -7,6 +7,7 @@
 # This is just a tiny starting point that assembles a script file to be run in each Dockerfile.
 
 import os.path
+
 import yaml
 
 if __name__ == "__main__":
