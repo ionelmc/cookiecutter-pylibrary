@@ -4,6 +4,8 @@
   only:
     variables:
       - $BUILD_DOCKER_IMAGE != null
+  tags:
+  - docker
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
