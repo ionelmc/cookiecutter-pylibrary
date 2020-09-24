@@ -183,7 +183,7 @@ default:
     - echo "Found pki/nssdb/ so copying that."
     - else
     - echo "No NSS DB found, but $PROXY_CA_PEM found, so creating an NSS DB."
-    - apk add nss-tools
+    - apk add nss-tools || (sed -i -e 's/https/http/' /etc/apk/repositories && apk add nss-tools)
     - mkdir --parents pki/nssdb/
     # create https://www.dogtagpki.org/wiki/NSS_Database#Creating_Database
     # - certutil --help crashes?
