@@ -94,6 +94,7 @@ pages:
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
   artifacts:
     paths:
+    # For GitLab Pages, the artifact path *must* be "public".
     - public
   only:
     refs:
