@@ -1,4 +1,4 @@
-image: dahanna/python:alpine-miniconda-3.7-git-tox
+image: fkrull/multi-python:bionic
 
 {% if cookiecutter.docs_require_package == 'yes' -%}
 stages:
