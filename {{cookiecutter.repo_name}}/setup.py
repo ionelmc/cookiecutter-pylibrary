@@ -206,7 +206,8 @@ setup(
         'click',
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-        'cffi>=1.0.0',
+        'cffi>=1.0.0,<1.6; python_version<="2"',
+        'cffi>=1.0.0; python_version>"2"',
 {%- endif %}
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
     ],
