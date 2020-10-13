@@ -207,8 +207,8 @@ setup(
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
         # Does this have any effect? seems like pyproject.toml is what matters
-        'cffi>=1.0.0,<1.6; python_version<="2"',
-        'cffi>=1.0.0; python_version>"2"',
+        'cffi>=1.0.0,<1.6; python_version<"3"',
+        'cffi>=1.0.0; python_version>="3"',
 {%- endif %}
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
     ],

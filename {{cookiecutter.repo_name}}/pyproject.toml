@@ -6,7 +6,7 @@ requires = [
     "setuptools_scm>=3.3.1",
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-    'cffi>=1.0.0,<1.6; python_version<="2"',
-    'cffi>=1.0.0; python_version>"2"',
+    'cffi>=1.0.0,<1.6; python_version<"3"',
+    'cffi>=1.0.0; python_version>="3"',
 {%- endif %}
 ]
