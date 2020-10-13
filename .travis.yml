@@ -39,6 +39,7 @@ before_install:
 install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
+  - if dpkg --status python-cffi; then apt-get install --upgrade python-cffi; fi
   - pip install -U wheel setuptools tox cookiecutter bumpversion
   - virtualenv --version
   - tox --version
