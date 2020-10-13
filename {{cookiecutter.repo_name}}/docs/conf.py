@@ -6,7 +6,7 @@ import os
 {% endif -%}
 {% if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
-{%- endif %}
+{% endif -%}
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
 
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
