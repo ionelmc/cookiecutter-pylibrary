@@ -13,3 +13,4 @@ requires = [
     "cffi>=1.0.0; platform_python_implementation != 'PyPy'",
 {%- endif %}
 ]
+build-backend = "setuptools.build_meta"
