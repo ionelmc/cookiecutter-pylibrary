@@ -247,9 +247,31 @@ default:
     # This seems to matter when activating and using a conda environment, for some reason.
     - echo "REQUESTS_CA_BUNDLE found at $(ls $REQUESTS_CA_BUNDLE)"
     - echo "Merging the certificate bundle took $(( $(date +%s) - right_before_pull_cert)) seconds total"
+    - fi  # endif command -v python
+
+    - fi  # endif PROXY_CA_PEM is set
+
+    # If you set PYPI_URL, the default behavior is to look first in that index, and second in the default pypi.org.
+    # pip does not provide a native option to do this, exactly, but we can hack it together by specifying --extra-index-url https://pypi.org/simple.
+    # Note however that if pip finds a higher version number in https://pypi.org, pip will use that.
+    # We cannot stop pip from doing that, short of telling pip not to check pypi.org at all (in which case your server would have to be a true PyPI mirror).
+    # But so long as PYPI_URL contains a version number greater than or equal to the version number on pypi.org, PYPI_URL will be used.
+    # The assumed use-case here is package(s) for which open-source publication chronically lags behind internal publication.
+    # When the internal version is ahead, all packages using this template (and with PYPI_URL set) will use the latest version.
+    # If it doesn't have internal changes, great! pip will just use the pypi.org version.
+    - if [ -z ${PYPI_URL+ABC} ]; then
+    - echo "PYPI_URL is set to $PYPI_URL"
+    - if [ ${PYPI_URL: -1} != '/' ]; then
+    - echo "If you try to twine upload without the trailing /, you'll get back an HTTPError 400 Bad Request Repository path must have another '/' after initial '/'."
+    - PYPI_URL=$PYPI_URL/
+    # https://pip.pypa.io/en/stable/user_guide/#environment-variables
+    - PIP_INDEX_URL="${PYPI_URL}simple"
+    - echo "PIP_INDEX_URL $PIP_INDEX_URL"
+    - PIP_EXTRA_INDEX_URL=https://pypi.org/simple
+    - echo "PIP_EXTRA_INDEX_URL $PIP_EXTRA_INDEX_URL"
     - fi
 
-    - fi
+    - fi  # endif PYPI_URL is set
 
     ##
     ## With all our proxy variables and certificates in place, we should now be

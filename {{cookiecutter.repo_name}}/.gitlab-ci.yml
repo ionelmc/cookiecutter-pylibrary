@@ -180,8 +180,13 @@ test-built-image:
 upload-to-PyPI:
   stage: deploy
   rules:
-    - if: '$PYPI_URL != null && $PYPI_USERNAME != null && $PYPI_PASSWORD != null'
-      when: manual
+    - if: '$DEPLOY_TO_INDEX != null'
+    # The additional flag variable $DEPLOY_TO_INDEX is required so that you can set the three nontrivial variables in your configuration and leave them there, and the upload will only happen when you manually run a pipeline with $DEPLOY_TO_INDEX set.
+      # You can instead set when: manual here, but then your pipelines will be cluttered with many jobs that should never run.
+    # You *can* set $DEPLOY_TO_INDEX in your configuration, in which case the upload will run every time.
+    # In addition to wasting gitlab-runner time, that can mean the index server would have the same version number overwritten.
+    # Some index servers will cheerfully accept this and overwrite the package without error.
+    # Anyone who was *using* the uploaded indexed version which becomes inaccessible might be less cheerful.
   tags:
   - docker
   image: dahanna/python-alpine-package:cryptography-alpine
