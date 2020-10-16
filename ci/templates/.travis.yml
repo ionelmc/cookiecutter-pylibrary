@@ -55,6 +55,7 @@ script:
         rm $name.tar.bz2
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
+      pip install .
       tox --sitepackages
     fi
   - echo Done.
