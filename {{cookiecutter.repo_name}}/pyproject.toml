@@ -1,8 +1,11 @@
 [build-system]
 requires = [
-    "setuptools>=30.3.0",
+    # The minimum setuptools version is specific to the PEP 517 backend,
+    # and may be stricter than the version required in `setup.py`
+    "setuptools>=40.8.0",
     "wheel",
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+    # Must be kept in sync with the `setup_requirements` in `setup.py`
     "setuptools_scm>=3.3.1; platform_python_implementation != 'PyPy'",
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
