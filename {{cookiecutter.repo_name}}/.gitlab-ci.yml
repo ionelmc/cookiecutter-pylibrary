@@ -177,3 +177,17 @@ test-built-image:
     name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     entrypoint: [""]
 
+upload-to-PyPI:
+  stage: deploy
+  rules:
+    - if: '$PYPI_URL != null && $PYPI_USERNAME != null && $PYPI_PASSWORD != null'
+      when: manual
+  tags:
+  - docker
+  image: dahanna/python-alpine-package:cryptography-alpine
+  script:
+  - python -m pip install twine wheel
+  - python setup.py sdist bdist_wheel
+  - ls dist
+  - python -m twine upload --help
+  - python -m twine upload --verbose --repository-url $PYPI_URL --username $PYPI_USERNAME --password $PYPI_PASSWORD dist/*
