@@ -11,6 +11,6 @@ requires = [
 {%- if cookiecutter.c_extension_support == 'cffi' %}
     # https://github.com/pyca/cryptography/issues/3548#issuecomment-302824577
     "cffi>=1.0.0,<1.6; python_version<'3'",
-    "cffi>=1.0.0; python_version>='3', platform_python_implementation != 'PyPy'",
+    "cffi>=1.0.0; python_version>='3' and platform_python_implementation != 'PyPy'",
 {%- endif %}
 ]
