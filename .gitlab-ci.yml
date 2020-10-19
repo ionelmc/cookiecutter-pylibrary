@@ -33,9 +33,9 @@ test:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
 
-  - echo "    repo_hosting_domain" >> gitlab.cookiecutterrc
-  - 'echo ":" >> gitlab.cookiecutterrc'
-  - echo "  '$repo_hosting_domain'" >> gitlab.cookiecutterrc
+  - printf "    repo_hosting_domain" >> gitlab.cookiecutterrc
+  - 'printf ":" >> gitlab.cookiecutterrc'
+  - printf "  '$repo_hosting_domain'" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
   - start_tox=$(date +%s)
   # - tox --sitepackages
