@@ -39,6 +39,7 @@ test:
   - cat gitlab.cookiecutterrc
   - git clone $PYTHON_NAMELESS_REPO
   - cd python-nameless
+  - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
   - cd ..
   - cookiecutter --help
   - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
@@ -46,7 +47,6 @@ test:
   - 'sed --in-place "s/fkrull\/multi-python:bionic/dahanna\/python-alpine-package:tox-alpine/" .gitlab-ci.yml'
   - git status
   - git diff
-  - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
   - git status
   - git add --all
   - git config user.email "you@example.com"
