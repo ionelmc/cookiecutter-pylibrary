@@ -34,8 +34,9 @@ test:
   - 'printf ":" >> gitlab.cookiecutterrc'
   - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
+  - git clone $PYTHON_NAMELESS_REPO
   - cookiecutter --help
-  - cookiecutter --no-input --config-file=gitlab.cookiecutterrc .
+  - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
   - cd python-nameless
   - git init .
   - git add --all
