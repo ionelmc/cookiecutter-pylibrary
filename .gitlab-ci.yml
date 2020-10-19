@@ -39,9 +39,12 @@ test:
   - cat gitlab.cookiecutterrc
   - git clone $PYTHON_NAMELESS_REPO
   - cd python-nameless
+  - git status
+  - git remote -vv
   - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
+  - cd ..
   - cookiecutter --help
-  - cookiecutter --overwrite-if-exists --no-input --config-file=../gitlab.cookiecutterrc ../../cookiecutter-pylibrary
+  - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
   - 'sed --in-place "s/fkrull\/multi-python:bionic/dahanna\/python-alpine-package:tox-alpine/" .gitlab-ci.yml'
   - git status
   - git diff
@@ -49,6 +52,7 @@ test:
   - git config user.email "you@example.com"
   - git config user.name "Your Name"
   - git commit -m "Regenerated from cookiecutter."
+  # - git push -u origin $CI_COMMIT_BRANCH
   - sed --help
   - |
    for name in py35 py36 py27 pypy3 pypy; do
