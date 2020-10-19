@@ -41,8 +41,7 @@ test:
   - cd python-nameless
   - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
   - cookiecutter --help
-  - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc ../../cookiecutter-pylibrary
-  - cd python-nameless
+  - cookiecutter --overwrite-if-exists --no-input --config-file=../gitlab.cookiecutterrc ../../cookiecutter-pylibrary
   - 'sed --in-place "s/fkrull\/multi-python:bionic/dahanna\/python-alpine-package:tox-alpine/" .gitlab-ci.yml'
   - git status
   - git diff
