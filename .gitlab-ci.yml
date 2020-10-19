@@ -30,15 +30,18 @@ test:
   - uname --all
   - lsb_release --all || echo "lsb_release is not supported on this host."
 
-  - git config --global user.email "you@example.com"
-  - git config --global user.name "Your Name"
-
   - printf "    repo_hosting_domain" >> gitlab.cookiecutterrc
   - 'printf ":" >> gitlab.cookiecutterrc'
   - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
   - cookiecutter --help
   - cookiecutter --no-input --config-file=gitlab.cookiecutterrc .
+  - cd python-nameless
+  - git init .
+  - git add --all
+  - git config user.email "you@example.com"
+  - git config user.name "Your Name"
+  - git commit -m "Regenerated from cookiecutter."
   - start_tox=$(date +%s)
   # - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
