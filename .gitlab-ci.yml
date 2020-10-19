@@ -33,8 +33,9 @@ test:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
 
+  - safe_sed () { sed --version > /dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@" }
   - start_tox=$(date +%s)
-  - tox --sitepackages
+  # - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
 
