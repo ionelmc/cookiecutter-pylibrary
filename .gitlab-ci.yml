@@ -33,7 +33,7 @@ test:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
 
-  - safe_sed () {
+  -| safe_sed () {
     sed --version > /dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
   }
   - start_tox=$(date +%s)
