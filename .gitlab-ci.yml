@@ -35,7 +35,7 @@ test:
   - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
   - echo "might be able to extract it from $CI_SERVER_URL"
   - 'printf "    repo_username:" >> gitlab.cookiecutterrc'
-  - echo "       '$GITLAB_USER_LOGIN'\n" >> gitlab.cookiecutterrc
+  - echo "             '$GITLAB_USER_LOGIN'" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
   - git clone $PYTHON_NAMELESS_REPO
   - cookiecutter --help
