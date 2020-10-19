@@ -37,6 +37,8 @@ test:
   - 'printf "    repo_username:" >> gitlab.cookiecutterrc'
   - echo "             '$GITLAB_USER_LOGIN'" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
+  # - git clone -b $CI_COMMIT_BRANCH --single-branch $PYTHON_NAMELESS_REPO
+  # we cannot be sure that branch already exists
   - git clone $PYTHON_NAMELESS_REPO
   - cd python-nameless
   - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
