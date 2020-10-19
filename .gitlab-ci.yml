@@ -37,6 +37,8 @@ test:
   - 'printf ":" >> gitlab.cookiecutterrc'
   - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
+  - cookiecutter --help
+  - cookiecutter --no-input --config-file=gitlab.cookiecutterrc .
   - start_tox=$(date +%s)
   # - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
