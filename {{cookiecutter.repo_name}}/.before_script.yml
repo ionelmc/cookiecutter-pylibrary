@@ -261,7 +261,7 @@ default:
     # If it doesn't have internal changes, great! pip will just use the pypi.org version.
     - if [ -z ${PYPI_URL+ABC} ]; then
     - echo "PYPI_URL is set to $PYPI_URL"
-    - if [ ${PYPI_URL: -1} != '/' ]; then
+    - "if [ ${PYPI_URL: -1} != '/' ]; then"
     - echo "If you try to twine upload without the trailing /, you'll get back an HTTPError 400 Bad Request Repository path must have another '/' after initial '/'."
     - PYPI_URL=$PYPI_URL/
     # https://pip.pypa.io/en/stable/user_guide/#environment-variables
