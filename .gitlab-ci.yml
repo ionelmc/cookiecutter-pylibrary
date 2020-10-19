@@ -33,13 +33,17 @@ test:
   - printf "    repo_hosting_domain" >> gitlab.cookiecutterrc
   - 'printf ":" >> gitlab.cookiecutterrc'
   - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
+  - echo "might be able to extract it from $CI_SERVER_URL"
+  - 'printf "    repo_username:" >> gitlab.cookiecutterrc'
+  - echo "       '$GITLAB_USER_LOGIN'\n" >> gitlab.cookiecutterrc
   - cat gitlab.cookiecutterrc
   - git clone $PYTHON_NAMELESS_REPO
   - cookiecutter --help
   - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
   - cd python-nameless
-  - git add --all
+  - git status
   - git diff
+  - git add --all
   - git config user.email "you@example.com"
   - git config user.name "Your Name"
   - git commit -m "Regenerated from cookiecutter."
