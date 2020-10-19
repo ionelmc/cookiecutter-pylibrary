@@ -50,7 +50,7 @@ test:
   - git commit -m "Regenerated from cookiecutter."
   - sed --help
   - |
-   for name in py35 py36 py27 pypy pypy3; do
+   for name in py35 py36 py27 pypy3 pypy; do
     for env in $name ${name}-cover ${name}-nocov; do
      sed --in-place "s/,$env,/,/" tox.ini
      sed --in-place "s/$env,//" tox.ini
