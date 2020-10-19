@@ -33,9 +33,8 @@ test:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
 
-  -| safe_sed () {
-    sed --version > /dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
-  }
+  - echo "    repo_hosting_domain:       '$repo_hosting_domain'" >> gitlab.cookiecutterrc
+  - cat gitlab.cookiecutterrc
   - start_tox=$(date +%s)
   # - tox --sitepackages
   - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
