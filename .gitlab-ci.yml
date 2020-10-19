@@ -3,7 +3,8 @@ image: dahanna/python-alpine-package:tox-alpine
 
 # https://docs.gitlab.com/ee/ci/yaml/includes.html#re-using-a-before_script-template
 include:
-  - local: '{{ cookiecutter.repo_name }}/.before_script.yml'
+  - project: 'gitlab-ci-yml-components/for-python'
+    file: '.before_script.yml'
 
 
 test:
