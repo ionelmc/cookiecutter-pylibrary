@@ -38,8 +38,8 @@ test:
   - cookiecutter --help
   - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
   - cd python-nameless
-  - git init .
   - git add --all
+  - git diff
   - git config user.email "you@example.com"
   - git config user.name "Your Name"
   - git commit -m "Regenerated from cookiecutter."
