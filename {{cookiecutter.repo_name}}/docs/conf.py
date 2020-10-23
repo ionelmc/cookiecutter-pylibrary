@@ -4,14 +4,13 @@ from __future__ import unicode_literals
 {% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 import os
 {% endif -%}
-{% if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
+{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
-{%- endif %}
+{% endif -%}
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
 
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
-{%- endif %}
-
+{% endif %}
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
