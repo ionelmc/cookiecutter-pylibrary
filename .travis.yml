@@ -1,18 +1,22 @@
 language: python
 dist: xenial
-python:
-  - 2.7
-  - 3.8
-  - pypy
-  - pypy3
+python: 3.8
 cache: pip
 env:
   global:
     - LD_PRELOAD=libSegFault.so
     - SEGFAULT_SIGNALS=all
   matrix:
+    include:
     - ENV=cext
-    - ENV=cffi
+    - env:
+      - ENV=cffi
+      - TOXENV=py27,codecov,extension-coveralls,coveralls
+      python: '2.7'
+    - env:
+      - ENV=cffi
+      - TOXENV=pypy3,codecov,extension-coveralls,coveralls
+      python: 'pypy3'
     - ENV=cython
     - ENV=matrix-cext
     - ENV=matrix-separate-cext
