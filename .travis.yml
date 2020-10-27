@@ -9,57 +9,57 @@ env:
   matrix:
     include:
     - env:
-      - ENV=cext
+        - ENV=cext
     - env:
-      - ENV=cffi
-      - TOXENV=py27,codecov,extension-coveralls,coveralls
+        - ENV=cffi
+        - TOXENV=py27,codecov,extension-coveralls,coveralls
       python: '2.7'
     - env:
-      - ENV=cffi
-      - TOXENV=pypy3,codecov,extension-coveralls,coveralls
+        - ENV=cffi
+        - TOXENV=pypy3,codecov,extension-coveralls,coveralls
       python: 'pypy3'
     - env:
-      - ENV=cython
+        - ENV=cython
     - env:
-      - ENV=matrix-cext
+        - ENV=matrix-cext
     - env:
-      - ENV=matrix-separate-cext
+        - ENV=matrix-separate-cext
     - env:
-      - ENV=nose-pure
+        - ENV=nose-pure
     - env:
-      - ENV=nose-pure-argparse
+        - ENV=nose-pure-argparse
     - env:
-      - ENV=nose-pure-click
+        - ENV=nose-pure-click
     - env:
-      - ENV=nose-pure-nocli
+        - ENV=nose-pure-nocli
     - env:
-      - ENV=pure
+        - ENV=pure
     - env:
-      - ENV=pure-argparse
+        - ENV=pure-argparse
     - env:
-      - ENV=pure-click
+        - ENV=pure-click
     - env:
-      - ENV=pure-nocli
+        - ENV=pure-nocli
     - env:
-      - ENV=pure-private
+        - ENV=pure-private
     - env:
-      - ENV=pure-pylama
+        - ENV=pure-pylama
     - env:
-      - ENV=separate-cext
+        - ENV=separate-cext
     - env:
-      - ENV=separate-cext-scm-osx-publish
+        - ENV=separate-cext-scm-osx-publish
     - env:
-      - ENV=separate-cffi
+        - ENV=separate-cffi
     - env:
-      - ENV=separate-cffi-scm-osx-publish
+        - ENV=separate-cffi-scm-osx-publish
     - env:
-      - ENV=separate-cython
+        - ENV=separate-cython
     - env:
-      - ENV=separate-cython-scm-osx-publish
+        - ENV=separate-cython-scm-osx-publish
     - env:
-      - ENV=separate-nose-pure
+        - ENV=separate-nose-pure
     - env:
-      - ENV=separate-pure
+        - ENV=separate-pure
 before_install:
   - python --version
   - virtualenv --version
