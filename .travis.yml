@@ -1,65 +1,86 @@
 language: python
 dist: xenial
-python: 3.8
 cache: pip
 env:
   global:
     - LD_PRELOAD=libSegFault.so
     - SEGFAULT_SIGNALS=all
-  matrix:
-    include:
-    - env:
-        - ENV=cext
-    - env:
-        - ENV=cffi
-        - TOXENV=py27,codecov,extension-coveralls,coveralls
-      python: '2.7'
-    - env:
-        - ENV=cffi
-        - TOXENV=pypy3,codecov,extension-coveralls,coveralls
-      python: 'pypy3'
-    - env:
-        - ENV=cython
-    - env:
-        - ENV=matrix-cext
-    - env:
-        - ENV=matrix-separate-cext
-    - env:
-        - ENV=nose-pure
-    - env:
-        - ENV=nose-pure-argparse
-    - env:
-        - ENV=nose-pure-click
-    - env:
-        - ENV=nose-pure-nocli
-    - env:
-        - ENV=pure
-    - env:
-        - ENV=pure-argparse
-    - env:
-        - ENV=pure-click
-    - env:
-        - ENV=pure-nocli
-    - env:
-        - ENV=pure-private
-    - env:
-        - ENV=pure-pylama
-    - env:
-        - ENV=separate-cext
-    - env:
-        - ENV=separate-cext-scm-osx-publish
-    - env:
-        - ENV=separate-cffi
-    - env:
-        - ENV=separate-cffi-scm-osx-publish
-    - env:
-        - ENV=separate-cython
-    - env:
-        - ENV=separate-cython-scm-osx-publish
-    - env:
-        - ENV=separate-nose-pure
-    - env:
-        - ENV=separate-pure
+matrix:
+  include:
+  - env:
+      - ENV=cext
+    python: 3.8
+  - env:
+      - ENV=cffi
+      - TOXENV=py27,codecov,extension-coveralls,coveralls
+    python: 2.7
+  - env:
+      - ENV=cffi
+      - TOXENV=pypy3,codecov,extension-coveralls,coveralls
+    python: pypy3
+  - env:
+      - ENV=cython
+    python: 3.8
+  - env:
+      - ENV=matrix-cext
+    python: 3.8
+  - env:
+      - ENV=matrix-separate-cext
+    python: 3.8
+  - env:
+      - ENV=nose-pure
+    python: 3.8
+  - env:
+      - ENV=nose-pure-argparse
+    python: 3.8
+  - env:
+      - ENV=nose-pure-click
+    python: 3.8
+  - env:
+      - ENV=nose-pure-nocli
+    python: 3.8
+  - env:
+      - ENV=pure
+    python: 3.8
+  - env:
+      - ENV=pure-argparse
+    python: 3.8
+  - env:
+      - ENV=pure-click
+    python: 3.8
+  - env:
+      - ENV=pure-nocli
+    python: 3.8
+  - env:
+      - ENV=pure-private
+    python: 3.8
+  - env:
+      - ENV=pure-pylama
+    python: 3.8
+  - env:
+      - ENV=separate-cext
+    python: 3.8
+  - env:
+      - ENV=separate-cext-scm-osx-publish
+    python: 3.8
+  - env:
+      - ENV=separate-cffi
+    python: 3.8
+  - env:
+      - ENV=separate-cffi-scm-osx-publish
+    python: 3.8
+  - env:
+      - ENV=separate-cython
+    python: 3.8
+  - env:
+      - ENV=separate-cython-scm-osx-publish
+    python: 3.8
+  - env:
+      - ENV=separate-nose-pure
+    python: 3.8
+  - env:
+      - ENV=separate-pure
+    python: 3.8
 before_install:
   - python --version
   - virtualenv --version
