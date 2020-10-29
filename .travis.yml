@@ -12,11 +12,12 @@ matrix:
     python: 3.8
   - env:
       - ENV=cffi
-      - TOXENV=py27,codecov,extension-coveralls,coveralls
+      - TOXENV=py27
     python: 2.7
   - env:
       - ENV=cffi
-      - TOXENV=pypy3,codecov,extension-coveralls,coveralls
+      - TOXENV=pypy3
+      - TOXPYTHON=pypy3
     python: pypy3
   - env:
       - ENV=cython
