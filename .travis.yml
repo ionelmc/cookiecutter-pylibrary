@@ -71,7 +71,7 @@ script:
       mkdir -p ~/.local/bin
       for name in pypy pypy3; do
         curl -sSf -o $name.tar.bz2 https://storage.googleapis.com/travis-ci-language-archives/python/binaries/ubuntu/18.04/x86_64/$name.tar.bz2
-        tar xjf $name.tar.bz2 --directory /
+        sudo tar xjf $name.tar.bz2 --directory /
         rm $name.tar.bz2
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
