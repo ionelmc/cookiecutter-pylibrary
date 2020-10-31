@@ -1,5 +1,5 @@
 language: python
-dist: bionic
+dist: xenial
 python: '3.8'
 cache: pip
 env:
@@ -58,25 +58,25 @@ script:
     fi
     set +x
   - |
-    if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
-      chmod u=rw,og= ~/.ssh/publish-key
-      echo "Host github.com" >> ~/.ssh/config
-      echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
-      # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
-      git reset --hard
-      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
-      git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
-    else
+    #if openssl aes-256-cbc -K $encrypted_a70d5afca909_key -iv $encrypted_a70d5afca909_iv -in ../publish-key.enc -out ~/.ssh/publish-key -d; then
+    #  chmod u=rw,og= ~/.ssh/publish-key
+    #  echo "Host github.com" >> ~/.ssh/config
+    #  echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
+    #  # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
+    #  git reset --hard
+    #  bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
+    #  git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
+    #else
       echo Failed to get publish-key
       mkdir -p ~/.local/bin
       for name in pypy pypy3; do
-        curl -sSf -o $name.tar.bz2 https://storage.googleapis.com/travis-ci-language-archives/python/binaries/ubuntu/18.04/x86_64/$name.tar.bz2
+        curl -sSf -o $name.tar.bz2 https://storage.googleapis.com/travis-ci-language-archives/python/binaries/ubuntu/16.04/x86_64/$name.tar.bz2
         sudo tar xjf $name.tar.bz2 --directory /
         rm $name.tar.bz2
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
       tox --sitepackages
-    fi
+    #fi
   - echo Done.
 
 notifications:

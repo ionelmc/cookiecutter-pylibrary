@@ -1,5 +1,5 @@
 language: python
-dist: bionic
+dist: xenial
 python: '3.8'
 cache: pip
 env:

@@ -1,5 +1,5 @@
 language: python
-dist: bionic
+dist: xenial
 cache: false
 env:
   global:
