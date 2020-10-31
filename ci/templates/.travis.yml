@@ -1,8 +1,8 @@
 language: python
 dist: xenial
+virt: lxd
 python: '3.8'
 cache: pip
-virt: lxd
 env:
   global:
     - LD_PRELOAD=libSegFault.so
