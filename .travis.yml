@@ -39,7 +39,7 @@ before_install:
 install:
   - mkdir -p ~/.pip
   - cp ci/pip.conf ~/.pip/pip.conf
-  - pip install -U wheel setuptools tox cookiecutter bumpversion
+  - pip install --upgrade --ignore-installed wheel setuptools tox cookiecutter bumpversion cffi
   - virtualenv --version
   - tox --version
 script:
@@ -67,6 +67,7 @@ script:
     #  bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
     #  git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     #else
+      set -x
       echo Failed to get publish-key
       mkdir -p ~/.local/bin
       for name in pypy pypy3; do
