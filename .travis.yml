@@ -76,7 +76,7 @@ script:
         rm $name.tar.bz2
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
-      tox --sitepackages
+      tox
     #fi
   - echo Done.
 
