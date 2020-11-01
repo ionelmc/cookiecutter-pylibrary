@@ -78,7 +78,16 @@ script:
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
       set +x
-      tox
+      # Counting the lines in pyproject.toml is a very crude way of determining whether we'll need proper build isolation for
+      # a PEP517 build, but hopefully by the time this could come back to haunt us,
+      # https://github.com/pypa/pip/issues/6264 will be fixed so it won't matter anymore.
+      if [ $(wc --lines < pyproject.toml) -gt 5 ]; then
+        echo "pyproject.toml has $(wc --lines < pyproject.toml) lines, so it is probably nontrivial."
+        tox
+      else
+        echo "As long as pyproject.toml is trivial, it is safe to use system site packages even before pypa/pip#6264 is fixed."
+        tox --sitepackages
+      fi
     fi
   - echo Done.
 
