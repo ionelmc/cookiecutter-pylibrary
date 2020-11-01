@@ -33,6 +33,7 @@ safe_sed 's/sphinx-build -b linkcheck/#/' tox.ini
 for name in py35 py36 py37 py39; do
   for env in $name ${name}-cover ${name}-nocov; do
     safe_sed "s/,$env,/,/" tox.ini
-    safe_sed "s/$env,/,/" tox.ini
+    safe_sed "s/$env,//" tox.ini
+    safe_sed "s/,$env//" tox.ini
   done
 done
