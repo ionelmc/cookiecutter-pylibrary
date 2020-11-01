@@ -21,7 +21,9 @@ COPY . {{cookiecutter.repo_name}}
 # Environment variables do *not* persist across Docker RUN lines.
 # See also https://vsupalov.com/set-dynamic-environment-variable-during-docker-image-build/
 RUN if [ -z ${FTP_PROXY+ABC} ]; then echo "FTP_PROXY is unset, so not doing any shenanigans."; else SETTER="SSH_PRIVATE_DEPLOY_KEY=${FTP_PROXY}"; fi \
+    && set -x \
     && ${SETTER} . ./before_script.sh \
+    && set +x \
     # Unfortunately, the -e flag is not enabled on all platforms,
     # so we cannot guarantee that we will stop here if before_script.sh crashes.
     && wget http://www.google.com/index.html && echo "wget works" && rm index.html \
