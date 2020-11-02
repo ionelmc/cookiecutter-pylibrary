@@ -42,7 +42,7 @@ install:
   - ps: Invoke-WebRequest "https://bootstrap.pypa.io/get-pip.py" -OutFile "c:\\get-pip.py"
   - "c:\\python27\\python c:\\get-pip.py setuptools"
   - "c:\\python27\\Scripts\\pip wheel tox virtualenv cookiecutter bumpversion"
-  - "c:\\python27\\Scripts\\pip wheel pytest-capturelog pytest-cov pytest"
+  - "c:\\python27\\Scripts\\pip wheel pytest-cov pytest"
   - "c:\\python27\\Scripts\\pip wheel nose coverage"
   - "c:\\python27\\Scripts\\pip wheel cpp-coveralls"
   - "c:\\python27\\Scripts\\pip wheel jinja2 matrix"

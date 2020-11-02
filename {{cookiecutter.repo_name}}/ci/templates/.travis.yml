@@ -1,5 +1,6 @@
 language: python
 dist: xenial
+virt: lxd
 cache: false
 env:
   global:
@@ -25,7 +26,7 @@ matrix:
 {{ "{%- for env in tox_environments %}{{ '' }}" }}
 {%- endif %}
 {%- if cookiecutter.travis_osx == "yes" %}
-{{ "{%- if 'py38' in env or 'py27' in env %}{{ '' }}" }}
+{{ "{%- if 'py39' in env or 'py27' in env %}{{ '' }}" }}
 {{ "    - os: osx" }}
 {{ "      osx_image: xcode11" }}
 {{ "      language: generic" }}
