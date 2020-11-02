@@ -44,7 +44,12 @@
       #Reformat Docker tags to kaniko's --destination argument:
     - FORMATTEDTAGLIST=$(echo "${FORMATTEDTAGLIST}" | sed s/\-\-tag/\-\-destination/g)
 
-    - BUILD_ARGS="$BUILD_ARGS --build-arg BASE_IMAGE=dahanna/python-alpine-package:alpine-python3-dev-git"
+    # If BASE_IMAGE is set, pass that down to the docker build.
+    - if [ -z ${BASE_IMAGE+ABC} ]; then
+    - echo "BASE_IMAGE is unset, so leaving it as the default in the Dockerfile."
+    - else
+    - BUILD_ARGS="$BUILD_ARGS --build-arg BASE_IMAGE=$BASE_IMAGE"
+    - fi
     # For cleanliness, we would prefer to leave build-args *unset* if they are unset here.
     # Thus, we don't want to unconditionally pass --build-arg ETC_ENVIRONMENT_LOCATION=$ETC_ENVIRONMENT_LOCATION,
     # as that would set ETC_ENVIRONMENT_LOCATION to an empty string if ETC_ENVIRONMENT_LOCATION were unset here.

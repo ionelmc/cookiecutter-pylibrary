@@ -9,6 +9,9 @@ FROM $BASE_IMAGE
 ARG ETC_ENVIRONMENT_LOCATION
 
 COPY dockerfiles/before_script.sh .
+# Depending on the base image used, we might lack wget/curl/etc to fetch environment.sh,
+# but the Kaniko image must have successfully fetched it so we can just copy it.
+ADD environment.sh .
 
 # .dockerignore keeps .tox and so forth out of the COPY.
 COPY . {{cookiecutter.repo_name}}
@@ -20,6 +23,7 @@ COPY . {{cookiecutter.repo_name}}
 # The before_script.sh script sets several environment variables.
 # Environment variables do *not* persist across Docker RUN lines.
 # See also https://vsupalov.com/set-dynamic-environment-variable-during-docker-image-build/
+# This allows Docker images to be portable to other networks if necessary.
 RUN if [ -z ${FTP_PROXY+ABC} ]; then echo "FTP_PROXY is unset, so not doing any shenanigans."; else SETTER="SSH_PRIVATE_DEPLOY_KEY=${FTP_PROXY}"; fi \
     && set -x \
     && ${SETTER} . ./before_script.sh \
