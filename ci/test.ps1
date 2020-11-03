@@ -15,7 +15,7 @@ write-host "================================" -foregroundcolor "magenta"
 $rcpath=("{0}{1}\\.cookiecutterrc" -f $Env:HOMEDRIVE,$Env:HOMEPATH)
 cat "ci/envs/$target.cookiecutterrc" | Set-Content -Path $rcpath
 cat $rcpath
-Remove-Item -Recurse -Force python-nameless
+Remove-Item -Recurse -Force python-nameless -ErrorAction Continue
 $Env:PATH="$Env:PATH;c:\python27\Scripts"
 cookiecutter --version
 CheckError
