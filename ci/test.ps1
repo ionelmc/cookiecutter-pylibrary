@@ -1,6 +1,7 @@
 param (
     [string]$target=$(throw "Usage: {0} env-name" -f $MyInvocation.MyCommand.Name)
 )
+$ErrorActionPreference="Stop"
 write-host "================================" -foregroundcolor "magenta"
 write-host "================================ Testing: $target" -foregroundcolor "magenta"
 write-host "================================" -foregroundcolor "magenta"
