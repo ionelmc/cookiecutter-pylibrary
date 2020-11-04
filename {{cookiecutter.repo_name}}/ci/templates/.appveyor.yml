@@ -1,5 +1,6 @@
 version: '{branch}-{build}'
 build: off
+image: Visual Studio 2019
 environment:
 {%- set environment_global_interior %}
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
