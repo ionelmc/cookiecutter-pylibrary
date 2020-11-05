@@ -56,6 +56,8 @@ pages:
   - ls /bin
   - python -c "import sys; print(sys.platform)"
   - if command -v conda; then echo "conda found"; else echo "conda not found"; fi
+  - mkdir --parents docs/_static
+  - mkdir docs/_static/conda-channel
   - if command -v conda; then
   - if [ "$CONDA_DEFAULT_ENV" = "test-env" ]; then
   # How should we decide whether or not to build a conda package?
@@ -65,8 +67,6 @@ pages:
   - right_before_conda_build=$(date +%s)
   - conda info
   - apk add bash
-  - mkdir docs/_static
-  - mkdir docs/_static/conda-channel
   - mkdir docs/_static/conda-channel/linux-64
   # $CONDA_DIR does not contain conda-bld
   # Adding --bootstrap pointed at an environment containing all of the requirements (obtained by conda installing python-nameless and then conda uninstalling python-nameless) does not seem to reduce build time at all.
@@ -82,6 +82,7 @@ pages:
     ; else echo "The conda env named test-env is not activated, so not building a conda package."; fi
     ; else
     echo "conda not found in this container, so not building a conda package."
+    ; echo "The most recent build did not build a conda package." >> docs/_static/conda-channel/index.html
     ; fi
 
   - sphinx-build -E -b html docs dist/docs
