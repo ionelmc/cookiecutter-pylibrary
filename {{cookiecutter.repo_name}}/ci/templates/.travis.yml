@@ -64,7 +64,6 @@ matrix:
 {{ "{%- endif %}" }}
 {%- endif %}
 {{ "{%- if env.startswith('pypy3') %}{{ '' }}" }}
-        - TOXPYTHON=pypy3{# other envs expect a python3 or similar wich might not be availabe, thus override it here #}
       python: 'pypy3'
 {{ "{%- elif env.startswith('pypy') %}{{ '' }}" }}
       python: 'pypy'
