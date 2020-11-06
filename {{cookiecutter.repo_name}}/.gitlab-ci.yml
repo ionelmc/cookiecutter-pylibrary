@@ -52,12 +52,18 @@ pages:
   - pip install -r docs/requirements.txt
 
   # WordPress rejects uploading these kinds of files, but we can host a simple conda channel on GitLab Pages.
+  # The new Miniconda makes empty channels/indices that are actually quite large and complex.
+  # We'd rather not include all that in a git repo, but we also don't particularly want to generate it on-the-fly
+  # in both the pages job and the test job. (We'd need it in the test job so the link to the conda-channel isn't broken.)
+  # For now we're including just an index.html with all its links broken.
+  # (sphinx -b linkcheck does not check links in static HTML.)
+  # That gives users a place they can visit that's not a 404, and since it's clearly empty, it's clear why they can't install from the conda-channel (if the most recent build did not build a conda package).
   - ls /bin/sh
   - ls /bin
   - python -c "import sys; print(sys.platform)"
   - if command -v conda; then echo "conda found"; else echo "conda not found"; fi
   - mkdir --parents docs/_static
-  - mkdir docs/_static/conda-channel
+  - mkdir --parents docs/_static/conda-channel
   - if command -v conda; then
   - if [ "$CONDA_DEFAULT_ENV" = "test-env" ]; then
   # How should we decide whether or not to build a conda package?
@@ -82,14 +88,14 @@ pages:
     ; else echo "The conda env named test-env is not activated, so not building a conda package."; fi
     ; else
     echo "conda not found in this container, so not building a conda package."
-    ; echo "The most recent build did not build a conda package." >> docs/_static/conda-channel/index.html
     ; fi
 
   - sphinx-build -E -b html docs dist/docs
 
-  - if [ -d docs/_static/conda-channel ]; then
+  # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_static_path warns that it doesn't include .files, but that seems to be only at the top level, so .files in the conda-channel are still included.
+  - if [ -d docs/_static/conda-channel ] && [ ! -d dist/docs/_static/conda-channel ]; then
   - mv docs/_static/conda-channel dist/docs/_static
-    ; fi
+  - fi
 
   - mv dist/docs/ public/
   - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
