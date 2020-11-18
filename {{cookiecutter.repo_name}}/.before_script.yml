@@ -42,7 +42,7 @@ default:
     # We do not want the script to hang waiting for a password if the private key is rejected.
     - mkdir --parents ~/.ssh
     - echo "PasswordAuthentication=no" >> ~/.ssh/config
-    - 
+
     # The BusyBox version of wget pays attention to http_proxy, but not no_proxy, a dangerous combination.
     # The BusyBox version of wget permits a special option --proxy off to ignore http_proxy.
     # Note the difference from --no-proxy used by GNU wget.
