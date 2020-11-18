@@ -42,12 +42,12 @@ default:
     # We do not want the script to hang waiting for a password if the private key is rejected.
     - mkdir --parents ~/.ssh
     - echo "PasswordAuthentication=no" >> ~/.ssh/config
-    - echo $SSH_PRIVATE_DEPLOY_KEY > SSH.PRIVATE.KEY # If SSH_PRIVATE_DEPLOY_KEY is unset, this will just be empty.
+    - 
     # The BusyBox version of wget pays attention to http_proxy, but not no_proxy, a dangerous combination.
     # The BusyBox version of wget permits a special option --proxy off to ignore http_proxy.
     # Note the difference from --no-proxy used by GNU wget.
-    - ls environment.sh || wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || (wget --help && wget --proxy off $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber) || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh
-    - rm SSH.PRIVATE.KEY # Make sure to clean up that private key in case we want to use this script when building a Docker image.
+    - ls environment.sh || wget $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber || (wget --help && wget --proxy off $ETC_ENVIRONMENT_LOCATION --output-document environment.sh --no-clobber) || curl --verbose $ETC_ENVIRONMENT_LOCATION --output environment.sh || (echo $SSH_PRIVATE_DEPLOY_KEY > SSH.PRIVATE.KEY && scp -i SSH.PRIVATE.KEY $ETC_ENVIRONMENT_LOCATION environment.sh && rm SSH.PRIVATE.KEY)
+    # Make sure to clean up that rm SSH.PRIVATE.KEY in case we want to use this script when building a Docker image.
     - cat environment.sh
     # If the environment file wants to hack on our PATH, we usually want to ignore that part.
     - SAVED_PATH=$PATH
@@ -65,8 +65,11 @@ default:
     {% raw -%}
     - if [ ${#SSH_PRIVATE_DEPLOY_KEY} -le 5 ]; then echo "SSH_PRIVATE_DEPLOY_KEY looks far too short, something is wrong"; fi
     {%- endraw %}
-    - apk add openssh-client || apt-get install --assume-yes openssh-client || (apt-get update && apt-get install --assume-yes openssh-client)  || echo "Failed to install openssh-client; proceeding anyway to see if this image has its own SSH."
-    - echo "adding openssh-client took $(( $(date +%s) - right_after_pull_docker_image)) seconds"
+    - if command -v ssh; then echo "Something that looks like ssh is already installed."; else
+    - right_before_install_ssh=$(date +%s)
+    - apk add openssh-client || (sed -i -e 's/https/http/' /etc/apk/repositories && apk add openssh-client) || apt-get install --assume-yes openssh-client || (apt-get update && apt-get install --assume-yes openssh-client)  || echo "Failed to install openssh-client; proceeding anyway to see if this image has its own SSH."
+    - echo "adding openssh-client took $(( $(date +%s) - right_before_install_ssh)) seconds"
+    - fi
 
     # ssh-agent -s starts the ssh-agent and then outputs shell commands to run.
     - eval $(ssh-agent -s)
