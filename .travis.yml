@@ -3,6 +3,14 @@ dist: xenial
 virt: lxd
 python: '3.8'
 cache: pip
+
+# Do not merge this.
+# Copy this into a pull request to temporarily disable Travis.
+# Remove this before merging.
+branches:
+  only:
+    - master
+
 env:
   global:
     - LD_PRELOAD=libSegFault.so
