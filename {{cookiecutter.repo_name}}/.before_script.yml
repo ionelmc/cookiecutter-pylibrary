@@ -59,6 +59,10 @@ default:
     - PATH=$SAVED_PATH
     - fi
 
+    # We'll usually connect to this machine using the loopback IP 127.0.0.1, but just in case some program tries to connect to its public IP address, we want to be sure that won't go through the proxy, if any.
+    - hostname -i
+    - no_proxy="$(hostname -i),$no_proxy"
+
     - if [ -z ${SSH_PRIVATE_DEPLOY_KEY+ABC} ]; then echo "SSH_PRIVATE_DEPLOY_KEY is unset, so assuming you do not need SSH set up.";
       else
     # All of this will be skipped unless you set SSH_PRIVATE_DEPLOY_KEY as a variable at https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/settings/ci_cd
