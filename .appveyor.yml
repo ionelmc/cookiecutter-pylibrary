@@ -7,10 +7,15 @@ matrix:
 environment:
   matrix:
     - ENV: cext
+    - ENV: cext-nolegacy
     - ENV: cffi
+    - ENV: cffi-nolegacy
     - ENV: cython
+    - ENV: cython-nolegacy
     - ENV: matrix-cext
+    - ENV: matrix-cext-nolegacy
     - ENV: matrix-separate-cext
+    - ENV: matrix-separate-cext-nolegacy
     - ENV: nose-pure
     - ENV: nose-pure-argparse
     - ENV: nose-pure-click
@@ -19,16 +24,21 @@ environment:
     - ENV: pure-argparse
     - ENV: pure-click
     - ENV: pure-nocli
+    - ENV: pure-nolegacy
     - ENV: pure-private
     - ENV: pure-pylama
     - ENV: separate-cext
+    - ENV: separate-cext-nolegacy
     - ENV: separate-cext-scm-osx-publish
     - ENV: separate-cffi
+    - ENV: separate-cffi-nolegacy
     - ENV: separate-cffi-scm-osx-publish
     - ENV: separate-cython
+    - ENV: separate-cython-nolegacy
     - ENV: separate-cython-scm-osx-publish
     - ENV: separate-nose-pure
     - ENV: separate-pure
+    - ENV: separate-pure-nolegacy
 init:
   - "echo %CTX%"
   - "set"

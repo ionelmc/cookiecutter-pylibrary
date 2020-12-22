@@ -1,6 +1,6 @@
 default_context:
   c_extension_optional: 'yes'
-  c_extension_support: 'no'
+  c_extension_support: cython
   c_extension_test_pypi: 'no'
   c_extension_test_pypi_appveyor_secret: fDwCnDhQiptm9a4ZcFpgyQ==
   c_extension_test_pypi_username: ionel
@@ -8,12 +8,12 @@ default_context:
   codacy_projectid: 862e7946
   codeclimate: 'yes'
   codecov: 'yes'
-  command_line_interface: nocli
+  command_line_interface: plain
   coveralls: 'yes'
   coveralls_token: IoRlAEvnKbwbhBJ2jrWPqzAnE2jobA0I3
   full_name: "Ion\"'el Cristian M\u0103rie\u0219"
   landscape: 'yes'
-  legacy_python: 'yes'
+  legacy_python: 'no'
   linter: flake8
   package_name: nameless
   project_name: "Nam\xE9\"'less"
@@ -25,6 +25,6 @@ default_context:
   setup_py_uses_test_runner: 'yes'
   sphinx_docs: 'no'
   test_matrix_configurator: 'no'
-  test_matrix_separate_coverage: 'no'
-  test_runner: nose
+  test_matrix_separate_coverage: 'yes'
+  test_runner: pytest
   travis_osx: no yes
