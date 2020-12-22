@@ -28,11 +28,15 @@ static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObjec
     PyObject *kwargs;
     PyObject *result;
 
+{%- if cookiecutter.legacy_python == "yes" %}
     #if PY_MAJOR_VERSION < 3
       module = PyImport_ImportModule("__builtin__");
     #else
+{%- endif %}
       module = PyImport_ImportModule("builtins");
+{%- if cookiecutter.legacy_python == "yes" %}
     #endif
+{%- endif %}
     if (!module)
         return NULL;
 
@@ -78,7 +82,9 @@ static struct PyMethodDef module_functions[] = {
     {NULL, NULL}
 };
 
+{%- if cookiecutter.legacy_python == "yes" %}
 #if PY_MAJOR_VERSION >= 3
+{%- endif %}
 static struct PyModuleDef moduledef = {
     PyModuleDef_HEAD_INIT,
     "{{ cookiecutter.package_name }}.{{ cookiecutter.c_extension_module }}", /* m_name */
@@ -90,16 +96,22 @@ static struct PyModuleDef moduledef = {
     NULL,             /* m_clear */
     NULL,             /* m_free */
 };
+{%- if cookiecutter.legacy_python == "yes" %}
 #endif
+{%- endif %}
 
 static PyObject* moduleinit(void) {
     PyObject *module;
 
+{%- if cookiecutter.legacy_python == "yes" %}
 #if PY_MAJOR_VERSION >= 3
+{%- endif %}
     module = PyModule_Create(&moduledef);
+{%- if cookiecutter.legacy_python == "yes" %}
 #else
     module = Py_InitModule3("{{ cookiecutter.package_name }}.{{ cookiecutter.c_extension_module }}", module_functions, NULL);
 #endif
+{%- endif %}
 
     if (module == NULL)
         return NULL;
@@ -107,13 +119,17 @@ static PyObject* moduleinit(void) {
     return module;
 }
 
+{%- if cookiecutter.legacy_python == "yes" %}
 #if PY_MAJOR_VERSION < 3
 PyMODINIT_FUNC init{{ cookiecutter.c_extension_module }}(void) {
     moduleinit();
 }
 #else
+{%- endif %}
 PyMODINIT_FUNC PyInit_{{ cookiecutter.c_extension_module }}(void) {
     return moduleinit();
 }
+{%- if cookiecutter.legacy_python == "yes" %}
 #endif
+{%- endif %}
 {% endif %}
