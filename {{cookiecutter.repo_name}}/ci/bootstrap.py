@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-{%- if cookiecutter.legacy_python == "yes" %}
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
-{%- endif %}
 
 import os
 import subprocess
