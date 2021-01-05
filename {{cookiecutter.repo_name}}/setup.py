@@ -176,7 +176,7 @@ setup(
 {%- endif %}
         'Programming Language :: Python :: 3',
 {%- if cookiecutter.legacy_python == "no" %}
-        # 'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3 :: Only',
 {%- endif %}
 {%- if cookiecutter.legacy_python == "yes" %}
         'Programming Language :: Python :: 3.5',
