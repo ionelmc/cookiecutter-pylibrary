@@ -178,9 +178,6 @@ setup(
 {%- if cookiecutter.legacy_python == "no" %}
         'Programming Language :: Python :: 3 :: Only',
 {%- endif %}
-{%- if cookiecutter.legacy_python == "yes" %}
-        'Programming Language :: Python :: 3.5',
-{%- endif %}
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -211,7 +208,7 @@ setup(
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
 {%- if cookiecutter.legacy_python == "yes" %}
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
 {%- else %}
     python_requires='>=3.6',
 {%- endif %}
