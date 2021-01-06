@@ -18,9 +18,8 @@ Overview
         | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
           {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
         {{ '' }}
-        {%- if cookiecutter.landscape == 'yes' or cookiecutter.scrutinizer == 'yes' or cookiecutter.codacy == 'yes' or cookiecutter.codeclimate == 'yes' %}
-        | {%- if cookiecutter.landscape == 'yes' %} |landscape|{% endif -%}
-          {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
+        {%- if cookiecutter.scrutinizer == 'yes' or cookiecutter.codacy == 'yes' or cookiecutter.codeclimate == 'yes' %}
+        | {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
           {%- if cookiecutter.codacy == 'yes' %} |codacy|{% endif -%}
           {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
         {%- endif -%}
@@ -67,11 +66,6 @@ Overview
 .. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/master/graphs/badge.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-{% endif %}
-{%- if cookiecutter.landscape == 'yes' %}
-.. |landscape| image:: https://landscape.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master/landscape.svg?style=flat
-    :target: https://landscape.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master
-    :alt: Code Quality Status
 {% endif %}
 {%- if cookiecutter.codacy == 'yes' %}
 .. |codacy| image:: https://img.shields.io/codacy/grade/{{ cookiecutter.codacy_projectid }}.svg

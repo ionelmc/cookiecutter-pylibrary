@@ -58,7 +58,14 @@ script:
         ln -s /opt/python/$name/bin/$name ~/.local/bin/$name
       done
       set +x
-      tox
+      # This is clunky, but hopefully soon https://github.com/pypa/pip/issues/6264 will be fixed so it won't matter anymore.
+      if [ -e pyproject.toml ]; then
+        echo "We have a PEP517 pyproject.toml, and the Travis PyPy installation has an old setuptools, so we cannot allow system site packages as long as pip has the build isolation bug."
+        tox
+      else
+        echo "As long as we're not using PEP517, it's safe to use system site packages."
+        tox --sitepackages
+      fi
     fi
   - echo Done.
 

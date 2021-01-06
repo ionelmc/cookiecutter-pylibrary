@@ -312,12 +312,6 @@ You will be asked for these fields:
 
         **Note:** Doesn't support pushing C extension coverage yet.
 
-    * - ``landscape``
-      - .. code:: python
-
-            "no"
-      - Add a Landscape_ badge in ``README.rst``.
-
     * - ``scrutinizer``
       - .. code:: python
 
@@ -567,7 +561,6 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _isort: https://pypi.org/project/isort
 .. _bumpversion: https://pypi.org/project/bumpversion
 .. _Codecov: http://codecov.io/
-.. _Landscape: https://landscape.io/
 .. _Scrutinizer: https://scrutinizer-ci.com/
 .. _Codacy: https://codacy.com/
 .. _CodeClimate: https://codeclimate.com/

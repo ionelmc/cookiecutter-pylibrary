@@ -76,7 +76,6 @@ def main():
         conf['codecov'] = 'yes'
         conf['coveralls'] = 'yes'
         conf['coveralls_token'] = 'IoRlAEvnKbwbhBJ2jrWPqzAnE2jobA0I3'
-        conf['landscape'] = 'yes'
         conf['requiresio'] = 'yes'
         conf['scrutinizer'] = 'yes'
         with open(join(base_path, "ci", "envs", alias + '.cookiecutterrc'), "w") as fh:

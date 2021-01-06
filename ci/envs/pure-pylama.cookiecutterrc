@@ -12,7 +12,6 @@ default_context:
   coveralls: 'yes'
   coveralls_token: IoRlAEvnKbwbhBJ2jrWPqzAnE2jobA0I3
   full_name: "Ion\"'el Cristian M\u0103rie\u0219"
-  landscape: 'yes'
   legacy_python: 'yes'
   linter: pylama
   package_name: nameless
