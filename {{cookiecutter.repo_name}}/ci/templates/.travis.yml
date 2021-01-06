@@ -80,7 +80,9 @@ before_install:
   - |
     if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
       [[ $TOXENV =~ py3 ]] && brew upgrade python
+{%- if cookiecutter.legacy_python == "yes" %}
       [[ $TOXENV =~ py2 ]] && brew install python@2
+{%- endif %}
       export PATH="/usr/local/opt/python/libexec/bin:${PATH}"
     fi
 {%- endif %}

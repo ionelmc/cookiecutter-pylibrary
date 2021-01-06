@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
+{%- if cookiecutter.legacy_python == "yes" %}
 from __future__ import absolute_import
 from __future__ import print_function
+{%- endif %}
 
 import io
 {%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
@@ -169,9 +171,13 @@ setup(
         'Operating System :: POSIX',
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
+{%- if cookiecutter.legacy_python == "yes" %}
         'Programming Language :: Python :: 2.7',
+{%- endif %}
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
+{%- if cookiecutter.legacy_python == "no" %}
+        'Programming Language :: Python :: 3 :: Only',
+{%- endif %}
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -201,7 +207,11 @@ setup(
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
+{%- if cookiecutter.legacy_python == "yes" %}
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
+{%- else %}
+    python_requires='>=3.6',
+{%- endif %}
     install_requires=[
 {%- if cookiecutter.command_line_interface == 'click' %}
         'click',
