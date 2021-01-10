@@ -6,9 +6,9 @@ import os
 {% endif -%}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
-{% endif -%}
-{%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
 
+{% endif -%}
+{%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' -%}
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 {% endif %}
 extensions = [
