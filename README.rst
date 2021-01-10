@@ -4,11 +4,11 @@ cookiecutter-pylibrary
 
 Cookiecutter_ template for a Python library. |travis| |appveyor| |requiresio|
 
-.. |travis| image:: http://img.shields.io/travis/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=Travis
+.. |travis| image:: https://img.shields.io/travis/com/ionelmc/cookiecutter-pylibrary?label=Travis
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/ionelmc/cookiecutter-pylibrary
+    :target: https://travis-ci.com/github/ionelmc/cookiecutter-pylibrary
 
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/ionelmc/cookiecutter-pylibrary/master.svg?style=flat&label=AppVeyor
+.. |appveyor| image:: https://img.shields.io/appveyor/build/ionelmc/cookiecutter-pylibrary/master?label=AppVeyor
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
 
@@ -426,7 +426,7 @@ project)::
 
 Then:
 
-* `Enable the repository in your Travis CI account <https://travis-ci.org/profile>`_.
+* `Enable the repository in your Travis CI account <https://travis-ci.com/account/migrate>`_.
 * `Enable the repository in your Coveralls account <https://coveralls.io/repos/new>`_.
 * `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs
   service hook. Don't forget to enable virtualenv and specify ``docs/requirements.txt`` as the requirements file in
@@ -548,7 +548,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
 
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
-.. _Travis-CI: http://travis-ci.org/
+.. _Travis-CI: http://travis-ci.com/
 .. _Tox: https://tox.readthedocs.io/en/latest/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Coveralls: https://coveralls.io/

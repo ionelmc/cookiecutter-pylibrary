@@ -180,7 +180,7 @@ NOTE:
 
     Make sure you are setting TWINE_PASSWORD as a secret env variable in CI settings:
     - https://ci.appveyor.com/project/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/settings/environment
-    - https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/settings
+    - https://travis-ci.com/{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/settings
 """)
 {%- endif %}
 

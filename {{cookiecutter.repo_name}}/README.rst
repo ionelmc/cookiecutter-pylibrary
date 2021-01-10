@@ -43,9 +43,9 @@ Overview
 {% endif %}
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
-.. |travis| image:: https://api.travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
+.. |travis| image:: https://api.travis-ci.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
+    :target: https://travis-ci.com/{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.appveyor == 'yes' %}
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch=master&svg=true
