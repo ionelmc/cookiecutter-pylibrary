@@ -75,9 +75,9 @@ For merging, you should:
 
 {% if cookiecutter.travis == 'yes' -%}
 .. [1] If you don't have all the necessary python versions available locally you can rely on Travis - it will
-       `run the tests <https://travis-ci.com/{% if cookiecutter.repo_hosting == 'github.com' %}/github
-                                             {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}/gitlab
-                                             {%- endif %}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull_requests>`_
+       `run the tests <https://travis-ci.com/{% if cookiecutter.repo_hosting == 'github.com' %}github/
+                                             {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}gitlab/
+                                             {%- endif %}{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull_requests>`_
        for each change you add in the pull request.
 
        It will be slower though ...
