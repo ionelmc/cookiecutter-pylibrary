@@ -124,10 +124,10 @@ if __name__ == "__main__":
     Generating CI configuration ...
 """)
     try:
-        subprocess.check_call(['tox', '-e', 'bootstrap'])
+        subprocess.check_call(['tox', '-e', 'bootstrap', '--sitepackages'])
     except Exception:
         try:
-            subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap'])
+            subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap', '--sitepackages'])
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
 
