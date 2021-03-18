@@ -49,11 +49,6 @@ environment:
 {{ "{% if 'nocov' in env %}" }}
 {{ "      WHEEL_PATH: .tox/dist" }}
 {{ "{% endif %}" }}
-{%- if arch == '64' %}
-{{ "{% if env.startswith('py2') %}" }}
-{{ "      WINDOWS_SDK_VERSION: v7.0" }}
-{{ "{% endif %}" }}
-{%- endif %}
 {%- endfor %}
 {{ "{% endif %}{% endfor %}" }}
 init:
