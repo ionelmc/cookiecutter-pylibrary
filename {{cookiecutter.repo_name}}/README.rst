@@ -34,7 +34,7 @@ Overview
 {%- if cookiecutter.sphinx_docs == "yes" -%}
 {%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
-    :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
+    :target: https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
     :alt: Documentation Status
 {%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting_domain -%}
 .. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
