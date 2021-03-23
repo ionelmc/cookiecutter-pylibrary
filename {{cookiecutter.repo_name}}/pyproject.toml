@@ -3,7 +3,7 @@ requires = [
     "setuptools>=30.3.0",
     "wheel",
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-    "setuptools_scm>=3.3.1",
+    "setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}",
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
     "cffi>=1.0.0",

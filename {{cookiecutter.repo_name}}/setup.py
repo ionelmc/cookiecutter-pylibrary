@@ -230,7 +230,7 @@ setup(
 {%- if cookiecutter.test_runner == 'pytest' and cookiecutter.setup_py_uses_test_runner == 'yes' %}
         'pytest-runner',{% endif %}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-        'setuptools_scm>=3.3.1',{% endif %}
+        'setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}',{% endif %}
 {%- endset %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
     setup_requires=[{{ setup_requires_interior }}
