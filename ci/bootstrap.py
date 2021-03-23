@@ -27,8 +27,6 @@ def exec_in_env():
     else:
         bin_path = join(env_path, "bin")
     if not exists(env_path):
-        import subprocess
-
         print("Making bootstrap env in: {0} ...".format(env_path))
         try:
             check_call([sys.executable, "-m", "venv", env_path])
