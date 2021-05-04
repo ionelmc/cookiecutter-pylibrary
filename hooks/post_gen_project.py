@@ -88,8 +88,8 @@ if __name__ == "__main__":
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
 {%- endif %}
 
+    unlink_if_exists(join('ci', 'appveyor-with-compiler.cmd'))
 {%- if cookiecutter.appveyor == 'no' %}
-    os.unlink(join('ci', 'appveyor-with-compiler.cmd'))
     os.unlink(join('ci', 'templates', '.appveyor.yml'))
     unlink_if_exists('.appveyor.yml')
 {% endif %}

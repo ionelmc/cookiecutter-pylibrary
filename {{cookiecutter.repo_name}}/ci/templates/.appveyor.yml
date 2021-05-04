@@ -1,6 +1,20 @@
 version: '{branch}-{build}'
 build: off
+{%- if cookiecutter.legacy_python == "yes" %}
+image:
+  - Visual Studio 2019
+  - Visual Studio 2015
+matrix:
+  exclude:
+    - image: Visual Studio 2019
+      PYTHON_VERSION: 2.7
+{%- for version in ['3.6', '3.7', '3.8', '3.9'] %}
+    - image: Visual Studio 2015
+      PYTHON_VERSION: '{{ version }}'
+{%- endfor %}
+{%- else %}
 image: Visual Studio 2019
+{%- endif %}
 environment:
 {%- set environment_global_interior %}
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
@@ -64,7 +78,7 @@ install:
   - '%PYTHON_HOME%\Scripts\pip --version'
   - '%PYTHON_HOME%\Scripts\tox --version'
 test_script:
-  - cmd /E:ON /V:ON /C .\ci\appveyor-with-compiler.cmd %PYTHON_HOME%\Scripts\tox
+  - %PYTHON_HOME%\Scripts\tox
 {%- if cookiecutter.c_extension_test_pypi == "yes" %}
 on_success:
   - IF DEFINED WHEEL_PATH %PYTHON_HOME%\Scripts\twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing %WHEEL_PATH%/*.whl
