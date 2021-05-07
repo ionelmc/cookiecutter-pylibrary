@@ -102,6 +102,16 @@ if __name__ == "__main__":
     unlink_if_exists('.travis.yml')
 {% endif %}
 
+{%- if 'gitlab' not in cookiecutter.repo_hosting_domain %}
+    os.unlink('.gitlab-ci.yml')
+    os.unlink('.before_script.yml')
+    os.unlink('.build_with_kaniko.yml')
+    os.unlink('.dockerignore')
+    os.unlink('dockerfiles/slim.Dockerfile')
+    os.unlink('dockerfiles/test.Dockerfile')
+    os.unlink('conda.recipe/meta.yaml')
+{% endif %}
+
 {%- if cookiecutter.repo_hosting == 'no' %}
     os.unlink('CONTRIBUTING.rst')
 {% endif %}
@@ -130,6 +140,7 @@ if __name__ == "__main__":
             subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap', '--sitepackages'])
         except Exception:
             subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
+            subprocess.check_call([sys.executable, join('ci', 'assembler.py')])
 
     print("""
 ################################################################################

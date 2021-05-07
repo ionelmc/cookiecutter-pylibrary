@@ -1,0 +1,17 @@
+.git/
+.githooks
+
+# Python internal caches and testing machinery:
+.tox/
+.env/
+.eggs
+.pytest_cache
+pip-wheel-metadata/
+htmlcov/
+
+# Optional user-facing documentation might be useful in the Docker image,
+# or might not be, depending on how the image will be used.
+examples/
+docs/
+tests/
+

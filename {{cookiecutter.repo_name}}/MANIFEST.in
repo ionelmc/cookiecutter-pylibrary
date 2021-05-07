@@ -18,5 +18,11 @@ include pyproject.toml
 {%- endif %}
 
 include tox.ini .travis.yml .appveyor.yml{% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting %} .readthedocs.yml{% endif %}{% if cookiecutter.pre_commit == "yes" %} .pre-commit-config.yaml{% endif %}
+{% if 'gitlab' in cookiecutter.repo_hosting_domain -%}
+include .gitlab-ci.yml .before_script.yml .build_with_kaniko.yml
+include conda.recipe/meta.yaml
+include .dockerignore
+include dockerfiles/test.Dockerfile dockerfiles/slim.Dockerfile dockerfiles/before_script.sh
+{%- endif %}
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib

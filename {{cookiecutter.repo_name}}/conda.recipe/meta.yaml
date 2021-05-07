@@ -1,0 +1,90 @@
+{# From https://github.com/conda/cookiecutter-conda-python/blob/master/%7B%7Bcookiecutter.repo_name%7D%7D/conda.recipe/meta.yaml #}
+{# We can have comment lines that just start like normal Python comment lines, but for some reason that causes the traceback to give the wrong line number when there's a problem parsing this meta.yaml file. Comments wrapped like this are fine. #}
+
+{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+{% raw -%}
+{% set setup_py_data = load_setup_py_data() %}
+{%- endraw %}
+
+package:
+  name: {{ cookiecutter.distribution_name }}
+  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+  {% raw -%}
+  version: {{ setup_py_data['get_version_for_conda_meta_yaml']() }}
+  {%- endraw %}
+
+source:
+  path: ..
+
+build:
+  # If the installation is complex, or different between Unix and Windows, use
+  # separate bld.bat and build.sh files instead of this key.  Add the line
+  # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
+  # "skip: True  # [not win]" to limit to Windows.
+  {% raw -%}
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
+  {%- endraw %}
+  # "If you run pip install without the --no-deps option, pip will often install dependencies in your conda recipe and those dependencies will become part of your package. This wastes space in the package and increases the risk of file overlap, file clobbering, and broken packages."
+  {% if cookiecutter.command_line_interface != "no" -%}
+  {% raw -%}
+  entry_points:
+    {% for entry in setup_py_data['entry_points']['console_scripts'] %}
+      - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
+    {% endfor %}
+  {%- endraw %}
+  {% endif %}
+
+requirements:
+  # https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#requirements
+  # https://github.com/conda/conda-build/issues/2286
+  # you can't add channels in the meta.yaml file.  You can, however add them to condarc, and conda-build will respect that
+  # Conda 4.4 adds some very nice ways of specifying channel on a per-package basis, and conda-build will add support for those specs in meta.yaml sometime soon.
+  # https://github.com/conda/conda-build/issues/532
+  # if you need compilers, uncomment these
+  #    read more at https://docs.conda.io/projects/conda-build/en/latest/resources/compiler-tools.html
+  # build:
+  {% raw -%}
+  #   - {{ compilers('c') }}
+  {%- endraw %}
+  host:
+    - python
+    - pip
+  # setuptools_scm must be in the host section, not in the build section.
+  # If setuptools_scm is not in the host section, conda build will fail with ERROR Could not find a version that satisfies the requirement setuptools_scm>=3.3.1 (from versions none)
+    - setuptools_scm>=3.3.1
+  # pytest-runner must be in the host section, not in the run section.
+  # If pytest-runner is not in the host section, conda build will fail with ERROR Could not find a version that satisfies the requirement pytest-runner (from versions none)
+    - pytest-runner
+  run:
+    - python
+    {% raw -%}
+    # dependencies are defined in setup.py
+    {% for dep in setup_py_data['install_requires'] %}
+    - {{ dep }}
+    {% endfor %}
+    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+    {%- endraw %}
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pytest
+    - pytest-cov
+  commands:
+    - pytest tests
+
+# If editing this file, beware that conda build can produce some inscrutable errors.
+# For example, if you replace setup_py_data.get('license') with setup_py.get('license')
+# (representing a misspelling of a variable name you might want to add),
+# conda buidl will vomit forth TypeError: 'NoneType' object is not callable,
+# with no hint as to what NoneType object is being called or where or when or why.
+about:
+  home: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
+  summary: {{ cookiecutter.project_short_description }}
+{%- if cookiecutter.license != "no" %}
+  {% raw -%}
+  license: {{ setup_py_data.get('license') }}
+  {%- endraw %}
+  license_file: LICENSE
+{%- endif %}

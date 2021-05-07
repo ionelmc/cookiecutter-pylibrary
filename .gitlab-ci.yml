@@ -1,0 +1,73 @@
+
+image: dahanna/python-alpine-package:tox-alpine
+
+# https://docs.gitlab.com/ee/ci/yaml/includes.html#re-using-a-before_script-template
+include:
+  - project: 'gitlab-ci-yml-components/for-python'
+    file: '.before_script.yml'
+
+
+test:
+  tags:
+  - docker
+  stage: test
+  script:
+  # If using an image that does not include tox, we will
+  # need to pip install tox here.
+  - pip install --upgrade wheel setuptools tox cookiecutter bumpversion
+
+  - git --version || echo "git is not installed."
+  - python --version
+  - python2 --version || echo "python2 is not installed."
+  - virtualenv --version || echo "virtualenv is not installed."
+  - pip --version
+  # When testing locally, we might not want to set tox sitepackages=true,
+  # because the local machine might have all kinds of weird things in the
+  # environment. But for continuous integration, we do want sitepackages=true,
+  # because it allows us to use a Docker image with some packages already
+  # installed to accelerate testing.
+  - tox --version
+  - uname --all
+  - lsb_release --all || echo "lsb_release is not supported on this host."
+
+  - printf "    repo_hosting_domain" >> gitlab.cookiecutterrc
+  - 'printf ":" >> gitlab.cookiecutterrc'
+  - printf "       '$repo_hosting_domain'\n" >> gitlab.cookiecutterrc
+  - echo "might be able to extract it from $CI_SERVER_URL"
+  - 'printf "    repo_username:" >> gitlab.cookiecutterrc'
+  - echo "             '$GITLAB_USER_LOGIN'" >> gitlab.cookiecutterrc
+  - cat gitlab.cookiecutterrc
+  # - git clone -b $CI_COMMIT_BRANCH --single-branch $PYTHON_NAMELESS_REPO
+  # we cannot be sure that branch already exists
+  - git clone $PYTHON_NAMELESS_REPO
+  - cd python-nameless
+  - git checkout $CI_COMMIT_BRANCH || git checkout -b $CI_COMMIT_BRANCH
+  - cd ..
+  - cookiecutter --help
+  - cookiecutter --overwrite-if-exists --no-input --config-file=gitlab.cookiecutterrc .
+  - cd python-nameless
+  - 'sed --in-place "s/fkrull\/multi-python:bionic/dahanna\/python-alpine-package:tox-alpine/" .gitlab-ci.yml'
+  - git status
+  - git diff
+  - git status
+  - git add --all
+  - git config user.email "you@example.com"
+  - git config user.name "Your Name"
+  - git commit --allow-empty -m "Regenerated from cookiecutter."
+  - git push -u origin $CI_COMMIT_BRANCH
+  - sed --help
+  - |
+   for name in py35 py36 py27 pypy3 pypy; do
+    for env in $name ${name}-cover ${name}-nocov; do
+     sed --in-place "s/,$env,/,/" tox.ini
+     sed --in-place "s/$env,//" tox.ini
+     sed --in-place "s/,$env//" tox.ini
+    done
+   done
+  - git diff
+  - git reset --hard
+  - start_tox=$(date +%s)
+  # - tox --sitepackages
+  - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
+  - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+

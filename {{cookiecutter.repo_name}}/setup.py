@@ -102,6 +102,19 @@ def read(*names, **kwargs):
     ) as fh:
         return fh.read()
 
+{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
+
+
+def get_version_for_conda_meta_yaml():
+    """
+    load_setup_py_data() will actually run arbitrary code from setup.py,
+    so in theory we ought to be able to get the version without needing to set it manually.
+    https://stackoverflow.com/questions/38919840/get-package-version-for-conda-meta-yaml-from-source-file
+    """
+    return '0.0.0'
+    # return pkg_resources.get_distribution(__name__).version
+{%- endif %}
+
 
 setup(
     name='{{ cookiecutter.distribution_name }}',
@@ -113,6 +126,9 @@ setup(
     },
 {%- else %}
     version='{{ cookiecutter.version }}',
+{%- endif %}
+{%- if 'gitlab' in cookiecutter.repo_hosting_domain %}
+    get_version_for_conda_meta_yaml=get_version_for_conda_meta_yaml,
 {%- endif %}
 {%- if cookiecutter.license != "no" %}
     license='{{ {

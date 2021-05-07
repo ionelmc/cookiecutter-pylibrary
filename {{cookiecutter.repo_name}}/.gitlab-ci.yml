@@ -1,0 +1,205 @@
+image: fkrull/multi-python:bionic
+
+{% if cookiecutter.docs_require_package == 'yes' -%}
+stages:
+  - buildimage
+  - pages
+  - build
+  - test
+
+{% endif -%}
+
+# https://docs.gitlab.com/ee/ci/yaml/includes.html#re-using-a-before_script-template
+include:
+  - local: '.before_script.yml'
+  - local: '.build_with_kaniko.yml'
+
+build-for-gitlab-project-registry:
+  extends: .build_with_kaniko
+  environment:
+    #This is only here for completeness; since there are no CI CD Variables with this scope, the project defaults are used
+    # to push to this projects docker registry
+    name: push-to-gitlab-project-registry
+
+# In general we want to use tox -e docs, but GitLab.com will not deploy Pages
+# if the pages build fails.
+# The pages build will fail if you use tox -e docs with a link to your GitLab
+# Pages documentation that is not yet deployed, because tox -e docs includes
+# sphinx-build -b linkcheck. So the pages will never get deployed...
+# That's why we deploy pages with no checks here.
+# The tests will still run linkcheck on the documentation.
+# Since "It may take up to 30 minutes before the site is available after the
+# first deployment." (per GitLab), the tests will still fail for a little
+# while.
+# The magic around GitLab pages is in the name of the job. It has to be named "pages", and nothing else.
+pages:
+  tags:
+  - docker
+  stage: build
+  # On GitLab, the stages are build->test->deploy.
+  # If the test stage fails, the deploy stage is skipped.
+{%- if cookiecutter.docs_require_package == 'yes' %}
+  # If building the documentation requires your package installed,
+  # and building your package takes some time,
+  # you might be able to save some time by building a Docker image and using it for both the pages and test jobs.
+  # Unfortunately, GitLab does not have a way to specify a primary and fallback image or anything,
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/issues/25020
+  # so we can't do this automatically.
+  # Similarly, we can't hack around this using "only" as we did for the test job,
+  # because only one job can have the magic name "pages".
+{%- endif %}
+  script:
+  - pip install -r docs/requirements.txt
+
+  # WordPress rejects uploading these kinds of files, but we can host a simple conda channel on GitLab Pages.
+  # The new Miniconda makes empty channels/indices that are actually quite large and complex.
+  # We'd rather not include all that in a git repo, but we also don't particularly want to generate it on-the-fly
+  # in both the pages job and the test job. (We'd need it in the test job so the link to the conda-channel isn't broken.)
+  # For now we're including just an index.html with all its links broken.
+  # (sphinx -b linkcheck does not check links in static HTML.)
+  # That gives users a place they can visit that's not a 404, and since it's clearly empty, it's clear why they can't install from the conda-channel (if the most recent build did not build a conda package).
+  - ls /bin/sh
+  - ls /bin
+  - python -c "import sys; print(sys.platform)"
+  - if command -v conda; then echo "conda found"; else echo "conda not found"; fi
+  - mkdir --parents docs/_static
+  - mkdir --parents docs/_static/conda-channel
+  - if command -v conda; then
+  - if [ "$CONDA_DEFAULT_ENV" = "test-env" ]; then
+  # How should we decide whether or not to build a conda package?
+  # The thing is that building a conda package takes additional build time,
+  # and many people don't use them.
+  # For now, the magic env name is what controls it.
+  - right_before_conda_build=$(date +%s)
+  - conda info
+  - apk add bash
+  - mkdir docs/_static/conda-channel/linux-64
+  # $CONDA_DIR does not contain conda-bld
+  # Adding --bootstrap pointed at an environment containing all of the requirements (obtained by conda installing python-nameless and then conda uninstalling python-nameless) does not seem to reduce build time at all.
+  # Resource usage summary Total time 0:01:13.5 versus Resource usage summary Total time 0:01:12.3
+  - conda build conda.recipe --channel conda-forge --output-folder docs/_static/conda-channel/ --no-test
+  - echo "Building the conda package took $(( $(date +%s) - right_before_conda_build)) seconds total"
+  - ls docs/_static/conda-channel/
+  - ls docs/_static/conda-channel/linux-64/
+  - conda convert `ls docs/_static/conda-channel/linux-64/*.tar.bz2` --platform all --output-dir docs/_static/conda-channel/
+  # conda index doesn't seem to actually make any additional files beyond what conda build already makes
+  - conda index docs/_static/conda-channel/
+  - echo "Building the conda channel took $(( $(date +%s) - right_before_conda_build)) seconds total"
+    ; else echo "The conda env named test-env is not activated, so not building a conda package."; fi
+    ; else
+    echo "conda not found in this container, so not building a conda package."
+    ; fi
+
+  - sphinx-build -E -b html docs dist/docs
+
+  # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_static_path warns that it doesn't include .files, but that seems to be only at the top level, so .files in the conda-channel are still included.
+  - if [ -d docs/_static/conda-channel ] && [ ! -d dist/docs/_static/conda-channel ]; then
+  - mv docs/_static/conda-channel dist/docs/_static
+  - fi
+
+  - mv dist/docs/ public/
+  - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+  artifacts:
+    paths:
+    # For GitLab Pages, the artifact path *must* be "public".
+    - public
+  only:
+    refs:
+      - master
+{%- if cookiecutter.docs_require_package == 'no' %}
+    changes:
+      - docs/**/*
+{%- endif %}
+
+test:
+  tags:
+  - docker
+  stage: test
+  # https://docs.gitlab.com/ee/ci/yaml/#dependencies
+  # By default, all artifacts from all previous stages are passed.
+  # And the entire website of a Pages job must be in the artifacts.
+  # This can take a nontrivial amount of time, especially if you're hosting a conda package that way,
+  # or if the gitlab-runner is pretty far from the GitLab instance server.
+  # We want the Pages job to run first because we want to immediately see our changes to the documentation
+  # without waiting on the testing to double-check that we don't have any broken links and such.
+  # Thus the test job comes after the Pages job, but skips downloading artifacts.
+  dependencies: []
+  script:
+{%- if cookiecutter.docs_require_package == 'no' %}
+  # We install the package separately so that we can continuously monitor how long installation takes.
+  # Note that pip install . will always reinstall the package even if it is already installed.
+  # However, its dependencies will not be reinstalled.
+  # If installation nevertheless takes a nontrivial amount of time, and you're building a Docker image anyway,
+  # you could skip reinstalling here.
+  - right_before_pip_install=$(date +%s)
+  - python -m pip install .
+  - echo "Installing your package took $(( $(date +%s) - right_before_pip_install)) seconds total"
+{%- endif %}
+  # If using an image that does not include tox, we will
+  # need to pip install tox here.
+  - pip install tox
+
+  # apk add any needed packages not included in the image.
+  # check-manifest, used in tox -e check, requires git,
+  # so we need to either use an image that includes git or
+  # apk add git here.
+
+  - git --version || echo "git is not installed."
+  - python --version
+  - python2 --version || echo "python2 is not installed."
+  - virtualenv --version || echo "virtualenv is not installed."
+  - pip --version
+  # When testing locally, we might not want to set tox sitepackages=true,
+  # because the local machine might have all kinds of weird things in the
+  # environment. But for continuous integration, we do want sitepackages=true,
+  # because it allows us to use a Docker image with some packages already
+  # installed to accelerate testing.
+  # However, Pygments presents a problem. Lots of Docker images you might want to use
+  # have older versions of Pygments that will break your build.
+  # (sphinx uses Pygments and so does readme-renderer, used by tox -e check.)
+  # pkg_resources.VersionConflict (Pygments 2.4.2 (/opt/conda/envs/test-env/lib/python3.7/site-packages), Requirement.parse('Pygments>=2.5.1'))
+  # If an old version of Pygments is installed, we upgrade it first.
+  - if python -m pip show Pygments; then python -m pip install --upgrade Pygments; fi
+  # Note that upgrading sphinx (as we might be about to do) might not automatically upgrade Pygments,
+  # hence specifically checking for Pygments first.
+  - (python -m sphinx --version && python -c "import sphinx; sphinx.version_info < (3,1,2,'final',0) and print('linkcheck can spuriously fail on older versions of Sphinx. If you are seeing anything like 403 Client Error Forbidden, consider upgrading Sphinx.')") || echo "sphinx is not installed."
+  - tox --version
+  - uname --all
+  - lsb_release --all || echo "lsb_release is not supported on this host."
+  - python -m {{cookiecutter.package_name}} --help
+  - start_tox=$(date +%s)
+  - tox --sitepackages
+  - echo "tox tests took $(( $(date +%s) - start_tox)) seconds"
+  - echo "Everything after pulling the Docker image took $(( $(date +%s) - right_after_pull_docker_image)) seconds total"
+  only:
+    variables:
+      - $BUILD_DOCKER_IMAGE == null
+
+test-built-image:
+  extends: test
+  only:
+    variables:
+      - $BUILD_DOCKER_IMAGE != null
+  image:
+    name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    entrypoint: [""]
+
+upload-to-PyPI:
+  stage: deploy
+  rules:
+    - if: '$DEPLOY_TO_INDEX != null'
+    # The additional flag variable $DEPLOY_TO_INDEX is required so that you can set the three nontrivial variables in your configuration and leave them there, and the upload will only happen when you manually run a pipeline with $DEPLOY_TO_INDEX set.
+      # You can instead set when: manual here, but then your pipelines will be cluttered with many jobs that should never run.
+    # You *can* set $DEPLOY_TO_INDEX in your configuration, in which case the upload will run every time.
+    # In addition to wasting gitlab-runner time, that can mean the index server would have the same version number overwritten.
+    # Some index servers will cheerfully accept this and overwrite the package without error.
+    # Anyone who was *using* the uploaded indexed version which becomes inaccessible might be less cheerful.
+  tags:
+  - docker
+  image: dahanna/python-alpine-package:cryptography-alpine
+  script:
+  - python -m pip install twine wheel
+  - python setup.py sdist bdist_wheel
+  - ls dist
+  - python -m twine upload --help
+  - python -m twine upload --verbose --repository-url $PYPI_URL --username $PYPI_USERNAME --password $PYPI_PASSWORD dist/*

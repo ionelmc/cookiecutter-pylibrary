@@ -54,6 +54,7 @@
     "codeclimate" : ["no", "yes"],
     "sphinx_docs": ["yes", "no"],
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
+    "docs_require_package": ["no", "yes"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
     "travis": ["yes", "no"],
