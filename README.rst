@@ -45,7 +45,7 @@ This is an "all inclusive" sort of template.
 * Configurations for:
 
   * isort_
-  * bumpversion_
+  * bumpversion_ (bump2version_ required)
 
 * Support for C extensions (including coverage measurement for the C code). See c_extension_support_.
 * Packaging and code quality checks. This template comes with a tox environment (``check``) that will:
@@ -559,7 +559,8 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _Nose: http://nose.readthedocs.org/
 .. _isort: https://pypi.org/project/isort
-.. _bumpversion: https://pypi.org/project/bumpversion
+.. _bumpversion: https://pypi.org/project/bump2version
+.. _bump2version: https://github.com/c4urself/bump2version
 .. _Codecov: http://codecov.io/
 .. _Scrutinizer: https://scrutinizer-ci.com/
 .. _Codacy: https://codacy.com/
