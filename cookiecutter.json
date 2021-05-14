@@ -14,6 +14,7 @@
     "year_from": "{% now 'utc', '%Y' %}",
     "year_to": "{% now 'utc', '%Y' %}",
     "version": "0.0.0",
+    "version_manager": ["bump2version", "tbump"],
     "license": [
         "BSD 2-Clause License",
         "BSD 3-Clause License",

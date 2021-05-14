@@ -1,7 +1,7 @@
 language: python
 dist: xenial
 virt: lxd
-python: '3.8'
+python: '3.9'
 cache: pip
 env:
   global:
@@ -45,7 +45,7 @@ script:
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
       # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
       git reset --hard
-      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
+      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor || tbump --no-push --non-interactive 1.$TRAVIS_JOB_NUMBER
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key, running tests locally...

@@ -3,7 +3,11 @@ graft src
 graft ci
 graft tests
 
+{%- if cookiecutter.version_manager == 'bump2version' %}
 include .bumpversion.cfg
+{%- elif cookiecutter.version_manager == 'tbump' %}
+include tbump.toml
+{% endif %}
 include .coveragerc
 include .cookiecutterrc
 include .editorconfig

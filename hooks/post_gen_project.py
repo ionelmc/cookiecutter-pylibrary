@@ -114,6 +114,12 @@ if __name__ == "__main__":
     os.unlink('.pre-commit-config.yaml')
 {% endif %}
 
+{%- if cookiecutter.version_manager == 'bump2version' %}
+    os.unlink('tbump.toml')
+{%- elif cookiecutter.version_manager == 'tbump' %}
+    os.unlink('.bumpversion.cfg')
+{% endif %}
+
 {%- if cookiecutter.license == "no" %}
     os.unlink('LICENSE')
 {% endif %}

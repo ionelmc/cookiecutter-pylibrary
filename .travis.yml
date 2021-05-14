@@ -1,7 +1,7 @@
 language: python
 dist: xenial
 virt: lxd
-python: '3.8'
+python: '3.9'
 cache: pip
 env:
   global:
@@ -9,38 +9,91 @@ env:
     - SEGFAULT_SIGNALS=all
   matrix:
     - ENV=cext
+    - ENV=cext-docs
+    - ENV=cext-docs-nolegacy
     - ENV=cext-nolegacy
     - ENV=cffi
+    - ENV=cffi-docs
+    - ENV=cffi-docs-nolegacy
     - ENV=cffi-nolegacy
     - ENV=cython
+    - ENV=cython-docs
+    - ENV=cython-docs-nolegacy
     - ENV=cython-nolegacy
     - ENV=matrix-cext
+    - ENV=matrix-cext-docs
+    - ENV=matrix-cext-docs-nolegacy
     - ENV=matrix-cext-nolegacy
     - ENV=matrix-separate-cext
+    - ENV=matrix-separate-cext-docs
+    - ENV=matrix-separate-cext-docs-nolegacy
     - ENV=matrix-separate-cext-nolegacy
+    - ENV=matrix-separate-tbump-cext
+    - ENV=matrix-separate-tbump-cext-docs
+    - ENV=matrix-tbump-cext
+    - ENV=matrix-tbump-cext-docs
     - ENV=nose-pure
     - ENV=nose-pure-argparse
+    - ENV=nose-pure-argparse-docs
     - ENV=nose-pure-click
+    - ENV=nose-pure-click-docs
+    - ENV=nose-pure-docs
     - ENV=nose-pure-nocli
+    - ENV=nose-pure-nocli-docs
+    - ENV=nose-tbump-pure
+    - ENV=nose-tbump-pure-docs
     - ENV=pure
     - ENV=pure-argparse
+    - ENV=pure-argparse-docs
     - ENV=pure-click
+    - ENV=pure-click-docs
+    - ENV=pure-docs
+    - ENV=pure-docs-nolegacy
+    - ENV=pure-docs-private
+    - ENV=pure-docs-pylama
     - ENV=pure-nocli
+    - ENV=pure-nocli-docs
     - ENV=pure-nolegacy
     - ENV=pure-private
     - ENV=pure-pylama
     - ENV=separate-cext
+    - ENV=separate-cext-docs
+    - ENV=separate-cext-docs-nolegacy
+    - ENV=separate-cext-docs-scm-osx-publish
     - ENV=separate-cext-nolegacy
     - ENV=separate-cext-scm-osx-publish
     - ENV=separate-cffi
+    - ENV=separate-cffi-docs
+    - ENV=separate-cffi-docs-nolegacy
+    - ENV=separate-cffi-docs-scm-osx-publish
     - ENV=separate-cffi-nolegacy
     - ENV=separate-cffi-scm-osx-publish
     - ENV=separate-cython
+    - ENV=separate-cython-docs
+    - ENV=separate-cython-docs-nolegacy
+    - ENV=separate-cython-docs-scm-osx-publish
     - ENV=separate-cython-nolegacy
     - ENV=separate-cython-scm-osx-publish
     - ENV=separate-nose-pure
+    - ENV=separate-nose-pure-docs
+    - ENV=separate-nose-tbump-pure
+    - ENV=separate-nose-tbump-pure-docs
     - ENV=separate-pure
+    - ENV=separate-pure-docs
+    - ENV=separate-pure-docs-nolegacy
     - ENV=separate-pure-nolegacy
+    - ENV=separate-tbump-cext
+    - ENV=separate-tbump-cext-docs
+    - ENV=separate-tbump-cext-docs-scm-osx-publish
+    - ENV=separate-tbump-cext-scm-osx-publish
+    - ENV=separate-tbump-pure
+    - ENV=separate-tbump-pure-docs
+    - ENV=tbump-cext
+    - ENV=tbump-cext-docs
+    - ENV=tbump-pure
+    - ENV=tbump-pure-docs
+    - ENV=tbump-pure-docs-private
+    - ENV=tbump-pure-private
 before_install:
   - python --version
   - virtualenv --version
@@ -75,7 +128,7 @@ script:
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
       # ci/test.sh mangles tox.ini a bit for testing, so we need to undo that.
       git reset --hard
-      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor
+      bumpversion --new-version=1.$TRAVIS_JOB_NUMBER minor || tbump --no-push --non-interactive 1.$TRAVIS_JOB_NUMBER
       git push git@github.com:ionelmc/python-nameless.git -f HEAD:${PR}test-$ENV
     else
       echo Failed to get publish-key, running tests locally...

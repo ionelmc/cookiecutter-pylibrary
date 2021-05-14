@@ -1,0 +1,49 @@
+{% if cookiecutter.repo_hosting == 'github.com' -%}
+github_url = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/"
+
+{% endif -%}
+[version]
+current = "{{ cookiecutter.version }}"
+regex = '(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)'
+
+[git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+[[file]]
+src = "setup.py"
+{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+search = "'fallback_version': '{current_version}'"
+{%- else %}
+search = "version='{current_version}'"
+{%- endif %}
+{%- if cookiecutter.repo_hosting_domain == "github.com" %}
+
+[[file]]
+src = "README.rst"
+search = "/v{current_version}.svg"
+
+[[file]]
+src = "README.rst"
+search = "/v{current_version}...master"
+{%- endif %}
+{%- if cookiecutter.sphinx_docs == "yes" %}
+
+[[file]]
+src = "docs/conf.py"
+search = "version = release = '{current_version}'"
+{%- endif %}
+
+[[file]]
+src = "src/{{ cookiecutter.package_name }}/__init__.py"
+search = "__version__ = '{current_version}'"
+
+[[before_commit]]
+name = "check changelog"
+cmd = "grep -q {new_version} CHANGELOG.rst"
+
+# Or run some commands after the git tag and the branch
+# have been pushed:
+#  [[after_push]]
+#  name = "publish"
+#  cmd = "./publish.sh"

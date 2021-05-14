@@ -24,13 +24,20 @@ rm -rf python-nameless
 cookiecutter --no-input --config-file=ci/envs/$1.cookiecutterrc .
 cd python-nameless
 git init .
+sed -i 's/0.0.0/0.0.1/' CHANGELOG.rst
 git add -A .
 git commit -m "Initial."
-bumpversion patch
-bumpversion minor
-bumpversion major
+bumpversion --config-file=.bumpversion.cfg patch || tbump --no-push --non-interactive 0.0.1
+sed -i 's/0.0.1/0.1.0/' CHANGELOG.rst
+git add -A CHANGELOG.rst
+git commit -m "Update changelog."
+bumpversion --config-file=.bumpversion.cfg minor || tbump --no-push --non-interactive 0.1.0
+sed -i 's/0.1.0/1.0.0/' CHANGELOG.rst
+git add -A CHANGELOG.rst
+git commit -m "Update changelog."
+bumpversion --config-file=.bumpversion.cfg major || tbump --no-push --non-interactive 1.0.0
 safe_sed 's/sphinx-build -b linkcheck/#/' tox.ini
-for name in py36 py37 py39; do
+for name in py36 py37 py38; do
   for env in $name ${name}-cover ${name}-nocov; do
     safe_sed "s/,$env,/,/" tox.ini
     safe_sed "s/$env,//" tox.ini

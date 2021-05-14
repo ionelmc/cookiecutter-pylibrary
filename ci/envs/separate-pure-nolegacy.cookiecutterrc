@@ -27,3 +27,4 @@ default_context:
   test_matrix_separate_coverage: 'yes'
   test_runner: pytest
   travis_osx: no yes
+  version_manager: bump2version
