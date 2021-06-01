@@ -3,24 +3,36 @@ graft src
 graft ci
 graft tests
 
-{%- if cookiecutter.version_manager == 'bump2version' %}
+{% if cookiecutter.version_manager == 'bump2version' -%}
 include .bumpversion.cfg
-{%- elif cookiecutter.version_manager == 'tbump' %}
+{% elif cookiecutter.version_manager == 'tbump' -%}
 include tbump.toml
-{% endif %}
-include .coveragerc
+{% endif -%}
 include .cookiecutterrc
+include .coveragerc
 include .editorconfig
+{% if cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
+include pyproject.toml
+{% endif -%}
+include tox.ini
+{% if cookiecutter.travis == 'yes' -%}
+include .travis.yml
+{% endif -%}
+{% if cookiecutter.appveyor -%}
+include .appveyor.yml
+{% endif -%}
+{% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
+include .readthedocs.yml
+{% endif -%}
+{% if cookiecutter.pre_commit == "yes" -%}
+include .pre-commit-config.yaml
+{% endif -%}
 
 include AUTHORS.rst
 include CHANGELOG.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
-{%- if cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-include pyproject.toml
-{%- endif %}
 
-include tox.ini .travis.yml .appveyor.yml{% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting %} .readthedocs.yml{% endif %}{% if cookiecutter.pre_commit == "yes" %} .pre-commit-config.yaml{% endif %}
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib
