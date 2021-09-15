@@ -194,7 +194,7 @@ You will be asked for these fields:
             "no"
       - .. _c_extension_support:
 
-        Support C extensions (will slighly change the outputted ``setup.py``). Available options:
+        Support C extensions (will slightly change the outputted ``setup.py``). Available options:
 
         * ``"yes"`` - to generate a Python C extension
         * ``"cffi"`` - to generate CFFI bindings against a C library
@@ -532,7 +532,7 @@ Why does ``tox.ini`` have a ``passenv = *``?
 Why is the version stored in several files (``pkg/__init__.py``, ``setup.py``, ``docs/conf.py``)?
 
   We cannot use a metadata/version file [#]_ because this template is to be used with both distributions of packages (dirs
-  with ``__init__.py``) and modules (simple ``.py`` files that go straigh in ``site-packages``). There's no good place
+  with ``__init__.py``) and modules (simple ``.py`` files that go straight in ``site-packages``). There's no good place
   for that extra file if you're distributing modules.
 
   But this isn't so bad - bumpversion_ manages the version string quite
