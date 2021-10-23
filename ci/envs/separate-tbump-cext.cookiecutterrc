@@ -26,5 +26,5 @@ default_context:
   test_matrix_configurator: 'no'
   test_matrix_separate_coverage: 'yes'
   test_runner: pytest
-  travis_osx: no yes
+  travis_osx: 'no'
   version_manager: tbump
