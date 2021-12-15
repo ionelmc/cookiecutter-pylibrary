@@ -94,14 +94,14 @@ jobs:
       with:
         python-version: {{ '${{ matrix.python }}' }}
         architecture: {{ '${{ matrix.python_arch }}' }}
+{%- endraw %}
     - name: install dependencies
       run: |
-        python -mpip install --progress-bar=off twine tox cibuildwheel -r ci/requirements.txt
+        python -mpip install --progress-bar=off{% if cookiecutter.c_extension_support != 'no' %} cibuildwheel{% endif %} -r ci/requirements.txt
         virtualenv --version
         pip --version
         tox --version
         pip list --format=freeze
-{%- endraw %}
 {%- if cookiecutter.c_extension_support == 'no' %}
 {%- raw %}
     - name: test
