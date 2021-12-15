@@ -7,6 +7,7 @@
     "repo_hosting": ["github.com", "gitlab.com", "other domain not listed"],
     "repo_hosting_domain": "{{ cookiecutter.repo_hosting if cookiecutter.repo_hosting != 'other domain not listed' else '' }}",
     "repo_username": "ionelmc",
+    "repo_main_branch": "main",
     "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
     "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
     "project_short_description": "An example package. Generated with cookiecutter-pylibrary.",
@@ -47,7 +48,6 @@
     "command_line_interface": ["plain", "argparse", "click", "no"],
     "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}",
     "coveralls": ["no", "yes"],
-    "coveralls_token": "[Required for Appveyor, take it from https://coveralls.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}]",
     "codecov": ["yes", "no"],
     "scrutinizer": ["no", "yes"],
     "codacy" : ["no", "yes"],
@@ -57,9 +57,10 @@
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
-    "travis": ["yes", "no"],
+    "travis": ["no", "yes"],
     "travis_osx": ["no", "yes"],
-    "appveyor": ["yes", "no"],
+    "appveyor": ["no", "yes"],
+    "github_actions": ["yes", "no"],
     "requiresio": ["yes", "no"],
 
     "_extensions": ["jinja2_time.TimeExtension"]

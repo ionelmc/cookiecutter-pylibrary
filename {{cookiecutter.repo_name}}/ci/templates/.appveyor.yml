@@ -22,9 +22,6 @@ environment:
 {%- endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
     COVERALLS_EXTRAS: '-v'
-{%- if cookiecutter.coveralls_token.strip() not in '-' %}
-    COVERALLS_REPO_TOKEN: {{ cookiecutter.coveralls_token }}
-{%- endif %}
 {%- endif %}
 {%- endset %}
 {%- if environment_global_interior %}

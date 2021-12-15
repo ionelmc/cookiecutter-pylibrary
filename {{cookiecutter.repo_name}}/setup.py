@@ -37,6 +37,7 @@ from setuptools import setup
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
+from setuptools.dist import Distribution
 {%- if cookiecutter.c_extension_support == 'cython' %}
 
 try:
@@ -53,7 +54,7 @@ except ImportError:
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
-if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUP_PY_EXT_COVERAGE') == 'yes'
+if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUPPY_EXT_COVERAGE') == 'yes'
 {%- if cookiecutter.c_extension_support == 'yes' %} and platform.system() == 'Linux'{% endif %}:
 {%- if cookiecutter.c_extension_support == 'cython' %}
     CFLAGS = os.environ['CFLAGS'] = '-DCYTHON_TRACE=1'
@@ -69,11 +70,13 @@ else:
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 
 
-class optional_build_ext(build_ext):
+class OptionalBuildExt(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
         try:
-            build_ext.run(self)
+            if os.environ.get('SETUPPY_FORCE_PURE'):
+                raise Exception('C extensions disabled (SETUPPY_FORCE_PURE)!')
+            {% if cookiecutter.legacy_python == "yes" %}build_ext.run(self){% else %}super().build_ext(){% endif %}
         except Exception as e:
             self._unavailable(e)
             self.extensions = []  # avoid copying missing files (it would fail).
@@ -92,6 +95,13 @@ class optional_build_ext(build_ext):
         print('    ' + repr(e))
         print('*' * 80)
 {%- endif %}
+
+
+class BinaryDistribution(Distribution):
+    """Distribution which almost always forces a binary package with platform name"""
+    def has_ext_modules(self):
+        return super({% if cookiecutter.legacy_python == "yes" %}BinaryDistribution, self{% endif %}).has_ext_modules() or not os.environ.get('SETUPPY_ALLOW_PURE')
+
 {%- endif %}
 
 
@@ -182,6 +192,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         # uncomment if you test on these interpreters:
@@ -258,7 +269,7 @@ setup(
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' -%}
 {%- if cookiecutter.c_extension_optional == 'yes' %}
-    cmdclass={'build_ext': optional_build_ext},
+    cmdclass={'build_ext': OptionalBuildExt},
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
     cffi_modules=[i + ':ffi' for i in glob('src/*/_*_build.py')],
@@ -278,6 +289,7 @@ setup(
 {%- if cookiecutter.c_extension_support == 'cython' %} '*.pyx' if Cython else '*.c'
 {%- else %} '*.c'{% endif %}))
     ],
+    distclass=BinaryDistribution,
 {%- endif %}
 {%- endif %}
 )

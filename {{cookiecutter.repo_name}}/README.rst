@@ -11,7 +11,8 @@ Overview
       - |docs|
 {%- endif %}
     * - tests
-      - | {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
+      - | {%- if cookiecutter.github_actions == 'yes' %} |github-actions|{% endif -%}
+          {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
           {%- if cookiecutter.requiresio == 'yes' %} |requires|{% endif -%}
         {{ '' }}
@@ -37,35 +38,40 @@ Overview
     :target: https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
     :alt: Documentation Status
 {%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting_domain -%}
-.. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
-    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/master
+.. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/{{ cookiecutter.repo_main_branch }}/pipeline.svg
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/{{ cookiecutter.repo_main_branch }}
     :alt: Documentation Status
 {% endif %}
 {% endif %}
 {%- if cookiecutter.travis == 'yes' %}
-.. |travis| image:: https://api.travis-ci.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
+.. |travis| image:: https://api.travis-ci.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch={{ cookiecutter.repo_main_branch }}
     :alt: Travis-CI Build Status
     :target: https://travis-ci.com{% if cookiecutter.repo_hosting == 'github.com' %}/github
                                   {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}/gitlab
                                   {%- endif %}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.appveyor == 'yes' %}
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch=master&svg=true
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch={{ cookiecutter.repo_main_branch }}&svg=true
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
+{%- if cookiecutter.github_actions == 'yes' %}
+.. |github-actions| image:: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions/workflows/github-actions.yml/badge.svg
+    :alt: GitHub Actions Build Status
+    :target: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions
+{% endif %}
 {%- if cookiecutter.requiresio == 'yes' %}
-.. |requires| image:: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch=master
+.. |requires| image:: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch={{ cookiecutter.repo_main_branch }}
     :alt: Requirements Status
-    :target: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements/?branch=master
+    :target: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements/?branch={{ cookiecutter.repo_main_branch }}
 {% endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
-.. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch=master&service=github
+.. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch={{ cookiecutter.repo_main_branch }}&service=github
     :alt: Coverage Status
     :target: https://coveralls.io/r/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.codecov == 'yes' %}
-.. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/master/graphs/badge.svg?branch=master
+.. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/{{ cookiecutter.repo_main_branch }}/graphs/badge.svg?branch={{ cookiecutter.repo_main_branch }}
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
@@ -99,10 +105,10 @@ Overview
 {%- if cookiecutter.repo_hosting_domain == "github.com" %}
 .. |commits-since| image:: https://img.shields.io/github/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
+    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...{{ cookiecutter.repo_main_branch }}
 {% endif %}
 {% if cookiecutter.scrutinizer == 'yes' %}
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/{{ cookiecutter.repo_main_branch }}.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/
 {% endif %}
@@ -122,11 +128,11 @@ Installation
 
 You can also install the in-development version with::
 {% if cookiecutter.repo_hosting_domain == "github.com" %}
-    pip install https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/archive/master.zip
+    pip install https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/archive/{{ cookiecutter.repo_main_branch }}.zip
 {% elif cookiecutter.repo_hosting_domain == "gitlab.com" %}
-    pip install https://gitlab.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/archive/master/{{ cookiecutter.repo_name }}-master.zip
+    pip install https://gitlab.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/archive/{{ cookiecutter.repo_main_branch }}/{{ cookiecutter.repo_name }}-{{ cookiecutter.repo_main_branch }}.zip
 {% else %}
-    pip install git+ssh://git@{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@master
+    pip install git+ssh://git@{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@{{ cookiecutter.repo_main_branch }}
 {%- endif %}
 
 Documentation

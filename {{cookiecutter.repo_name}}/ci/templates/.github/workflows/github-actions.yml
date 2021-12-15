@@ -1,0 +1,125 @@
+{% raw -%}
+name: build
+on: [push, pull_request]
+jobs:
+  test:
+    name: {{ '${{ matrix.name }}' }}
+    runs-on: {{ '${{ matrix.os }}' }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: 'check'
+            python: '3.9'
+            toxpython: 'python3.9'
+            tox_env: 'check'
+            os: 'ubuntu-latest'
+          - name: 'docs'
+            python: '3.9'
+            toxpython: 'python3.9'
+            tox_env: 'docs'
+            os: 'ubuntu-latest'
+{% for env in tox_environments %}
+{% set prefix = env.split('-')[0] -%}
+{% if prefix.startswith('pypy') %}
+{% set python %}pypy-{{ prefix[4] }}.{{ prefix[5] }}{% endset %}
+{% set cpython %}pp{{ prefix[4:5] }}{% endset %}
+{% set toxpython %}pypy{{ prefix[4] }}.{{ prefix[5] }}{% endset %}
+{% else %}
+{% set python %}{{ prefix[2] }}.{{ prefix[3:] }}{% endset %}
+{% set cpython %}cp{{ prefix[2:] }}{% endset %}
+{% set toxpython %}python{{ prefix[2] }}.{{ prefix[3:] }}{% endset %}
+{% endif %}
+{% for os, python_arch, cibw_arch, wheel_arch, include_cover in [
+    ['ubuntu', 'x64', 'native', '*manylinux*', True],
+    ['ubuntu', 'x64', 'native', '*musllinux*', False],
+    ['ubuntu', 'x64', 'aarch64', '*manylinux*', False],
+    ['ubuntu', 'x64', 'aarch64', '*musllinux*', False],
+    ['windows', 'x64', 'native', '*', True],
+    ['windows', 'x86', 'native', '*', False],
+    ['macos', 'x64', 'native', '*', True],
+] %}
+{% if include_cover or ('nocov' in env and not prefix.startswith('pypy')) %}
+{% set wheel_suffix = 'nocov' in env and wheel_arch.strip('*') %}
+{% set name_suffix = '/' + wheel_suffix if wheel_suffix else '' %}
+{% if cibw_arch == 'native' %}
+{% if python_arch == 'x64' %}
+          - name: '{{ env }} ({{ os }}{{ name_suffix }})'
+{% else %}
+          - name: '{{ env }} ({{ os }}/{{ python_arch }}{{ name_suffix }})'
+{% endif %}
+{% else %}
+          - name: '{{ env }} ({{ cibw_arch }}{{ name_suffix }})'
+{% endif %}
+            python: '{{ python }}'
+            toxpython: '{{ toxpython }}'
+            python_arch: '{{ python_arch }}'
+            tox_env: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+            cibw_arch: '{{ cibw_arch }}'
+{% if 'nocov' in env and not prefix.startswith('pypy') %}
+            cibw_build: '{{ cpython }}-{{ wheel_arch }}'
+{% else %}
+            cibw_build: false
+{% endif %}
+            os: '{{ os }}-latest'
+{% endif %}
+{% endfor %}
+{% endfor %}
+    steps:
+    - uses: docker/setup-qemu-action@v1
+      if: matrix.cibw_arch == 'aarch64'
+      with:
+        platforms: arm64
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-python@v2
+      with:
+        python-version: {{ '${{ matrix.python }}' }}
+        architecture: {{ '${{ matrix.python_arch }}' }}
+    - name: install dependencies
+      run: |
+        python -mpip install --progress-bar=off twine tox cibuildwheel -r ci/requirements.txt
+        virtualenv --version
+        pip --version
+        tox --version
+        pip list --format=freeze
+    - name: install dependencies (gdb)
+      if: >
+        !matrix.cibw_build && matrix.os == 'ubuntu'
+      run: >
+        sudo apt-get install gdb
+    - name: cibw build and test
+      if: matrix.cibw_build
+      run: cibuildwheel
+      env:
+        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
+        CIBW_ARCHS: '{{ '${{ matrix.cibw_arch }}' }}'
+        CIBW_BUILD: '{{ '${{ matrix.cibw_build }}' }}'
+        CIBW_BUILD_VERBOSITY: '3'
+        CIBW_TEST_REQUIRES: >
+          tox
+          tox-direct
+        CIBW_TEST_COMMAND: >
+          cd {project} &&
+          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -v
+        CIBW_TEST_COMMAND_WINDOWS: >
+          cd /d {project} &&
+          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -v
+    - name: regular build and test
+      env:
+        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
+      if: >
+        !matrix.cibw_build
+      run: >
+        tox -e {{ '${{ matrix.tox_env }}' }} -v
+    - name: check wheel
+      if: matrix.cibw_build
+      run: twine check wheelhouse/*.whl
+    - name: upload wheel
+      uses: actions/upload-artifact@v2
+      if: matrix.cibw_build
+      with:
+        path: wheelhouse/*.whl
+{%- endraw %}

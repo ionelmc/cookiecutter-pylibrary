@@ -102,6 +102,11 @@ if __name__ == "__main__":
     unlink_if_exists('.travis.yml')
 {% endif %}
 
+{%- if cookiecutter.github_actions == 'no' %}
+    os.unlink(join('ci', 'templates', '.github', 'workflows', 'github-actions.yml'))
+    unlink_if_exists(join('.github', 'workflows', 'github-actions.yml'))
+{% endif %}
+
 {%- if cookiecutter.repo_hosting == 'no' %}
     os.unlink('CONTRIBUTING.rst')
 {% endif %}

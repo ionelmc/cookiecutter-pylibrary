@@ -25,7 +25,7 @@ search = "/v{current_version}.svg"
 
 [[file]]
 src = "README.rst"
-search = "/v{current_version}...master"
+search = "/v{current_version}...{{ cookiecutter.repo_main_branch }}"
 {%- endif %}
 {%- if cookiecutter.sphinx_docs == "yes" %}
 

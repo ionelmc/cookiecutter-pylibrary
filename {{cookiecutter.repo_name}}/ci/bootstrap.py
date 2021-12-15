@@ -11,8 +11,10 @@ from os.path import abspath
 from os.path import dirname
 from os.path import exists
 from os.path import join
+from os.path import relpath
 
 base_path = dirname(dirname(abspath(__file__)))
+templates_path = join(base_path, "ci", "templates")
 
 
 def check_call(args):
@@ -57,7 +59,7 @@ def main():
     print("Project path: {0}".format(base_path))
 
     jinja = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(join(base_path, "ci", "templates")),
+        loader=jinja2.FileSystemLoader(templates_path),
         trim_blocks=True,
         lstrip_blocks=True,
         keep_trailing_newline=True
@@ -87,10 +89,12 @@ def main():
     ]
     tox_environments = [line for line in tox_environments if line.startswith('py')]
 {% endif %}
-    for name in os.listdir(join("ci", "templates")):
-        with open(join(base_path, name), "w") as fh:
-            fh.write(jinja.get_template(name).render(tox_environments=tox_environments))
-        print("Wrote {}".format(name))
+    for root, _, files in os.walk(templates_path):
+        for name in files:
+            relative = relpath(root, templates_path)
+            with open(join(base_path, relative, name), "w") as fh:
+                fh.write(jinja.get_template(join(relative, name)).render(tox_environments=tox_environments))
+            print("Wrote {}".format(name))
     print("DONE.")
 
 

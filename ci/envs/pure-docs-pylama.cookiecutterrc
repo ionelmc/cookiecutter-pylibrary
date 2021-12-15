@@ -10,7 +10,6 @@ default_context:
   codecov: 'yes'
   command_line_interface: plain
   coveralls: 'yes'
-  coveralls_token: IoRlAEvnKbwbhBJ2jrWPqzAnE2jobA0I3
   full_name: "Ion\"'el Cristian M\u0103rie\u0219"
   legacy_python: 'yes'
   linter: pylama
