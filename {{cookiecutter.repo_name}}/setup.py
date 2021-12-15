@@ -76,7 +76,7 @@ class OptionalBuildExt(build_ext):
         try:
             if os.environ.get('SETUPPY_FORCE_PURE'):
                 raise Exception('C extensions disabled (SETUPPY_FORCE_PURE)!')
-            {% if cookiecutter.legacy_python == "yes" %}build_ext.run(self){% else %}super().build_ext(){% endif %}
+            {% if cookiecutter.legacy_python == "yes" %}build_ext.run(self){% else %}super().run(){% endif %}
         except Exception as e:
             self._unavailable(e)
             self.extensions = []  # avoid copying missing files (it would fail).
