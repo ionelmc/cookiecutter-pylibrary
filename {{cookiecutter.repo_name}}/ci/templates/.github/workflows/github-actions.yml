@@ -31,27 +31,40 @@ jobs:
 {% set cpython %}cp{{ prefix[2:] }}{% endset %}
 {% set toxpython %}python{{ prefix[2] }}.{{ prefix[3:] }}{% endset %}
 {% endif %}
+{%- endraw %}
+{%- if cookiecutter.c_extension_support == 'no' %}
+{%- raw %}
+{% for os, python_arch in [
+    ['ubuntu', 'x64'],
+    ['windows', 'x64'],
+    ['windows', 'x86'],
+    ['macos', 'x64'],
+] %}
+          - name: '{{ env }} ({{ os }})'
+            python: '{{ python }}'
+            toxpython: '{{ toxpython }}'
+            python_arch: '{{ python_arch }}'
+            tox_env: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+            os: '{{ os }}-latest'
+{% endfor %}
+{% endfor %}
+    steps:
+{%- endraw %}
+{%- else %}
+{%- raw %}
 {% for os, python_arch, cibw_arch, wheel_arch, include_cover in [
-    ['ubuntu', 'x64', 'native', '*manylinux*', True],
-    ['ubuntu', 'x64', 'native', '*musllinux*', False],
+    ['ubuntu', 'x64', 'x86_64', '*manylinux*', True],
+    ['ubuntu', 'x64', 'x86_64', '*musllinux*', False],
     ['ubuntu', 'x64', 'aarch64', '*manylinux*', False],
     ['ubuntu', 'x64', 'aarch64', '*musllinux*', False],
-    ['windows', 'x64', 'native', '*', True],
-    ['windows', 'x86', 'native', '*', False],
-    ['macos', 'x64', 'native', '*', True],
+    ['windows', 'x64', 'AMD64', '*', True],
+    ['windows', 'x86', 'x86', '*', False],
+    ['macos', 'x64', 'x86_64', '*', True],
 ] %}
 {% if include_cover or ('nocov' in env and not prefix.startswith('pypy')) %}
 {% set wheel_suffix = 'nocov' in env and wheel_arch.strip('*') %}
 {% set name_suffix = '/' + wheel_suffix if wheel_suffix else '' %}
-{% if cibw_arch == 'native' %}
-{% if python_arch == 'x64' %}
-          - name: '{{ env }} ({{ os }}{{ name_suffix }})'
-{% else %}
-          - name: '{{ env }} ({{ os }}/{{ python_arch }}{{ name_suffix }})'
-{% endif %}
-{% else %}
-          - name: '{{ env }} ({{ cibw_arch }}{{ name_suffix }})'
-{% endif %}
+          - name: '{{ env }} ({{ os }}/{{ cibw_arch }}{{ name_suffix }})'
             python: '{{ python }}'
             toxpython: '{{ toxpython }}'
             python_arch: '{{ python_arch }}'
@@ -71,6 +84,9 @@ jobs:
       if: matrix.cibw_arch == 'aarch64'
       with:
         platforms: arm64
+{%- endraw %}
+{%- endif %}
+{%- raw %}
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
@@ -85,11 +101,17 @@ jobs:
         pip --version
         tox --version
         pip list --format=freeze
-    - name: install dependencies (gdb)
-      if: >
-        !matrix.cibw_build && matrix.os == 'ubuntu'
+{%- endraw %}
+{%- if cookiecutter.c_extension_support == 'no' %}
+{%- raw %}
+    - name: test
+      env:
+        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
       run: >
-        sudo apt-get install gdb
+        tox -e {{ '${{ matrix.tox_env }}' }} -v
+{%- endraw %}
+{%- else %}
+{%- raw %}
     - name: cibw build and test
       if: matrix.cibw_build
       run: cibuildwheel
@@ -123,3 +145,4 @@ jobs:
       with:
         path: wheelhouse/*.whl
 {%- endraw %}
+{%- endif %}

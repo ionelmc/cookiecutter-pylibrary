@@ -18,7 +18,7 @@ include tox.ini
 {% if cookiecutter.travis == 'yes' -%}
 include .travis.yml
 {% endif -%}
-{% if cookiecutter.appveyor -%}
+{% if cookiecutter.appveyor == 'yes' -%}
 include .appveyor.yml
 {% endif -%}
 {% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
