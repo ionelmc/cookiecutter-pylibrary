@@ -167,7 +167,7 @@ if __name__ == "__main__":
         git commit -m "Add initial project skeleton."
         git tag v{{ cookiecutter.version }}
         git remote add origin git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
-        git push -u origin master v{{ cookiecutter.version }}
+        git push -u origin {{ cookiecutter.repo_main_branch }} v{{ cookiecutter.version }}
 
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     To regenerate your tox.ini, .travis.yml or .appveyor.yml run:
