@@ -37,7 +37,6 @@ jobs:
 {% for os, python_arch in [
     ['ubuntu', 'x64'],
     ['windows', 'x64'],
-    ['windows', 'x86'],
     ['macos', 'x64'],
 ] %}
           - name: '{{ env }} ({{ os }})'
