@@ -21,6 +21,9 @@ include .travis.yml
 {% if cookiecutter.appveyor == 'yes' -%}
 include .appveyor.yml
 {% endif -%}
+{% if cookiecutter.github_actions    == 'yes' -%}
+include .github/workflows/github-actions.yml
+{% endif -%}
 {% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 include .readthedocs.yml
 {% endif -%}
