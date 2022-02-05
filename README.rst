@@ -344,9 +344,8 @@ You will be asked for these fields:
             "sphinx-rtd-theme"
       - What Sphinx_ theme to use.
 
-        Suggested alternative: `sphinx-py3doc-enhanced-theme
-        <https://pypi.org/project/sphinx_py3doc_enhanced_theme>` for a responsive theme based on
-        the Python 3 documentation.
+        Suggested alternative: `sphinx-py3doc-enhanced-theme <https://pypi.org/project/sphinx_py3doc_enhanced_theme>`__
+        for a responsive theme based on the Python 3 documentation.
 
     * - ``sphinx_doctest``
       - .. code:: python
