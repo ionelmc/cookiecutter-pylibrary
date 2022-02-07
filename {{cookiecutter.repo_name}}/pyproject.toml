@@ -9,3 +9,16 @@ requires = [
     "cffi>=1.0.0",
 {%- endif %}
 ]
+{%- if cookiecutter.pre_commit_formatter == 'black' %}
+
+[tool.black]
+line-length = 140
+target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py36{% endif %}']
+skip-string-normalization = true
+{%- elif cookiecutter.pre_commit_formatter == 'blue' %}
+
+[tool.blue]
+line-length = 140
+target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py36{% endif %}']
+skip-string-normalization = true
+{%- endif %}

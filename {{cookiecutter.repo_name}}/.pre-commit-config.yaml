@@ -28,3 +28,14 @@ repos:
     hooks:
       - id: flake8
 {%- endif %}
+{%- if cookiecutter.pre_commit_formatter == 'black' %}
+  - repo: https://github.com/psf/black
+    rev: main
+    hooks:
+      - id: black
+{%- elif cookiecutter.pre_commit_formatter == 'blue' %}
+  - repo: https://github.com/grantjenks/blue
+    rev: master
+    hooks:
+      - id: blue
+{%- endif %}
