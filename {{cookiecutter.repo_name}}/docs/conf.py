@@ -46,7 +46,7 @@ extlinks = {
 }
 
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
-html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
+html_theme = '{{ cookiecutter.sphinx_theme|replace("-", "_") }}'
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
     'githuburl': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/',
