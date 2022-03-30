@@ -62,6 +62,8 @@
     "travis_osx": ["no", "yes"],
     "appveyor": ["no", "yes"],
     "github_actions": ["yes", "no"],
+    "github_actions_osx": ["yes", "no"],
+    "github_actions_windows": ["yes", "no"],
     "requiresio": ["yes", "no"],
 
     "_extensions": ["jinja2_time.TimeExtension"]

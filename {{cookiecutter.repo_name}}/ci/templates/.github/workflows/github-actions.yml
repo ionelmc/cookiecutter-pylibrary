@@ -36,8 +36,14 @@ jobs:
 {%- raw %}
 {% for os, python_arch in [
     ['ubuntu', 'x64'],
+{%- endraw %}
+{%- if cookiecutter.github_actions_windows == 'yes' %}
     ['windows', 'x64'],
+{%- endif %}
+{%- if cookiecutter.github_actions_osx == 'yes' %}
     ['macos', 'x64'],
+{%- endif %}
+{%- raw %}
 ] %}
           - name: '{{ env }} ({{ os }})'
             python: '{{ python }}'
