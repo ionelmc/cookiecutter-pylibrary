@@ -22,12 +22,6 @@ repos:
     rev: master
     hooks:
       - id: isort
-{%- if cookiecutter.linter == "flake8" %}
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: master
-    hooks:
-      - id: flake8
-{%- endif %}
 {%- if cookiecutter.pre_commit_formatter == 'black' %}
   - repo: https://github.com/psf/black
     rev: main
@@ -38,4 +32,10 @@ repos:
     rev: master
     hooks:
       - id: blue
+{%- endif %}
+{%- if cookiecutter.linter == "flake8" %}
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: master
+    hooks:
+      - id: flake8
 {%- endif %}
