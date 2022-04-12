@@ -235,7 +235,7 @@ setup(
         #   ':python_version=="2.6"': ['argparse'],
     },
 {%- set setup_requires_interior %}
-{%- if cookiecutter.test_runner == 'pytest' and cookiecutter.setup_py_uses_test_runner == 'yes' %}
+{%- if cookiecutter.setup_py_uses_pytest_runner == 'yes' %}
         'pytest-runner',{% endif %}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
         'setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}',{% endif %}

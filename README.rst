@@ -231,17 +231,11 @@ You will be asked for these fields:
 
         Note that ``test_matrix_separate_coverage == 'no'`` only works if you also have ``test_matrix_configurator == 'no'``.
 
-    * - ``test_runner``
-      - .. code:: python
-
-            "pytest"
-      - Test runner to use. Available options: ``pytest`` or ``nose``.
-
-    * - ``setup_py_uses_test_runner``
+    * - ``setup_py_uses_pytest_runner``
       - .. code:: python
 
             "no"
-      - Whether to use the test_runner for python setup.py test.
+      - Whether to use pytest-runner for python setup.py test.
         Note that this will also add to ``setup_requires`` if a test-runner is needed.
     * - ``setup_py_uses_setuptools_scm``
       - .. code:: python

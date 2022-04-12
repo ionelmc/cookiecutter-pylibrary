@@ -19,11 +19,10 @@ default_context:
   repo_name: python-nameless
   requiresio: 'yes'
   scrutinizer: 'yes'
+  setup_py_uses_pytest_runner: 'yes'
   setup_py_uses_setuptools_scm: 'no'
-  setup_py_uses_test_runner: 'yes'
   sphinx_docs: 'no'
   test_matrix_configurator: 'no'
   test_matrix_separate_coverage: 'yes'
-  test_runner: pytest
   travis_osx: 'no'
   version_manager: bump2version
