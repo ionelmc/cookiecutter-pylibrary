@@ -54,7 +54,7 @@
     "codacy_projectid" : "[Get ID from https://app.codacy.com/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/settings]",
     "codeclimate" : ["no", "yes"],
     "sphinx_docs": ["yes", "no"],
-    "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
+    "sphinx_theme": ["sphinx-rtd-theme", "python-docs-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
     "travis": ["no", "yes"],
