@@ -3,6 +3,22 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+master
+------
+
+* Bumped minimum Python 3 to 3.7. Use the older ``v2.0`` tag if you still care about the now unmaintained Python 3.6.
+
+v2.0 (2022-09-09)
+-----------------
+
+* Remove the ol' nose support (it's really dead, just admit pytest is the best already people).
+* Move pytest conf to separate file (don't need to escape % and probably other weird stuff).
+* Added Python 3.10 boilerplate.
+* Added a pre-commit formatter option.
+* Added support for GitHub Actions.
+* Added support for setting a specific main branch.
+* Various packaging and testing fixes and improvements.
+
 v1.16 (2020-03-31)
 ------------------
 

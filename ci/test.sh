@@ -37,7 +37,7 @@ git add -A CHANGELOG.rst
 git commit -m "Update changelog."
 bumpversion --config-file=.bumpversion.cfg major || tbump --no-push --non-interactive 1.0.0
 safe_sed 's/sphinx-build -b linkcheck/#/' tox.ini
-for name in py36 py37 py38; do
+for name in py37 py38 py39 py310; do
   for env in $name ${name}-cover ${name}-nocov; do
     safe_sed "s/,$env,/,/" tox.ini
     safe_sed "s/$env,//" tox.ini

@@ -12,11 +12,11 @@ env:
 {%- endif %}
 matrix:
   include:
-    - python: '3.6'
+    - python: '3.7'
       env:
         - TOXENV=check
 {%- if cookiecutter.sphinx_docs == "yes" %}
-    - python: '3.6'
+    - python: '3.7'
       env:
         - TOXENV=docs
 {%- endif %}

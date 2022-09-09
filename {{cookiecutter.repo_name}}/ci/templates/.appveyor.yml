@@ -8,7 +8,7 @@ matrix:
   exclude:
     - image: Visual Studio 2019
       PYTHON_VERSION: 2.7
-{%- for version in ['3.6', '3.7', '3.8', '3.9'] %}
+{%- for version in ['3.7', '3.8', '3.9', '3.10'] %}
     - image: Visual Studio 2015
       PYTHON_VERSION: '{{ version }}'
 {%- endfor %}
@@ -29,9 +29,9 @@ environment:
 {%- endif %}
   matrix:
     - TOXENV: check
-      TOXPYTHON: C:\Python36\python.exe
-      PYTHON_HOME: C:\Python36
-      PYTHON_VERSION: '3.6'
+      TOXPYTHON: C:\Python37\python.exe
+      PYTHON_HOME: C:\Python37
+      PYTHON_VERSION: '3.7'
       PYTHON_ARCH: '32'
 {% if cookiecutter.test_matrix_configurator == "yes" -%}
 {{ "{% for env, config in tox_environments|dictsort %}" }}

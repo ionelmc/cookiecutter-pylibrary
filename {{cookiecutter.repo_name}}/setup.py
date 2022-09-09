@@ -185,7 +185,6 @@ setup(
 {%- if cookiecutter.legacy_python == "no" %}
         'Programming Language :: Python :: 3 :: Only',
 {%- endif %}
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
@@ -218,7 +217,7 @@ setup(
 {%- if cookiecutter.legacy_python == "yes" %}
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
 {%- else %}
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 {%- endif %}
     install_requires=[
 {%- if cookiecutter.command_line_interface == 'click' %}

@@ -13,12 +13,12 @@ requires = [
 
 [tool.black]
 line-length = 140
-target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py36{% endif %}']
+target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py37{% endif %}']
 skip-string-normalization = true
 {%- elif cookiecutter.pre_commit_formatter == 'blue' %}
 
 [tool.blue]
 line-length = 140
-target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py36{% endif %}']
+target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py37{% endif %}']
 skip-string-normalization = true
 {%- endif %}
