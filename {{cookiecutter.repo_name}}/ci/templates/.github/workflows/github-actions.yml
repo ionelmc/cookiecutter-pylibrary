@@ -15,11 +15,15 @@ jobs:
             toxpython: 'python3.9'
             tox_env: 'check'
             os: 'ubuntu-latest'
+{%- endraw %}
+{%- if cookiecutter.sphinx_docs == "yes" %}
           - name: 'docs'
             python: '3.9'
             toxpython: 'python3.9'
             tox_env: 'docs'
             os: 'ubuntu-latest'
+{%- endif %}
+{%- raw %}
 {% for env in tox_environments %}
 {% set prefix = env.split('-')[0] -%}
 {% if prefix.startswith('pypy') %}
