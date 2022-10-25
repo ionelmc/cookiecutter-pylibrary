@@ -89,17 +89,17 @@ jobs:
 {% endfor %}
 {% endfor %}
     steps:
-    - uses: docker/setup-qemu-action@v1
+    - uses: docker/setup-qemu-action@v2
       if: matrix.cibw_arch == 'aarch64'
       with:
         platforms: arm64
 {%- endraw %}
 {%- endif %}
 {%- raw %}
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
       with:
         python-version: {{ '${{ matrix.python }}' }}
         architecture: {{ '${{ matrix.python_arch }}' }}
@@ -149,7 +149,7 @@ jobs:
       if: matrix.cibw_build
       run: twine check wheelhouse/*.whl
     - name: upload wheel
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: matrix.cibw_build
       with:
         path: wheelhouse/*.whl
