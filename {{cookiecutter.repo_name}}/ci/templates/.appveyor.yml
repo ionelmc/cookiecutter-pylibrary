@@ -8,7 +8,7 @@ matrix:
   exclude:
     - image: Visual Studio 2019
       PYTHON_VERSION: 2.7
-{%- for version in ['3.7', '3.8', '3.9', '3.10'] %}
+{%- for version in ['3.7', '3.8', '3.9', '3.10', '3.11'] %}
     - image: Visual Studio 2015
       PYTHON_VERSION: '{{ version }}'
 {%- endfor %}
