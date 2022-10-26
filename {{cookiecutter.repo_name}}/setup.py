@@ -279,7 +279,7 @@ setup(
             extra_compile_args=CFLAGS.split(),
             extra_link_args=LFLAGS.split(),
 {%- endif %}
-            include_dirs=[dirname(path)]
+            include_dirs=[dirname(path)],
         )
         for root, _, _ in os.walk('src')
         for path in glob(join(root,

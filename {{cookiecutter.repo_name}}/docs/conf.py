@@ -30,6 +30,7 @@ copyright = '{0}, {1}'.format(year, author)
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
 try:
     from pkg_resources import get_distribution
+
     version = release = get_distribution('{{ cookiecutter.package_name }}').version
 except Exception:
     traceback.print_exc()
