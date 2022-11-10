@@ -3,6 +3,12 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
+master
+------
+
+* All legacy options will be dropped. That includes Travis, Appveyor, matrix config and Python 2.
+  Use the older ``v3.0`` tag if you still need those.
+
 v3.0 (2022-10-11)
 -----------------
 
