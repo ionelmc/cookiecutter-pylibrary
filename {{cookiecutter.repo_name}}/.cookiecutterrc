@@ -16,5 +16,7 @@
 
 default_context:
 {% for key, value in cookiecutter.items()|sort %}
+{% if not key.startswith('_') %}
     {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
+{%- endif %}
 {%- endfor %}
