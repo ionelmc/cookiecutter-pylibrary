@@ -3,10 +3,14 @@ Changelog
 
 Use cookiecutter's ``--checkout`` options to use a specific version.
 
-master
-------
+v3.0 (2022-10-11)
+-----------------
 
+* Added support for Python 3.11.
+* Switched to pathlib in post gen hook and bootstrap script.
+* Various bug fixing.
 * Bumped minimum Python 3 to 3.7. Use the older ``v2.0`` tag if you still care about the now unmaintained Python 3.6.
+
 
 v2.0 (2022-09-09)
 -----------------
