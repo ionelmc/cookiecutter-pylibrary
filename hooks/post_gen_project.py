@@ -86,11 +86,12 @@ if __name__ == "__main__":
     ci.joinpath('appveyor-with-compiler.cmd').unlink(missing_ok=True)
 {%- if cookiecutter.appveyor == 'no' %}
     ci.joinpath('templates', '.appveyor.yml').unlink()
-    ci.joinpath('.appveyor.yml').unlink(missing_ok=True)
+    cwd.joinpath('.appveyor.yml').unlink(missing_ok=True)
 {% endif %}
-    cwd.joinpath('appveyor.yml').unlink(missing_ok=True)
     ci.joinpath('templates', 'appveyor.yml').unlink(missing_ok=True)
     ci.joinpath('appveyor-bootstrap.py').unlink(missing_ok=True)
+    ci.joinpath('appveyor-download.py').unlink(missing_ok=True)
+    cwd.joinpath('appveyor.yml').unlink(missing_ok=True)
 
 {%- if cookiecutter.travis == 'no' %}
     ci.joinpath('templates', '.travis.yml').unlink()
