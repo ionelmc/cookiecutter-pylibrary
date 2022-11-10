@@ -109,6 +109,8 @@ if __name__ == "__main__":
 
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
     cwd.joinpath('MANIFEST.in').unlink()
+{%- else %}
+    src.joinpath('{{ cookiecutter.package_name }}', '_version.py').unlink(missing_ok=True)
 {% endif %}
 
 {%- if cookiecutter.pre_commit == 'no' %}
