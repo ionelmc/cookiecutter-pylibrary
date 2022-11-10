@@ -1,11 +1,8 @@
-from __future__ import print_function
-
-import datetime
-import os
+import pathlib
 import shutil
 import subprocess
 import sys
-from os.path import join
+
 
 try:
     from click.termui import secho
@@ -20,10 +17,6 @@ else:
         for line in text.splitlines():
             secho(line, fg="yellow", bold=True)
 
-
-def unlink_if_exists(path):
-    if os.path.exists(path):
-        os.unlink(path)
 
 if __name__ == "__main__":
 {%- if cookiecutter.c_extension_test_pypi == 'yes' %}
@@ -49,81 +42,86 @@ if __name__ == "__main__":
 {%- endif %}
 {%- endif %}
 
+    cwd = pathlib.Path().resolve()
+    src = cwd / 'src'
+    ci = cwd / 'ci'
+
 {% if cookiecutter.sphinx_docs == "no" %}
-    shutil.rmtree('docs')
-    os.unlink('.readthedocs.yml')
+    shutil.rmtree(cwd / 'docs')
+    cwd.joinpath('.readthedocs.yml').unlink()
 {%- elif 'readthedocs' not in cookiecutter.sphinx_docs_hosting %}
-    os.unlink('.readthedocs.yml')
+    cwd.joinpath('.readthedocs.yml').unlink()
 {% endif %}
 
+
 {%- if cookiecutter.command_line_interface == 'no' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '__main__.py'))
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
+    src.joinpath('{{ cookiecutter.package_name }}', '__main__.py').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', 'cli.py').unlink()
 {% endif %}
 
 {%- if cookiecutter.test_matrix_configurator == 'no' %}
-    os.unlink(join('ci', 'templates', 'tox.ini'))
+    ci.joinpath('templates', 'tox.ini').unlink()
 {% endif %}
 {%- if cookiecutter.allow_tests_inside_package == 'no' %}
-    shutil.rmtree(join('src', '{{ cookiecutter.package_name }}', 'tests'))
+    shutil.rmtree(src / '{{ cookiecutter.package_name }}' / 'tests')
 {% endif %}
 {%- if cookiecutter.c_extension_support == 'no' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
 {%- elif cookiecutter.c_extension_support == 'cython' %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
     try:
         subprocess.check_call(['tox', '-e', 'cythonize'])
     except Exception:
         subprocess.check_call([sys.executable, '-mtox', '-e', 'cythonize'])
 {%- else %}
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx'))
-    os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
 {%- endif %}
 
-    unlink_if_exists(join('ci', 'appveyor-with-compiler.cmd'))
+    ci.joinpath('appveyor-with-compiler.cmd').unlink(missing_ok=True)
 {%- if cookiecutter.appveyor == 'no' %}
-    os.unlink(join('ci', 'templates', '.appveyor.yml'))
-    unlink_if_exists('.appveyor.yml')
+    ci.joinpath('templates', '.appveyor.yml').unlink()
+    ci.joinpath('.appveyor.yml').unlink(missing_ok=True)
 {% endif %}
-    unlink_if_exists(join('ci', 'templates', 'appveyor.yml'))
-    unlink_if_exists('appveyor.yml')
-    unlink_if_exists(join('ci', 'appveyor-bootstrap.py'))
+    cwd.joinpath('appveyor.yml').unlink(missing_ok=True)
+    ci.joinpath('templates', 'appveyor.yml').unlink(missing_ok=True)
+    ci.joinpath('appveyor-bootstrap.py').unlink(missing_ok=True)
 
 {%- if cookiecutter.travis == 'no' %}
-    os.unlink(join('ci', 'templates', '.travis.yml'))
-    unlink_if_exists('.travis.yml')
+    ci.joinpath('templates', '.travis.yml').unlink()
+    cwd.joinpath('.travis.yml').unlink(missing_ok=True)
 {% endif %}
 
 {%- if cookiecutter.github_actions == 'no' %}
-    os.unlink(join('ci', 'templates', '.github', 'workflows', 'github-actions.yml'))
-    unlink_if_exists(join('.github', 'workflows', 'github-actions.yml'))
+    ci.joinpath('templates', '.github', 'workflows', 'github-actions.yml').unlink()
+    cwd.joinpath('.github', 'workflows', 'github-actions.yml').unlink(missing_ok=True)
 {% endif %}
 
 {%- if cookiecutter.repo_hosting == 'no' %}
-    os.unlink('CONTRIBUTING.rst')
+    cwd.joinpath('CONTRIBUTING.rst').unlink()
 {% endif %}
 
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-    os.unlink('MANIFEST.in')
+    cwd.joinpath('MANIFEST.in').unlink()
 {% endif %}
 
 {%- if cookiecutter.pre_commit == 'no' %}
-    os.unlink('.pre-commit-config.yaml')
+    cwd.joinpath('.pre-commit-config.yaml').unlink()
 {% endif %}
 
 {%- if cookiecutter.version_manager == 'bump2version' %}
-    os.unlink('tbump.toml')
+    cwd.joinpath('tbump.toml').unlink()
 {%- elif cookiecutter.version_manager == 'tbump' %}
-    os.unlink('.bumpversion.cfg')
+    cwd.joinpath('.bumpversion.cfg').unlink()
 {% endif %}
 
 {%- if cookiecutter.license == "no" %}
-    os.unlink('LICENSE')
+    cwd.joinpath('LICENSE').unlink()
 {% endif %}
 
     print("""
@@ -137,7 +135,7 @@ if __name__ == "__main__":
         try:
             subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap', '--sitepackages'])
         except Exception:
-            subprocess.check_call([sys.executable, join('ci', 'bootstrap.py')])
+            subprocess.check_call([sys.executable, ci / 'bootstrap.py'])
 
     print("""
 ################################################################################
