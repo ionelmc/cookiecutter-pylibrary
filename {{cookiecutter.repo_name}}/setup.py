@@ -6,7 +6,7 @@ from __future__ import print_function
 {%- endif %}
 
 import io
-{%- if cookiecutter.c_extension_support in ['yes', 'cython'] %}
+{%- if cookiecutter.c_extension_support in ['yes', 'cython', 'cffi'] %}
 import os
 {%- if cookiecutter.c_extension_support == 'yes' %}
 import platform
