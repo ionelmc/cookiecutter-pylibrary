@@ -34,7 +34,7 @@ repos:
       - id: blue
 {%- endif %}
 {%- if cookiecutter.linter == "flake8" %}
-  - repo: https://gitlab.com/pycqa/flake8
+  - repo: https://github.com/pycqa/flake8
     rev: master
     hooks:
       - id: flake8
