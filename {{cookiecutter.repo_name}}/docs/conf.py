@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 {% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 import os
 {% endif -%}

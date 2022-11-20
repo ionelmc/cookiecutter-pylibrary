@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-{%- if cookiecutter.legacy_python == "yes" %}
-from __future__ import absolute_import
-from __future__ import print_function
-{%- endif %}
-
 import io
 {%- if cookiecutter.c_extension_support in ['yes', 'cython', 'cffi'] %}
 import os
@@ -76,7 +71,7 @@ class OptionalBuildExt(build_ext):
         try:
             if os.environ.get('SETUPPY_FORCE_PURE'):
                 raise Exception('C extensions disabled (SETUPPY_FORCE_PURE)!')
-            {% if cookiecutter.legacy_python == "yes" %}build_ext.run(self){% else %}super().run(){% endif %}
+            super().run()
         except Exception as e:
             self._unavailable(e)
             self.extensions = []  # avoid copying missing files (it would fail).
@@ -100,7 +95,7 @@ class OptionalBuildExt(build_ext):
 class BinaryDistribution(Distribution):
     """Distribution which almost always forces a binary package with platform name"""
     def has_ext_modules(self):
-        return super({% if cookiecutter.legacy_python == "yes" %}BinaryDistribution, self{% endif %}).has_ext_modules() or not os.environ.get('SETUPPY_ALLOW_PURE')
+        return super().has_ext_modules() or not os.environ.get('SETUPPY_ALLOW_PURE')
 
 {%- endif %}
 
@@ -178,13 +173,8 @@ setup(
         'Operating System :: POSIX',
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
-{%- if cookiecutter.legacy_python == "yes" %}
-        'Programming Language :: Python :: 2.7',
-{%- endif %}
         'Programming Language :: Python :: 3',
-{%- if cookiecutter.legacy_python == "no" %}
         'Programming Language :: Python :: 3 :: Only',
-{%- endif %}
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
@@ -215,11 +205,7 @@ setup(
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
-{%- if cookiecutter.legacy_python == "yes" %}
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
-{%- else %}
     python_requires='>=3.7',
-{%- endif %}
     install_requires=[
 {%- if cookiecutter.command_line_interface == 'click' %}
         'click',
@@ -238,7 +224,7 @@ setup(
 {%- if cookiecutter.setup_py_uses_pytest_runner == 'yes' %}
         'pytest-runner',{% endif %}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-        'setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}',{% endif %}
+        'setuptools_scm>=3.3.1',{% endif %}
 {%- endset %}
 {%- if cookiecutter.c_extension_support == 'cython' %}
     setup_requires=[{{ setup_requires_interior }}

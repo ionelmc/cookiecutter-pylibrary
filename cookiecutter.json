@@ -28,7 +28,6 @@
         "GNU Lesser General Public License v2.1 (LGPLv2)",
         "no"
     ],
-    "legacy_python": ["no", "yes"],
     "c_extension_support": ["no", "yes", "cffi", "cython"],
     "c_extension_optional": ["no", "yes"],
     "c_extension_module": "_{{ cookiecutter.package_name }}",

@@ -181,13 +181,6 @@ You will be asked for these fields:
             "0.1.0"
       - Release version (see ``.bumpversion.cfg`` and in Sphinx ``conf.py``).
 
-    * - ``legacy_python``
-      - .. code:: python
-
-            "no"
-      - Allow for legacy python versions, like ``python2.7``. If you do not especially need to support (depreciated) python
-        versions you should keep it as is.
-
     * - ``c_extension_support``
       - .. code:: python
 

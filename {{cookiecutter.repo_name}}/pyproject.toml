@@ -3,7 +3,7 @@ requires = [
     "setuptools>=30.3.0",
     "wheel",
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-    "setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}",
+    "setuptools_scm>=3.3.1",
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
     "cffi>=1.0.0",
@@ -13,12 +13,12 @@ requires = [
 
 [tool.black]
 line-length = 140
-target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py37{% endif %}']
+target-version = ['py37']
 skip-string-normalization = true
 {%- elif cookiecutter.pre_commit_formatter == 'blue' %}
 
 [tool.blue]
 line-length = 140
-target-version = ['{% if cookiecutter.legacy_python == "yes" %}py27{% else %}py37{% endif %}']
+target-version = ['py37']
 skip-string-normalization = true
 {%- endif %}
