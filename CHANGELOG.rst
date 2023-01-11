@@ -8,6 +8,7 @@ master
 
 * All legacy options will be dropped. That includes Travis, Appveyor, matrix config and Python 2.
   Use the older ``v3.0`` tag if you still need those.
+* Removed requires.io badges and everything. This service is dead now.
 
 v3.0 (2022-10-11)
 -----------------

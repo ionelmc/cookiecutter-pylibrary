@@ -2,19 +2,7 @@
 cookiecutter-pylibrary
 ======================
 
-Cookiecutter_ template for a Python library. |travis| |appveyor| |requiresio|
-
-.. |travis| image:: https://img.shields.io/travis/com/ionelmc/cookiecutter-pylibrary?label=Travis
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.com/github/ionelmc/cookiecutter-pylibrary
-
-.. |appveyor| image:: https://img.shields.io/appveyor/build/ionelmc/cookiecutter-pylibrary/master?label=AppVeyor
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
-
-.. |requiresio| image:: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements.svg?branch=master
-     :target: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements/?branch=master
-     :alt: Requirements Status
+Cookiecutter_ template for a Python library.
 
 *Notes*:
 
@@ -385,12 +373,6 @@ You will be asked for these fields:
             "yes"
       - If you want the AppVeyor_ badge and configuration.
 
-    * - ``requiresio``
-      - .. code:: python
-
-            "yes"
-      - If you want the `requires.io`_ badge and configuration.
-
 The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
 initial bootstrap ``tox.ini``, to get the initial generation going just run::
 
@@ -551,4 +533,3 @@ If you have criticism or suggestions please open up an Issue or Pull Request.
 .. _Scrutinizer: https://scrutinizer-ci.com/
 .. _Codacy: https://codacy.com/
 .. _CodeClimate: https://codeclimate.com/
-.. _`requires.io`: https://requires.io/

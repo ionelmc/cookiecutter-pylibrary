@@ -14,7 +14,6 @@ Overview
       - | {%- if cookiecutter.github_actions == 'yes' %} |github-actions|{% endif -%}
           {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
-          {%- if cookiecutter.requiresio == 'yes' %} |requires|{% endif -%}
         {{ '' }}
         | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
           {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
@@ -59,11 +58,6 @@ Overview
 .. |github-actions| image:: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions/workflows/github-actions.yml/badge.svg
     :alt: GitHub Actions Build Status
     :target: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions
-{% endif %}
-{%- if cookiecutter.requiresio == 'yes' %}
-.. |requires| image:: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch={{ cookiecutter.repo_main_branch }}
-    :alt: Requirements Status
-    :target: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements/?branch={{ cookiecutter.repo_main_branch }}
 {% endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
 .. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch={{ cookiecutter.repo_main_branch }}&service=github
