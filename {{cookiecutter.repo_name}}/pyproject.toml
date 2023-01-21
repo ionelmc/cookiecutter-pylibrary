@@ -20,5 +20,4 @@ skip-string-normalization = true
 [tool.blue]
 line-length = 140
 target-version = ['py37']
-skip-string-normalization = true
 {%- endif %}
