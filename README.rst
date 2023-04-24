@@ -40,7 +40,6 @@ This is an "all inclusive" sort of template.
 
   * Check if your ``README.rst`` is valid.
   * Check if the ``MANIFEST.in`` has any issues.
-  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks) or ``pylama``
 
 Requirements
 ------------
@@ -187,45 +186,18 @@ You will be asked for these fields:
 
             "no"
       - Make C extensions optional (will allow your package to install even if extensions can't be compiled)
-    * - ``c_extension_test_pypi``
-      - .. code:: python
-
-            "no"
-      - Enables wheel publishing to https://test.pypi.org/ by using `tox-wheel <https://pypi.org/project/tox-wheel/>`_
-        and `manylinux1 <https://hub.docker.com/r/ionelmc/manylinux>`_.
-
-        You should only use this with ``c_extension_support``. If your project produces universal wheels this won't work
-        well.
-    * - ``test_matrix_configurator``
-      - .. code:: python
-
-            "no"
-      - Enable the test matrix generator script. If you don't have a huge number of test environments then probably you
-        don't need this.
-
     * - ``test_matrix_separate_coverage``
       - .. code:: python
 
             "no"
       - Enable this to have a separate env for measuring coverage. Indicated if you want to run doctests or collect tests
         from ``src`` with pytest.
-
-        Note that ``test_matrix_separate_coverage == 'no'`` only works if you also have ``test_matrix_configurator == 'no'``.
-
-    * - ``setup_py_uses_pytest_runner``
-      - .. code:: python
-
-            "no"
-      - Whether to use pytest-runner for python setup.py test.
-        Note that this will also add to ``setup_requires`` if a test-runner is needed.
     * - ``setup_py_uses_setuptools_scm``
       - .. code:: python
 
             "no"
       - Enables the use of `setuptools-scm <https://pypi.org/project/setuptools-scm/>`_. You can continue using
         bumpversion_ with this enabled.
-
-        Recommended if you use ``c_extension_test_pypi == 'yes'`` as it will publish unique wheels for each commit.
     * - ``allow_tests_inside_package``
       - .. code:: python
 
@@ -233,16 +205,6 @@ You will be asked for these fields:
       - Collect tests that are inside the package (in other works, tests that are installed with the package).
 
         The outside of package `tests` directory will still exist and be collected.
-    * - ``linter``
-      - .. code:: python
-
-        "flake8"
-      - Linter to use for ``tox -e check``. Available options: ``flake8`` or ``pylama``
-    * - ``pre_commit``
-      - .. code:: python
-
-        "no"
-      - Enable basic `pre-commit <https://pre-commit.com/>`_ configuration.
     * - ``command_line_interface``
       - .. code:: python
 
@@ -353,52 +315,6 @@ You will be asked for these fields:
             "no"
       - If you specifically want to be sure your package will never be
         accidentally uploaded to PyPI, you can pick "yes".
-
-    * - ``travis``
-      - .. code:: python
-
-            "yes"
-      - If you want the Travis-CI_ badge and configuration.
-    * - ``travis_osx``
-      - .. code:: python
-
-            "no"
-      - Enables OSX support in the Travis-CI_ configuration. To keep things simple and easy to understand only Brew
-        Python 2 and 3 will be used.
-
-        You probably want to enable this if you use ``c_extension_test_pypi == 'yes'``.
-    * - ``appveyor``
-      - .. code:: python
-
-            "yes"
-      - If you want the AppVeyor_ badge and configuration.
-
-The testing (``tox.ini`` and ``.travis.yml``) configuration is generated from templates. For your convenience there's an
-initial bootstrap ``tox.ini``, to get the initial generation going just run::
-
-  tox
-
-You can later regenerate ``tox.ini`` and ``.travis.yml`` by running (if you enabled the ``test_matrix_configurator``
-option)::
-
-  tox -e bootstrap
-
-After this you can create the initial repository (make sure you `create <https://github.com/new>`_ an *empty* Github
-project)::
-
-  git init .
-  git add .
-  git commit -m "Initial skel."
-  git remote add origin git@github.com:ionelmc/python-nameless.git
-  git push -u origin master
-
-Then:
-
-* `Enable the repository in your Travis CI account <https://travis-ci.com/account/migrate>`_.
-* `Enable the repository in your Coveralls account <https://coveralls.io/repos/new>`_.
-* `Add the repo to your ReadTheDocs account <https://readthedocs.org/dashboard/import/>`_ + turn on the ReadTheDocs
-  service hook. Don't forget to enable virtualenv and specify ``docs/requirements.txt`` as the requirements file in
-  `Advanced Settings`.
 
 Developing the project
 ``````````````````````
@@ -517,7 +433,7 @@ No way, this is the best. :stuck_out_tongue_winking_eye:
 If you have criticism or suggestions please open up an Issue or Pull Request.
 
 .. _Travis-CI: http://travis-ci.com/
-.. _Tox: https://tox.wiki/en/latest/
+.. _Tox: https://tox.wiki/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Coveralls: https://coveralls.io/
 .. _ReadTheDocs: https://readthedocs.org/

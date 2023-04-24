@@ -11,15 +11,15 @@ jobs:
       matrix:
         include:
           - name: 'check'
-            python: '3.9'
-            toxpython: 'python3.9'
+            python: '3.11'
+            toxpython: 'python3.11'
             tox_env: 'check'
             os: 'ubuntu-latest'
 {%- endraw %}
 {%- if cookiecutter.sphinx_docs == "yes" %}
           - name: 'docs'
-            python: '3.9'
-            toxpython: 'python3.9'
+            python: '3.11'
+            toxpython: 'python3.11'
             tox_env: 'docs'
             os: 'ubuntu-latest'
 {%- endif %}

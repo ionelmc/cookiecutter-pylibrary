@@ -6,8 +6,10 @@ Use cookiecutter's ``--checkout`` options to use a specific version.
 master
 ------
 
-* All legacy options will be dropped. That includes Travis, Appveyor, matrix config and Python 2.
+* All legacy options are dropped: Travis, Appveyor, matrix config and Python 2.
   Use the older ``v3.0`` tag if you still need those.
+* Dropped the linter options. Now there is only one linter: `ruff <https://ruff.rs/>`_.
+* Dropped the formatter options. Now there is only one formatter: `black <https://github.com/psf/black>`_.
 * Removed requires.io badges and everything. This service is dead now.
 
 v3.0 (2022-10-11)

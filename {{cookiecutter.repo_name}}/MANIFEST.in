@@ -3,9 +3,6 @@ graft src
 graft ci
 graft tests
 
-{% if cookiecutter.appveyor == 'yes' -%}
-include .appveyor.yml
-{% endif -%}
 {% if cookiecutter.version_manager == 'bump2version' -%}
 include .bumpversion.cfg
 {% endif -%}
@@ -20,9 +17,6 @@ include .pre-commit-config.yaml
 {% endif -%}
 {% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 include .readthedocs.yml
-{% endif -%}
-{% if cookiecutter.travis == 'yes' -%}
-include .travis.yml
 {% endif -%}
 {% if cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 include pyproject.toml

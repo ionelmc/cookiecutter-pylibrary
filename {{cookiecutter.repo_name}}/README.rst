@@ -12,8 +12,6 @@ Overview
 {%- endif %}
     * - tests
       - | {%- if cookiecutter.github_actions == 'yes' %} |github-actions|{% endif -%}
-          {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
-          {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
         {{ '' }}
         | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
           {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
@@ -41,18 +39,6 @@ Overview
     :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/{{ cookiecutter.repo_main_branch }}
     :alt: Documentation Status
 {% endif %}
-{% endif %}
-{%- if cookiecutter.travis == 'yes' %}
-.. |travis| image:: https://api.travis-ci.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch={{ cookiecutter.repo_main_branch }}
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.com{% if cookiecutter.repo_hosting == 'github.com' %}/github
-                                  {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}/gitlab
-                                  {%- endif %}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-{% endif %}
-{%- if cookiecutter.appveyor == 'yes' %}
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch={{ cookiecutter.repo_main_branch }}&svg=true
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.github_actions == 'yes' %}
 .. |github-actions| image:: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions/workflows/github-actions.yml/badge.svg

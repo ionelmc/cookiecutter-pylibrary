@@ -16,7 +16,7 @@ char* {{ cookiecutter.c_extension_function }}(int argc, char *argv[]) {
         return NULL;
     }
 }
-{% else -%}
+{%- else -%}
 #include "Python.h"
 
 static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObject *value) {
@@ -99,4 +99,4 @@ static PyObject* moduleinit(void) {
 PyMODINIT_FUNC PyInit_{{ cookiecutter.c_extension_module }}(void) {
     return moduleinit();
 }
-{% endif %}
+{%- endif %}
