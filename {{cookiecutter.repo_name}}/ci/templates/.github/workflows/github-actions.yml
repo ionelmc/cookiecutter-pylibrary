@@ -53,7 +53,7 @@ jobs:
             python: '{{ python }}'
             toxpython: '{{ toxpython }}'
             python_arch: '{{ python_arch }}'
-            tox_env: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+            tox_env: '{{ env }}'
             os: '{{ os }}-latest'
 {% endfor %}
 {% endfor %}
@@ -77,7 +77,10 @@ jobs:
             python: '{{ python }}'
             toxpython: '{{ toxpython }}'
             python_arch: '{{ python_arch }}'
-            tox_env: '{{ env }}{% if 'cover' in env %},codecov{% endif %}'
+            tox_env: '{{ env }}'
+{% if 'cover' in env %}
+            cover: true
+{% endif %}
             cibw_arch: '{{ cibw_arch }}'
 {% if 'nocov' in env and not prefix.startswith('pypy') %}
             cibw_build: '{{ cpython }}-{{ wheel_arch }}'
@@ -145,6 +148,22 @@ jobs:
         !matrix.cibw_build
       run: >
         tox -e {{ '${{ matrix.tox_env }}' }} -v
+{%- endraw %}
+{%- if cookiecutter.coveralls == 'yes' %}
+    - uses: coverallsapp/github-action@v2
+      if: matrix.cover
+      continue-on-error: true
+      with:
+        parallel: true
+        flag-name: {{ "{{ '${{ matrix.tox_env }}' }}" }}
+{%- endif %}
+{%- if cookiecutter.codecov == 'yes' %}
+    - uses: codecov/codecov-action@v3
+      if: matrix.cover
+      with:
+        verbose: true
+        flags: {{ "{{ '${{ matrix.tox_env }}' }}" }}
+{%- endif %}
     - name: check wheel
       if: matrix.cibw_build
       run: twine check wheelhouse/*.whl
@@ -153,5 +172,14 @@ jobs:
       if: matrix.cibw_build
       with:
         path: wheelhouse/*.whl
-{%- endraw %}
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
+  finish:
+    needs: test
+    if: {{ "{{ '${{ always() }}' }}" }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: coverallsapp/github-action@v2
+      with:
+        parallel-finished: true
 {%- endif %}

@@ -46,14 +46,14 @@ Overview
     :target: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/actions
 {% endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
-.. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch={{ cookiecutter.repo_main_branch }}&service=github
+.. |coveralls| image:: https://coveralls.io/repos/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch={{ cookiecutter.repo_main_branch }}
     :alt: Coverage Status
-    :target: https://coveralls.io/r/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
+    :target: https://coveralls.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch={{ cookiecutter.repo_main_branch }}
 {% endif %}
 {%- if cookiecutter.codecov == 'yes' %}
 .. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/{{ cookiecutter.repo_main_branch }}/graphs/badge.svg?branch={{ cookiecutter.repo_main_branch }}
     :alt: Coverage Status
-    :target: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
+    :target: https://app.codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.codacy == 'yes' %}
 .. |codacy| image:: https://img.shields.io/codacy/grade/{{ cookiecutter.codacy_projectid }}.svg
