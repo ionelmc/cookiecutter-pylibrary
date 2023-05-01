@@ -13,7 +13,11 @@ tag_template = "v{new_version}"
 [[file]]
 src = "setup.py"
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+{%- if cookiecutter.formatter_quote_style == "single" %}
 search = "'fallback_version': '{current_version}'"
+{%- else %}
+search = '"fallback_version": "{current_version}"'
+{%- endif %}
 {%- else %}
 search = "version='{current_version}'"
 {%- endif %}
@@ -31,12 +35,25 @@ search = "/v{current_version}...{{ cookiecutter.repo_main_branch }}"
 
 [[file]]
 src = "docs/conf.py"
+{%- if cookiecutter.formatter_quote_style == "single" %}
 search = "version = release = '{current_version}'"
+{%- else %}
+search = 'version = release = "{current_version}"'
+{%- endif %}
 {%- endif %}
 
 [[file]]
 src = "src/{{ cookiecutter.package_name }}/__init__.py"
+{%- if cookiecutter.formatter_quote_style == "single" %}
 search = "__version__ = '{current_version}'"
+{%- else %}
+search = '__version__ = "{current_version}"'
+{%- endif %}
+
+[[file]]
+src = ".cookiecutterrc"
+search = "version: {current_version}"
+replace = "version: {new_version}"
 
 [[before_commit]]
 name = "check changelog"
