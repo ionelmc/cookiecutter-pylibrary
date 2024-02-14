@@ -11,22 +11,17 @@ Overview
       - |docs|
 {%- endif %}
     * - tests
-      - | {%- if cookiecutter.github_actions == 'yes' %} |github-actions|{% endif -%}
-        {{ '' }}
-        | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
-          {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
-        {{ '' }}
-        {%- if cookiecutter.scrutinizer == 'yes' or cookiecutter.codacy == 'yes' or cookiecutter.codeclimate == 'yes' %}
-        | {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
-          {%- if cookiecutter.codacy == 'yes' %} |codacy|{% endif -%}
-          {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
-        {%- endif -%}
+      - {%- if cookiecutter.github_actions == 'yes' %} |github-actions|{% endif -%}
+        {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
+        {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
+        {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
+        {%- if cookiecutter.codacy == 'yes' %} |codacy|{% endif -%}
+        {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
 {{ '' }}
 {%- if cookiecutter.pypi_badge == "yes" or cookiecutter.repo_hosting_domain == "github.com" %}
     * - package
-      - {% if cookiecutter.pypi_badge == "yes" %}| |version| |wheel| |supported-versions| |supported-implementations|
-        {{ '' }}{% endif %}
-        {%- if cookiecutter.repo_hosting_domain == "github.com" %}| |commits-since|{% endif %}
+      - {%- if cookiecutter.pypi_badge == "yes" %} |version| |wheel| |supported-versions| |supported-implementations|{% endif %}
+        {%- if cookiecutter.repo_hosting_domain == "github.com" %} |commits-since|{% endif %}
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
