@@ -7,3 +7,5 @@
 
 .. automodule:: {{ cookiecutter.package_name }}
     :members:
+    :undoc-members:
+    :special-members: __init__, __len__
