@@ -2,6 +2,15 @@
 Usage
 =====
 
-To use {{ cookiecutter.project_name }} in a project::
+To use the project:
 
-	import {{ cookiecutter.package_name }}
+{% if cookiecutter.command_line_interface != "no" -%}
+.. code-block:: python
+
+    import {{ cookiecutter.package_name }}
+    {{ cookiecutter.package_name }}.{{ cookiecutter.function_name }}(...)
+{% else -%}
+.. code-block:: bash
+
+    $ {{ cookiecutter.command_line_interface_bin_name }} ...
+{% endif -%}

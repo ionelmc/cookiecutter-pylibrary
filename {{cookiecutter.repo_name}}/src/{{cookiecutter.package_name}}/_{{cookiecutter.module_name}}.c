@@ -1,5 +1,5 @@
 {%- if cookiecutter.c_extension_support == 'cffi' %}
-char* {{ cookiecutter.c_extension_function }}(int argc, char *argv[]) {
+char* {{ cookiecutter.function_name }}(int argc, char *argv[]) {
     if (argc) {
         int len, i,
             max = 0,
@@ -19,7 +19,7 @@ char* {{ cookiecutter.c_extension_function }}(int argc, char *argv[]) {
 {%- else -%}
 #include "Python.h"
 
-static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObject *value) {
+static PyObject* {{ cookiecutter.function_name }}(PyObject *self, PyObject *value) {
     PyObject *module;
     PyObject *module_dict;
     PyObject *len;
@@ -66,16 +66,16 @@ static PyObject* {{ cookiecutter.c_extension_function }}(PyObject *self, PyObjec
     return result;
 }
 
-PyDoc_STRVAR({{ cookiecutter.c_extension_function }}_doc, "Docstring for {{ cookiecutter.c_extension_function }} function.");
+PyDoc_STRVAR({{ cookiecutter.function_name }}_doc, "Docstring for {{ cookiecutter.function_name }} function.");
 
 static struct PyMethodDef module_functions[] = {
-    {"{{ cookiecutter.c_extension_function }}", {{ cookiecutter.c_extension_function }}, METH_O, {{ cookiecutter.c_extension_function }}_doc},
+    {"{{ cookiecutter.function_name }}", {{ cookiecutter.function_name }}, METH_O, {{ cookiecutter.function_name }}_doc},
     {NULL, NULL}
 };
 
 static struct PyModuleDef moduledef = {
     PyModuleDef_HEAD_INIT,
-    "{{ cookiecutter.package_name }}.{{ cookiecutter.c_extension_module }}", /* m_name */
+    "{{ cookiecutter.package_name }}._{{ cookiecutter.module_name }}", /* m_name */
     NULL,             /* m_doc */
     -1,               /* m_size */
     module_functions, /* m_methods */
@@ -96,7 +96,7 @@ static PyObject* moduleinit(void) {
     return module;
 }
 
-PyMODINIT_FUNC PyInit_{{ cookiecutter.c_extension_module }}(void) {
+PyMODINIT_FUNC PyInit__{{ cookiecutter.module_name }}(void) {
     return moduleinit();
 }
 {%- endif %}

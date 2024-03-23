@@ -221,33 +221,47 @@ setup(
     },
 {%- set setup_requires_interior %}
 {%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
-        "setuptools_scm>=3.3.1",{% endif %}
+            "setuptools_scm>=3.3.1",
+        {% endif %}
 {%- endset %}
 {%- if cookiecutter.c_extension_support == "cython" %}
-    setup_requires=[{{ setup_requires_interior }}
-        "cython",
-    ]
-    if Cython
-    else [{{ setup_requires_interior }}
-    ],
+    setup_requires=(
+        [
+{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+            "setuptools_scm>=3.3.1",
+{%- endif %}
+            "cython",
+        ]
+        if Cython
+        else [{% if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+            "setuptools_scm>=3.3.1",
+        {% endif %}]
+    ),
 {%- elif cookiecutter.c_extension_support == "cffi" %}
     # We only require CFFI when compiling.
     # pyproject.toml does not support requirements only for some build actions,
     # but we can do it in setup.py.
-    setup_requires=[{{ setup_requires_interior }}
-        "cffi>=1.0.0",
-    ]
-    if any(arg.startswith(("build", "bdist")) for arg in sys.argv)
-    else [{{setup_requires_interior}}
-    ],
-{%- elif setup_requires_interior.strip() %}
-    setup_requires=[{{ setup_requires_interior }}
-    ],
+    setup_requires=(
+        [
+{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+            "setuptools_scm>=3.3.1",
+{%- endif %}
+            "cffi>=1.0.0",
+        ]
+        if any(arg.startswith(("build", "bdist")) for arg in sys.argv)
+        else [{% if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+            "setuptools_scm>=3.3.1",
+        {% endif %}]
+    ),
+    {%- elif setup_requires_interior.strip() %}
+    setup_requires=[{% if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+        "setuptools_scm>=3.3.1",
+    {% endif %}],
 {%- endif -%}
 {%- if cookiecutter.command_line_interface != "no" %}
     entry_points={
         "console_scripts": [
-            "{{ cookiecutter.command_line_interface_bin_name }} = {{ cookiecutter.package_name }}.cli:main",
+            "{{ cookiecutter.command_line_interface_bin_name }} = {{ cookiecutter.package_name }}.cli:run",
         ]
     },
 {%- endif %}

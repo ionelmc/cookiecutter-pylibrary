@@ -43,26 +43,28 @@ if __name__ == "__main__":
 
     ci.joinpath('templates', 'tox.ini').unlink(missing_ok=True)
 
-{%- if cookiecutter.allow_tests_inside_package == 'no' %}
+{%- if cookiecutter.tests_inside_package == 'no' %}
     shutil.rmtree(src / '{{ cookiecutter.package_name }}' / 'tests')
-{% endif %}
+{%- else %}
+    shutil.rmtree('tests')
+{%- endif %}
 
 {%- if cookiecutter.c_extension_support == 'no' %}
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c').unlink()
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}.c').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}.pyx').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}_build.py').unlink()
 {%- elif cookiecutter.c_extension_support == 'cffi' %}
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}.pyx').unlink()
 {%- elif cookiecutter.c_extension_support == 'cython' %}
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c').unlink()
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}.c').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}_build.py').unlink()
     try:
         subprocess.check_call(['tox', '-e', 'cythonize'])
     except Exception:
         subprocess.check_call([sys.executable, '-mtox', '-e', 'cythonize'])
 {%- else %}
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.pyx').unlink()
-    src.joinpath('{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}.pyx').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', '_{{ cookiecutter.module_name }}_build.py').unlink()
 {%- endif %}
 
     ci.joinpath('appveyor-bootstrap.py').unlink(missing_ok=True)

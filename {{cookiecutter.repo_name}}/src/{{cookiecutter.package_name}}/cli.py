@@ -15,19 +15,24 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 {%- if cookiecutter.command_line_interface == "click" %}
+
 import click
 {%- elif cookiecutter.command_line_interface == "argparse" %}
+
 import argparse
 {%- else %}
+
 import sys
 {%- endif %}
+
+from .{{ cookiecutter.module_name }} import {{ cookiecutter.function_name }}
 {%- if cookiecutter.command_line_interface == "click" %}
 
 
 @click.command()
 @click.argument("names", nargs=-1)
-def main(names):
-    click.echo(repr(names))
+def run(names):
+    click.echo({{ cookiecutter.function_name }}(names))
 {%- elif cookiecutter.command_line_interface == "argparse" %}
 
 parser = argparse.ArgumentParser(description="Command description.")
@@ -39,13 +44,14 @@ parser.add_argument(
 )
 
 
-def main(args=None):
+def run(args=None):
     args = parser.parse_args(args=args)
-    print(args.names)
+    print({{ cookiecutter.function_name }}(args.names))
+    parser.exit(0)
 {%- else %}
 
 
-def main(argv=sys.argv):
+def run(argv=sys.argv):
     """
     Args:
         argv (list): List of arguments
@@ -55,6 +61,6 @@ def main(argv=sys.argv):
 
     Does stuff.
     """
-    print(argv)
-    return 0
+    print({{ cookiecutter.function_name }}(argv))
+    sys.exit(0)
 {%- endif %}

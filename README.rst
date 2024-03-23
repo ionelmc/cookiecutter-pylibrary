@@ -144,6 +144,12 @@ You will be asked for these fields:
             "nameless"
       - PyPI distribution name (what you would ``pip install``).
 
+    * - ``module_name``
+      - .. code:: python
+
+            "core"
+      - This template assumes there's going to be an "implementation" module inside your package.
+
     * - ``project_short_description``
       - .. code:: python
 
@@ -198,7 +204,7 @@ You will be asked for these fields:
             "no"
       - Enables the use of `setuptools-scm <https://pypi.org/project/setuptools-scm/>`_. You can continue using
         bumpversion_ with this enabled.
-    * - ``allow_tests_inside_package``
+    * - ``tests_inside_package``
       - .. code:: python
 
             "no"
