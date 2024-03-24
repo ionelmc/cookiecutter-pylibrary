@@ -39,6 +39,8 @@ if __name__ == "__main__":
 {%- if cookiecutter.command_line_interface == 'no' %}
     src.joinpath('{{ cookiecutter.package_name }}', '__main__.py').unlink()
     src.joinpath('{{ cookiecutter.package_name }}', 'cli.py').unlink()
+    src.joinpath('{{ cookiecutter.package_name }}', 'tests', 'test_cli.py').unlink()
+    cwd.joinpath('tests', 'test_cli.py').unlink()
 {% endif %}
 
     ci.joinpath('templates', 'tox.ini').unlink(missing_ok=True)
