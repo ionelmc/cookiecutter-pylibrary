@@ -173,13 +173,20 @@ jobs:
       with:
         path: wheelhouse/*.whl
 {%- endif %}
-{%- if cookiecutter.coveralls == 'yes' %}
+{%- if cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
   finish:
     needs: test
     if: {{ "{{ '${{ always() }}' }}" }}
     runs-on: ubuntu-latest
     steps:
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
     - uses: coverallsapp/github-action@v2
       with:
         parallel-finished: true
+{%- endif %}
+{%- if cookiecutter.codecov == 'yes' %}
+    - uses: codecov/codecov-action@v3
+      with:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 {%- endif %}
