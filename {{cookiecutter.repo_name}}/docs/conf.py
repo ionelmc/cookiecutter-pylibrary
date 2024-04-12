@@ -32,10 +32,11 @@ version = release = {{ cookiecutter.version|jsonquote }}
 pygments_style = "trac"
 templates_path = ["."]
 extlinks = {
-    "issue": ("https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s", "#"),
-    "pr": ("https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s", "PR #"),
+    "issue": ("https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s", "#%s"),
+    "pr": ("https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s", "PR #%s"),
 }
 
+html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_options = {
     "githuburl": "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/",
 }
@@ -43,9 +44,6 @@ html_theme_options = {
 html_use_smartypants = True
 html_last_updated_fmt = "%b %d, %Y"
 html_split_index = False
-html_sidebars = {
-    "**": ["searchbox.html", "globaltoc.html", "sourcelink.html"],
-}
 html_short_title = f"{project}-{version}"
 
 napoleon_use_ivar = True
