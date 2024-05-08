@@ -45,7 +45,7 @@ jobs:
     ['windows', 'x64'],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
-    ['macos', 'x64'],
+    ['macos', 'arm64'],
 {%- endif %}
 {%- raw %}
 ] %}
