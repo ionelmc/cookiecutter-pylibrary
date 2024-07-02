@@ -56,7 +56,7 @@ To get quickly started on a new system, just `install setuptools
 <https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to required install Tox_ and Cookiecutter_. To install
 them, just run this in your shell or command prompt::
 
-  pip install tox cookiecutter
+  pip install tox cookiecutter jinja2_time
 
 Usage and options
 -----------------
