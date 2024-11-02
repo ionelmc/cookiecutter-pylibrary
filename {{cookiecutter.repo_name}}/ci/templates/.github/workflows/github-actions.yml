@@ -71,9 +71,9 @@ jobs:
     ['windows', 'x64', 'AMD64', '*', True],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
-    ['macos', 'x64', 'x86_64', '*', True],
+    ['macos', 'arm64', 'arm64', '*', True],
 {%- endif %}
-  {%- raw %}
+{%- raw %}
 ] %}
 {% if include_cover or ('nocov' in env and not prefix.startswith('pypy')) %}
 {% set wheel_suffix = 'nocov' in env and wheel_arch.strip('*') %}
