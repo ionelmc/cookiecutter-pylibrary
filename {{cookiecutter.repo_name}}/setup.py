@@ -17,7 +17,7 @@ from pathlib import Path
 {% if cookiecutter.c_extension_support not in ["no", "cffi"] -%}
 from setuptools import Extension
 {% endif -%}
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 from setuptools import setup
 {%- if cookiecutter.c_extension_support != "no" %}
 {%- if cookiecutter.c_extension_optional == "yes" %}
@@ -141,7 +141,7 @@ setup(
 {%- else %}
     url="https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}",
 {%- endif %}
-    packages=find_packages("src"),
+    packages=find_namespace_packages("src"),
     package_dir={"": "src"},
     py_modules=[path.stem for path in Path("src").glob("*.py")],
     include_package_data=True,
