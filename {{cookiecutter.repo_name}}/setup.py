@@ -150,24 +150,6 @@ setup(
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-{%- if cookiecutter.license == "no" %}
-{%- elif cookiecutter.license in ["BSD 2-Clause License", "BSD 3-Clause License"] %}
-        "License :: OSI Approved :: BSD License",
-{%- elif cookiecutter.license == "MIT license" %}
-        "License :: OSI Approved :: MIT License",
-{%- elif cookiecutter.license == "ISC license" %}
-        "License :: OSI Approved :: ISC License (ISCL)",
-{%- elif cookiecutter.license == "Apache Software License 2.0" %}
-        "License :: OSI Approved :: Apache Software License",
-{%- elif "LGPLv3+" in cookiecutter.license %}
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"
-{%- elif "LGPLv3" in cookiecutter.license %}
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"
-{%- elif "LGPLv2" in cookiecutter.license %}
-        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"
-{%- elif "LGPLv2" in cookiecutter.license %}
-        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"
-{%- endif %}
         "Operating System :: Unix",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
