@@ -55,6 +55,15 @@ else:
 {%- endif %}
 {%- if cookiecutter.c_extension_optional == "yes" %}
 
+allow_extensions = True
+# Enable this if the extensions will not build on PyPy
+# if '__pypy__' in sys.builtin_module_names:
+#     print('NOTICE: C extensions disabled on PyPy (would be broken)!')
+#     allow_extensions = False
+if os.environ.get('SETUPPY_FORCE_PURE'):
+    print('NOTICE: C extensions disabled (SETUPPY_FORCE_PURE)!')
+    allow_extensions = False
+
 
 class OptionalBuildExt(build_ext):
     """
@@ -63,8 +72,6 @@ class OptionalBuildExt(build_ext):
 
     def run(self):
         try:
-            if os.environ.get("SETUPPY_FORCE_PURE"):
-                raise Exception("C extensions disabled (SETUPPY_FORCE_PURE)!")
             super().run()
         except Exception as e:
             self._unavailable(e)
@@ -267,8 +274,10 @@ setup(
         for path in Path("src").glob(
 {%- if cookiecutter.c_extension_support == "cython" %}"**/*.pyx" if Cython else "**/*.c"
 {%- else %}"**/*.c"{% endif %})
-    ],
-    distclass=BinaryDistribution,
+    ]
+    if allow_extensions
+    else [],
+    distclass=BinaryDistribution if allow_extensions else None,
 {%- endif %}
 {%- endif %}
 )
