@@ -141,6 +141,7 @@ setup(
         re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub("", read("README.rst")),
         re.sub(":[a-z]+:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst")),
     ),
+    long_description_content_type='text/x-rst',
     author={{ cookiecutter.full_name|jsonquote }},
     author_email={{ cookiecutter.email|jsonquote }},
 {%- if cookiecutter.repo_hosting_domain == "no" %}
