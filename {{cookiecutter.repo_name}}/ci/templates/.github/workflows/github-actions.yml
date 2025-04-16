@@ -79,6 +79,7 @@ jobs:
 {% set wheel_suffix = 'nocov' in env and wheel_arch.strip('*') %}
 {% set name_suffix = '/' + wheel_suffix if wheel_suffix else '' %}
           - name: '{{ env }} ({{ os }}/{{ cibw_arch }}{{ name_suffix }})'
+            artifact: '{{ env.rsplit('-', 1)[0] }}-{{ os }}-{{ cibw_arch }}{{ name_suffix.replace('/', '-') }}'
             python: '{{ python }}'
             toxpython: '{{ toxpython }}'
             python_arch: '{{ python_arch }}'
@@ -176,14 +177,20 @@ jobs:
       uses: actions/upload-artifact@v4
       if: matrix.cibw_build
       with:
+        name: {{ 'wheel-${{ matrix.artifact }}' }}
         path: wheelhouse/*.whl
 {%- endif %}
-{%- if cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
+{%- if cookiecutter.c_extension_support or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
   finish:
     needs: test
     if: {{ "{{ '${{ always() }}' }}" }}
     runs-on: ubuntu-latest
     steps:
+{%- endif %}
+{%- if cookiecutter.c_extension_support == 'no' %}
+    - uses: actions/upload-artifact/merge@v4
+      with:
+        name: all-wheels
 {%- endif %}
 {%- if cookiecutter.coveralls == 'yes' %}
     - uses: coverallsapp/github-action@v2
