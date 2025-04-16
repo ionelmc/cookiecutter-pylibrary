@@ -163,7 +163,7 @@ jobs:
         flag-name: {{ "{{ '${{ matrix.tox_env }}' }}" }}
 {%- endif %}
 {%- if cookiecutter.codecov == 'yes' %}
-    - uses: codecov/codecov-action@v3
+    - uses: codecov/codecov-action@v5
       if: matrix.cover
       with:
         verbose: true
@@ -173,7 +173,7 @@ jobs:
       if: matrix.cibw_build
       run: twine check wheelhouse/*.whl
     - name: upload wheel
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: matrix.cibw_build
       with:
         path: wheelhouse/*.whl
@@ -191,7 +191,7 @@ jobs:
         parallel-finished: true
 {%- endif %}
 {%- if cookiecutter.codecov == 'yes' %}
-    - uses: codecov/codecov-action@v3
+    - uses: codecov/codecov-action@v5
       with:
         CODECOV_TOKEN: {{ '{% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}' }}
 {%- endif %}
