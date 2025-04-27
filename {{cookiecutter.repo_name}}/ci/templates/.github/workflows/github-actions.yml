@@ -180,14 +180,14 @@ jobs:
         name: {{ 'wheel-${{ matrix.artifact }}' }}
         path: wheelhouse/*.whl
 {%- endif %}
-{%- if cookiecutter.c_extension_support or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
+{%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
   finish:
     needs: test
     if: {{ "{{ '${{ always() }}' }}" }}
     runs-on: ubuntu-latest
     steps:
 {%- endif %}
-{%- if cookiecutter.c_extension_support == 'no' %}
+{%- if cookiecutter.c_extension_support != 'no' %}
     - uses: actions/upload-artifact/merge@v4
       with:
         name: all-wheels
