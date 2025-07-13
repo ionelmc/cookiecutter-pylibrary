@@ -1,13 +1,109 @@
 [build-system]
 requires = [
-    "setuptools>=40.1.0",
+    "setuptools>=69",
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-    "setuptools_scm>=3.3.1",
+    "setuptools_scm>=8",
 {%- endif %}
 {%- if cookiecutter.c_extension_support == 'cffi' %}
+    "cffi>=1",
+{%- endif %}
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = [
+    "readme",
+{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+    "version",
+{%- endif %}
+]
+name = "{{ cookiecutter.distribution_name }}"
+{%- if cookiecutter.setup_py_uses_setuptools_scm == "no" %}
+version = "{{ cookiecutter.version }}"
+{%- endif %}
+{%- if cookiecutter.license != "no" %}
+license = "{{ {
+    "BSD 2-Clause License": "BSD-2-Clause",
+    "BSD 3-Clause License": "BSD-3-Clause",
+    "MIT license": "MIT",
+    "ISC license": "ISC",
+    "Apache Software License 2.0": "Apache-2.0",
+    "GNU Lesser General Public License v3 or later (LGPLv3+)": "LGPL-3.0-or-later",
+    "GNU Lesser General Public License v3 (LGPLv3)": "LGPL-3.0-only",
+    "GNU Lesser General Public License v2.1 or later (LGPLv2+)": "LGPL-2.1-or-later",
+    "GNU Lesser General Public License v2.1 (LGPLv2)": "LGPL-2.1-only",
+}[cookiecutter.license] }}"
+license-files = ["LICENSE"]
+{%- endif %}
+description = {{ cookiecutter.project_short_description|jsonquote }}
+authors = [
+    { name = {{ cookiecutter.full_name|jsonquote }}, email = {{ cookiecutter.email|jsonquote }} },
+]
+classifiers = [
+    # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    # uncomment if you test on these interpreters:
+    # "Programming Language :: Python :: Implementation :: IronPython",
+    # "Programming Language :: Python :: Implementation :: Jython",
+    # "Programming Language :: Python :: Implementation :: Stackless",
+    "Topic :: Utilities",
+{%- if cookiecutter.pypi_disable_upload == "yes" %}
+    "Private :: Do Not Upload",
+{%- endif %}
+]
+keywords = [
+    # eg: "keyword1", "keyword2", "keyword3",
+]
+requires-python = ">=3.9"
+dependencies = [
+{%- if cookiecutter.command_line_interface == "click" %}
+    "click",
+{%- endif %}
+{%- if cookiecutter.c_extension_support == "cffi" %}
     "cffi>=1.0.0",
 {%- endif %}
 ]
+
+[project.optional-dependencies]
+# rst = ["docutils>=0.11"]
+{%- if cookiecutter.command_line_interface != "no" %}
+
+[project.scripts]
+{{ cookiecutter.command_line_interface_bin_name }} = "{{ cookiecutter.package_name }}.cli:run"
+{%- endif %}
+{%- if cookiecutter.repo_hosting_domain != "no" %}
+
+[project.urls]
+"Sources" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}"
+{%- if cookiecutter.sphinx_docs == "yes" %}
+"Documentation" = "{{ cookiecutter.sphinx_docs_hosting }}"
+"Changelog" = "{{ cookiecutter.sphinx_docs_hosting }}en/latest/changelog.html"
+{%- else %}
+"Changelog" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst"
+{%- endif %}
+"Issue Tracker" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues"
+{%- endif %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+
+[tool.setuptools_scm]
+local_scheme = "dirty-tag"
+write_to = "src/{{ cookiecutter.package_name }}/_version.py"
+fallback_version = "{{ cookiecutter.version }}"
+{%- endif %}
 
 [tool.ruff]
 extend-exclude = ["static", "ci/templates"]

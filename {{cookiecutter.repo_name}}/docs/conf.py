@@ -17,9 +17,9 @@ author = {{ cookiecutter.full_name|jsonquote }}
 copyright = f"{year}, {author}"
 {%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
 try:
-    from pkg_resources import get_distribution
+    from importlib import metadata
 
-    version = release = get_distribution("{{ cookiecutter.package_name }}").version
+    version = release = metadata.version('hunter')
 except Exception:
     import traceback
 

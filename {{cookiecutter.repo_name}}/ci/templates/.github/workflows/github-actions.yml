@@ -11,29 +11,26 @@ jobs:
       matrix:
         include:
           - name: 'check'
-            python: '3.11'
-            toxpython: 'python3.11'
+            python: '3.13'
             tox_env: 'check'
             os: 'ubuntu-latest'
 {%- endraw %}
 {%- if cookiecutter.sphinx_docs == "yes" %}
           - name: 'docs'
-            python: '3.11'
-            toxpython: 'python3.11'
+            python: '3.13'
             tox_env: 'docs'
             os: 'ubuntu-latest'
 {%- endif %}
 {%- raw %}
 {% for env in tox_environments %}
 {% set prefix = env.split('-')[0] -%}
+{% set freethreaded = prefix.endswith('t') %}
 {% if prefix.startswith('pypy') %}
 {% set python %}pypy-{{ prefix[4] }}.{{ prefix[5:] }}{% endset %}
 {% set cpython %}pp{{ prefix[4:5] }}{% endset %}
-{% set toxpython %}pypy{{ prefix[4] }}.{{ prefix[5:] }}{% endset %}
 {% else %}
-{% set python %}{{ prefix[2] }}.{{ prefix[3:] }}{% endset %}
+{% set python %}{{ prefix[2] }}.{{ prefix[3:].rstrip('t') }}{% endset %}
 {% set cpython %}cp{{ prefix[2:] }}{% endset %}
-{% set toxpython %}python{{ prefix[2] }}.{{ prefix[3:] }}{% endset %}
 {% endif %}
 {%- endraw %}
 {%- if cookiecutter.c_extension_support == 'no' %}
@@ -43,6 +40,7 @@ jobs:
 {%- endraw %}
 {%- if cookiecutter.github_actions_windows == 'yes' %}
     ['windows', 'x64'],
+    ['windows', 'x86'],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
     ['macos', 'arm64'],
@@ -51,7 +49,6 @@ jobs:
 ] %}
           - name: '{{ env }} ({{ os }})'
             python: '{{ python }}'
-            toxpython: '{{ toxpython }}'
             python_arch: '{{ python_arch }}'
             tox_env: '{{ env }}'
             os: '{{ os }}-latest'
@@ -69,6 +66,7 @@ jobs:
 {%- endraw %}
 {%- if cookiecutter.github_actions_windows == 'yes' %}
     ['windows', 'x64', 'AMD64', '*', True],
+    ['windows', 'x86', 'x86', '*', False],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
     ['macos', 'arm64', 'arm64', '*', True],
@@ -81,15 +79,15 @@ jobs:
           - name: '{{ env }} ({{ os }}/{{ cibw_arch }}{{ name_suffix }})'
             artifact: '{{ env.rsplit('-', 1)[0] }}-{{ os }}-{{ cibw_arch }}{{ name_suffix.replace('/', '-') }}'
             python: '{{ python }}'
-            toxpython: '{{ toxpython }}'
-            python_arch: '{{ python_arch }}'
+            python_arch: '{{ python_arch }}{% if freethreaded %}-freethreaded{% endif %}'
             tox_env: '{{ env }}'
 {% if 'cover' in env %}
             cover: true
 {% endif %}
             cibw_arch: '{{ cibw_arch }}'
-{% if 'nocov' in env and not prefix.startswith('pypy') %}
+{% if env.endswith('cython-nocov') and not prefix.startswith('pypy') %}
             cibw_build: '{{ cpython }}-{{ wheel_arch }}'
+            cibw_ft: '{% if freethreaded %}true{% else %}false{% endif %}'
 {% else %}
             cibw_build: false
 {% endif %}
@@ -123,8 +121,6 @@ jobs:
 {%- if cookiecutter.c_extension_support == 'no' %}
 {%- raw %}
     - name: test
-      env:
-        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
       run: >
         tox -e {{ '${{ matrix.tox_env }}' }} -v
 {%- endraw %}
@@ -134,26 +130,26 @@ jobs:
       if: matrix.cibw_build
       run: cibuildwheel
       env:
-        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
         CIBW_ARCHS: '{{ '${{ matrix.cibw_arch }}' }}'
         CIBW_BUILD: '{{ '${{ matrix.cibw_build }}' }}'
+        CIBW_FREE_THREADED_SUPPORT: '{{ '${{ matrix.cibw_ft }}' }}'
+        CIBW_CONTAINER_ENGINE: "docker; create_args: --cap-add=SYS_PTRACE"
+        CIBW_ENABLE: cpython-freethreading
         CIBW_BUILD_VERBOSITY: '3'
         CIBW_TEST_REQUIRES: >
           tox
           tox-direct
         CIBW_TEST_COMMAND: >
           cd {project} &&
-          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -v
+          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -vv
         CIBW_TEST_COMMAND_WINDOWS: >
           cd /d {project} &&
-          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -v
+          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -vv
     - name: regular build and test
-      env:
-        TOXPYTHON: '{{ '${{ matrix.toxpython }}' }}'
       if: >
         !matrix.cibw_build
       run: >
-        tox -e {{ '${{ matrix.tox_env }}' }} -v
+        tox -e {{ '${{ matrix.tox_env }}' }} -vv
 {%- endraw %}
 {%- if cookiecutter.coveralls == 'yes' %}
     - uses: coverallsapp/github-action@v2
@@ -171,13 +167,16 @@ jobs:
         flags: {{ "{{ '${{ matrix.tox_env }}' }}" }}
 {%- endif %}
     - name: check wheel
-      if: matrix.cibw_build
-      run: twine check wheelhouse/*.whl
+      if: >
+        !matrix.cibw_ft && matrix.cibw_build
+      run: |
+        python -mpip install --progress-bar=off twine
+        twine check wheelhouse/*.whl
     - name: upload wheel
       uses: actions/upload-artifact@v4
       if: matrix.cibw_build
       with:
-        name: {{ 'wheel-${{ matrix.artifact }}' }}
+        name: {{ "{{ 'wheel-${{ matrix.artifact }}' }}" }}
         path: wheelhouse/*.whl
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
@@ -202,3 +201,4 @@ jobs:
       with:
         CODECOV_TOKEN: {{ '{% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}' }}
 {%- endif %}
+{{ "{{ '' }}" }}

@@ -11,15 +11,11 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[file]]
-src = "setup.py"
+src = "pyproject.toml"
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-{%- if cookiecutter.formatter_quote_style == "single" %}
-search = "'fallback_version': '{current_version}'"
+search = 'fallback_version = "{current_version}"'
 {%- else %}
-search = '"fallback_version": "{current_version}"'
-{%- endif %}
-{%- else %}
-search = "version='{current_version}'"
+search = 'version = "{current_version}"'
 {%- endif %}
 {%- if cookiecutter.repo_hosting_domain == "github.com" %}
 
