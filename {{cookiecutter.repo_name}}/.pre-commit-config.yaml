@@ -24,4 +24,6 @@ repos:
         exclude_types:
           - c
 {%- endif %}
+      - id: mixed-line-ending
+        args: [--fix=lf]
       - id: debug-statements
