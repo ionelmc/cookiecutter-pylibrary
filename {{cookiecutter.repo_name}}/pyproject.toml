@@ -117,31 +117,31 @@ target-version = "py39"
 [tool.ruff.lint]
 ignore = [
     "RUF001", # ruff-specific rules ambiguous-unicode-character-string
-    "S101", # flake8-bandit assert
-    "S308", # flake8-bandit suspicious-mark-safe-usage
-    "S603", # flake8-bandit subprocess-without-shell-equals-true
-    "S607", # flake8-bandit start-process-with-partial-path
-    "E501", # pycodestyle line-too-long
+    "S101",   # flake8-bandit assert
+    "S308",   # flake8-bandit suspicious-mark-safe-usage
+    "S603",   # flake8-bandit subprocess-without-shell-equals-true
+    "S607",   # flake8-bandit start-process-with-partial-path
+    "E501",   # pycodestyle line-too-long
 ]
 select = [
-    "B", # flake8-bugbear
-    "C4", # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
     "DTZ", # flake8-datetimez
-    "E", # pycodestyle errors
+    "E",   # pycodestyle errors
     "EXE", # flake8-executable
-    "F", # pyflakes
-    "I", # isort
+    "F",   # pyflakes
+    "I",   # isort
     "INT", # flake8-gettext
     "PIE", # flake8-pie
     "PLC", # pylint convention
     "PLE", # pylint errors
-    "PT", # flake8-pytest-style
+    "PT",  # flake8-pytest-style
     "PTH", # flake8-use-pathlib
     "RSE", # flake8-raise
     "RUF", # ruff-specific rules
-    "S", # flake8-bandit
-    "UP", # pyupgrade
-    "W", # pycodestyle warnings
+    "S",   # flake8-bandit
+    "UP",  # pyupgrade
+    "W",   # pycodestyle warnings
 ]
 
 [tool.ruff.lint.flake8-pytest-style]
