@@ -18,9 +18,8 @@ include .pre-commit-config.yaml
 {% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 include .readthedocs.yml
 {% endif -%}
-{% if cookiecutter.c_extension_support == 'cffi' or cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
+include .taplo.toml
 include pyproject.toml
-{% endif -%}
 include pytest.ini
 {% if cookiecutter.version_manager == 'tbump' -%}
 include tbump.toml
