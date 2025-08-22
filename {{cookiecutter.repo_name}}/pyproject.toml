@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "setuptools>=69",
+    "setuptools>=80",
 {%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
     "setuptools_scm>=8",
 {%- endif %}
