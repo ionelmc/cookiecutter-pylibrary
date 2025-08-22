@@ -38,7 +38,15 @@ extlinks = {
 
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_options = {
-    "githuburl": "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/",
+    "source_repository": "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/",
+    "source_branch": "{{ cookiecutter.repo_main_branch }}",
+    "source_directory": "docs/",
+    "footer_icons": [
+        {
+            "url": "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/",
+            "html": "{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}",
+        },
+    ],
 }
 
 html_use_smartypants = True
