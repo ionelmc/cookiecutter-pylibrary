@@ -19,7 +19,7 @@ copyright = f"{year}, {author}"
 try:
     from importlib import metadata
 
-    version = release = metadata.version('hunter')
+    version = release = metadata.version('{{ cookiecutter.distribution_name }}')
 except Exception:
     import traceback
 
