@@ -18,7 +18,7 @@ source =
     {{ cookiecutter.package_name }}
     tests
 {%- endif %}
-parallel = true
+patch = subprocess
 {%- if cookiecutter.c_extension_support == 'cython' and cookiecutter.test_matrix_separate_coverage == 'no' %}
 plugins = Cython.Coverage
 {%- endif %}
