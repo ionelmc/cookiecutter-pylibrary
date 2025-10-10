@@ -115,11 +115,12 @@ if __name__ == "__main__":
         except Exception:
             subprocess.check_call([sys.executable, ci / 'bootstrap.py'])
     note(' Setting up pre-commit '.center(width, "#"))
-    if cwd.joinpath('.git').exists():
-        subprocess.check_call(['pre-commit', 'install', '--install-hooks'])
+    if shutil.which('prek'):
+        note('+ prek autoupdate')
+        subprocess.check_call(['prek', 'autoupdate'])
+    elif shutil.which('pre-commit'):
+        note('+ pre-commit autoupdate')
         subprocess.check_call(['pre-commit', 'autoupdate'])
-    else:
-        print('Skipping precommit install.')
     success(' Successfully created `{{ cookiecutter.repo_name }}` '.center(width, "#"))
     print('See .cookiecutterrc for instructions on regenerating the project.')
     note('To get started run these:')
