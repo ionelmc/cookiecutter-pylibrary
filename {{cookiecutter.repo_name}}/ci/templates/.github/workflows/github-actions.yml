@@ -52,6 +52,17 @@ jobs:
             python_arch: '{{ python_arch }}'
             tox_env: '{{ env }}'
             os: '{{ os }}-latest'
+{%- endraw %}
+{%- if cookiecutter.test_matrix_separate_coverage == 'no' %}
+            cover: true
+{%- else %}
+{%- raw %}
+{% if 'cover' in env %}
+            cover: true
+{% endif %}
+{%- endraw %}
+{%- endif %}
+{%- raw %}
 {% endfor %}
 {% endfor %}
     steps:
@@ -150,21 +161,6 @@ jobs:
       run: >
         tox -e {{ '${{ matrix.tox_env }}' }} -vv
 {%- endraw %}
-{%- if cookiecutter.coveralls == 'yes' %}
-    - uses: coverallsapp/github-action@v2
-      if: matrix.cover
-      continue-on-error: true
-      with:
-        parallel: true
-        flag-name: {{ "{{ '${{ matrix.tox_env }}' }}" }}
-{%- endif %}
-{%- if cookiecutter.codecov == 'yes' %}
-    - uses: codecov/codecov-action@v5
-      if: matrix.cover
-      with:
-        verbose: true
-        flags: {{ "{{ '${{ matrix.tox_env }}' }}" }}
-{%- endif %}
     - name: check wheel
       if: >
         !matrix.cibw_ft && matrix.cibw_build
@@ -177,6 +173,22 @@ jobs:
       with:
         name: {{ "{{ 'wheel-${{ matrix.artifact }}' }}" }}
         path: wheelhouse/*.whl
+{%- endif %}
+{%- if cookiecutter.coveralls == 'yes' %}
+    - uses: coverallsapp/github-action@v2
+      if: matrix.cover
+      continue-on-error: true
+      with:
+        flag-name: {{ "{{ '${{ matrix.name }}' }}" }}
+        parallel: true
+{%- endif %}
+{%- if cookiecutter.codecov == 'yes' %}
+    - uses: codecov/codecov-action@v5
+      if: matrix.cover
+      with:
+        flags: {{ "{{ '${{ matrix.name }}' }}" }}
+        token: {{ "{{ '${{ secrets.CODECOV_TOKEN }}' }}" }}
+        verbose: true
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
   finish:
@@ -194,11 +206,5 @@ jobs:
     - uses: coverallsapp/github-action@v2
       with:
         parallel-finished: true
-{%- endif %}
-{%- if cookiecutter.codecov == 'yes' %}
-    - uses: codecov/codecov-action@v5
-      with:
-        verbose: true
-        token: {{ '{% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}' }}
 {%- endif %}
 {{ "{{ '' }}" }}
