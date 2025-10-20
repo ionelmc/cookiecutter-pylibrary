@@ -94,7 +94,7 @@ jobs:
             cover: true
 {% endif %}
             cibw_arch: '{{ cibw_arch }}'
-{% if env.endswith('cython-nocov') and not prefix.startswith('pypy') %}
+{% if env.endswith('-nocov') and not prefix.startswith('pypy') %}
             cibw_build: '{{ cpython }}-{{ wheel_arch }}'
             cibw_ft: '{% if freethreaded %}true{% else %}false{% endif %}'
 {% else %}
