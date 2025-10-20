@@ -81,14 +81,6 @@ dependencies = [
 
 [project.optional-dependencies]
 # rst = ["docutils>=0.11"]
-
-[dependency-groups]
-test = [
-    "pytest",
-{%- if cookiecutter.c_extension_support == 'cython' %}
-    "cython",
-{%- endif %}
-]
 {%- if cookiecutter.command_line_interface != "no" %}
 
 [project.scripts]
