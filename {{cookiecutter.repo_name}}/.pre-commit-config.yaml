@@ -30,5 +30,4 @@ repos:
           - c
 {%- endif %}
       - id: mixed-line-ending
-        args: [--fix=lf]
       - id: debug-statements
