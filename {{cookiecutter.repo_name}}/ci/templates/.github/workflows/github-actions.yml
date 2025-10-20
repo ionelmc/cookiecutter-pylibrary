@@ -46,7 +46,7 @@ jobs:
 {%- endif %}
 {%- raw %}
 ] %}
-          - name: '{{ env }} ({{ os }})'
+          - name: '{{ env }} ({{ os }}/{{ python_arch }})'
             python: '{{ python }}'
             python_arch: '{{ python_arch }}'
             tox_env: '{{ env }}'
