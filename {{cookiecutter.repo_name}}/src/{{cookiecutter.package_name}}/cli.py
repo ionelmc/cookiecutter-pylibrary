@@ -51,7 +51,7 @@ def run(args=None):
 {%- else %}
 
 
-def run(argv=sys.argv):
+def run(argv=sys.argv[1:]):
     """
     Args:
         argv (list): List of arguments
