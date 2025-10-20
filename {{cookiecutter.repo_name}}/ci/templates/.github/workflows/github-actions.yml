@@ -188,7 +188,7 @@ jobs:
         token: {{ "{{ '${{ secrets.CODECOV_TOKEN }}' }}" }}
         verbose: true
 {%- endif %}
-{%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' or cookiecutter.codecov == 'yes' %}
+{%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' %}
   finish:
     needs: test
     if: {{ "{{ '${{ always() }}' }}" }}
@@ -205,4 +205,4 @@ jobs:
       with:
         parallel-finished: true
 {%- endif %}
-{{ "{{ '' }}" }}
+{{ "{{- '' }}" }}
