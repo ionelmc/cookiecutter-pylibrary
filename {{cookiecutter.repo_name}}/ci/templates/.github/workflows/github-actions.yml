@@ -40,7 +40,6 @@ jobs:
 {%- endraw %}
 {%- if cookiecutter.github_actions_windows == 'yes' %}
     ['windows', 'x64'],
-    ['windows', 'x86'],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
     ['macos', 'arm64'],
@@ -77,7 +76,6 @@ jobs:
 {%- endraw %}
 {%- if cookiecutter.github_actions_windows == 'yes' %}
     ['windows', 'x64', 'AMD64', '*', True],
-    ['windows', 'x86', 'x86', '*', False],
 {%- endif %}
 {%- if cookiecutter.github_actions_osx == 'yes' %}
     ['macos', 'arm64', 'arm64', '*', True],
