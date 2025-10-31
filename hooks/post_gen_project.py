@@ -1,7 +1,7 @@
-import pathlib
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 
 try:
@@ -24,7 +24,7 @@ else:
 
 
 if __name__ == "__main__":
-    cwd = pathlib.Path().resolve()
+    cwd = Path().resolve()
     src = cwd / 'src'
     ci = cwd / 'ci'
 
@@ -114,21 +114,28 @@ if __name__ == "__main__":
             subprocess.check_call([sys.executable, '-mtox', '-e', 'bootstrap', '--sitepackages'])
         except Exception:
             subprocess.check_call([sys.executable, ci / 'bootstrap.py'])
-    note(' Setting up pre-commit '.center(width, "#"))
-    if shutil.which('prek'):
-        note('+ prek autoupdate')
-        subprocess.check_call(['prek', 'autoupdate'])
-    elif shutil.which('pre-commit'):
-        note('+ pre-commit autoupdate')
-        subprocess.check_call(['pre-commit', 'autoupdate'])
+    if shutil.which('git'):
+        if not Path('.git').is_dir():
+            note('+ git init')
+            subprocess.check_call(['git', 'init'])
+        note(' Setting up pre-commit '.center(width, "#"))
+        if prek:=shutil.which('prek'):
+            note('+ prek autoupdate')
+            subprocess.check_call(['prek', 'autoupdate'])
+        elif shutil.which('pre-commit'):
+            note('+ pre-commit autoupdate')
+            subprocess.check_call(['pre-commit', 'autoupdate'])
+    else:
+        warn('Not git available. Skipping pre-commit setup.')
+    precommit_name= 'prek' if prek else 'pre-commit'
     success(' Successfully created `{{ cookiecutter.repo_name }}` '.center(width, "#"))
     print('See .cookiecutterrc for instructions on regenerating the project.')
     note('To get started run these:')
-    print('''
+    print(f'''
 cd {{ cookiecutter.repo_name }}
 git init
-pre-commit install --install-hooks
-pre-commit autoupdate
+{precommit_name} install --install-hooks
+{precommit_name} autoupdate
 git add --all
 git commit -m "Add initial project skeleton."
 git tag v{{ cookiecutter.version }}

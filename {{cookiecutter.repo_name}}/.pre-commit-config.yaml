@@ -1,7 +1,7 @@
 # To install the git pre-commit hooks run:
-#   pre-commit install --install-hooks
+#   prek install --install-hooks --overwrite
 # To update the versions:
-#   pre-commit autoupdate
+#   prek autoupdate
 exclude: '^(\.tox|ci/templates|\.bumpversion\.cfg)(/|$)'
 # Note the order is intentional to avoid multiple passes of the hooks
 repos:
