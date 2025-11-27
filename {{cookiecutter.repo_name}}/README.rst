@@ -2,7 +2,6 @@
 Overview
 ========
 {% if cookiecutter.repo_hosting_domain == "github.com" %}
-.. start-badges
 
 .. list-table::
     :stub-columns: 1
@@ -83,7 +82,6 @@ Overview
     :target: https://scrutinizer-ci.com/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/
 {%- endif %}
 
-.. end-badges
 {% endif %}
 {{ cookiecutter.project_short_description|wordwrap(119) }}
 {% if cookiecutter.license != "no" %}

@@ -45,6 +45,10 @@ if __name__ == "__main__":
 
     ci.joinpath('templates', 'tox.ini').unlink(missing_ok=True)
 
+{%- if cookiecutter.c_extension_support == "no" %}
+    cwd.joinpath('setup.py').unlink()
+{%- endif %}
+
 {%- if cookiecutter.tests_inside_package == 'no' %}
     shutil.rmtree(src / '{{ cookiecutter.package_name }}' / 'tests')
 {%- else %}
