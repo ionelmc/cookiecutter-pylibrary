@@ -146,13 +146,12 @@ jobs:
         CIBW_BUILD_VERBOSITY: '3'
         CIBW_TEST_REQUIRES: >
           tox
-          tox-direct
         CIBW_TEST_COMMAND: >
           cd {project} &&
-          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -vv
+          tox --installpkg {wheel} -e {{ '${{ matrix.tox_env }}' }} -vv
         CIBW_TEST_COMMAND_WINDOWS: >
           cd /d {project} &&
-          tox --skip-pkg-install --direct-yolo -e {{ '${{ matrix.tox_env }}' }} -vv
+          tox --installpkg {wheel} -e {{ '${{ matrix.tox_env }}' }} -vv
     - name: regular build and test
       if: >
         !matrix.cibw_build
