@@ -112,10 +112,10 @@ jobs:
 {%- endraw %}
 {%- endif %}
 {%- raw %}
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    - uses: actions/setup-python@v5
+    - uses: actions/setup-python@v6
       with:
         python-version: {{ '${{ matrix.python }}' }}
         architecture: {{ '${{ matrix.python_arch }}' }}
@@ -195,7 +195,7 @@ jobs:
     steps:
 {%- endif %}
 {%- if cookiecutter.c_extension_support != 'no' %}
-    - uses: actions/upload-artifact/merge@v4
+    - uses: actions/upload-artifact/merge@v6
       with:
         name: all-wheels
 {%- endif %}
