@@ -13,7 +13,7 @@ source_suffix = ".rst"
 master_doc = "index"
 project = {{ cookiecutter.project_name | jsonify }}
 year = "{% if cookiecutter.year_from == cookiecutter.__year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.__year_to }}{% endif %}"
-author = {{ '%r' | format(cookiecutter.full_name) }}
+author = {{ cookiecutter.full_name | jsonify }}
 copyright = f"{year}, {author}"
 {%- if cookiecutter.setup_py_uses_setuptools_scm %}
 try:

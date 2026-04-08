@@ -1,6 +1,6 @@
 {
     "_extensions": [
-        "cookiecutter.extensions.JsonifyExtension",
+        "pylibrary.PrettyJsonifyExtension",
         "jinja2_time.TimeExtension"
     ],
     "full_name": "Ionel Cristian Maries",
