@@ -12,7 +12,7 @@ tag_template = "v{new_version}"
 
 [[file]]
 src = "pyproject.toml"
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm %}
 search = 'fallback_version = "{current_version}"'
 {%- else %}
 search = 'version = "{current_version}"'
@@ -27,7 +27,7 @@ search = "/v{current_version}.svg"
 src = "README.rst"
 search = "/v{current_version}...{{ cookiecutter.repo_main_branch }}"
 {%- endif %}
-{%- if cookiecutter.sphinx_docs == "yes" %}
+{%- if cookiecutter.sphinx_docs %}
 
 [[file]]
 src = "docs/conf.py"

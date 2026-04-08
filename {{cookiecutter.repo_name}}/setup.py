@@ -19,8 +19,8 @@ from setuptools import Extension
 {% endif -%}
 from setuptools import find_namespace_packages
 from setuptools import setup
-{%- if cookiecutter.c_extension_support != "no" %}
-{%- if cookiecutter.c_extension_optional == "yes" %}
+{%- if cookiecutter.c_extension_support != 'no' %}
+{%- if cookiecutter.c_extension_optional %}
 from setuptools.command.build_ext import build_ext
 {%- endif %}
 from setuptools.dist import Distribution
@@ -34,7 +34,7 @@ except ImportError:
     Cython = None
 {%- endif %}
 {%- endif %}
-{%- if cookiecutter.c_extension_support != "no" %}
+{%- if cookiecutter.c_extension_support != 'no' %}
 {%- if cookiecutter.c_extension_support in ["yes", "cython"] %}
 
 # Enable code coverage for C code: we cannot use CFLAGS=-coverage in tox.ini, since that may mess with compiling
@@ -53,7 +53,7 @@ else:
     CFLAGS = ""
     LFLAGS = ""
 {%- endif %}
-{%- if cookiecutter.c_extension_optional == "yes" %}
+{%- if cookiecutter.c_extension_optional %}
 
 allow_extensions = True
 # Enable this if the extensions will not build on PyPy
@@ -107,8 +107,8 @@ class BinaryDistribution(Distribution):
 
 
 setup(
-{%- if cookiecutter.c_extension_support != "no" -%}
-{%- if cookiecutter.c_extension_optional == "yes" %}
+{%- if cookiecutter.c_extension_support != 'no' -%}
+{%- if cookiecutter.c_extension_optional %}
     cmdclass={"build_ext": OptionalBuildExt},
 {%- endif %}
 {%- if cookiecutter.c_extension_support == "cffi" %}

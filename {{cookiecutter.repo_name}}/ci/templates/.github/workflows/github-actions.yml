@@ -15,7 +15,7 @@ jobs:
             tox_env: 'check'
             os: 'ubuntu-latest'
 {%- endraw %}
-{%- if cookiecutter.sphinx_docs == "yes" %}
+{%- if cookiecutter.sphinx_docs %}
           - name: 'docs'
             python: '3.13'
             tox_env: 'docs'
@@ -38,10 +38,10 @@ jobs:
 {% for os, python_arch in [
     ['ubuntu', 'x64'],
 {%- endraw %}
-{%- if cookiecutter.github_actions_windows == 'yes' %}
+{%- if cookiecutter.github_actions_windows %}
     ['windows', 'x64'],
 {%- endif %}
-{%- if cookiecutter.github_actions_osx == 'yes' %}
+{%- if cookiecutter.github_actions_osx %}
     ['macos', 'arm64'],
 {%- endif %}
 {%- raw %}
@@ -52,7 +52,7 @@ jobs:
             tox_env: '{{ env }}'
             os: '{{ os }}-latest'
 {%- endraw %}
-{%- if cookiecutter.test_matrix_separate_coverage == 'no' %}
+{%- if not cookiecutter.test_matrix_separate_coverage %}
             cover: true
 {%- else %}
 {%- raw %}
@@ -74,10 +74,10 @@ jobs:
     ['ubuntu', 'x64', 'aarch64', '*manylinux*', False],
     ['ubuntu', 'x64', 'aarch64', '*musllinux*', False],
 {%- endraw %}
-{%- if cookiecutter.github_actions_windows == 'yes' %}
+{%- if cookiecutter.github_actions_windows %}
     ['windows', 'x64', 'AMD64', '*', True],
 {%- endif %}
-{%- if cookiecutter.github_actions_osx == 'yes' %}
+{%- if cookiecutter.github_actions_osx %}
     ['macos', 'arm64', 'arm64', '*', True],
 {%- endif %}
 {%- raw %}
@@ -171,7 +171,7 @@ jobs:
         name: {{ "{{ 'wheel-${{ matrix.artifact }}' }}" }}
         path: wheelhouse/*.whl
 {%- endif %}
-{%- if cookiecutter.coveralls == 'yes' %}
+{%- if cookiecutter.coveralls %}
     - uses: coverallsapp/github-action@v2
       if: matrix.cover
       continue-on-error: true
@@ -179,7 +179,7 @@ jobs:
         flag-name: {{ "{{ '${{ matrix.name }}' }}" }}
         parallel: true
 {%- endif %}
-{%- if cookiecutter.codecov == 'yes' %}
+{%- if cookiecutter.codecov %}
     - uses: codecov/codecov-action@v5
       if: matrix.cover
       with:
@@ -187,7 +187,7 @@ jobs:
         token: {{ "{{ '${{ secrets.CODECOV_TOKEN }}' }}" }}
         verbose: true
 {%- endif %}
-{%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls == 'yes' %}
+{%- if cookiecutter.c_extension_support != 'no' or cookiecutter.coveralls %}
   finish:
     needs: test
     if: {{ "{{ '${{ always() }}' }}" }}
@@ -199,7 +199,7 @@ jobs:
       with:
         name: all-wheels
 {%- endif %}
-{%- if cookiecutter.coveralls == 'yes' %}
+{%- if cookiecutter.coveralls %}
     - uses: coverallsapp/github-action@v2
       with:
         parallel-finished: true

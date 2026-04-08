@@ -1,5 +1,5 @@
 from .{{ cookiecutter.module_name }} import {{ cookiecutter.function_name }}
-{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm %}
 
 try:
     from ._version import version as __version__

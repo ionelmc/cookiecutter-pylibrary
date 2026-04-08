@@ -11,11 +11,11 @@ extensions = [
 ]
 source_suffix = ".rst"
 master_doc = "index"
-project = {{ cookiecutter.project_name|jsonquote }}
-year = "{% if cookiecutter.year_from == cookiecutter.year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.year_to }}{% endif %}"
-author = {{ cookiecutter.full_name|jsonquote }}
+project = {{ cookiecutter.project_name | jsonify }}
+year = "{% if cookiecutter.year_from == cookiecutter.__year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.__year_to }}{% endif %}"
+author = {{ cookiecutter.full_name | jsonify }}
 copyright = f"{year}, {author}"
-{%- if cookiecutter.setup_py_uses_setuptools_scm == "yes" %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm %}
 try:
     from importlib import metadata
 
@@ -24,9 +24,9 @@ except Exception:
     import traceback
 
     traceback.print_exc()
-    version = release = {{ cookiecutter.version|jsonquote }}
+    version = release = {{ cookiecutter.version | jsonify }}
 {%- else %}
-version = release = {{ cookiecutter.version|jsonquote }}
+version = release = {{ cookiecutter.version | jsonify }}
 {%- endif %}
 
 pygments_style = "trac"

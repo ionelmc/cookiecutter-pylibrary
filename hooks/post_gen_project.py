@@ -28,7 +28,7 @@ if __name__ == "__main__":
     src = cwd / 'src'
     ci = cwd / 'ci'
 
-{% if cookiecutter.sphinx_docs == "no" %}
+{% if not cookiecutter.sphinx_docs %}
     shutil.rmtree(cwd / 'docs')
     cwd.joinpath('.readthedocs.yml').unlink()
 {%- elif 'readthedocs' not in cookiecutter.sphinx_docs_hosting %}
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     cwd.joinpath('setup.py').unlink()
 {%- endif %}
 
-{%- if cookiecutter.tests_inside_package == 'no' %}
+{%- if not cookiecutter.tests_inside_package %}
     shutil.rmtree(src / '{{ cookiecutter.package_name }}' / 'tests')
 {%- else %}
     shutil.rmtree('tests')
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     cwd.joinpath('appveyor.yml').unlink(missing_ok=True)
     cwd.joinpath('.travis.yml').unlink(missing_ok=True)
 
-{%- if cookiecutter.github_actions == 'no' %}
+{%- if not cookiecutter.github_actions %}
     ci.joinpath('templates', '.github', 'workflows', 'github-actions.yml').unlink()
     cwd.joinpath('.github', 'workflows', 'github-actions.yml').unlink(missing_ok=True)
 {% endif %}
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     cwd.joinpath('CONTRIBUTING.rst').unlink()
 {% endif %}
 
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
+{%- if cookiecutter.setup_py_uses_setuptools_scm %}
     cwd.joinpath('MANIFEST.in').unlink()
 {%- else %}
     src.joinpath('{{ cookiecutter.package_name }}', '_version.py').unlink(missing_ok=True)

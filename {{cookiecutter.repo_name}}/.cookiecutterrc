@@ -15,8 +15,7 @@
 #    cookiecutter --overwrite-if-exists --config-file={{cookiecutter.repo_name}}/.cookiecutterrc gh:ionelmc/cookiecutter-pylibrary
 
 default_context:
-{%- for key, value in cookiecutter.items()|sort %}
-{%- if not key.startswith('_') %}
-    {{ key }}: {{ value|jsonquote }}
-{%- endif %}
-{%- endfor %}
+default_context:
+{% for key, value in cookiecutter.items() %}{% if not key.startswith('_') %}
+    {{ key }}: {{ value | jsonify }}
+{%- endif %}{% endfor %}

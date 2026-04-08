@@ -4,7 +4,7 @@ Usage
 
 To use the project:
 
-{% if cookiecutter.command_line_interface != "no" -%}
+{% if cookiecutter.command_line_interface != 'no' -%}
 .. code-block:: python
 
     import {{ cookiecutter.package_name }}

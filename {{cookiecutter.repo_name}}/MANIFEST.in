@@ -9,16 +9,16 @@ include .bumpversion.cfg
 include .cookiecutterrc
 include .coveragerc
 include .editorconfig
-{% if cookiecutter.github_actions == 'yes' -%}
+{% if cookiecutter.github_actions -%}
 include .github/workflows/github-actions.yml
 {% endif -%}
-{% if cookiecutter.pre_commit == "yes" -%}
+{% if cookiecutter.pre_commit -%}
 include .pre-commit-config.yaml
 {% endif -%}
-{% if cookiecutter.sphinx_docs == 'yes' and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
+{% if cookiecutter.sphinx_docs and 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
 include .readthedocs.yml
 {% endif -%}
-include .taplo.toml
+include .tombi.toml
 include pyproject.toml
 include pytest.ini
 {% if cookiecutter.version_manager == 'tbump' -%}

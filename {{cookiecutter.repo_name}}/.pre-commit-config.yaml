@@ -9,13 +9,17 @@ repos:
     rev: main
     hooks:
       - id: ruff
-        args: [--fix, --exit-non-zero-on-fix, --show-fixes]
+        # Using --unsafe-fixes can change code behavior
+        args: [--fix, --exit-non-zero-on-fix, --show-fixes{% if cookiecutter.ruff_unsafe_fixes %}, --unsafe-fixes{% endif %}]
       - id: ruff-format
-  - repo: https://github.com/ComPWA/taplo-pre-commit
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
     rev: main
     hooks:
-      - id: taplo-format
-      - id: taplo-lint
+      - id: tombi-format
+        # args: [ "--offline" ]
+      - id: tombi-lint
+        # args: [ "--offline" ]
+    # Should you use this offline, uncomment those args
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: main
     hooks:

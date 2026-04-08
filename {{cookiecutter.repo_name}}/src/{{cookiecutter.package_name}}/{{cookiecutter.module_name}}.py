@@ -10,8 +10,8 @@ def {{ cookiecutter.function_name }}(args):
         return None
     else:
         return _ffi.string(result).decode()
-{% elif cookiecutter.c_extension_support != "no" -%}
-{% if cookiecutter.c_extension_optional == "yes" -%}
+{% elif cookiecutter.c_extension_support != 'no' -%}
+{% if cookiecutter.c_extension_optional -%}
 try:
     from ._{{ cookiecutter.module_name }} import {{ cookiecutter.function_name }}
 except ImportError:
