@@ -69,23 +69,23 @@ dynamic = [
 
 {%- if cookiecutter.repo_hosting_domain != 'no' %}
 
-    [project.urls]
+[project.urls]
 {%- if cookiecutter.sphinx_docs %}
-    "Changelog" = "{{ cookiecutter.sphinx_docs_hosting }}en/latest/changelog.html"
-    "Documentation" = "{{ cookiecutter.sphinx_docs_hosting }}"
+"Changelog" = "{{ cookiecutter.sphinx_docs_hosting }}en/latest/changelog.html"
+"Documentation" = "{{ cookiecutter.sphinx_docs_hosting }}"
 {%- else %}
-    "Changelog" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst"
+"Changelog" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/blob/master/CHANGELOG.rst"
 {%- endif %}
-    "Issue Tracker" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues"
-    "Sources" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}"
+"Issue Tracker" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues"
+"Sources" = "https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}"
 {%- endif %}
 
-    [project.optional-dependencies]
-    # rst = ["docutils>=0.11"]
+[project.optional-dependencies]
+# rst = ["docutils>=0.11"]
 {%- if cookiecutter.command_line_interface != 'no' %}
 
-    [project.scripts]
-    {{ cookiecutter.command_line_interface_bin_name }} = "{{ cookiecutter.package_name }}.cli:run"
+[project.scripts]
+{{ cookiecutter.command_line_interface_bin_name }} = "{{ cookiecutter.package_name }}.cli:run"
 {%- endif %}
 [build-system]
 requires = [
@@ -105,49 +105,49 @@ line-length = 140
 src = ["src", "tests"]
 target-version = "py311"
 
-    [tool.ruff.lint]
-    ignore = [
-        "RUF001",  # ruff-specific rules ambiguous-unicode-character-string
-        "S101",  # flake8-bandit assert
-        "S308",  # flake8-bandit suspicious-mark-safe-usage
-        "S603",  # flake8-bandit subprocess-without-shell-equals-true
-        "S607",  # flake8-bandit start-process-with-partial-path
-        "E501",  # pycodestyle line-too-long
-    ]
-    select = [
-        "B",  # flake8-bugbear
-        "C4",  # flake8-comprehensions
-        "DTZ",  # flake8-datetimez
-        "E",  # pycodestyle errors
-        "EXE",  # flake8-executable
-        "F",  # pyflakes
-        "I",  # isort
-        "INT",  # flake8-gettext
-        "PIE",  # flake8-pie
-        "PLC",  # pylint convention
-        "PLE",  # pylint errors
-        "PT",  # flake8-pytest-style
-        "PTH",  # flake8-use-pathlib
-        "RSE",  # flake8-raise
-        "RUF",  # ruff-specific rules
-        "S",  # flake8-bandit
-        "UP",  # pyupgrade
-        "W",  # pycodestyle warnings
-    ]
+[tool.ruff.lint]
+ignore = [
+    "RUF001",  # ruff-specific rules ambiguous-unicode-character-string
+    "S101",  # flake8-bandit assert
+    "S308",  # flake8-bandit suspicious-mark-safe-usage
+    "S603",  # flake8-bandit subprocess-without-shell-equals-true
+    "S607",  # flake8-bandit start-process-with-partial-path
+    "E501",  # pycodestyle line-too-long
+]
+select = [
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "DTZ",  # flake8-datetimez
+    "E",  # pycodestyle errors
+    "EXE",  # flake8-executable
+    "F",  # pyflakes
+    "I",  # isort
+    "INT",  # flake8-gettext
+    "PIE",  # flake8-pie
+    "PLC",  # pylint convention
+    "PLE",  # pylint errors
+    "PT",  # flake8-pytest-style
+    "PTH",  # flake8-use-pathlib
+    "RSE",  # flake8-raise
+    "RUF",  # ruff-specific rules
+    "S",  # flake8-bandit
+    "UP",  # pyupgrade
+    "W",  # pycodestyle warnings
+]
 
-        [tool.ruff.lint.per-file-ignores]
-        "ci/*" = ["S"]
+[tool.ruff.lint.per-file-ignores]
+"ci/*" = ["S"]
 
-        [tool.ruff.lint.flake8-pytest-style]
-        fixture-parentheses = false
-        mark-parentheses = false
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
 
-        [tool.ruff.lint.isort]
-        forced-separate = ["conftest"]
-        force-single-line = true
+[tool.ruff.lint.isort]
+forced-separate = ["conftest"]
+force-single-line = true
 
-    [tool.ruff.format]
-    quote-style = "{{ cookiecutter.formatter_quote_style }}"
+[tool.ruff.format]
+quote-style = "{{ cookiecutter.formatter_quote_style }}"
 
 [tool.setuptools.dynamic]
 readme = { file = ["README.rst", "CHANGELOG.rst"] }
