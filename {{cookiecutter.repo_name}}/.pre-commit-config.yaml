@@ -35,3 +35,7 @@ repos:
 {%- endif %}
       - id: mixed-line-ending
       - id: debug-statements
+  - repo: https://github.com/crate-ci/typos
+    rev: main
+    hooks:
+      - id: typos
