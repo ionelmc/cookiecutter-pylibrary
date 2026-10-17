@@ -8,7 +8,7 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: main
     hooks:
-      - id: ruff
+      - id: ruff-check
         # Using --unsafe-fixes can change code behavior
         args: [--fix, --exit-non-zero-on-fix, --show-fixes{% if cookiecutter.ruff_unsafe_fixes %}, --unsafe-fixes{% endif %}]
       - id: ruff-format
