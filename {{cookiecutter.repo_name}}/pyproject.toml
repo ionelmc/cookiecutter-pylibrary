@@ -4,7 +4,7 @@ name = "{{ cookiecutter.distribution_name }}"
 version = "{{ cookiecutter.version }}"
 {%- endif %}
 description = {{ cookiecutter.project_short_description | jsonify }}
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 {%- if cookiecutter.license != 'no' %}
 license = "{{ {
     "BSD 2-Clause License": "BSD-2-Clause",
@@ -102,7 +102,7 @@ build-backend = "setuptools.build_meta"
 extend-exclude = ["static", "ci/templates"]
 line-length = 140
 src = ["src", "tests"]
-target-version = "py310"
+target-version = "py311"
 
     [tool.ruff.lint]
     ignore = [
